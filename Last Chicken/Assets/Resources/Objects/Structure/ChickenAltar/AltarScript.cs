@@ -141,8 +141,8 @@ public class AltarScript : AreaScript
             {
                 UIManager.instance.caseSpriteglow[i, j].GlowBrightness = BuffManager.instance.buffData[BuffManager.FindData(BuffManager.buffName[buffIndex])].buffGlow;
                 UIManager.instance.caseSpriteglow[i, j].GlowColor = BuffManager.instance.buffData[BuffManager.FindData(BuffManager.buffName[buffIndex])].buffColor;
-
                 UIManager.instance.caseSpriteRenderer[i, j].sprite = BuffManager.instance.buffData[BuffManager.FindData(BuffManager.buffName[buffIndex])].BuffImg;
+                UIManager.instance.caseImage[i].sprite = BuffManager.instance.buffData[BuffManager.FindData(BuffManager.buffName[buffIndex])].BuffImg;
             }
         }
     }

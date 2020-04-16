@@ -172,6 +172,7 @@ public class UIManager : MonoBehaviour
     [NonSerialized] public Text buffText;                           //설명 텍스트
     [NonSerialized] public EventTrigger[] caseEvent;                //메뉴 이벤트
     [NonSerialized] public GameObject[,] caseObject;
+    [NonSerialized] public Image[] caseImage;                         //설명 이미지
     [NonSerialized] public SpriteRenderer[,] caseSpriteRenderer;
     [NonSerialized] public SpriteGlowEffect[,] caseSpriteglow;
     Color itemDarkColor = new Color(0.2f, 0.2f, 0.2f);
@@ -372,8 +373,9 @@ public class UIManager : MonoBehaviour
         buffName = altarUI.transform.Find("BuffName").GetComponent<Text>();
         buffText = altarUI.transform.Find("BuffText").GetComponent<Text>();
         caseEvent = new EventTrigger[3];
-        caseSpriteRenderer = new SpriteRenderer[3,2];
+        caseImage = new Image[3];
         caseObject = new GameObject[3, 2];
+        caseSpriteRenderer = new SpriteRenderer[3,2];
         caseSpriteglow = new SpriteGlowEffect[3,2];
         for (int i = 0; i< 3; i++)
         {
@@ -382,6 +384,7 @@ public class UIManager : MonoBehaviour
             Transform caseTransform = select.Find("Case" + i);
 
             caseEvent[i] = caseTransform.GetComponent<EventTrigger>();
+            caseImage[i] = caseTransform.Find("Img").GetComponent<Image>();
             for (int j = 0; j < caseTransform.Find("Effect").childCount; j++)
             {
                 caseObject[i, j] = caseTransform.Find("Effect").GetChild(j).gameObject;
@@ -394,25 +397,13 @@ public class UIManager : MonoBehaviour
             pointerEnter.eventID = EventTriggerType.PointerEnter;
             pointerEnter.callback.AddListener((data) => { buffName.text = BuffManager.instance.buffData[AltarScript.instance.buffList[number]].buffName; });
             pointerEnter.callback.AddListener((data) => { buffText.text = BuffManager.instance.buffData[AltarScript.instance.buffList[number]].buffExplain; });
-            pointerEnter.callback.AddListener((data) => {
-                for (int k = 0; k < 2; k++)
-                {
-                    caseSpriteRenderer[number, k].color = Color.white;
-                    caseSpriteRenderer[number, k].color = Color.white;
-                }
-            });
+            pointerEnter.callback.AddListener((data) => { caseImage[number].color = Color.white; });
             caseEvent[i].triggers.Add(pointerEnter);
 
             //마우스가 나갔을때 이벤트
             EventTrigger.Entry pointerExit = new EventTrigger.Entry();
             pointerExit.eventID = EventTriggerType.PointerExit;
-            pointerExit.callback.AddListener((data) => {
-                for (int k = 0; k < 2; k++)
-                {
-                    caseSpriteRenderer[number, k].color = itemDarkColor;
-                    caseSpriteRenderer[number, k].color = itemDarkColor;
-                }
-            });
+            pointerExit.callback.AddListener((data) => { caseImage[number].color = itemDarkColor; });
             //pointerExit.callback.AddListener((data) => { buffName.text = ""; });
             //pointerExit.callback.AddListener((data) => { buffText.text = "닭의 신이 축복을 내립니다.\n축복을 선택해주세요."; });
             caseEvent[i].triggers.Add(pointerExit);
@@ -542,6 +533,7 @@ public class UIManager : MonoBehaviour
                     {
                         caseSpriteRenderer[i, k].color = itemDarkColor;
                         caseSpriteRenderer[i, k].color = itemDarkColor;
+                        caseImage[i].color = itemDarkColor;
                     }
             }
             else
@@ -556,7 +548,7 @@ public class UIManager : MonoBehaviour
                 else if (Screen.width == windowOption[3, 0] && Screen.height == windowOption[3, 1])
                     size = new Vector3(1.4f, 1.4f, 1);
                 else if (Screen.width == windowOption[4, 0] && Screen.height == windowOption[4, 1])
-                    size = new Vector3(1.1f, 1.1f, 1);
+                    size = new Vector3(1.15f, 1.15f, 1);
                 else if (Screen.width == windowOption[5, 0] && Screen.height == windowOption[5, 1])
                     size = new Vector3(1f, 1f, 1);
 
@@ -565,7 +557,25 @@ public class UIManager : MonoBehaviour
                     {
                         caseObject[i, k].transform.localScale = size;
                         caseObject[i, k].transform.localScale = size;
+   
                     }
+
+                size = new Vector3(1, 1, 1);
+                if (Screen.width == windowOption[0, 0] && Screen.height == windowOption[0, 1])
+                    size = new Vector3(1.75f, 1.75f, 1);
+                else if (Screen.width == windowOption[1, 0] && Screen.height == windowOption[1, 1])
+                    size = new Vector3(1.35f, 1.35f, 1);
+                else if (Screen.width == windowOption[2, 0] && Screen.height == windowOption[2, 1])
+                    size = new Vector3(1.5f, 1.5f, 1);
+                else if (Screen.width == windowOption[3, 0] && Screen.height == windowOption[3, 1])
+                    size = new Vector3(1.15f, 1.15f, 1);
+                else if (Screen.width == windowOption[4, 0] && Screen.height == windowOption[4, 1])
+                    size = new Vector3(1.1f, 1.1f, 1);
+                else if (Screen.width == windowOption[5, 0] && Screen.height == windowOption[5, 1])
+                    size = new Vector3(0.95f, 0.95f, 1);
+
+                for (int i = 0; i < 3; i++)
+                    caseImage[i].transform.localScale = size;
             }
 
             if (ShopScript.instance)
