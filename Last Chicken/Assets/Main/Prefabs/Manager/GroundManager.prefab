@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7181435531033550453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2693496221424645464}
+  - component: {fileID: 1378564610106318344}
+  m_Layer: 0
+  m_Name: GroundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2693496221424645464
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181435531033550453}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1378564610106318344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181435531033550453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed92e13b23a3fe43a59cef1ee75db63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  getMineColor: {r: 0.8784314, g: 0.6025693, b: 0.07843139, a: 1}
+  dirtHp: 10
+  dirtColor: {r: 1, g: 0.5811298, b: 0, a: 1}
+  dirtMineral: {fileID: 0}
+  dirtValue: 10
+  stoneHp: 20
+  stoneColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  stoneMineral: {fileID: 0}
+  stoneValue: 20
+  copperHp: 20
+  copperColor: {r: 0.9056604, g: 0.3462942, b: 0, a: 1}
+  copperMineral: {fileID: 0}
+  copperValue: 20
+  sandHp: 1
+  sandColor: {r: 1, g: 0.9507151, b: 0.33490568, a: 1}
+  graniteHp: 20
+  graniteColor: {r: 0.8113208, g: 0.77687794, b: 0.77687794, a: 1}
+  graniteMineral: {fileID: 0}
+  graniteValue: 20
+  ironHp: 30
+  ironColor: {r: 0.7075472, g: 0.66415983, b: 0.66415983, a: 1}
+  ironMineral: {fileID: 0}
+  ironValue: 30
+  silverHp: 30
+  silverColor: {r: 1, g: 1, b: 1, a: 1}
+  silverMineral: {fileID: 0}
+  silverValue: 30
+  goldHp: 30
+  goldColor: {r: 1, g: 0.64744824, b: 0, a: 1}
+  goldMineral: {fileID: 0}
+  goldValue: 30
+  mithrilHp: 40
+  mithrilColor: {r: 0, g: 1, b: 0.04225135, a: 1}
+  mithrilMineral: {fileID: 0}
+  mithrilValue: 40
+  diamondHp: 60
+  diamondColor: {r: 0.5235849, g: 0.9570292, b: 1, a: 1}
+  diamondMineral: {fileID: 0}
+  diamondValue: 60
+  magnetiteHp: 70
+  magnetiteColor: {r: 0, g: 0, b: 0, a: 1}
+  magnetiteMineral: {fileID: 0}
+  magnetiteValue: 70
+  titaniumHp: 70
+  titaniumColor: {r: 0.5265188, g: 0, b: 1, a: 1}
+  titaniumMineral: {fileID: 0}
+  titaniumValue: 70
+  cobaltHp: 70
+  cobaltColor: {r: 0, g: 0.21097231, b: 1, a: 1}
+  cobaltMineral: {fileID: 0}
+  cobaltValue: 70
+  iceHp: 10
+  iceColor: {r: 0, g: 0.84079134, b: 0.8962264, a: 1}
+  grassHp: 10
+  grassColor: {r: 0.13318548, g: 0.754717, b: 0, a: 1}
+  hearthStoneHp: 100
+  hearthStoneColor: {r: 1, g: 0, b: 0.786839, a: 1}
+  linkList: []
+  linkAreaList: []
+  shopMap0101Startpos: {x: 0, y: 0}

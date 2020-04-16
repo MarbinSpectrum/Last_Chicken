@@ -1,0 +1,401 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5059425539898016923
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7079952645539109248}
+  - component: {fileID: 3052980661705512939}
+  m_Layer: 0
+  m_Name: ItemManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7079952645539109248
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5059425539898016923}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3052980661705512939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5059425539898016923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f6c3b0f7fd236c41836c8cfba34702f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalRate: 30
+  rareRate: 15
+  specialRate: 5
+  legendRate: 2
+  itemData:
+  - itemImg: {fileID: -7319223827379462415, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uBC29\uC6B8"
+    value0: 0
+    value1: 0
+    itemLevel: 0
+    itemExplain: "\uC0AC\uC6A9\uC2DC \uB2ED\uC774 \uD50C\uB808\uC774\uC5B4 \uBC29\uD5A5\uC73C\uB85C
+      \uC774\uB3D9\uD569\uB2C8\uB2E4."
+    cost: 4000
+    spawnObject: 1
+    spawnShop: 1
+    spawnTreasureBox: 0
+    activeItem: 0
+  - itemImg: {fileID: -5940822720616900610, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uAE43\uD138\uC2E0\uBC1C"
+    value0: 0
+    value1: 0
+    itemLevel: 3
+    itemExplain: "\uB192\uC740 \uACF3\uC5D0\uC11C \uB5A8\uC5B4\uC838\uB3C4 \uB300\uBBF8\uC9C0\uB97C
+      \n\uC785\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4."
+    cost: 0
+    spawnObject: 0
+    spawnShop: 0
+    spawnTreasureBox: 1
+    activeItem: 0
+  - itemImg: {fileID: 21300000, guid: 3cf36eaa5bb235e41aff47ddffa877f2, type: 3}
+    itemName: "\uAC00\uBCBC\uC6B4\uACE1\uAD2D\uC774"
+    value0: 120
+    value1: 0
+    itemLevel: 1
+    itemExplain: "\uCC44\uAD11\uC18D\uB3C4 120% \uC0C1\uC2B9"
+    cost: 8000
+    spawnObject: 1
+    spawnShop: 1
+    spawnTreasureBox: 0
+    activeItem: 0
+  - itemImg: {fileID: 7350294751972509274, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uC751\uAE09\uCC98\uCE58\uD0A4\uD2B8"
+    value0: 0
+    value1: 0
+    itemLevel: 0
+    itemExplain: "\uC989\uC0AC\uD560 \uB370\uBBF8\uC9C0\uBC1B\uC544\uB3C4 \n\uB531
+      \uD55C\uBC88 \uC0B4\uB824\uC90D\uB2C8\uB2E4. "
+    cost: 2500
+    spawnObject: 1
+    spawnShop: 1
+    spawnTreasureBox: 0
+    activeItem: 0
+  - itemImg: {fileID: 3106559140910016383, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uD683\uBD88"
+    value0: 0
+    value1: 0
+    itemLevel: 0
+    itemExplain: "\uC5B4\uB450\uC6B4 \uACF3\uC744 \uBC1D\uD600\uC8FC\uB294 \uD683\uBD88"
+    cost: 1000
+    spawnObject: 1
+    spawnShop: 1
+    spawnTreasureBox: 0
+    activeItem: 0
+  - itemImg: {fileID: 7937556763755152812, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uB124\uC78E\uD074\uB85C\uBC84"
+    value0: 0
+    value1: 0
+    itemLevel: 3
+    itemExplain: "\uAC16\uACE0 \uC788\uC73C\uBA74 \uC88B\uC740 \uC77C\uC774 \uC77C\uC5B4\uB09C\uB2E4\uACE0\uD55C\uB2E4.\n(\uB79C\uB364\uD55C
+      \uD655\uB960\uB85C \uAD11\uBB3C\uC774 \uD558\uB098 \uB354 \uB4DC\uB78D\uB428)"
+    cost: 0
+    spawnObject: 0
+    spawnShop: 0
+    spawnTreasureBox: 0
+    activeItem: 0
+  - itemImg: {fileID: 2964034252929805917, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uCF5C\uB77C"
+    value0: 1
+    value1: 0
+    itemLevel: 0
+    itemExplain: "\uC0AC\uC6A9\uC2DC \uCCB4\uB825\uC744 1\uB9CC\uD07C \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    cost: 1000
+    spawnObject: 1
+    spawnShop: 1
+    spawnTreasureBox: 0
+    activeItem: 0
+  - itemImg: {fileID: -1085531528030470992, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uB9E5\uC8FC"
+    value0: 0.5
+    value1: 0
+    itemLevel: 2
+    itemExplain: "\uC0AC\uC6A9\uC2DC \uCD5C\uB300\uCCB4\uB825\uC774 0.5\uB9CC\uD07C
+      \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    cost: 10000
+    spawnObject: 1
+    spawnShop: 1
+    spawnTreasureBox: 0
+    activeItem: 0
+  - itemImg: {fileID: 5127810894942316752, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uBAAC\uC2A4\uD130\uD0D0\uC9C0\uAE30"
+    value0: 0
+    value1: 0
+    itemLevel: 0
+    itemExplain: "\uBAAC\uC2A4\uD130\uC758 \uC704\uCE58\uB97C \uC54C \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    cost: 2500
+    spawnObject: 1
+    spawnShop: 1
+    spawnTreasureBox: 0
+    activeItem: 0
+  - itemImg: {fileID: 6828611306581335411, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uB7EC\uC2DC\uC548\uB8F0\uB81B"
+    value0: 1
+    value1: 20
+    itemLevel: 1
+    itemExplain: "\uC0AC\uC6A9\uC2DC 50%\uD655\uB960\uB85C \uD50C\uB808\uC774\uC5B4\uC758
+      \uCCB4\uB825\uC774 \uBAA8\uB450 \n\uD68C\uBCF5\uB418\uAC70\uB098 1 \uC77D\uC2B5\uB2C8\uB2E4."
+    cost: 2500
+    spawnObject: 1
+    spawnShop: 1
+    spawnTreasureBox: 0
+    activeItem: 0
+  - itemImg: {fileID: -3147309375951365641, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uAD11\uC0B0\uD5EC\uBA67"
+    value0: 0
+    value1: 0
+    itemLevel: 3
+    itemExplain: "\uC8FC\uC704\uB97C \uBC1D\uD600\uC8FC\uACE0 \uBA38\uB9AC\uB97C
+      \uBCF4\uD638\uD569\uB2C8\uB2E4."
+    cost: 15000
+    spawnObject: 0
+    spawnShop: 1
+    spawnTreasureBox: 1
+    activeItem: 0
+  - itemImg: {fileID: 21300000, guid: 84b9d2378dc2a4f41bf48df10714217e, type: 3}
+    itemName: "\uBB34\uAC70\uC6B4\uACE1\uAD2D\uC774"
+    value0: 150
+    value1: 0
+    itemLevel: 1
+    itemExplain: "\uACF5\uACA9\uB825 150% \uC0C1\uC2B9"
+    cost: 8000
+    spawnObject: 1
+    spawnShop: 1
+    spawnTreasureBox: 0
+    activeItem: 0
+  - itemImg: {fileID: 21300000, guid: 3b4c21e7744b21346a2f504b67da8f02, type: 3}
+    itemName: "\uACE0\uAE09\uACE1\uAD2D\uC774"
+    value0: 120
+    value1: 120
+    itemLevel: 2
+    itemExplain: "\uCC44\uAD11\uC18D\uB3C4 120% \uC0C1\uC2B9\n\uACF5\uACA9\uB825
+      120% \uC0C1\uC2B9"
+    cost: 16000
+    spawnObject: 0
+    spawnShop: 1
+    spawnTreasureBox: 1
+    activeItem: 0
+  - itemImg: {fileID: 3213798535129448584, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uD3ED\uD0C4"
+    value0: 100
+    value1: 10
+    itemLevel: 0
+    itemExplain: "\uAD11\uC0B0\uC5D0\uC11C \uAD6C\uBA4D\uC744 \uB6AB\uAE30\uC704\uD55C
+      \uD3ED\uD0C4\uC785\uB2C8\uB2E4."
+    cost: 3500
+    spawnObject: 1
+    spawnShop: 1
+    spawnTreasureBox: 0
+    activeItem: 0
+  - itemImg: {fileID: 5467324578614741987, guid: c59dac0c2b4d80f4aa7b58328ff973f7,
+      type: 3}
+    itemName: "\uB2E4\uC774\uB108\uB9C8\uC774\uD2B8"
+    value0: 200
+    value1: 10
+    itemLevel: 0
+    itemExplain: "\uAD11\uC0B0\uC5D0\uC11C \uAD6C\uBA4D\uC744 \uB6AB\uAE30\uC704\uD55C
+      \uD3ED\uD0C4\uC785\uB2C8\uB2E4."
+    cost: 7000
+    spawnObject: 0
+    spawnShop: 1
+    spawnTreasureBox: 0
+    activeItem: 0
+  - itemImg: {fileID: 21300000, guid: 3cf36eaa5bb235e41aff47ddffa877f2, type: 3}
+    itemName: "\uD3B8\uB9AC\uD55C \uAC00\uBCBC\uC6B4 \uACE1\uAD2D\uC774"
+    value0: 150
+    value1: 0
+    itemLevel: 2
+    itemExplain: "\uAC00\uBCBC\uC6B4 \uACE1\uAD2D\uC774\uAC00 \uD3B8\uB9AC\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n(\uBCF4\uC870\uC2AC\uB86F\uC5D0\uC11C\uB3C4
+      \uD6A8\uACFC\uBC1C\uB3D9)"
+    cost: 0
+    spawnObject: 0
+    spawnShop: 0
+    spawnTreasureBox: 1
+    activeItem: 0
+  - itemImg: {fileID: 21300000, guid: 84b9d2378dc2a4f41bf48df10714217e, type: 3}
+    itemName: "\uD3B8\uB9AC\uD55C \uBB34\uAC70\uC6B4 \uACE1\uAD2D\uC774"
+    value0: 150
+    value1: 0
+    itemLevel: 2
+    itemExplain: "\uBB34\uAC70\uC6B4 \uACE1\uAD2D\uC774\uAC00 \uD3B8\uB9AC\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n(\uBCF4\uC870\uC2AC\uB86F\uC5D0\uC11C\uB3C4
+      \uD6A8\uACFC\uBC1C\uB3D9)"
+    cost: 0
+    spawnObject: 0
+    spawnShop: 0
+    spawnTreasureBox: 1
+    activeItem: 0
+  - itemImg: {fileID: 21300000, guid: 3b4c21e7744b21346a2f504b67da8f02, type: 3}
+    itemName: "\uD3B8\uB9AC\uD55C \uACE0\uAE09\uACE1\uAD2D\uC774"
+    value0: 150
+    value1: 150
+    itemLevel: 3
+    itemExplain: "\uACE0\uAE09 \uACE1\uAD2D\uC774\uAC00 \uD3B8\uB9AC\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n(\uBCF4\uC870\uC2AC\uB86F\uC5D0\uC11C\uB3C4
+      \uD6A8\uACFC\uBC1C\uB3D9)"
+    cost: 0
+    spawnObject: 0
+    spawnShop: 0
+    spawnTreasureBox: 1
+    activeItem: 0
+  - itemImg: {fileID: -4768684599799397655, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uAD11\uBB3C\uAC00\uBC29"
+    value0: 0
+    value1: 0
+    itemLevel: 0
+    itemExplain: "\uAD11\uBB3C\uC774 \uC790\uB3D9\uC73C\uB85C \uAC00\uBC29\uC73C\uB85C
+      \uB4E4\uC5B4\uAC11\uB2C8\uB2E4."
+    cost: 3500
+    spawnObject: 1
+    spawnShop: 1
+    spawnTreasureBox: 0
+    activeItem: 0
+  - itemImg: {fileID: -4768684599799397655, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uD3B8\uB9AC\uD55C \uAD11\uBB3C\uAC00\uBC29"
+    value0: 0
+    value1: 0
+    itemLevel: 2
+    itemExplain: "\uAD11\uBB3C\uAC00\uBC29\uC774 \uD3B8\uB9AC\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n(\uBA54\uC778\uC2AC\uB86F\uC5D0\uC11C\uB3C4
+      \uD6A8\uACFC\uAC00\uBC1C\uB3D9\uB429\uB2C8\uB2E4.)"
+    cost: 0
+    spawnObject: 0
+    spawnShop: 0
+    spawnTreasureBox: 0
+    activeItem: 0
+  - itemImg: {fileID: -1154901020958969117, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uC0C1\uC810\uD560\uC778\uCFE0\uD3F0"
+    value0: 30
+    value1: 0
+    itemLevel: 1
+    itemExplain: "\uC0C1\uC810\uC758 \uBB3C\uAC74\uC744 30% \uC2F8\uAC8C \uAD6C\uC785\uD560
+      \uC218 \uC788\uC2B5\uB2C8\uB2E4.\n(\uBB3C\uAC74\uC744 \uC0AC\uBA74 \uC18C\uBE44\uB429\uB2C8\uB2E4.)"
+    cost: 1000
+    spawnObject: 1
+    spawnShop: 1
+    spawnTreasureBox: 0
+    activeItem: 0
+  - itemImg: {fileID: -1154901020958969117, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uC0C1\uC810\uD68C\uC6D0\uC99D"
+    value0: 30
+    value1: 0
+    itemLevel: 2
+    itemExplain: "\uBCF4\uC720\uC2DC \uC0C1\uC810\uC758 \uBB3C\uAC74\uC744 30% \uC2F8\uAC8C
+      \uAD6C\uC785\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    cost: 10000
+    spawnObject: 0
+    spawnShop: 1
+    spawnTreasureBox: 0
+    activeItem: 0
+  - itemImg: {fileID: -1154901020958969117, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uC0C1\uC810VIP\uD68C\uC6D0\uC99D"
+    value0: 30
+    value1: 0
+    itemLevel: 3
+    itemExplain: "\uC0AC\uC6A9\uD558\uBA74 \uC601\uAD6C\uC801\uC73C\uB85C \uBB3C\uAC74\uC744
+      30% \uC800\uB834\uD558\uAC8C \n\uAD6C\uC785\uD560\uC218\uC788\uC2B5\uB2C8\uB2E4."
+    cost: 0
+    spawnObject: 0
+    spawnShop: 0
+    spawnTreasureBox: 1
+    activeItem: 0
+  - itemImg: {fileID: 5254172282774408731, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uC624\uB798\uB41C \uBCF4\uB530\uB9AC"
+    value0: 500
+    value1: 900
+    itemLevel: 1
+    itemExplain: "\uC0AC\uC6A9\uC2DC (500 ~ 900) \uC0AC\uC774\uC758 \uAE08\uD654\uB97C
+      \n\uB79C\uB364\uD558\uAC8C \uC5BB\uC2B5\uB2C8\uB2E4."
+    cost: 0
+    spawnObject: 1
+    spawnShop: 0
+    spawnTreasureBox: 0
+    activeItem: 0
+  - itemImg: {fileID: -2508396360270527412, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uB79C\uB364 \uB2E4\uC774\uC2A4"
+    value0: 50
+    value1: 300
+    itemLevel: 1
+    itemExplain: "\uC0AC\uC6A9\uD560\uB54C\uB9C8\uB2E4 \uC0C1\uC810 \uC544\uC774\uD15C\uC758
+      \uAC00\uACA9\uC774 \uBB34\uC791\uC704\uB85C \uBCC0\uD569\uB2C8\uB2E4."
+    cost: 0
+    spawnObject: 1
+    spawnShop: 0
+    spawnTreasureBox: 1
+    activeItem: 0
+  - itemImg: {fileID: 743105807723266493, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uBCF4\uBB3C\uD0D0\uC9C0\uAE30"
+    value0: 0
+    value1: 0
+    itemLevel: 2
+    itemExplain: "\uBCF4\uBB3C\uC758 \uC704\uCE58\uAC00 \uB098\uD0C0\uB0A9\uB2C8\uB2E4!!"
+    cost: 7500
+    spawnObject: 0
+    spawnShop: 1
+    spawnTreasureBox: 0
+    activeItem: 0
+  - itemImg: {fileID: -59980677053996228, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uD568\uC815\uD0D0\uC9C0\uAE30"
+    value0: 0
+    value1: 0
+    itemLevel: 0
+    itemExplain: "\uD568\uC815\uC758 \uC704\uCE58\uAC00 \uD45C\uC2DC\uB429\uB2C8\uB2E4."
+    cost: 2500
+    spawnObject: 1
+    spawnShop: 1
+    spawnTreasureBox: 0
+    activeItem: 0
+  - itemImg: {fileID: 3700716698973616315, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uBB34\uC9C0\uAC1C \uBCF4\uB530\uB9AC"
+    value0: 0
+    value1: 0
+    itemLevel: 2
+    itemExplain: "\uC0C1\uC810\uC5D0 \uB4F1\uC7A5\uD558\uB294 \uBB34\uC791\uC704
+      \uC544\uC774\uD15C\uC774 \uB4E4\uC5B4\uC788\uC2B5\uB2C8\uB2E4."
+    cost: 5000
+    spawnObject: 0
+    spawnShop: 1
+    spawnTreasureBox: 1
+    activeItem: 0

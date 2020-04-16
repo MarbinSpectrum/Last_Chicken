@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3577289194260295782
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8832421185026022690}
+  - component: {fileID: 7812573864787813437}
+  m_Layer: 0
+  m_Name: StageManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8832421185026022690
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3577289194260295782}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7812573864787813437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3577289194260295782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38851de947cf5314a8262e90c1e1b9f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stage0101_BackGround: {fileID: 21300000, guid: fd2f690b64793c846884db7e328d21c2,
+    type: 3}
+  stage0101_Name: "< \uC9C0\uD558 \uB3D9\uAD74 1 - 1 >"
+  stage0101_Monsters:
+    monsters: 00010000
+  stage0101_ObjectValue: 75
+  stage0101_WoodBoxValue: 100
+  stage0101_TrapValue: 50
+  stage0102_BackGround: {fileID: 21300000, guid: 8b49db7106c0f104f969b4bf03bfb45a,
+    type: 3}
+  stage0102_Name: "< \uC9C0\uD558 \uB3D9\uAD74 1 - 2 >"
+  stage0102_Monsters:
+    monsters: 01000100
+  stage0102_ObjectValue: 60
+  stage0102_WoodBoxValue: 75
+  stage0102_TrapValue: 60
+  stage0103_BackGround: {fileID: 21300000, guid: e8e7582cf0977a94ebfc641981435c78,
+    type: 3}
+  stage0103_Name: "< \uC9C0\uD558 \uB3D9\uAD74 1 - 3 >"
+  stage0103_Monsters:
+    monsters: 01010100
+  stage0103_ObjectValue: 50
+  stage0103_WoodBoxValue: 50
+  stage0103_TrapValue: 70
