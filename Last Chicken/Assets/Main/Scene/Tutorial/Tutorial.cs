@@ -30,7 +30,6 @@ public class Tutorial : StageData
     #region[배경 설정]
     void SetBackGround()
     {
-
         for (int x = 0; x < world.WorldWidth; x++)
             for (int y = 0; y < world.WorldHeight; y++)
                 backGroundData[x, y] = GroundManager.instance.tutorialBackGround[x, y];

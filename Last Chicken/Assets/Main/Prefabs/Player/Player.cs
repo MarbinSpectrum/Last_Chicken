@@ -62,6 +62,7 @@ public class Player : CustomCollider
     [System.NonSerialized] public bool pray = false;          //플레이어 기도
     [System.NonSerialized] public bool canControl = true;    //플레이어 컨트롤
 
+    [System.NonSerialized] public bool notDamage = false;
     [System.NonSerialized] public float nowHp = 3;
     [System.NonSerialized] public float maxHp = 3;
 
@@ -163,7 +164,7 @@ public class Player : CustomCollider
     public void Start()
     {
         //치킨을 주운 상태에 따라서 치킨을 비활성/활성화시킴
-        if (Chicken.instance.transform.gameObject.activeSelf != !getChicken)
+        if (Chicken.instance && Chicken.instance.transform.gameObject.activeSelf != !getChicken)
         {
             Chicken.instance.transform.gameObject.SetActive(!getChicken);
             chickenHead.SetActive(getChicken);
@@ -196,6 +197,7 @@ public class Player : CustomCollider
         //자동으로 작동되는 행동
         PlayerFall();
         runFlag = false;
+        chickenHead.SetActive(getChicken);
 
         //조작가능상태이거나 멈춰있으면
         if (!canControl || stop)
@@ -283,7 +285,7 @@ public class Player : CustomCollider
             }
 
             if (!hasFeatherShoes && !SceneController.instance.CheckEventMap())
-                if (groundFallTime > 1f && !inFluid)
+                if (groundFallTime > 0.75f && !inFluid)
                 {
                     Vector2 emp = knockback;
                     knockback = new Vector2(1500, 500);   //넉백수치
@@ -795,16 +797,19 @@ public class Player : CustomCollider
         canControl = false;
 
         //플레이어 체력감소
-        if(shield > 0)
+        if (shield > 0)
             shield--;
         else
         {
-            if(ItemManager.instance.HasItemCheck("Medkit") && nowHp - n <= 0)
+            if (ItemManager.instance.HasItemCheck("Medkit") && nowHp - n <= 0)
                 ItemManager.instance.UseItem("Medkit");
             else
             {
-                nowHp -= n;
-                EffectManager.instance.HearthEffect();
+                if (!notDamage)
+                {
+                    nowHp -= n;
+                    EffectManager.instance.HearthEffect();
+                }
                 EffectManager.instance.DamageEffect();
             }
         }
@@ -817,8 +822,6 @@ public class Player : CustomCollider
             Chicken.instance.transform.gameObject.SetActive(true);
             Chicken.instance.ChickenJump(knockback.x * -dic,false);
             Chicken.instance.cryTime = -5;
-            //닭머리
-            chickenHead.SetActive(getChicken);
 
             EffectManager.instance.ChickenFeather(transform.position, Random.Range(0, 100) < 50);
         }

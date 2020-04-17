@@ -612,9 +612,8 @@ public class UIManager : MonoBehaviour
 
     #region[닭위치표시기]
     void SetChickenPos()
-    {
-
-        if (Player.instance && Player.instance.getChicken)
+    {  
+        if (Player.instance && Player.instance.getChicken || SceneController.instance.nowScene.Equals("Tutorial"))
         {
             showChickenPos.SetActive(false);
             return;
@@ -670,6 +669,12 @@ public class UIManager : MonoBehaviour
     #region[플레이어 체력표시]
     void ShowPlayerHp()
     {
+        if (SceneController.instance.nowScene.Equals("Tutorial"))
+        {
+            playerHp.SetActive(false);
+            return;
+        }
+
         playerHp.SetActive(true);
 
         for (int i = 0; i < hearthData.Count; i++)
@@ -735,6 +740,11 @@ public class UIManager : MonoBehaviour
     #region[플레이어 금화처리]
     public void PlayerMoney()
     {
+        if (SceneController.instance.nowScene.Equals("Tutorial"))
+        {
+            playerMoney.SetActive(false);
+            return;
+        }
         if (!playerMoney.activeSelf)
             uiMoney = GameManager.instance.playerMoney;
 
@@ -884,7 +894,7 @@ public class UIManager : MonoBehaviour
     {
         showTimer.SetActive(false);
 
-        if (Player.instance && Player.instance.getChicken)
+        if (Player.instance && Player.instance.getChicken || SceneController.instance.nowScene.Equals("Tutorial"))
             return;
 
         if((int)GameManager.instance.countDown >= 0)

@@ -148,7 +148,7 @@ public class AltarScript : AreaScript
     }
     #endregion
 
-    #region[제단이미지 세팅]
+    #region[제단 이미지 세팅]
     void SetAltarBackImg()
     {
         World world = World.Instance;

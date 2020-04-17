@@ -28,6 +28,7 @@ public class StageManagerEditor : MyEditor
         GUI.color = Color.white;
         EditorGUILayout.BeginVertical("box");
         stageScroll = EditorGUILayout.BeginScrollView(stageScroll, GUILayout.Width(275), GUILayout.Height(300));
+        SetStage("튜 토 리 얼", ref stageManager.tutorial_Name, ref stageManager.tutorial_BackGround);
         SetStage("스테이지 1-1", ref stageManager.stage0101_Name, ref stageManager.stage0101_BackGround, ref stageManager.stage0101_Monsters, ref stageManager.stage0101_ObjectValue, ref stageManager.stage0101_WoodBoxValue, ref stageManager.stage0101_TrapValue);
         SetStage("스테이지 1-2", ref stageManager.stage0102_Name, ref stageManager.stage0102_BackGround, ref stageManager.stage0102_Monsters, ref stageManager.stage0102_ObjectValue, ref stageManager.stage0102_WoodBoxValue, ref stageManager.stage0102_TrapValue);
         SetStage("스테이지 1-3", ref stageManager.stage0103_Name, ref stageManager.stage0103_BackGround, ref stageManager.stage0103_Monsters, ref stageManager.stage0103_ObjectValue, ref stageManager.stage0103_WoodBoxValue, ref stageManager.stage0103_TrapValue);
@@ -136,6 +137,7 @@ public class StageManagerEditor : MyEditor
         }
         EditorGUILayout.EndVertical();
 
+
         int tempValue;
 
         EditorGUILayout.BeginHorizontal();
@@ -159,6 +161,56 @@ public class StageManagerEditor : MyEditor
         trapValue = tempValue;
         EditorGUILayout.EndHorizontal();
 
+        EditorGUILayout.EndVertical();
+    }
+
+    void SetStage(string name, ref string stageName, ref Sprite stageBackGround)
+    {
+        GUI.color = new Color(217 / 255f, 240 / 255f, 247 / 255f);
+        EditorGUILayout.BeginVertical("helpbox", GUILayout.Width(220));
+        GUIStyle nameStyle = new GUIStyle("label")
+        {
+            fontSize = 20,
+            fontStyle = FontStyle.Bold,
+            font = fontStarDust
+        };
+        nameStyle.normal.textColor = new Color(63 / 255f, 72 / 255f, 204 / 255f);
+        EditorGUILayout.LabelField(name, nameStyle, GUILayout.Width(220), GUILayout.Height(30));
+
+        GUI.color = Color.white;
+        EditorGUILayout.BeginHorizontal("box");
+        if (stageBackGround)
+        {
+            GUILayout.Button("", GUI.skin.label, GUILayout.Width(200), GUILayout.Height(100));
+            lastRect = GUILayoutUtility.GetLastRect();
+            GUI.DrawTexture(lastRect, stageBackGround.texture);
+        }
+        else
+        {
+            GUIStyle backViewStyle = new GUIStyle("label")
+            {
+                fontSize = 10,
+                font = fontStarDust,
+                alignment = TextAnchor.MiddleCenter
+            };
+            nameStyle.normal.textColor = new Color(63 / 255f, 72 / 255f, 204 / 255f);
+            GUILayout.Button("배경 미리보기", backViewStyle, GUILayout.Width(200), GUILayout.Height(100));
+        }
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.BeginVertical();
+        EditorGUILayout.LabelField("스테이지 이름", GUILayout.Width(100));
+        GUI.color = Color.white;
+        stageName = EditorGUILayout.TextField("", stageName, "helpbox", GUILayout.Width(100));
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.BeginVertical();
+        EditorGUILayout.LabelField("스테이지 배경", GUILayout.Width(100));
+        stageBackGround = (Sprite)EditorGUILayout.ObjectField(stageBackGround, typeof(Sprite), false, GUILayout.Width(60), GUILayout.Height(60));
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.EndHorizontal();
         EditorGUILayout.EndVertical();
     }
     #endregion

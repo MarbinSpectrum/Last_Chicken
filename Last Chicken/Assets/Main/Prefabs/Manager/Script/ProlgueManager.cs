@@ -60,7 +60,10 @@ public class ProlgueManager : MonoBehaviour
             if (!prolgueOutFlag)
             {
                 prolgueOutFlag = true;
-                SceneController.instance.MoveScene("Title");
+                if(!GameManager.instance.playData.firstGame)
+                    SceneController.instance.MoveScene("Title");
+                else
+                    SceneController.instance.MoveScene("Tutorial");
             }
     }
     #endregion

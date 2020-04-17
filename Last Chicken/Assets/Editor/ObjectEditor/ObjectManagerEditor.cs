@@ -218,6 +218,8 @@ public class ObjectManagerEditor : MyEditor
                 return "석순5";
             case "Stalagmite5":
                 return "석순6";
+            case "Sign":
+                return "표지판";
         }
         return s;
     }

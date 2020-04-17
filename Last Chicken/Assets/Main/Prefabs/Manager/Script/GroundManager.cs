@@ -71,6 +71,8 @@ public class GroundManager : MonoBehaviour
     public List<Vector2Int> linkList = new List<Vector2Int>();
     public List<Vector2Int> linkAreaList = new List<Vector2Int>();
 
+    public int digMask;
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     Texture2D altarData;
@@ -234,6 +236,21 @@ public class GroundManager : MonoBehaviour
         linkAreaList.Clear();
         LinkArea(world.WorldWidth / 2, world.WorldHeight - 1);
         SetGroundHp(world);
+    }
+    #endregion
+
+    #region[데미지 마스크 설정]
+    public void InitDigMask()
+    {
+        digMask = 0;
+        AllDigMask();
+        digMask = digMask - (byte)StageData.GroundLayer.UnBreakable;
+    }
+
+    public void AllDigMask()
+    {
+        for (int i = 0; i < 15; i++)
+            digMask = digMask | (byte)(Mathf.Pow(2,i));
     }
     #endregion
 

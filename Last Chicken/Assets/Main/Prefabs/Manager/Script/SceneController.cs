@@ -89,13 +89,13 @@ public class SceneController : MonoBehaviour
                 if (stageBackGround)
                     stageBackGround.sprite = null;
                 GameSceneSet();
-                UIManager.instance.showStageNameText.text = "테스트 맵";
+                UIManager.instance.showStageNameText.text = "테스트";
                 break;
             case "Tutorial":
                 if (stageBackGround)
-                    stageBackGround.sprite = null;
+                    stageBackGround.sprite = StageManager.instance.tutorial_BackGround;
                 GameSceneSet();
-                UIManager.instance.showStageNameText.text = "튜 토 리 얼";
+                UIManager.instance.showStageNameText.text = StageManager.instance.tutorial_Name;
                 break;
             case "Stage0101":
                 if (stageBackGround)
@@ -167,37 +167,59 @@ public class SceneController : MonoBehaviour
             {
                 case "Test":
                     Player.instance.canAttack = true;
+                    GroundManager.instance.InitDigMask();
                     break;
                 case "Tutorial":
                     Player.instance.canAttack = true;
+                    Player.instance.notDamage = true;
+                    GameManager.instance.activeItem = "";
+
+                    for(int i = 0; i < 5; i++)
+                    {
+                        GameManager.instance.passiveItem[i] = "";
+                        GameManager.instance.passiveSlotAct[i] = false;
+                    }
+
+                    GameManager.instance.passiveItem[0] = "";
+                    GameManager.instance.passiveSlotAct[0] = true;
+                    GameManager.instance.passiveItem[1] = "";
+                    GameManager.instance.passiveSlotAct[1] = true;
+
+                    Player.instance.getChicken = false;
                     Player.instance.transform.position = new Vector3(22, 115, Player.instance.transform.position.z);
                     break;
                 case "Stage0101":
                     Player.instance.canAttack = true;
                     Player.instance.transform.position = new Vector3(World.Instance.WorldWidth / 2, World.Instance.WorldHeight + 30, Player.instance.transform.position.z);
+                    GroundManager.instance.InitDigMask();
                     break;
                 case "ShopMap0101":
                     Player.instance.canAttack = true;
                     Player.instance.transform.position = new Vector3(GroundManager.instance.shopMap0101StartPos.x, GroundManager.instance.shopMap0101StartPos.y, Player.instance.transform.position.z);
                     Player.instance.transform.localScale = new Vector3(Mathf.Abs(Player.instance.transform.localScale.x) * GroundManager.instance.shopMap0101StartDic, Player.instance.transform.localScale.y, Player.instance.transform.localScale.x);
+                    GroundManager.instance.InitDigMask();
                     break;
                 case "Stage0102":
                     Player.instance.canAttack = true;
                     Player.instance.transform.position = new Vector3(World.Instance.WorldWidth / 2, World.Instance.WorldHeight + 30, Player.instance.transform.position.z);
+                    GroundManager.instance.InitDigMask();
                     break;
                 case "ShopMap0102":
                     Player.instance.canAttack = true;
                     Player.instance.transform.position = new Vector3(GroundManager.instance.shopMap0102StartPos.x, GroundManager.instance.shopMap0102StartPos.y, Player.instance.transform.position.z);
                     Player.instance.transform.localScale = new Vector3(Mathf.Abs(Player.instance.transform.localScale.x) * GroundManager.instance.shopMap0102StartDic, Player.instance.transform.localScale.y, Player.instance.transform.localScale.x);
+                    GroundManager.instance.InitDigMask();
                     break;
                 case "Stage0103":
                     Player.instance.canAttack = true;
                     Player.instance.transform.position = new Vector3(World.Instance.WorldWidth / 2, World.Instance.WorldHeight + 30, Player.instance.transform.position.z);
+                    GroundManager.instance.InitDigMask();
                     break;
                 case "ShopMap0103":
                     Player.instance.canAttack = true;
                     Player.instance.transform.position = new Vector3(GroundManager.instance.shopMap0103StartPos.x, GroundManager.instance.shopMap0103StartPos.y, Player.instance.transform.position.z);
                     Player.instance.transform.localScale = new Vector3(Mathf.Abs(Player.instance.transform.localScale.x) * GroundManager.instance.shopMap0103StartDic, Player.instance.transform.localScale.y, Player.instance.transform.localScale.x);
+                    GroundManager.instance.InitDigMask();
                     break;
             }
         }

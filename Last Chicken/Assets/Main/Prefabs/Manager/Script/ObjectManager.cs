@@ -26,7 +26,8 @@ public class ObjectManager : ObjectPool
         "Stalagmite2",
         "Stalagmite3",
         "Stalagmite4",
-        "Stalagmite5"
+        "Stalagmite5",
+        "Sign"
     };
 
     [System.Serializable]

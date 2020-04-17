@@ -22,6 +22,8 @@ public class StructureObject : CustomCollider
     protected int nowHp;
     float time = 0;
 
+    bool updateFlag = false;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -51,7 +53,8 @@ public class StructureObject : CustomCollider
     #region[Update]
     public virtual void Update()
     {
-        //UpdateStats();
+        if (updateFlag)
+            UpdateStats();
         if (!body.activeSelf)
         {
             time += Time.deltaTime;
@@ -69,9 +72,9 @@ public class StructureObject : CustomCollider
     #region[OnEnable]
     public virtual void OnEnable()
     {
-        UpdateStats();
         nowHp = maxHp;
         time = 0;
+        updateFlag = false;
         body.SetActive(true);
         piece.SetActive(false);
     }
@@ -86,8 +89,10 @@ public class StructureObject : CustomCollider
     #region[능력치 갱신]
     public virtual void UpdateStats()
     {
-        if (ObjectManager.FindData(transform.name) == -1)
+        if (ObjectManager.FindData(transform.name) == -1 || !ObjectManager.instance)
             return;
+
+        updateFlag = true;
         maxHp = ObjectManager.instance.obejctData[ObjectManager.FindData(transform.name)].Hp;
         objectType = ObjectManager.instance.obejctData[ObjectManager.FindData(transform.name)].ObjectType;
         specialType = ObjectManager.instance.obejctData[ObjectManager.FindData(transform.name)].SpecialType;

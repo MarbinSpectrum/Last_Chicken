@@ -6,6 +6,9 @@ public class StageManager : MonoBehaviour
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public Sprite tutorial_BackGround;
+    public string tutorial_Name;
+
     public Sprite stage0101_BackGround;
     public string stage0101_Name;
     public MonsterManager.SpawnMonster stage0101_Monsters = new MonsterManager.SpawnMonster();

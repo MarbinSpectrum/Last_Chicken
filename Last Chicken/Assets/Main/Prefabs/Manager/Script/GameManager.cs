@@ -277,36 +277,41 @@ public class GameManager : TerrainGenerator
      
         if (Player.instance)
         {
-            //닭을 가지고 있다면 
-            if (Player.instance.getChicken)
+            #region[닭을 놓쳐서 게임오버가 되는경우]
+            if (!SceneController.instance.nowScene.Equals("Tutorial"))
             {
-                countDown = maxCountDown;
-                clockFlag = 1;
-            }
-            //닭을 놓쳤다면
-            else
-            {
-                countDown -= Time.deltaTime;
-                clockFlag -= Time.deltaTime;
-
-                if (clockFlag < 0)
+                if (Player.instance.getChicken)
                 {
+                    countDown = maxCountDown;
                     clockFlag = 1;
-                    SoundManager.instance.Ticking();
                 }
-
-                if (countDown < 0)
+                else
                 {
-                    SetGameOver();
-                    return;
+                    countDown -= Time.deltaTime;
+                    clockFlag -= Time.deltaTime;
+
+                    if (clockFlag < 0)
+                    {
+                        clockFlag = 1;
+                        SoundManager.instance.Ticking();
+                    }
+
+                    if (countDown < 0)
+                    {
+                        SetGameOver();
+                        return;
+                    }
                 }
             }
+            #endregion
 
-            if(Player.instance.nowHp <= 0)
+            #region[체력이 적어서 게임오버가 되는경우]
+            if (Player.instance.nowHp <= 0)
             {
                 SetGameOver();
                 return;
             }
+            #endregion
         }
     }
     #endregion
@@ -356,24 +361,42 @@ public class GameManager : TerrainGenerator
         {
             switch(SceneController.instance.nowScene)
             {
+                case "Tutorial":
+                    playData.firstGame = false;
+                    ClearData();
+                    SceneController.instance.MoveScene("Title");
+                    break;
                 case "Stage0101":
                     playData.stageName = "ShopMap0101";
+                    SaveData();
+                    SceneController.instance.MoveScene(playData.stageName);
                     break;
                 case "ShopMap0101":
                     playData.stageName = "Stage0102";
+                    SaveData();
+                    SceneController.instance.MoveScene(playData.stageName);
                     break;
                 case "Stage0102":
                     playData.stageName = "ShopMap0102";
+                    SaveData();
+                    SceneController.instance.MoveScene(playData.stageName);
                     break;
                 case "ShopMap0102":
                     playData.stageName = "Stage0103";
+                    SaveData();
+                    SceneController.instance.MoveScene(playData.stageName);
                     break;
                 case "Stage0103":
                     playData.stageName = "ShopMap0103";
+                    SaveData();
+                    SceneController.instance.MoveScene(playData.stageName);
+                    break;
+                case "ShopMap0103":
+                    playData.stageName = "Stage0103";
+                    SaveData();
+                    SceneController.instance.MoveScene(playData.stageName);
                     break;
             }
-            SceneController.instance.MoveScene(playData.stageName);
-            SaveData();
         }
     }
     #endregion
