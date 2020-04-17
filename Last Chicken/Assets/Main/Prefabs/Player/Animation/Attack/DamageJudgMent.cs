@@ -117,43 +117,7 @@ public class DamageJudgMent : MonoBehaviour
 
         #region[광물이펙트]
         if (GroundManager.instance.groundHp[pos.x, pos.y] > 0)
-        {
-            switch ((StageData.GroundLayer)(StageData.instance.groundData[pos.x, pos.y]))
-            {
-                case StageData.GroundLayer.Dirt:
-                    EffectManager.instance.DigGround(new Vector3(pos.x, pos.y),GroundManager.instance.dirtColor); break;
-                case StageData.GroundLayer.Stone:
-                    EffectManager.instance.DigGround(new Vector3(pos.x, pos.y), GroundManager.instance.stoneColor); break;
-                case StageData.GroundLayer.Copper:
-                    EffectManager.instance.DigGround(new Vector3(pos.x, pos.y), GroundManager.instance.copperColor); break;
-                case StageData.GroundLayer.Sand:
-                    EffectManager.instance.DigGround(new Vector3(pos.x, pos.y), GroundManager.instance.sandColor); break;
-                case StageData.GroundLayer.Granite:
-                    EffectManager.instance.DigGround(new Vector3(pos.x, pos.y), GroundManager.instance.graniteColor); break;
-                case StageData.GroundLayer.Iron:
-                    EffectManager.instance.DigGround(new Vector3(pos.x, pos.y), GroundManager.instance.ironColor); break;
-                case StageData.GroundLayer.Silver:
-                    EffectManager.instance.DigGround(new Vector3(pos.x, pos.y), GroundManager.instance.silverColor); break;
-                case StageData.GroundLayer.Gold:
-                    EffectManager.instance.DigGround(new Vector3(pos.x, pos.y), GroundManager.instance.goldColor); break;
-                case StageData.GroundLayer.Mithril:
-                    EffectManager.instance.DigGround(new Vector3(pos.x, pos.y), GroundManager.instance.mithrilColor); break;
-                case StageData.GroundLayer.Diamond:
-                    EffectManager.instance.DigGround(new Vector3(pos.x, pos.y), GroundManager.instance.diamondColor); break;
-                case StageData.GroundLayer.Magnetite:
-                    EffectManager.instance.DigGround(new Vector3(pos.x, pos.y), GroundManager.instance.magnetiteColor); break;
-                case StageData.GroundLayer.Titanium:
-                    EffectManager.instance.DigGround(new Vector3(pos.x, pos.y), GroundManager.instance.titaniumColor); break;
-                case StageData.GroundLayer.Cobalt:
-                    EffectManager.instance.DigGround(new Vector3(pos.x, pos.y), GroundManager.instance.cobaltColor); break;
-                case StageData.GroundLayer.Ice:
-                    EffectManager.instance.DigGround(new Vector3(pos.x, pos.y), GroundManager.instance.iceColor); break;
-                case StageData.GroundLayer.Grass:
-                    EffectManager.instance.DigGround(new Vector3(pos.x, pos.y), GroundManager.instance.grassColor); break;
-                case StageData.GroundLayer.HearthStone:
-                    EffectManager.instance.DigGround(new Vector3(pos.x, pos.y), GroundManager.instance.hearthStoneColor); break;
-            }
-        }
+            EffectManager.instance.DigGround(new Vector3(pos.x, pos.y), StageData.instance.groundData[pos.x, pos.y]);
         #endregion
 
         //광물 데미지 처리

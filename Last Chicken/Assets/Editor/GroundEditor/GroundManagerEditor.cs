@@ -45,22 +45,22 @@ public class GroundManagerEditor : MyEditor
         EditorGUILayout.BeginVertical("box");
         mineScroll = EditorGUILayout.BeginScrollView(mineScroll, GUILayout.Width(275), GUILayout.Height(300));
 
-        GroundData("흙 체력", dirt, ref groundManager.dirtHp, ref groundManager.dirtColor, ref groundManager.dirtValue);
-        GroundData("돌 체력", stone, ref groundManager.stoneHp, ref groundManager.stoneColor, ref groundManager.stoneValue);
-        GroundData("구리 체력", copper, ref groundManager.copperHp, ref groundManager.copperColor, ref groundManager.copperValue);
-        GroundData("모래 체력", sand, ref groundManager.sandHp, ref groundManager.sandColor);
-        GroundData("화강암 체력", granite, ref groundManager.graniteHp, ref groundManager.graniteColor, ref groundManager.graniteValue);
-        GroundData("철 체력", iron, ref groundManager.ironHp, ref groundManager.ironColor, ref groundManager.ironValue);
-        GroundData("은 체력", silver, ref groundManager.silverHp, ref groundManager.silverColor, ref groundManager.silverValue);
-        GroundData("금 체력", gold, ref groundManager.goldHp, ref groundManager.goldColor, ref groundManager.goldValue);
-        GroundData("미스릴 체력", mithril, ref groundManager.mithrilHp, ref groundManager.mithrilColor, ref groundManager.mithrilValue);
-        GroundData("다이아 체력", diamond, ref groundManager.diamondHp, ref groundManager.diamondColor, ref groundManager.diamondValue);
-        GroundData("자철석 체력", magnetite, ref groundManager.magnetiteHp, ref groundManager.magnetiteColor, ref groundManager.magnetiteValue);
-        GroundData("티타늄 체력", titanium, ref groundManager.titaniumHp, ref groundManager.titaniumColor, ref groundManager.titaniumValue);
-        GroundData("코발트 체력", cobalt, ref groundManager.cobaltHp, ref groundManager.cobaltColor, ref groundManager.cobaltValue);
-        GroundData("얼음 체력", ice, ref groundManager.iceHp, ref groundManager.iceColor);
-        GroundData("잔디 체력", grass, ref groundManager.grassHp, ref groundManager.grassColor);
-        GroundData("하스스톤 체력", hearthStone, ref groundManager.hearthStoneHp, ref groundManager.hearthStoneColor);
+        GroundData("흙 체력", dirt, ref groundManager.dirtHp, ref groundManager.dirtValue);
+        GroundData("돌 체력", stone, ref groundManager.stoneHp, ref groundManager.stoneValue);
+        GroundData("구리 체력", copper, ref groundManager.copperHp, ref groundManager.copperValue);
+        GroundData("모래 체력", sand, ref groundManager.sandHp);
+        GroundData("화강암 체력", granite, ref groundManager.graniteHp, ref groundManager.graniteValue);
+        GroundData("철 체력", iron, ref groundManager.ironHp, ref groundManager.ironValue);
+        GroundData("은 체력", silver, ref groundManager.silverHp, ref groundManager.silverValue);
+        GroundData("금 체력", gold, ref groundManager.goldHp,ref groundManager.goldValue);
+        GroundData("미스릴 체력", mithril, ref groundManager.mithrilHp,  ref groundManager.mithrilValue);
+        GroundData("다이아 체력", diamond, ref groundManager.diamondHp, ref groundManager.diamondValue);
+        GroundData("자철석 체력", magnetite, ref groundManager.magnetiteHp,  ref groundManager.magnetiteValue);
+        GroundData("티타늄 체력", titanium, ref groundManager.titaniumHp, ref groundManager.titaniumValue);
+        GroundData("코발트 체력", cobalt, ref groundManager.cobaltHp,  ref groundManager.cobaltValue);
+        GroundData("얼음 체력", ice, ref groundManager.iceHp);
+        GroundData("잔디 체력", grass, ref groundManager.grassHp);
+        GroundData("하스스톤 체력", hearthStone, ref groundManager.hearthStoneHp);
 
         EditorGUILayout.EndScrollView();
         EditorGUILayout.EndVertical();
@@ -85,7 +85,7 @@ public class GroundManagerEditor : MyEditor
     #endregion
 
     #region[지형데이터]
-    void GroundData(string name, Texture2D texture2D, ref int input, ref Color color)
+    void GroundData(string name, Texture2D texture2D, ref int input)
     {
         EditorGUILayout.BeginVertical();
         GUI.color = new Color(217 / 255f, 240 / 255f, 247 / 255f);
@@ -98,23 +98,24 @@ public class GroundManagerEditor : MyEditor
         GUI.DrawTexture(lastRect, texture2D);
 
         EditorGUILayout.BeginVertical();
+        EditorGUILayout.BeginHorizontal("helpbox");
         EditorGUI.indentLevel++;
-        EditorGUILayout.LabelField(name, GUILayout.Width(80));
+        EditorGUILayout.LabelField(name, GUILayout.Width(100));
         input = EditorGUILayout.IntField(input, "helpbox", GUILayout.Width(60));
         EditorGUI.indentLevel--;
-
+        EditorGUILayout.EndHorizontal();
         EditorGUILayout.EndVertical();
 
-        EditorGUILayout.BeginVertical();
-        EditorGUILayout.LabelField("이펙트 색상", GUILayout.Width(80));
-        color = EditorGUILayout.ColorField(color, GUILayout.Width(80), GUILayout.Height(20));
-        EditorGUILayout.EndVertical();
+        //EditorGUILayout.BeginVertical();
+        //EditorGUILayout.LabelField("이펙트 색상", GUILayout.Width(80));
+        //color = EditorGUILayout.ColorField(color, GUILayout.Width(80), GUILayout.Height(20));
+        //EditorGUILayout.EndVertical();
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.EndVertical();
     }
 
-    void GroundData(string name, Texture2D texture2D, ref int input,ref Color color,ref int mineValue)
+    void GroundData(string name, Texture2D texture2D, ref int input,ref int mineValue)
     {
         EditorGUILayout.BeginVertical("helpbox", GUILayout.Width(220));
         GUI.color = new Color(217 / 255f, 240 / 255f, 247 / 255f);
@@ -127,23 +128,29 @@ public class GroundManagerEditor : MyEditor
         GUI.DrawTexture(lastRect, texture2D);
 
         EditorGUILayout.BeginVertical();
+
+
+        EditorGUILayout.BeginHorizontal("helpbox");
         EditorGUI.indentLevel++;
-        EditorGUILayout.LabelField(name, GUILayout.Width(80));
+        EditorGUILayout.LabelField(name, GUILayout.Width(100));
         input = EditorGUILayout.IntField(input, "helpbox", GUILayout.Width(60));
         EditorGUI.indentLevel--;
-
-        EditorGUILayout.EndVertical();
-
-        EditorGUILayout.BeginVertical();
-        EditorGUILayout.LabelField("이펙트 색상", GUILayout.Width(80));
-        color = EditorGUILayout.ColorField(color, GUILayout.Width(80), GUILayout.Height(20));
-        EditorGUILayout.EndVertical();
         EditorGUILayout.EndHorizontal();
 
-        EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("", GUILayout.Width(60));
-        EditorGUILayout.LabelField("광물가격", GUILayout.Width(65));
+        EditorGUILayout.BeginHorizontal("helpbox");
+        EditorGUI.indentLevel++;
+        EditorGUILayout.LabelField("광물가격", GUILayout.Width(100));
         mineValue = EditorGUILayout.IntField(mineValue, "helpbox", GUILayout.Width(60));
+        EditorGUI.indentLevel--;
+        EditorGUILayout.EndHorizontal();
+
+
+        EditorGUILayout.EndVertical();
+
+        //EditorGUILayout.BeginVertical();
+        //EditorGUILayout.LabelField("이펙트 색상", GUILayout.Width(80));
+        //color = EditorGUILayout.ColorField(color, GUILayout.Width(80), GUILayout.Height(20));
+        //EditorGUILayout.EndVertical();
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.EndVertical();

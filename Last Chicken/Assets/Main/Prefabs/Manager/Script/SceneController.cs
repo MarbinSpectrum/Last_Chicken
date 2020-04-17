@@ -91,6 +91,12 @@ public class SceneController : MonoBehaviour
                 GameSceneSet();
                 UIManager.instance.showStageNameText.text = "테스트 맵";
                 break;
+            case "Tutorial":
+                if (stageBackGround)
+                    stageBackGround.sprite = null;
+                GameSceneSet();
+                UIManager.instance.showStageNameText.text = "튜 토 리 얼";
+                break;
             case "Stage0101":
                 if (stageBackGround)
                     stageBackGround.sprite = StageManager.instance.stage0101_BackGround;
@@ -161,6 +167,10 @@ public class SceneController : MonoBehaviour
             {
                 case "Test":
                     Player.instance.canAttack = true;
+                    break;
+                case "Tutorial":
+                    Player.instance.canAttack = true;
+                    Player.instance.transform.position = new Vector3(22, 115, Player.instance.transform.position.z);
                     break;
                 case "Stage0101":
                     Player.instance.canAttack = true;

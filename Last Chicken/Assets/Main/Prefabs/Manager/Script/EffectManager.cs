@@ -33,6 +33,23 @@ public class EffectManager : ObjectPool
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     GameObject getItem;
+    Material dirtMat;
+    Material stoneMat;
+    Material copperMat;
+    Material sandMat;
+    Material graniteMat;
+    Material ironMat;
+    Material silverMat;
+    Material goldMat;
+    Material mithrillMat;
+    Material diamondMat;
+    Material magnetiteMat;
+    Material titaniumMat;
+    Material cobaltMat;
+    Material iceMat;
+    Material grassMat;
+    Material hearthStoneMat;
+
     GameObject glitter;
     public Color getMineColor;
     public float intensity;
@@ -81,6 +98,23 @@ public class EffectManager : ObjectPool
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             digGround = Resources.Load("Graphics/Effects/Ground/DigGround") as GameObject;
+            dirtMat = Resources.Load("Graphics/Effects/Ground/DirtMat") as Material;
+            stoneMat = Resources.Load("Graphics/Effects/Ground/StoneMat") as Material;
+            copperMat = Resources.Load("Graphics/Effects/Ground/CopperMat") as Material;
+            sandMat = Resources.Load("Graphics/Effects/Ground/SandMat") as Material;
+            graniteMat = Resources.Load("Graphics/Effects/Ground/GraniteMat") as Material;
+            ironMat = Resources.Load("Graphics/Effects/Ground/IronMat") as Material;
+            silverMat = Resources.Load("Graphics/Effects/Ground/SilverMat") as Material;
+            goldMat = Resources.Load("Graphics/Effects/Ground/GoldMat") as Material;
+            mithrillMat = Resources.Load("Graphics/Effects/Ground/MithrillMat") as Material;
+            diamondMat = Resources.Load("Graphics/Effects/Ground/DiamondMat") as Material;
+            magnetiteMat = Resources.Load("Graphics/Effects/Ground/MagnetiteMat") as Material;
+            titaniumMat = Resources.Load("Graphics/Effects/Ground/TitaniumMat") as Material;
+            cobaltMat = Resources.Load("Graphics/Effects/Ground/CobaltMat") as Material;
+            iceMat = Resources.Load("Graphics/Effects/Ground/IceMat") as Material;
+            grassMat = Resources.Load("Graphics/Effects/Ground/GrassMat") as Material;
+            hearthStoneMat = Resources.Load("Graphics/Effects/Ground/HearthStoneMat") as Material;
+
             plopFluid = Resources.Load("Graphics/Effects/Ground/PlopFluid") as GameObject;
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -288,10 +322,10 @@ public class EffectManager : ObjectPool
     #region[땅 채광]
     public void DigGround(Vector2 vector2)
     {
-        DigGround(vector2, Color.white);
+        DigGround(vector2, StageData.GroundLayer.Dirt);
     }
 
-    public void DigGround(Vector2 vector2, Color color)
+    public void DigGround(Vector2 vector2, StageData.GroundLayer groundLayer)
     {
         string name = "DigGround";
 
@@ -303,15 +337,69 @@ public class EffectManager : ObjectPool
             emp.transform.name = name;
             AddObject(emp);
         }
-        var main = emp.GetComponent<ParticleSystem>().main;
-        main.startColor = color;
+
+        Material temp = dirtMat;
+        switch (groundLayer)
+        {
+            case StageData.GroundLayer.Dirt:
+                temp = dirtMat;
+                break;
+            case StageData.GroundLayer.Stone:
+                temp = stoneMat;
+                break;
+            case StageData.GroundLayer.Copper:
+                temp = copperMat;
+                break;
+            case StageData.GroundLayer.Sand:
+                temp = sandMat;
+                break;
+            case StageData.GroundLayer.Granite:
+                temp = graniteMat;
+                break;
+            case StageData.GroundLayer.Iron:
+                temp = ironMat;
+                break;
+            case StageData.GroundLayer.Silver:
+                temp = silverMat;
+                break;
+            case StageData.GroundLayer.Gold:
+                temp = goldMat;
+                break;
+            case StageData.GroundLayer.Mithril:
+                temp = mithrillMat;
+                break;
+            case StageData.GroundLayer.Diamond:
+                temp = diamondMat;
+                break;
+            case StageData.GroundLayer.Magnetite:
+                temp = magnetiteMat;
+                break;
+            case StageData.GroundLayer.Titanium:
+                temp = titaniumMat;
+                break;
+            case StageData.GroundLayer.Cobalt:
+                temp = cobaltMat;
+                break;
+            case StageData.GroundLayer.Ice:
+                temp = iceMat;
+                break;
+            case StageData.GroundLayer.Grass:
+                temp = grassMat;
+                break;
+            case StageData.GroundLayer.HearthStone:
+                temp = hearthStoneMat;
+                break;
+        }
+
+        emp.GetComponent<ParticleSystem>().GetComponent<Renderer>().material = temp;
+
         emp.SetActive(true);
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
     }
     #endregion
 
-    #region[땅 채광]
+    #region[풍덩]
     public void PlopFluid(Vector2 vector2)
     {
         PlopFluid(vector2, Color.white);

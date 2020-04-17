@@ -10,76 +10,60 @@ public class GroundManager : MonoBehaviour
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public int dirtHp = 0;
-    public Color dirtColor;
     public Sprite dirtMineral;
     public int dirtValue;
 
     public int stoneHp = 0;
-    public Color stoneColor;
     public Sprite stoneMineral;
     public int stoneValue;
 
     public int copperHp = 0;
-    public Color copperColor;
     public Sprite copperMineral;
     public int copperValue;
 
     public int sandHp = 0;
-    public Color sandColor;
 
     public int graniteHp = 0;
-    public Color graniteColor;
     public Sprite graniteMineral;
     public int graniteValue;
 
     public int ironHp = 0;
-    public Color ironColor;
     public Sprite ironMineral;
     public int ironValue;
 
     public int silverHp = 0;
-    public Color silverColor;
     public Sprite silverMineral;
     public int silverValue;
 
     public int goldHp = 0;
-    public Color goldColor;
     public Sprite goldMineral;
     public int goldValue;
 
     public int mithrilHp = 0;
-    public Color mithrilColor;
     public Sprite mithrilMineral;
     public int mithrilValue;
 
     public int diamondHp = 0;
-    public Color diamondColor;
     public Sprite diamondMineral;
     public int diamondValue;
 
     public int magnetiteHp = 0;
-    public Color magnetiteColor;
     public Sprite magnetiteMineral;
     public int magnetiteValue;
 
     public int titaniumHp = 0;
-    public Color titaniumColor;
     public Sprite titaniumMineral;
     public int titaniumValue;
 
     public int cobaltHp = 0;
-    public Color cobaltColor;
     public Sprite cobaltMineral;
     public int cobaltValue;
 
     public int iceHp = 0;
-    public Color iceColor;
 
     public int grassHp = 0;
-    public Color grassColor;
 
     public int hearthStoneHp = 0;
-    public Color hearthStoneColor;
 
     public int[,] groundHp;
     public bool[,] linkArea;
@@ -97,6 +81,15 @@ public class GroundManager : MonoBehaviour
 
     Texture2D mineAreaData;
     public StageData.GroundLayer[,] mineAreaRect;
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    Texture2D tutorialData;
+    public StageData.GroundLayer[,] tutorialRect;
+    public StageData.FluidType[,] tutorialFluid;
+
+    Texture2D tutorialBackData;
+    public StageData.BackGroundLayer[,] tutorialBackGround;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -169,6 +162,21 @@ public class GroundManager : MonoBehaviour
             titaniumMineral = Sprite.Create(temp, new Rect(0, 0, temp.width, temp.height), new Vector2(0.5f, 0.5f));
             temp = Resources.Load("Objects/Item/Mineral/Cobalt") as Texture2D;
             cobaltMineral = Sprite.Create(temp, new Rect(0, 0, temp.width, temp.height), new Vector2(0.5f, 0.5f));
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            tutorialData = Resources.Load("TerrainData/TutorialData") as Texture2D;
+            tutorialBackData = Resources.Load("TerrainData/TutorialBackData") as Texture2D;
+            tutorialRect = new StageData.GroundLayer[tutorialData.width, tutorialData.height];
+            tutorialFluid = new StageData.FluidType[tutorialData.width, tutorialData.height];
+            tutorialBackGround = new StageData.BackGroundLayer[tutorialBackData.width, tutorialBackData.height];
+            for (int i = 0; i < tutorialData.width; i++)
+                for (int j = 0; j < tutorialData.height; j++)
+                {
+                    tutorialRect[i, j] = ColorToGroundData(tutorialData.GetPixel(i, j));
+                    tutorialFluid[i, j] = ColorToFluidData(tutorialData.GetPixel(i, j));
+                    tutorialBackGround[i, j] = ColorToBackData(tutorialBackData.GetPixel(i, j));
+                }
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -408,6 +416,17 @@ public class GroundManager : MonoBehaviour
         if (color == new Color(0, 1, 1)) 
             return StageData.FluidType.Lava;
         return StageData.FluidType.Air;
+    }
+
+    public StageData.BackGroundLayer ColorToBackData(Color color)
+    {
+        if (color == new Color(0, 0, 0))
+            return StageData.BackGroundLayer.NormalBackGround;
+        if (color == new Color(0, 1, 0))
+            return StageData.BackGroundLayer.AltarBackGround;
+        if (color == new Color(0, 1, 1))
+            return StageData.BackGroundLayer.DarkAltarBackGround;
+        return (StageData.BackGroundLayer)(-1);
     }
     #endregion
 }

@@ -220,19 +220,19 @@ public class Player : CustomCollider
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///물에 낙하
 
-        if (AdvancedFluidDynamics.Instance && AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y) != null)
+        if (AdvancedFluidDynamics.Instance && AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y + 1) != null)
         {
-            bool fluidCheck = AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y).Weight > 0.1f;
+            bool fluidCheck = AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y + 1).Weight > 0.1f;
             if (inFluid != fluidCheck)
             {
-                Color color = AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y).Color;
+                Color color = AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y + 1).Color;
                 EffectManager.instance.PlopFluid(transform.position, new Color(color.r, color.g, color.b, 0.2f));
 
                 rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, rigidbody2D.velocity.y / 1.5f);
                 inFluid = fluidCheck;
             }
 
-            byte fluidType = AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y).Density;
+            byte fluidType = AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y + 1).Density;
             if (AdvancedFluidDynamics.Instance.GetFluidType(fluidType) && AdvancedFluidDynamics.Instance.GetFluidType(fluidType).Name.Equals("Poison"))
             {
                 Vector2 emp = knockback;
@@ -256,18 +256,6 @@ public class Player : CustomCollider
                     EffectManager.instance.HighLand(new Vector2(transform.position.x, transform.position.y + 0.2f));
                 else
                     EffectManager.instance.Land(new Vector2(transform.position.x, transform.position.y + 0.2f));
-
-                if (!hasFeatherShoes)
-                    if (groundFallTime > 1 && !inFluid)
-                    {
-                        Vector2 emp = knockback;
-                        knockback = new Vector2(1500, 500);   //넉백수치
-                        PlayerDamage(1, Random.Range(0, 100) < 50 ? +1 : -1);
-                        knockback = emp;
-                    }
-
-                groundFallTime = 0;
-
             }
 
             //높은 점프 상태를 초기화
@@ -288,8 +276,6 @@ public class Player : CustomCollider
 
                 //매달린 
                 InitHang();
-
-                groundFallTime = fallTime;
 
                 //낙하시간을 0으로 바꿈
                 fallTime = 0;
@@ -323,6 +309,8 @@ public class Player : CustomCollider
         {
             //낙하시간을 더해주고
             fallTime += Time.deltaTime;
+            if (rigidbody2D.velocity.y < 0)
+                groundFallTime += Time.deltaTime;
 
             //플레이어를 떨어지게함
             rigidbody2D.gravityScale = gravity;
