@@ -14,18 +14,24 @@ public class TutorialAltarEvent : CustomCollider
 
     GameObject uiMouse;
 
+    Rigidbody2D chickenRigid;
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    bool chickenDisableFlag = false;
     bool enterFlag = false;
     bool altarFlag = false;
     bool chickenFlag = false;
+    float chickenDownTime = 0;
+    bool getChickenFlag = false;
+    float cameraMoveSpeed = 5;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
     #region[Awake]
-    void Awake()
+    public void Awake()
     {
         enterCollider = transform.Find("Collider").Find("EnterCollider").GetComponent<BoxCollider2D>();
         altarCollider = transform.Find("Collider").Find("AltarCollider").GetComponent<BoxCollider2D>();
@@ -36,7 +42,7 @@ public class TutorialAltarEvent : CustomCollider
     #endregion
 
     #region[Update]
-    void Update()
+    public void Update()
     {
         TutorialTrigger();
     }
@@ -49,8 +55,19 @@ public class TutorialAltarEvent : CustomCollider
     #region[튜토리얼 트리거]
     private void TutorialTrigger()
     {
+        #region[치킨 비활성화]
+        if (!chickenDisableFlag)
+        {
+            if(Chicken.instance)
+            {
+                Chicken.instance.gameObject.SetActive(false);
+                chickenDisableFlag = true;
+            }
+        }
+        #endregion
+
         #region[제단이 있는곳 들어가는 이벤트]
-        if (!enterFlag)
+        else if (!enterFlag)
         {
             if (IsAtPlayer(enterCollider))
             {
@@ -72,6 +89,9 @@ public class TutorialAltarEvent : CustomCollider
                     Player.instance.canControl = false;
                     Player.instance.pray = true;
                     altarFlag = true;
+                    SoundManager.instance.Altar(true);
+                    Chicken.instance.gameObject.SetActive(true);
+                    chickenRigid = Chicken.instance.GetComponent<Rigidbody2D>();
                     uiMouse.SetActive(false);
                 }
             }
@@ -82,10 +102,42 @@ public class TutorialAltarEvent : CustomCollider
         }
         #endregion
 
-        #region[닭 이벤트]
+        #region[닭 등장 이벤트]
         else if (!chickenFlag)
         {
+            Chicken.instance.pattenType = Chicken.Pattern.대기;
+            chickenRigid.velocity = new Vector2(0, -0.8f);
+            chickenDownTime += Time.deltaTime;
+            if (chickenDownTime > 14)
+            {
+                chickenFlag = true;
+                Player.instance.canControl = true;
+                Player.instance.pray = false;
+            }
+        }
+        #endregion
 
+        #region[닭 줍기 이벤트]
+        else if (!getChickenFlag)
+        {
+            if(Player.instance.getChicken)
+            {
+                getChickenFlag = true;
+                wallObject.transform.GetChild(1).gameObject.SetActive(false);
+                CameraController.Instance.objectToFollow = Player.instance.transform;
+                cameraMoveSpeed = CameraController.Instance.movementSpeed;
+                Player.instance.notFallDamage = true;
+            }
+        }
+        #endregion
+
+        #region[카메라 조절]
+        else
+        {
+            if (Player.instance.transform.position.x < cameraPos.position.x - 1f)
+                CameraController.Instance.movementSpeed = 0;
+            else
+                CameraController.Instance.movementSpeed = cameraMoveSpeed;
         }
         #endregion
     }

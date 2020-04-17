@@ -27,7 +27,7 @@ namespace TerrainEngine2D
         [Header("Movement")]
         [Tooltip("Speed of camera movement")]
         [SerializeField]
-        private float movementSpeed = 5;
+        public float movementSpeed = 5;
         [Tooltip("Amount to move each frame")]
         [SerializeField]
         private float movementSensitivity = 1.2f;

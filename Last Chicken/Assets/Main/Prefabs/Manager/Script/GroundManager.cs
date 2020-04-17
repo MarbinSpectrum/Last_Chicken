@@ -239,18 +239,18 @@ public class GroundManager : MonoBehaviour
     }
     #endregion
 
-    #region[데미지 마스크 설정]
+    #region[지형 데미지 마스크 설정]
     public void InitDigMask()
     {
         digMask = 0;
         AllDigMask();
-        digMask = digMask - (byte)StageData.GroundLayer.UnBreakable;
+        digMask = digMask - (int)(Mathf.Pow(2,(int)StageData.GroundLayer.UnBreakable));
     }
 
     public void AllDigMask()
     {
-        for (int i = 0; i < 15; i++)
-            digMask = digMask | (byte)(Mathf.Pow(2,i));
+        for (int i = 0; i < 17; i++)
+            digMask = digMask | (int)(Mathf.Pow(2,i));
     }
     #endregion
 

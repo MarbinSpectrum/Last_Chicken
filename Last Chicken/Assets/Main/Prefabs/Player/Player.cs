@@ -87,6 +87,7 @@ public class Player : CustomCollider
     float fallTime = 0;         //낙하중인 시간
     float groundFallTime = 0;
     bool hasFeatherShoes;
+    [System.NonSerialized] public bool notFallDamage = false;
     bool grounded;
     bool inFluid;
 
@@ -284,7 +285,7 @@ public class Player : CustomCollider
 
             }
 
-            if (!hasFeatherShoes && !SceneController.instance.CheckEventMap())
+            if (!notFallDamage && !hasFeatherShoes && !SceneController.instance.CheckEventMap())
                 if (groundFallTime > 0.75f && !inFluid)
                 {
                     Vector2 emp = knockback;

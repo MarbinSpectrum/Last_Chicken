@@ -187,6 +187,8 @@ public class SceneController : MonoBehaviour
 
                     Player.instance.getChicken = false;
                     Player.instance.transform.position = new Vector3(22, 115, Player.instance.transform.position.z);
+                    GroundManager.instance.digMask = 0;
+                    GroundManager.instance.digMask = GroundManager.instance.digMask | (int)(Mathf.Pow(2, (int)StageData.GroundLayer.Stone));
                     break;
                 case "Stage0101":
                     Player.instance.canAttack = true;

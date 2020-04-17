@@ -41,15 +41,14 @@ public class DamageJudgMent : MonoBehaviour
 
         for (int x = (int)(digPos.x - newSize.x / 2); x <= (int)(digPos.x + newSize.x / 2); x++)
             for (int y = (int)(digPos.y - newSize.y / 2); y <= (int)(digPos.y + newSize.y / 2); y++)
-            {
                 if (Exception.IndexOutRange(x, y, StageData.instance.groundData))
                     if (StageData.instance.groundData[x, y] != (StageData.GroundLayer)(-1))
                         if (GroundManager.instance.groundHp[x, y] > 0)
-                        {
-                            SoundGroup[(int)StageData.instance.groundData[x, y]]++;
-                            AttackTerrain(new Vector2Int(x, y), Player.instance.attackPower);
-                        }
-            }
+                            if ((GroundManager.instance.digMask & (int)Mathf.Pow(2, (int)StageData.instance.groundData[x, y])) != 0)
+                            {
+                                SoundGroup[(int)StageData.instance.groundData[x, y]]++;
+                                AttackTerrain(new Vector2Int(x, y), Player.instance.attackPower);
+                            }
         #endregion
 
         #region[광물에 따른 소리 출력]
@@ -105,7 +104,8 @@ public class DamageJudgMent : MonoBehaviour
     {
         if (!Exception.IndexOutRange(pos.x, pos.y, GroundManager.instance.groundHp))
             return;
-        if((GroundManager.instance.digMask & (byte)Mathf.Pow(2,(int)StageData.instance.groundData[pos.x, pos.y])) == 0)
+
+        if((GroundManager.instance.digMask & (int)Mathf.Pow(2,(int)StageData.instance.groundData[pos.x, pos.y])) == 0)
             return;
 
         if (StageData.instance.groundData[pos.x, pos.y] == (StageData.GroundLayer)(-1))
