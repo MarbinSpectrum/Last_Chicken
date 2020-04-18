@@ -83,14 +83,26 @@ AnimationClip:
     path: Broken Chicken Altar
     classID: 1
     script: {fileID: 0}
-  m_PPtrCurves:
   - curve:
-    - time: 0
-      value: {fileID: 21300000, guid: 5d7a7250c5320eb4985deeb5b758c73d, type: 3}
-    attribute: m_Sprite
-    path: 
-    classID: 212
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_IsActive
+    path: Broken AltarBack
+    classID: 1
     script: {fileID: 0}
+  m_PPtrCurves:
   - curve:
     - time: 0
       value: {fileID: 21300000, guid: 71791d453768105438dcf3a3b6ef72f9, type: 3}
@@ -126,6 +138,13 @@ AnimationClip:
     path: Statue5
     classID: 212
     script: {fileID: 0}
+  - curve:
+    - time: 0
+      value: {fileID: 21300000, guid: 6d467d5a46ffb5c49a5fb8a55f70b9b9, type: 3}
+    attribute: m_Sprite
+    path: AltarBack
+    classID: 212
+    script: {fileID: 0}
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -148,12 +167,12 @@ AnimationClip:
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 0
-      attribute: 0
+      path: 3746201832
+      attribute: 2086281974
       script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
+      typeID: 1
+      customType: 0
+      isPPtrCurve: 0
     - serializedVersion: 2
       path: 1149452246
       attribute: 0
@@ -190,6 +209,13 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     - serializedVersion: 2
+      path: 478256227
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+    - serializedVersion: 2
       path: 3932635806
       attribute: 304273561
       script: {fileID: 0}
@@ -197,12 +223,12 @@ AnimationClip:
       customType: 0
       isPPtrCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 5d7a7250c5320eb4985deeb5b758c73d, type: 3}
     - {fileID: 21300000, guid: 71791d453768105438dcf3a3b6ef72f9, type: 3}
     - {fileID: 21300000, guid: 3209533ae8c78ba429a1283930335b12, type: 3}
     - {fileID: 21300000, guid: 52c3c967355b21542b33b4d077ebf883, type: 3}
     - {fileID: 21300000, guid: b23ec3f5ae669d34d922b56e71fe5732, type: 3}
     - {fileID: 21300000, guid: 3c8e23ed7fa2aee428cc4c23fd101f9e, type: 3}
+    - {fileID: 21300000, guid: 6d467d5a46ffb5c49a5fb8a55f70b9b9, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -288,6 +314,25 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: m_IsActive
     path: Broken Chicken Altar
+    classID: 1
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_IsActive
+    path: Broken AltarBack
     classID: 1
     script: {fileID: 0}
   m_EulerEditorCurves: []
