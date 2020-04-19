@@ -80,6 +80,7 @@ ScriptsOnlyBuild:
     - TreasureBoxScirpt
     - Tutorial
     - TutorialAltarEvent
+    - TutorialEvent
     - UIManager
     - UnityCommon.FpsDisplay
     - UnityEngine.PostProcessing.PostProcessingBehaviour
@@ -137,6 +138,7 @@ ScriptsOnlyBuild:
     - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateMachineNode
     - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
@@ -381,6 +383,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 15572}
     - Class: 114
       Script: {instanceID: 15576}
+    - Class: 114
+      Script: {instanceID: 15582}
     - Class: 114
       Script: {instanceID: 15604}
     - Class: 114
@@ -2187,6 +2191,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 15576}
     - Class: 114
+      Script: {instanceID: 15582}
+    - Class: 114
       Script: {instanceID: 15604}
     - Class: 114
       Script: {instanceID: 15632}
@@ -2387,7 +2393,7 @@ ScriptsOnlyBuild:
     className: ShopMap0102
   - hash:
       serializedVersion: 2
-      Hash: 1ecdb7d3007e8ff142ab403073d240c2
+      Hash: 4d88f10b04d91493c9fe627798118105
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: StructureObject
@@ -2813,7 +2819,7 @@ ScriptsOnlyBuild:
     className: TMP_SpriteAsset
   - hash:
       serializedVersion: 2
-      Hash: 1ecdb7d3007e8ff142ab403073d240c2
+      Hash: 4d88f10b04d91493c9fe627798118105
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TreasureBoxScirpt
@@ -3131,7 +3137,7 @@ ScriptsOnlyBuild:
     className: FountainScript
   - hash:
       serializedVersion: 2
-      Hash: 77105683303d0ec69fa1c004093d8f2c
+      Hash: 2c69f6312cc9effb5f74763640f771da
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: StalagmiteScript
@@ -3629,7 +3635,7 @@ ScriptsOnlyBuild:
     className: BreakObject
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 26784ab5ecb21872d2a88b6f13bb44ec
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TutorialEvent

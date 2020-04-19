@@ -24,6 +24,8 @@ public class StructureObject : CustomCollider
 
     bool updateFlag = false;
 
+    [HideInInspector] public string inItem = "Random";
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -172,11 +174,12 @@ public class StructureObject : CustomCollider
         {
             if (specialType == SpecialType.아이템드랍)
             {
-                if (transform.name.Equals("TreasureBox"))
-                    ItemManager.instance.SpawnItemRandomAtTreasureBox(transform.position);
-                else
+                if (inItem.Equals("Random"))
                     ItemManager.instance.SpawnItemRandomAtObject(transform.position);
+                else
+                    ItemManager.instance.SpawnItem(transform.position, inItem);
             }
+
             body.SetActive(false);
             piece.SetActive(true);
         }
@@ -186,7 +189,7 @@ public class StructureObject : CustomCollider
         }
     }
 
-    private IEnumerator Vibration(int n,float power = 0.05f)
+    public IEnumerator Vibration(int n,float power = 0.05f)
     {
         Vector3 basePos = transform.position;
         for(int i = 0; i < n; i++)

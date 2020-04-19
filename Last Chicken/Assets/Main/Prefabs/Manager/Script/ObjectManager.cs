@@ -834,6 +834,10 @@ public class ObjectManager : ObjectPool
     #region[나무상자]
     public void WoodBox(Vector2 vector2, bool flipX = false)
     {
+        WoodBox(vector2, "Random", flipX);
+    }
+    public void WoodBox(Vector2 vector2, string item,bool flipX = false)
+    {
         string name = objectName[9];
 
         GameObject emp = FindObject(name);
@@ -844,7 +848,7 @@ public class ObjectManager : ObjectPool
             emp.transform.name = name;
             AddObject(emp);
         }
-
+        emp.GetComponent<StructureObject>().inItem = item;
         emp.SetActive(true);
         emp.transform.localRotation = Quaternion.identity;
         emp.transform.parent = transform;
@@ -858,6 +862,10 @@ public class ObjectManager : ObjectPool
     #region[보물상자]
     public void TreasureBox(Vector2 vector2, bool flipX = false)
     {
+        TreasureBox(vector2, "Random", flipX);
+    }
+    public void TreasureBox(Vector2 vector2,string item, bool flipX = false)
+    {
         string name = objectName[10];
 
         GameObject emp = FindObject(name);
@@ -868,7 +876,7 @@ public class ObjectManager : ObjectPool
             emp.transform.name = name;
             AddObject(emp);
         }
-
+        emp.GetComponent<StructureObject>().inItem = item;
         emp.SetActive(true);
         emp.transform.localRotation = Quaternion.identity;
         emp.transform.parent = transform;

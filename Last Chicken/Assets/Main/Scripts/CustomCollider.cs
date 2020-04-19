@@ -109,6 +109,29 @@ public class CustomCollider : MonoBehaviour
 
         return false;
     }
+
+    public bool IsAtItem(BoxCollider2D col, string name, bool This = true)
+    {
+        return IsAtItem(col, name, Vector2.zero);
+    }
+    public bool IsAtItem(BoxCollider2D col, string name, Vector2 pos, bool This = true)
+    {
+        RaycastHit2D[] monsters =
+        Physics2D.BoxCastAll
+            (
+                (Vector2)transform.position + GetAngleOffset(col) + pos,
+                new Vector2(col.size.x * Mathf.Abs(transform.localScale.x), col.size.y * Mathf.Abs(transform.localScale.y)),
+                col.transform.eulerAngles.z * (transform.localScale.x < 0 ? -1 : 1),
+                Vector2.zero, 1,
+                1 << LayerMask.NameToLayer("Body")
+            );
+
+        for (int i = 0; i < monsters.Length; i++)
+            if (monsters[i].transform.name.Equals(name))
+                return true;
+
+        return false;
+    }
     #endregion
 
     #region[범위안에 오브젝트가 있는지 검사]

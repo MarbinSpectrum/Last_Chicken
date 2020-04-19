@@ -51,7 +51,7 @@ public class TitleManager : MonoBehaviour
                 return;
             SoundManager.instance.BtnClick();
             SoundManager.instance.ChickenCoco();
-            Debug.Log("튜토리얼");
+            SceneController.instance.MoveScene("Tutorial");
         });
         newGameNEW.onClick.AddListener(() =>
         {
@@ -74,6 +74,7 @@ public class TitleManager : MonoBehaviour
             if (SceneController.instance.nowSceneMoving)
                 return;
             SoundManager.instance.BtnClick();
+            SoundManager.instance.ChickenCoco();
             SceneController.instance.MoveScene("Quit");
         });
 
@@ -102,7 +103,8 @@ public class TitleManager : MonoBehaviour
             if (SceneController.instance.nowSceneMoving)
                 return;
             SoundManager.instance.BtnClick();
-            Debug.Log("튜토리얼");
+            SoundManager.instance.ChickenCoco();
+            SceneController.instance.MoveScene("Tutorial");
         });
         loadGameOPTION.onClick.AddListener(() =>
         {
@@ -116,6 +118,7 @@ public class TitleManager : MonoBehaviour
             if (SceneController.instance.nowSceneMoving)
                 return;
             SoundManager.instance.BtnClick();
+            SoundManager.instance.ChickenCoco();
             SceneController.instance.MoveScene("Quit");
         });
 

@@ -73,8 +73,7 @@ public class Follow : MonoBehaviour
                 if(atTransfrom)
                 {
                     float z = transform.position.z;
-                    transform.position = Camera.main.WorldToScreenPoint(followUI.transform.position);
-                    transform.position = new Vector3(transform.position.x, transform.position.y, z);
+                    transform.position = new Vector3(followUI.transform.position.x, followUI.transform.position.y, z);
                 }
                 else
                 {
@@ -134,8 +133,7 @@ public class Follow : MonoBehaviour
                 if (atTransfrom)
                 {
                     float z = transform.position.z;
-                    transform.position = Camera.main.WorldToScreenPoint(followUI.transform.position);
-                    transform.position = new Vector3(transform.position.x, transform.position.y, z);
+                    transform.position = new Vector3(followUI.transform.position.x, followUI.transform.position.y, z);
                 }
                 else
                 {

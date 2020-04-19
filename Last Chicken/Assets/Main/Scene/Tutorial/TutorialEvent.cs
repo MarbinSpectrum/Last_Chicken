@@ -2,17 +2,55 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialEvent : MonoBehaviour
+public class TutorialEvent : CustomCollider
 {
-    // Start is called before the first frame update
-    void Start()
+    BoxCollider2D boxCollider2D;
+
+    public GameObject actObject;
+    public string itemName;
+
+    bool actFlag = false;
+
+    #region[Awake]
+    public void Awake()
     {
-        
+        boxCollider2D = GetComponent<BoxCollider2D>();
+    }
+    #endregion
+
+    #region[Update]
+    public void Update()
+    {
+        if (IsAtPlayer(boxCollider2D) && IsAtItem(boxCollider2D, itemName))
+            On();
+        else
+            Off();
+    }
+    #endregion
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    #region[작동]
+    public void On()
+    {
+        if (actFlag || !actObject)
+            return;
+        actFlag = true;
+
+        actObject.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Off()
     {
-        
+        if (!actFlag || !actObject)
+            return;
+        actFlag = false;
+
+        actObject.SetActive(false);
     }
+    #endregion
 }

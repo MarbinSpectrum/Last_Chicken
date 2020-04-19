@@ -71,6 +71,7 @@ public class SoundManager : MonoBehaviour
     AudioClip title;
     AudioClip altar;
     AudioClip stage1;
+    AudioClip tutorial;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -148,6 +149,7 @@ public class SoundManager : MonoBehaviour
             title = Resources.Load("Sounds/BGM/타이틀") as AudioClip;
             altar = Resources.Load("Sounds/BGM/제단") as AudioClip;
             stage1 = Resources.Load("Sounds/BGM/스테이지1") as AudioClip;
+            tutorial = Resources.Load("Sounds/BGM/튜토리얼") as AudioClip;
         }
     }
     #endregion
@@ -590,6 +592,25 @@ public class SoundManager : MonoBehaviour
             BGM.Pause();
             SubBGM.volume = BGM.volume;
             SubBGM.clip = altar;
+            SubBGM.Play();
+        }
+    }
+    #endregion
+
+    #region[튜토리얼]
+    public void Tutorial(bool sub = false)
+    {
+        if (!sub)
+        {
+            SubBGM.Pause();
+            BGM.clip = tutorial;
+            BGM.Play();
+        }
+        else
+        {
+            BGM.Pause();
+            SubBGM.volume = BGM.volume;
+            SubBGM.clip = tutorial;
             SubBGM.Play();
         }
     }

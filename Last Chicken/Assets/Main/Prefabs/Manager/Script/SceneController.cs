@@ -96,6 +96,7 @@ public class SceneController : MonoBehaviour
                     stageBackGround.sprite = StageManager.instance.tutorial_BackGround;
                 GameSceneSet();
                 UIManager.instance.showStageNameText.text = StageManager.instance.tutorial_Name;
+                SoundManager.instance.Tutorial();
                 break;
             case "Stage0101":
                 if (stageBackGround)
@@ -180,7 +181,7 @@ public class SceneController : MonoBehaviour
                         GameManager.instance.passiveSlotAct[i] = false;
                     }
 
-                    GameManager.instance.passiveItem[0] = "";
+                    GameManager.instance.passiveItem[0] = "Torch";
                     GameManager.instance.passiveSlotAct[0] = true;
                     GameManager.instance.passiveItem[1] = "";
                     GameManager.instance.passiveSlotAct[1] = true;

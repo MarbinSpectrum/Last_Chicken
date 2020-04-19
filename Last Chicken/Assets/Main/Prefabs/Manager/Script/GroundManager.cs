@@ -244,13 +244,13 @@ public class GroundManager : MonoBehaviour
     {
         digMask = 0;
         AllDigMask();
-        digMask = digMask - (int)(Mathf.Pow(2,(int)StageData.GroundLayer.UnBreakable));
+        digMask = digMask - (1 << (int)StageData.GroundLayer.UnBreakable);
     }
 
     public void AllDigMask()
     {
         for (int i = 0; i < 17; i++)
-            digMask = digMask | (int)(Mathf.Pow(2,i));
+            digMask = digMask | (1 << i);
     }
     #endregion
 

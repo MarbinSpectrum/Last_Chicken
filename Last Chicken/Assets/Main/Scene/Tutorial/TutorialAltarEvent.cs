@@ -11,8 +11,9 @@ public class TutorialAltarEvent : CustomCollider
     Transform cameraPos;
 
     GameObject wallObject;
-
+    GameObject followChicken;
     GameObject uiMouse;
+    GameObject followGetItem;
 
     Rigidbody2D chickenRigid;
 
@@ -38,6 +39,8 @@ public class TutorialAltarEvent : CustomCollider
         cameraPos = transform.Find("CameraPos");
         wallObject = transform.Find("Wall").gameObject;
         uiMouse = transform.Find("UIMouse").gameObject;
+        followChicken = transform.Find("FollowChicken").gameObject;
+        followGetItem = transform.Find("FollowUI").gameObject;
     }
     #endregion
 
@@ -74,6 +77,7 @@ public class TutorialAltarEvent : CustomCollider
                 enterFlag = true;
                 CameraController.Instance.objectToFollow = cameraPos;
                 wallObject.SetActive(true);
+                SoundManager.instance.StopBGM_Sound();
             }
         }
         #endregion
@@ -113,6 +117,12 @@ public class TutorialAltarEvent : CustomCollider
                 chickenFlag = true;
                 Player.instance.canControl = true;
                 Player.instance.pray = false;
+                followChicken.transform.parent = transform.parent.parent;
+                followChicken.GetComponent<Follow>().followUI = Chicken.instance.gameObject;
+                followGetItem.GetComponent<Follow>().followUI = UIManager.instance.activeItemImg.gameObject;
+                followChicken.SetActive(true);
+                followGetItem.SetActive(true);
+                SoundManager.instance.StopBGM_Sound();
             }
         }
         #endregion
@@ -122,11 +132,14 @@ public class TutorialAltarEvent : CustomCollider
         {
             if(Player.instance.getChicken)
             {
+                followChicken.SetActive(false);
+                followGetItem.SetActive(false);
                 getChickenFlag = true;
                 wallObject.transform.GetChild(1).gameObject.SetActive(false);
                 CameraController.Instance.objectToFollow = Player.instance.transform;
                 cameraMoveSpeed = CameraController.Instance.movementSpeed;
                 Player.instance.notFallDamage = true;
+                GroundManager.instance.InitDigMask();
             }
         }
         #endregion

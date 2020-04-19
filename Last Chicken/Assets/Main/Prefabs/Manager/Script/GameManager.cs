@@ -363,7 +363,6 @@ public class GameManager : TerrainGenerator
             {
                 case "Tutorial":
                     playData.firstGame = false;
-                    ClearData();
                     SceneController.instance.MoveScene("Title");
                     break;
                 case "Stage0101":

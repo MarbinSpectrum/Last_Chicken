@@ -470,9 +470,19 @@ public class Player : CustomCollider
                 runSoundCycle = 0;
                 Vector2Int pos = new Vector2Int(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y) - 1);
                 //밟은 땅의 종류에 따른 소리를 킴
-                if (StageData.instance.GetBlock(pos) == StageData.GroundLayer.Dirt)
+                int dirtSoundMask = 
+                    (1 << (int)StageData.GroundLayer.Dirt) | 
+                    (1 << (int)StageData.GroundLayer.Grass);
+                int stoneSoundMask =
+                    (1 << (int)StageData.GroundLayer.Stone) |
+                    (1 << (int)StageData.GroundLayer.Copper) |
+                    (1 << (int)StageData.GroundLayer.Iron) |
+                    (1 << (int)StageData.GroundLayer.Silver) |
+                    (1 << (int)StageData.GroundLayer.Gold);
+
+                if ((1 << (int)StageData.instance.GetBlock(pos) & dirtSoundMask) != 0)
                     SoundManager.instance.PlayerRunDirt();
-                else if (StageData.instance.GetBlock(pos) == StageData.GroundLayer.Stone)
+                else if ((1 << (int)StageData.instance.GetBlock(pos) & stoneSoundMask) != 0)
                     SoundManager.instance.PlayerRunStone();
             }
         }
@@ -487,13 +497,18 @@ public class Player : CustomCollider
         //땅에 서있거나 매달려 있으면 점프가 가능함
         if (grounded || hang)
         {
+            bool downFlag = false;
+            if (hang && Input.GetKey(KeyCode.S))
+                downFlag = true;
+
             //점프키룰 누름
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 //점프력이 약해지지 않도록 순간적인 y가속도값을 0으로 해줌
                 rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0);
                 //위로 점프하도록 물리적으로 위로 밀어줌
-                rigidbody2D.AddForce(new Vector2(0, jumpPower));
+                if(!downFlag)
+                    rigidbody2D.AddForce(new Vector2(0, jumpPower));
 
                 //점프를 누른상태로 처리
                 pressJump = true;

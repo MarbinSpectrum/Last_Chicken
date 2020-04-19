@@ -105,7 +105,7 @@ public class DamageJudgMent : MonoBehaviour
         if (!Exception.IndexOutRange(pos.x, pos.y, GroundManager.instance.groundHp))
             return;
 
-        if((GroundManager.instance.digMask & (int)Mathf.Pow(2,(int)StageData.instance.groundData[pos.x, pos.y])) == 0)
+        if((GroundManager.instance.digMask & (1 << (int)StageData.instance.groundData[pos.x, pos.y])) == 0)
             return;
 
         if (StageData.instance.groundData[pos.x, pos.y] == (StageData.GroundLayer)(-1))
