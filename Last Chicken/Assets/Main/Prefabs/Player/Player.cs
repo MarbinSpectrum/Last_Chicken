@@ -259,6 +259,7 @@ public class Player : CustomCollider
                     EffectManager.instance.HighLand(new Vector2(transform.position.x, transform.position.y + 0.2f));
                 else
                     EffectManager.instance.Land(new Vector2(transform.position.x, transform.position.y + 0.2f));
+                SoundManager.instance.PlayerJump();
             }
 
             //높은 점프 상태를 초기화
@@ -320,7 +321,7 @@ public class Player : CustomCollider
             if (inFluid)
                 rigidbody2D.gravityScale /= 1.5f;
         }
-        animator.SetBool("IsGround?", grounded);
+        animator.SetBool("IsGround?", grounded && rigidbody2D.velocity.y <= 0);
     }
     #endregion
 
@@ -504,6 +505,8 @@ public class Player : CustomCollider
             //점프키룰 누름
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                //점프사운드
+                SoundManager.instance.PlayerJump();
                 //점프력이 약해지지 않도록 순간적인 y가속도값을 0으로 해줌
                 rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0);
                 //위로 점프하도록 물리적으로 위로 밀어줌

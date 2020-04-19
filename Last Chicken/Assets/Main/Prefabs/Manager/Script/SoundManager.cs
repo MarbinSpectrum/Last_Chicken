@@ -34,6 +34,7 @@ public class SoundManager : MonoBehaviour
     AudioClip playerGlup;
     AudioClip playerBell;
     AudioClip playerGun;
+    AudioClip playerJump;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -113,6 +114,7 @@ public class SoundManager : MonoBehaviour
             playerGlup = Resources.Load("Sounds/SE/Player/꿀꺽") as AudioClip;
             playerBell = Resources.Load("Sounds/SE/Player/방울소리") as AudioClip;
             playerGun = Resources.Load("Sounds/SE/Player/총소리") as AudioClip;
+            playerJump = Resources.Load("Sounds/SE/Player/점프소리") as AudioClip;
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -382,6 +384,19 @@ public class SoundManager : MonoBehaviour
         {
             StopSE.volume = SE.volume;
             StopSE.PlayOneShot(playerGun);
+        }
+    }
+    #endregion
+
+    #region[플레이어 점프]
+    public void PlayerJump(bool canStop = false)
+    {
+        if (!canStop)
+            SE.PlayOneShot(playerJump);
+        else
+        {
+            StopSE.volume = SE.volume;
+            StopSE.PlayOneShot(playerJump);
         }
     }
     #endregion
