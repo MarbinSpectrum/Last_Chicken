@@ -43,6 +43,8 @@ public class GameManager : TerrainGenerator
     [HideInInspector]
     public string activeItem;
     [HideInInspector]
+    public float activeItemCool;
+    [HideInInspector]
     public int activeItemNum;
 
     [HideInInspector]
@@ -95,7 +97,7 @@ public class GameManager : TerrainGenerator
         if (playStage)
             stageTime += Time.deltaTime;
 
-        SetHasMaxValue();
+        SetValue();
         GameOverCheck();
         GameOver();
         StageClear();
@@ -136,6 +138,7 @@ public class GameManager : TerrainGenerator
 
         activeItem = playData.playerActiveItem;
         activeItemNum = playData.playerActiveItemNum;
+        activeItemCool = 1000;
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -172,6 +175,7 @@ public class GameManager : TerrainGenerator
 
         activeItem = playData.playerActiveItem;
         activeItemNum = playData.playerActiveItemNum;
+        activeItemCool = 1000;
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -248,8 +252,8 @@ public class GameManager : TerrainGenerator
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    #region[최대 수치 설정]
-    public void SetHasMaxValue()
+    #region[수치 설정]
+    public void SetValue()
     {
         if (activeItemNum > 99)
             activeItemNum = 99;
@@ -259,6 +263,8 @@ public class GameManager : TerrainGenerator
 
         if (playerMoney > 999999)
             playerMoney = 999999;
+
+        activeItemCool += Time.deltaTime;
     }
     #endregion
 

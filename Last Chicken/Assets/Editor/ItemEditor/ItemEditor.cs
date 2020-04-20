@@ -264,6 +264,12 @@ public class ItemEditor : MyEditor
         float temp = 0;
         switch (itemName)
         {
+            case "Bell":
+                temp = FloatField("쿨타임", data.value0, dataStyle);
+                temp = temp < 0 ? 0 : temp;
+                data.value0 = temp;
+
+                break;
             case "Smart_Advanced_Pick":
                 temp = FloatField("공격속도 증가수치(%)", data.value0, dataStyle);
                 temp = temp < 0 ? 0 : temp;

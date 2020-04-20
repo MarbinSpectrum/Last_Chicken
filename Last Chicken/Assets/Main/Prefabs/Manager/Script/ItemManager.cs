@@ -81,6 +81,21 @@ public class ItemManager : ObjectPool
     }
     #endregion
 
+    #region[쿨타임 아이템 여부검사]
+    public static bool CheckCoolTimeItem(string itemName)
+    {
+
+        bool activeItem = false;
+        switch (itemName)
+        {
+            case "Bell":
+                activeItem = true;
+                break;
+        }
+        return activeItem;
+    }
+    #endregion
+
     public int normalRate;
     public int rareRate;
     public int specialRate;

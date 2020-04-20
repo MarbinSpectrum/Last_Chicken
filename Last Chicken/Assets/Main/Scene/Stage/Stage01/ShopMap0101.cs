@@ -54,12 +54,12 @@ public class ShopMap0101 : StageData
             case 3:
                 GroundManager.instance.shopMap0101StartDic = -1;
                 treasureFlip = true;
-                activeWall = 1;
+                activeWall = 0;
                 break;
             case 4:
                 GroundManager.instance.shopMap0101StartDic = +1;
                 treasureFlip = false;
-                activeWall = 1;
+                activeWall = 0;
                 break;
         }
         bool filpX = Random.Range(0, 100) > 50;

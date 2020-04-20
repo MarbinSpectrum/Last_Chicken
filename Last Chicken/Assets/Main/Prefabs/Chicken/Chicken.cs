@@ -27,7 +27,7 @@ public class Chicken : CustomCollider
 
     public enum Pattern { 왼쪽으로, 왼쪽점프, 대기, 제자리점프, 오른쪽으로, 오른쪽점프 };
     public Pattern pattenType = Pattern.대기;
-    float patternTime = 3;
+    [System.NonSerialized] public float patternTime = 3;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
