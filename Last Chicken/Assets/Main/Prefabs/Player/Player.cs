@@ -41,7 +41,7 @@ public class Player : CustomCollider
 
     SpriteRenderer spriteRenderer;
 
-    new Rigidbody2D rigidbody2D;
+    [System.NonSerialized] public new Rigidbody2D rigidbody2D;
 
     BoxCollider2D headCollider;
     BoxCollider2D bodyCollider;
@@ -85,7 +85,7 @@ public class Player : CustomCollider
     [System.NonSerialized] public bool jumpHigh;
 
     float fallTime = 0;         //낙하중인 시간
-    float groundFallTime = 0;
+    [System.NonSerialized] public float groundFallTime = 0;
     bool hasFeatherShoes;
     [System.NonSerialized] public bool notFallDamage = false;
     bool grounded;

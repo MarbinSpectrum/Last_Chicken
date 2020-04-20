@@ -108,7 +108,7 @@ public class ItemManager : ObjectPool
         public bool spawnShop;
         public bool spawnTreasureBox;
         public bool activeItem;
-
+        public string[] shopItemExplain = new string[4];
     }
 
     public static int FindData(string s)

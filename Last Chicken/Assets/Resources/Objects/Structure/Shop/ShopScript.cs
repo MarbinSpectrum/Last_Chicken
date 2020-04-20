@@ -82,11 +82,14 @@ public class ShopScript : AreaScript
             if (itmeBuyList[i])
             {
                 UIManager.instance.shopItemImg[i].color = Color.black;
-                UIManager.instance.shopItemExplan[i].text = "매진";
+                for (int k = 0; k < 4; k++)
+                    UIManager.instance.shopItemExplan[i, k].text = "";
+                UIManager.instance.shopItemExplan[i, 1].text = "[매진]";
             }
             else
             {
-                UIManager.instance.shopItemExplan[i].text = ItemManager.instance.itemData[itmeList[i]].itemExplain;
+                for(int k = 0; k < 4; k++)
+                    UIManager.instance.shopItemExplan[i,k].text = ItemManager.instance.itemData[itmeList[i]].shopItemExplain[k];
                 UIManager.instance.shopItemImg[i].color = Color.white;
             }
         }

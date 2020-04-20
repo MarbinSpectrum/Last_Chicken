@@ -56,6 +56,8 @@ public class ItemEditor : MyEditor
                 emp.spawnTreasureBox = itemManager.itemData[i].spawnTreasureBox;
                 emp.spawnShop = itemManager.itemData[i].spawnShop;
                 emp.activeItem = itemManager.itemData[i].activeItem;
+                for(int k = 0; k < 4; k++)
+                    emp.shopItemExplain[k] = itemManager.itemData[i].shopItemExplain[k];
                 temp.Add(emp);
             }
 
@@ -76,6 +78,8 @@ public class ItemEditor : MyEditor
                 itemManager.itemData[i].spawnTreasureBox = temp[i].spawnTreasureBox;
                 itemManager.itemData[i].spawnShop = temp[i].spawnShop;
                 itemManager.itemData[i].activeItem = temp[i].activeItem;
+                for (int k = 0; k < 4; k++)
+                    temp[i].shopItemExplain[k] = itemManager.itemData[i].shopItemExplain[k];
             }
         }
         else if (itemManager.itemData.Length > ItemManager.itemName.Length)
@@ -95,6 +99,8 @@ public class ItemEditor : MyEditor
                 emp.spawnTreasureBox = itemManager.itemData[i].spawnTreasureBox;
                 emp.spawnShop = itemManager.itemData[i].spawnShop;
                 emp.activeItem = itemManager.itemData[i].activeItem;
+                for (int k = 0; k < 4; k++)
+                    emp.shopItemExplain[k] = itemManager.itemData[i].shopItemExplain[k];
                 temp.Add(emp);
             }
 
@@ -115,6 +121,8 @@ public class ItemEditor : MyEditor
                 itemManager.itemData[i].spawnTreasureBox = temp[i].spawnTreasureBox;
                 itemManager.itemData[i].spawnShop = temp[i].spawnShop;
                 itemManager.itemData[i].activeItem = temp[i].activeItem;
+                for (int k = 0; k < 4; k++)
+                    temp[i].shopItemExplain[k] = itemManager.itemData[i].shopItemExplain[k];
             }
         }
         #endregion
@@ -232,7 +240,7 @@ public class ItemEditor : MyEditor
         data.itemLevel = (ItemManager.ItemLevel)EnumField("아이템 등급", data.itemLevel, dataStyle);
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
+
         if (data.spawnShop)
         {
             EditorGUILayout.BeginHorizontal();
@@ -417,7 +425,7 @@ public class ItemEditor : MyEditor
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.BeginHorizontal();
-        data.spawnTreasureBox = ToggleField("보물상자",data.spawnTreasureBox, dataStyle);
+        data.spawnTreasureBox = ToggleField("보물상자", data.spawnTreasureBox, dataStyle);
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.EndVertical();
@@ -427,6 +435,13 @@ public class ItemEditor : MyEditor
         EditorGUILayout.LabelField("아이템 설명", dataStyle);
         data.itemExplain = EditorGUILayout.TextArea(data.itemExplain, GUILayout.Width(250), GUILayout.Height(80));
 
+        if (data.spawnShop)
+        {
+            EditorGUILayout.LabelField("아이템 설명(상점)", dataStyle);
+            for (int i = 0; i < 3; i++)
+                data.shopItemExplain[i] = EditorGUILayout.TextField(data.shopItemExplain[i], GUILayout.Width(147), GUILayout.Height(20));
+            data.shopItemExplain[3] = EditorGUILayout.TextArea(data.shopItemExplain[3], GUILayout.Width(250), GUILayout.Height(80));
+        }
     }
     #endregion
 

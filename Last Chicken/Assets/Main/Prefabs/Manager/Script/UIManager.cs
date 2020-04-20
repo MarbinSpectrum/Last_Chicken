@@ -182,7 +182,7 @@ public class UIManager : MonoBehaviour
     [NonSerialized] public GameObject shopUI;               //상점 UI
     [NonSerialized] public Text[] shopItemCost;             //상점아이템가격
     [NonSerialized] public Text[] shopItemName;             //상점아이템이름
-    [NonSerialized] public TextMeshProUGUI[] shopItemExplan;           //상점아이템설명
+    [NonSerialized] public Text[,] shopItemExplan;           //상점아이템설명
     [NonSerialized] public Image[] shopItemImg;             //상점아이템이미지
     [NonSerialized] public GameObject[] shopItemSoldOut;         //매진 이미지
     [NonSerialized] public Button[] shopItemBuy;            //아이템 구매 버튼
@@ -421,7 +421,7 @@ public class UIManager : MonoBehaviour
         shopUI = canvas.Find("ShopUI").gameObject;
         shopItemCost = new Text[3];
         shopItemName = new Text[3];
-        shopItemExplan = new TextMeshProUGUI[3];
+        shopItemExplan = new Text[3,4];
         shopItemImg = new Image[3];
         shopItemSoldOut = new GameObject[3];
         shopItemBuy = new Button[3];
@@ -432,7 +432,8 @@ public class UIManager : MonoBehaviour
             Transform temp = shopUI.transform.Find("ShopMenu" + i);
             shopItemCost[i] = temp.Find("Cost").GetComponent<Text>();
             shopItemName[i] = temp.Find("Name").GetComponent<Text>();
-            shopItemExplan[i] = temp.Find("Explain").GetComponent<TextMeshProUGUI>();
+            for(int k = 0; k < 4; k++)
+                shopItemExplan[i,k] = temp.Find("Explain" + k).GetComponent<Text>();
             shopItemImg[i] = temp.Find("Img").GetComponent<Image>();
             shopItemSoldOut[i] = temp.Find("SoldOut").gameObject;
             shopItemBuy[i] = temp.Find("Buy").GetComponent<Button>();

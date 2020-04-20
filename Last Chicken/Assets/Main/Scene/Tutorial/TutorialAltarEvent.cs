@@ -7,6 +7,7 @@ public class TutorialAltarEvent : CustomCollider
 {
     BoxCollider2D enterCollider;
     BoxCollider2D altarCollider;
+    BoxCollider2D digCollider;
 
     Transform cameraPos;
 
@@ -14,6 +15,7 @@ public class TutorialAltarEvent : CustomCollider
     GameObject followChicken;
     GameObject uiMouse;
     GameObject followGetItem;
+    GameObject followPlayerY;
 
     Rigidbody2D chickenRigid;
 
@@ -25,7 +27,8 @@ public class TutorialAltarEvent : CustomCollider
     bool chickenFlag = false;
     float chickenDownTime = 0;
     bool getChickenFlag = false;
-    float cameraMoveSpeed = 5;
+
+    bool digFlag = false;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,11 +39,13 @@ public class TutorialAltarEvent : CustomCollider
     {
         enterCollider = transform.Find("Collider").Find("EnterCollider").GetComponent<BoxCollider2D>();
         altarCollider = transform.Find("Collider").Find("AltarCollider").GetComponent<BoxCollider2D>();
+        digCollider = transform.Find("Collider").Find("DigCollider").GetComponent<BoxCollider2D>();
         cameraPos = transform.Find("CameraPos");
         wallObject = transform.Find("Wall").gameObject;
         uiMouse = transform.Find("UIMouse").gameObject;
         followChicken = transform.Find("FollowChicken").gameObject;
         followGetItem = transform.Find("FollowUI").gameObject;
+        followPlayerY = transform.Find("FollowPlayerY").gameObject;
     }
     #endregion
 
@@ -136,23 +141,29 @@ public class TutorialAltarEvent : CustomCollider
                 followGetItem.SetActive(false);
                 getChickenFlag = true;
                 wallObject.transform.GetChild(1).gameObject.SetActive(false);
-                CameraController.Instance.objectToFollow = Player.instance.transform;
-                cameraMoveSpeed = CameraController.Instance.movementSpeed;
                 Player.instance.notFallDamage = true;
                 GroundManager.instance.InitDigMask();
+                cameraPos.transform.position += new Vector3(5, 0,0);
             }
         }
         #endregion
 
         #region[카메라 조절]
+        else if (!digFlag)
+        {
+            if (IsAtPlayer(digCollider))
+            {
+                digFlag = true;
+                CameraController.Instance.objectToFollow = followPlayerY.transform;
+                wallObject.transform.GetChild(2).gameObject.SetActive(true);
+            }
+        }
         else
         {
-            if (Player.instance.transform.position.x < cameraPos.position.x - 1f)
-                CameraController.Instance.movementSpeed = 0;
-            else
-                CameraController.Instance.movementSpeed = cameraMoveSpeed;
+            followPlayerY.transform.position = new Vector3(followPlayerY.transform.position.x, Player.instance.transform.position.y, followPlayerY.transform.position.z);
         }
         #endregion
+        
     }
     #endregion
 }

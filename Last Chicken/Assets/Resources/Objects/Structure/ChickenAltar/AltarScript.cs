@@ -103,7 +103,14 @@ public class AltarScript : AreaScript
     {
         if (!Player.instance || !StageData.instance || !StageBackGround.instance)
             return;
-  
+
+        if (AreaCheck.RectIn(Player.instance.transform.position, outRect))
+        {
+            if (Player.instance.rigidbody2D.velocity.y < -2)
+                Player.instance.rigidbody2D.velocity = new Vector2(Player.instance.rigidbody2D.velocity.x, -2);
+            Player.instance.groundFallTime = 0;
+        }
+
         if (!onPlayer && AreaCheck.RectIn(Player.instance.transform.position, inRect))
         {
             SoundManager.instance.Altar();
