@@ -23,12 +23,12 @@ public class Follow : MonoBehaviour
     public bool hasSpeed = false;
     public float speedValue = 10;
 
-
     #region[Start]
     private void Start()
     {
         if(initSize)
             transform.localScale = new Vector3(1, 1, 1);
+        MoveObject();
     }
     #endregion
 
@@ -37,6 +37,22 @@ public class Follow : MonoBehaviour
     {
         if (initMove)
             return;
+        MoveObject();
+    }
+    #endregion
+
+    #region[OnEnable]
+    private void OnEnable()
+    {
+        if (!initMove)
+            return;
+        MoveObject();
+    }
+    #endregion
+
+    #region[MoveObject]
+    private void MoveObject()
+    {
         if (isTransfrom)
         {
             if (hasSpeed)
@@ -70,7 +86,7 @@ public class Follow : MonoBehaviour
             }
             else
             {
-                if(atTransfrom)
+                if (atTransfrom)
                 {
                     float z = transform.position.z;
                     transform.position = new Vector3(followUI.transform.position.x, followUI.transform.position.y, z);
@@ -110,36 +126,6 @@ public class Follow : MonoBehaviour
 
                         transform.position += (Vector3)dic * speedValue * Time.deltaTime;
                     }
-                }
-            }
-            else
-            {
-                if (atTransfrom)
-                    transform.position = Camera.main.WorldToScreenPoint(followUI.transform.position);
-                else
-                    transform.position = followUI.transform.position;
-            }
-        }
-    }
-    #endregion
-
-    #region[OnEnable]
-    private void OnEnable()
-    {
-        if (initMove)
-        {
-            if (isTransfrom)
-            {
-                if (atTransfrom)
-                {
-                    float z = transform.position.z;
-                    transform.position = new Vector3(followUI.transform.position.x, followUI.transform.position.y, z);
-                }
-                else
-                {
-                    float z = transform.position.z;
-                    transform.position = Camera.main.ScreenToWorldPoint(followUI.transform.position);
-                    transform.position = new Vector3(transform.position.x, transform.position.y, z);
                 }
             }
             else

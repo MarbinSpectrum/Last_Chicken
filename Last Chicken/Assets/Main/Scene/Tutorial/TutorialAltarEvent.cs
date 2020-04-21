@@ -70,6 +70,10 @@ public class TutorialAltarEvent : CustomCollider
             {
                 Chicken.instance.gameObject.SetActive(false);
                 chickenDisableFlag = true;
+                followChicken.transform.parent = transform.parent.parent;
+                followChicken.transform.GetChild(0).gameObject.SetActive(false);
+                followChicken.GetComponent<Follow>().followUI = Chicken.instance.gameObject;
+                followChicken.SetActive(true);
             }
         }
         #endregion
@@ -122,10 +126,8 @@ public class TutorialAltarEvent : CustomCollider
                 chickenFlag = true;
                 Player.instance.canControl = true;
                 Player.instance.pray = false;
-                followChicken.transform.parent = transform.parent.parent;
-                followChicken.GetComponent<Follow>().followUI = Chicken.instance.gameObject;
                 followGetItem.GetComponent<Follow>().followUI = UIManager.instance.activeItemImg.gameObject;
-                followChicken.SetActive(true);
+                followChicken.transform.GetChild(0).gameObject.SetActive(true);
                 followGetItem.SetActive(true);
                 SoundManager.instance.StopBGM_Sound();
             }
@@ -142,7 +144,6 @@ public class TutorialAltarEvent : CustomCollider
                 getChickenFlag = true;
                 wallObject.transform.GetChild(1).gameObject.SetActive(false);
                 Player.instance.notFallDamage = true;
-                GroundManager.instance.InitDigMask();
                 cameraPos.transform.position += new Vector3(5, 0,0);
             }
         }
@@ -156,6 +157,7 @@ public class TutorialAltarEvent : CustomCollider
                 digFlag = true;
                 CameraController.Instance.objectToFollow = followPlayerY.transform;
                 wallObject.transform.GetChild(2).gameObject.SetActive(true);
+                GroundManager.instance.InitDigMask();
             }
         }
         else

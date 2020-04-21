@@ -271,7 +271,7 @@ public class GameManager : TerrainGenerator
     #region[인게임인지 검사]
     public bool InGame()
     {
-        return !SceneController.instance.nowScene.Equals("Title") && !SceneController.instance.nowScene.Equals("Prologue");
+        return !SceneController.instance.nowScene.Equals("Title") && !SceneController.instance.nowScene.Equals("Prologue") && !SceneController.instance.nowScene.Equals("Demo");
     }
     #endregion
 
@@ -363,45 +363,56 @@ public class GameManager : TerrainGenerator
         if (gameOver || !Player.instance)
             return;
 
-        if (Player.instance.transform.position.y < -5)
+        switch (SceneController.instance.nowScene)
         {
-            switch(SceneController.instance.nowScene)
-            {
-                case "Tutorial":
-                    playData.firstGame = false;
-                    SceneController.instance.MoveScene("Title");
-                    break;
-                case "Stage0101":
-                    playData.stageName = "ShopMap0101";
-                    SaveData();
-                    SceneController.instance.MoveScene(playData.stageName);
-                    break;
-                case "ShopMap0101":
-                    playData.stageName = "Stage0102";
-                    SaveData();
-                    SceneController.instance.MoveScene(playData.stageName);
-                    break;
-                case "Stage0102":
-                    playData.stageName = "ShopMap0102";
-                    SaveData();
-                    SceneController.instance.MoveScene(playData.stageName);
-                    break;
-                case "ShopMap0102":
-                    playData.stageName = "Stage0103";
-                    SaveData();
-                    SceneController.instance.MoveScene(playData.stageName);
-                    break;
-                case "Stage0103":
-                    playData.stageName = "ShopMap0103";
-                    SaveData();
-                    SceneController.instance.MoveScene(playData.stageName);
-                    break;
-                case "ShopMap0103":
-                    playData.stageName = "Stage0103";
-                    SaveData();
-                    SceneController.instance.MoveScene(playData.stageName);
-                    break;
-            }
+            case "Tutorial":
+                if (Player.instance.transform.position.x <= 230 || Player.instance.transform.position.y >= 70)
+                    return;
+                playData.firstGame = false;
+                SceneController.instance.MoveScene("Title");
+                break;
+            case "Stage0101":
+                if (Player.instance.transform.position.y >= -5)
+                    return;
+                playData.stageName = "ShopMap0101";
+                SaveData();
+                SceneController.instance.MoveScene(playData.stageName);
+                break;
+            case "ShopMap0101":
+                if (Player.instance.transform.position.y >= -5)
+                    return;
+                playData.stageName = "Stage0102";
+                SaveData();
+                SceneController.instance.MoveScene(playData.stageName);
+                break;
+            case "Stage0102":
+                if (Player.instance.transform.position.y >= -5)
+                    return;
+                playData.stageName = "ShopMap0102";
+                SaveData();
+                SceneController.instance.MoveScene(playData.stageName);
+                break;
+            case "ShopMap0102":
+                if (Player.instance.transform.position.y >= -5)
+                    return;
+                playData.stageName = "Stage0103";
+                SaveData();
+                SceneController.instance.MoveScene(playData.stageName);
+                break;
+            case "Stage0103":
+                if (Player.instance.transform.position.y >= -5)
+                    return;
+                playData.stageName = "ShopMap0103";
+                SaveData();
+                SceneController.instance.MoveScene(playData.stageName);
+                break;
+            case "ShopMap0103":
+                if (Player.instance.transform.position.y >= -5)
+                    return;
+                playData.stageName = "Demo";
+                SaveData();
+                SceneController.instance.MoveScene(playData.stageName);
+                break;
         }
     }
     #endregion

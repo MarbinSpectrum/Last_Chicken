@@ -82,7 +82,7 @@ public class Bat : Monster
 
         if (Exception.IndexOutRange(nowPos, GroundManager.instance.linkArea) &&
             GroundManager.instance.linkArea[nowPos.x, nowPos.y] &&
-            Vector2.Distance(nowPos, Player.instance.transform.position) < 15)
+            Vector2.Distance(nowPos, Player.instance.transform.position) < AstarRange)
         {
             if(AreaList != null)
             {

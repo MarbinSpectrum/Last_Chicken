@@ -12,7 +12,7 @@ public class DamageJudgMent : MonoBehaviour
     #region[Update]
     void Update()
     {
-        //공격시간이 일정하게 지난후 아직 공격이 진핸이안됬을때
+        //공격시간이 일정하게 지난후 아직 공격이 진행이안됬을때
         if (AttackingCheck.aniTime >= 0.25f && damageJudgMent.enabled)
         {
             AttackTerrain();

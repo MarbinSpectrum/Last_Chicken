@@ -22,6 +22,7 @@ public abstract class Monster : CustomCollider
     protected Vector2Int nowPos;  //몬스터위치
     protected Vector2Int targetPos; //타겟위치
     protected int range = 15;   //탐색범위
+    protected int AstarRange = 20;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -290,7 +291,7 @@ public abstract class Monster : CustomCollider
         if (monsterType != MonsterType.Fly)
             return;
 
-        if (reExploreTime >= 1f && Vector2.Distance(nowPos, targetPos) <= 10)
+        if (reExploreTime >= 1f && Vector2.Distance(nowPos, targetPos) <= AstarRange)
         {
             reExploreTime = 0;
 
@@ -459,7 +460,7 @@ public abstract class Monster : CustomCollider
     #region[이동불가 부분 조건]
     public bool NotPassList(int x, int y)
     {
-        if (Vector2.Distance(transform.position, new Vector2(x, y)) > 10)
+        if (Vector2.Distance(transform.position, new Vector2(x, y)) > AstarRange)
             return false;
 
         if (CloseList.Contains(new Vector2Int(x, y)))

@@ -4,24 +4,18 @@ using UnityEngine;
 using Custom;
 public class BoomScript : MonoBehaviour
 {
-    Animator animator;
 
     public int range = 4;
-    int damage;
     public string boomname;
+
+    int damage;
+    Animator animator;
 
     #region[Awake]
     private void Awake()
     {
         animator = GetComponent<Animator>();
     }
-    #endregion
-
-    #region[OnEnable]
-    private void OnEnable()
-    {
-        SoundManager.instance.Ignite();
-    }  
     #endregion
 
     #region[Update]
@@ -79,5 +73,12 @@ public class BoomScript : MonoBehaviour
                 gameObject.SetActive(false);
             }
     }
+    #endregion
+
+    #region[OnEnable]
+    private void OnEnable()
+    {
+        SoundManager.instance.Ignite();
+    }  
     #endregion
 }
