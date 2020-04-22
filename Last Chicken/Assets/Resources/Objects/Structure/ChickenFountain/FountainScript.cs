@@ -44,6 +44,8 @@ public class FountainScript : AreaScript
         UseArea();
         ActFountain();
         fountainAnimator.SetBool("used", used);
+        if (act)
+            areaLight.SetActive(false);
     }
     #endregion
 
@@ -70,7 +72,7 @@ public class FountainScript : AreaScript
         {
             if (Input.GetMouseButtonDown(1))
             {
-                Player.instance.canControl = true;
+                Player.instance.canControl = false;
                 Player.instance.pray = true;
                 Player.instance.invincibility = true;
                 thisUse = false;
@@ -85,12 +87,15 @@ public class FountainScript : AreaScript
     {
         if (fountainAnimator.GetCurrentAnimatorStateInfo(0).IsName("FountainUsed") && fountainAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && !act)
         {
-            act = true;
             Player.instance.canControl = true;
             Player.instance.pray = false;
             Player.instance.invincibility = false;             
             Player.instance.nowHp = Player.instance.maxHp;
             EffectManager.instance.HearthEffect();
+
+            PlayerIn(false);
+
+            act = true;
         }
     }
     #endregion
@@ -101,7 +106,7 @@ public class FountainScript : AreaScript
         if (!Player.instance || !StageData.instance || !StageBackGround.instance)
             return;
 
-        if (AreaCheck.RectIn(Player.instance.transform.position, outRect))
+        if (!act && AreaCheck.RectIn(Player.instance.transform.position, outRect))
         {
             if (Player.instance.rigidbody2D.velocity.y < -2)
                 Player.instance.rigidbody2D.velocity = new Vector2(Player.instance.rigidbody2D.velocity.x, -2);
@@ -110,17 +115,13 @@ public class FountainScript : AreaScript
 
         if (!onPlayer && AreaCheck.RectIn(Player.instance.transform.position, inRect))
         {
-            SoundManager.instance.Altar();
             onPlayer = true;
             PlayerIn(true);
-            CameraController.Instance.SetOffset(13);
         }
         else if (onPlayer && !AreaCheck.RectIn(Player.instance.transform.position, outRect))
         {
-            SoundManager.instance.Stage1();
             onPlayer = false;
             PlayerIn(false);
-            CameraController.Instance.SetOffset(0);
         }
     }
     #endregion

@@ -91,6 +91,8 @@ ScriptsOnlyBuild:
     - SpriteGlow.SpriteGlowEffect
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
+    - UnityEditor.Tilemaps.GridPaletteBrushes
+    - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.TileDragAndDropManager
     Unity.RenderPipelines.Core.Runtime.dll:
@@ -1969,8 +1971,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 13308}
     - Class: 114
       Script: {instanceID: 13736}
-    - Class: 114
-      Script: {instanceID: 13932}
     - Class: 114
       Script: {instanceID: 14110}
     - Class: 114

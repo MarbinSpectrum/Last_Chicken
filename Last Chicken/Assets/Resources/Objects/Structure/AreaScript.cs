@@ -24,13 +24,13 @@ public abstract class AreaScript : CustomCollider
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    GameObject areaLight;
-    BlockLightSource[] blockLightSource;
+    protected GameObject areaLight;
+    protected BlockLightSource[] blockLightSource;
 
-    SpriteRenderer[] inSideDarkness;
-    SpriteRenderer[] outSideDarkness;
+    protected SpriteRenderer[] inSideDarkness;
+    protected SpriteRenderer[] outSideDarkness;
 
-    GameObject particle;
+    protected GameObject particle;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -107,40 +107,61 @@ public abstract class AreaScript : CustomCollider
             Debug.Log("Area");
             onPlayer = true;
             PlayerIn(true);
-            CameraController.Instance.SetOffset(12);
         }
         else if (onPlayer && !AreaCheck.RectIn(Player.instance.transform.position, outRect))
         {
             onPlayer = false;
             PlayerIn(false);
-            CameraController.Instance.SetOffset(0);
         }
     }
 
-    public void PlayerIn(bool b)
+    public virtual void PlayerIn(bool b)
     {
-        if(b)
+        if (act)
+            return;
+        if (b)
         {
+            SoundManager.instance.Altar();
             StageBackGround.instance.FadeOut();
             areaLight.SetActive(true);
             Player.instance.playerBlockLightSource.LightColor = lightColor;
+            CameraController.Instance.SetOffset(13);
         }
         else
         {
+            SoundManager.instance.Stage1();
             StageBackGround.instance.Fadein();
             areaLight.SetActive(false);
             Player.instance.playerBlockLightSource.LightColor = defaultColor;
+            CameraController.Instance.SetOffset(0);
         }
     }
     #endregion
 
     #region[이펙트처리]
-    public void Effect(bool on)
+    public virtual void Effect(bool on)
     {
         if (particle)
             particle.SetActive(on && !act);
 
-        if (on)
+        if(act)
+        {
+            for (int i = 0; i < inSideDarkness.Length; i++)
+            {
+                if (inSideDarkness[i].color.a > 0)
+                    inSideDarkness[i].color -= new Color(0, 0, 0, Time.deltaTime);
+                else
+                    inSideDarkness[i].color = new Color(inSideDarkness[i].color.r, inSideDarkness[i].color.g, inSideDarkness[i].color.b, 0);
+            }
+            for (int i = 0; i < outSideDarkness.Length; i++)
+            {
+                if (outSideDarkness[i].color.a > 0)
+                    outSideDarkness[i].color -= new Color(0, 0, 0, Time.deltaTime);
+                else
+                    outSideDarkness[i].color = new Color(outSideDarkness[i].color.r, outSideDarkness[i].color.g, outSideDarkness[i].color.b, 0);
+            }
+        }
+        else if (on)
         {
             for (int i = 0; i < inSideDarkness.Length; i++)
             {
