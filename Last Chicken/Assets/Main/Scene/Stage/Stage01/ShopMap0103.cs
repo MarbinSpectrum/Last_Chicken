@@ -132,6 +132,7 @@ public class ShopMap0103 : StageData
 
         SetGround();
         SetBackGround();
+        SetFluidOutline();
         SetObject();
         GenerateBackGround();
         GenerateGround();

@@ -26,6 +26,7 @@ public class Stage01_1 : StageData
 
         SetGround();
         SetBackGround();
+        SetFluidOutline();
         SetObject();
         GenerateBackGround();
         GenerateGround();

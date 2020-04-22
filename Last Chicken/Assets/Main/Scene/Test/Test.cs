@@ -14,6 +14,7 @@ public class Test : StageData
 
         SetGround();
         SetBackGround();
+        SetFluidOutline();
         GenerateBackGround();
         GenerateGround();
 

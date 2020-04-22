@@ -102,6 +102,9 @@ public class DamageJudgMent : MonoBehaviour
     }
     public static void AttackTerrain(Vector2Int pos, int damage)
     {
+        if(StageData.instance.fluidOutline[pos.x,pos.y])
+            return;
+
         if (!Exception.IndexOutRange(pos.x, pos.y, GroundManager.instance.groundHp))
             return;
 

@@ -132,6 +132,7 @@ public class ShopMap0101 : StageData
 
         SetGround();
         SetBackGround();
+        SetFluidOutline();
         SetObject();
         GenerateBackGround();
         GenerateGround();
@@ -161,7 +162,6 @@ public class ShopMap0101 : StageData
     #endregion
 
     #region[지형 설정]
-
     public override void SetGround()
     {
         groundData = new GroundLayer[world.WorldWidth, world.WorldHeight];

@@ -90,6 +90,7 @@ public class Player : CustomCollider
     [System.NonSerialized] public bool notFallDamage = false;
     bool grounded;
     bool inFluid;
+    bool effectFluid;
 
     bool hang;  //매달림 여부
     bool canHang;
@@ -226,11 +227,9 @@ public class Player : CustomCollider
         if (AdvancedFluidDynamics.Instance && AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y + 1) != null)
         {
             bool fluidCheck = AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y + 1).Weight > 0.1f;
+
             if (inFluid != fluidCheck)
             {
-                Color color = AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y + 1).Color;
-                EffectManager.instance.PlopFluid(transform.position, new Color(color.r, color.g, color.b, 0.2f));
-
                 rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, rigidbody2D.velocity.y / 1.5f);
                 inFluid = fluidCheck;
             }
@@ -244,6 +243,20 @@ public class Player : CustomCollider
                 knockback = emp;
             }
         }
+
+
+        if (AdvancedFluidDynamics.Instance && AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y) != null)
+        {
+            bool effectfluidCheck = AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y).Weight > 0.1f;
+
+            if (effectFluid != effectfluidCheck)
+            {
+                Color color = AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y).Color;
+                EffectManager.instance.PlopFluid(transform.position, new Color(color.r, color.g, color.b, 0.2f));
+                effectFluid = effectfluidCheck;
+            }
+        }
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //점프 이펙트 생성

@@ -11,24 +11,24 @@ namespace TerrainEngine2D
     /// </summary>
     public class FluidChunk : MonoBehaviour
     {
-        private World world;
+        protected World world;
         [SerializeField]
-        private Chunk chunk;
+        protected Chunk chunk;
 
-        private FluidDynamics fluidDynamics;
-        private AdvancedFluidDynamics advancedFluidDynamics;
+        protected FluidDynamics fluidDynamics;
+        protected AdvancedFluidDynamics advancedFluidDynamics;
         //Reference to the fluid block array
-        private FluidBlock[,] fluidBlocks;
-        private AdvancedFluidBlock[,] advancedFluidBlocks;
+        protected FluidBlock[,] fluidBlocks;
+        protected AdvancedFluidBlock[,] advancedFluidBlocks;
 
         //Holds mesh information for rendering the chunk
-        private BlockGridMesh blockGridMesh;
+        protected BlockGridMesh blockGridMesh;
         //The secondary color for fluid 
-        private Color32 secondaryColor;
+        protected Color32 secondaryColor;
         //The primary color for fluid
-        private Color32 mainColor;
+        protected Color32 mainColor;
 
-        private bool update;
+        protected bool update;
         /// <summary>
         /// Used to update the mesh when fluid blocks change
         /// </summary>
@@ -37,12 +37,12 @@ namespace TerrainEngine2D
             set { update = value; }
         }
 
-        private void Awake()
+        public virtual void Awake()
         {
             gameObject.layer = LayerMask.NameToLayer("Terrain");
         }
 
-        void Start()
+        public virtual void Start()
         {
             world = World.Instance;
             fluidDynamics = FluidDynamics.Instance;
@@ -62,7 +62,7 @@ namespace TerrainEngine2D
             BuildChunk();
         }
 
-        void LateUpdate()
+        public virtual void LateUpdate()
         {
             //Rebuild the fluid chunk if it needs to be updated
             if (update)
@@ -75,7 +75,7 @@ namespace TerrainEngine2D
         /// <summary>
         /// Build the chunk mesh
         /// </summary>
-        public void BuildChunk()
+        public virtual void BuildChunk()
         {
             if (world.BasicFluid)
             {
@@ -101,7 +101,8 @@ namespace TerrainEngine2D
                         }
                     }
                 }
-            } else
+            } 
+            else
             {
                 //Loop through the grid of chunks
                 for (int x = 0; x < chunk.ChunkSize; x++)

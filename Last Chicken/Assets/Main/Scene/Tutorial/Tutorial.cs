@@ -14,6 +14,7 @@ public class Tutorial : StageData
 
         SetGround();
         SetBackGround();
+        SetFluidOutline();
         GenerateBackGround();
         GenerateGround();
 
