@@ -20,7 +20,8 @@ public class EffectManager : ObjectPool
 
     GameObject digGround;
     GameObject plopFluid;
-    
+    GameObject bubbleFluid;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     GameObject explosion;
@@ -116,6 +117,7 @@ public class EffectManager : ObjectPool
             hearthStoneMat = Resources.Load("Graphics/Effects/Ground/HearthStoneMat") as Material;
 
             plopFluid = Resources.Load("Graphics/Effects/Ground/PlopFluid") as GameObject;
+            bubbleFluid = Resources.Load("Graphics/Effects/Ground/BubbleFluid") as GameObject;
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -400,12 +402,22 @@ public class EffectManager : ObjectPool
     #endregion
 
     #region[풍덩]
-    public void PlopFluid(Vector2 vector2)
+    public void PlopFluid(Vector2 vector2, Color color,int num = 50)
     {
-        PlopFluid(vector2, Color.white);
+        PlopFluid(vector2, Vector2.zero, color);
     }
 
-    public void PlopFluid(Vector2 vector2, Color color)
+    public void PlopFluid(Vector2 vector2, int num = 50)
+    {
+        PlopFluid(vector2, Vector2.zero, Color.white);
+    }
+
+    public void PlopFluid(Vector2 vector2, Vector2 force, int num = 50)
+    {
+        PlopFluid(vector2, force, Color.white);
+    }
+
+    public void PlopFluid(Vector2 vector2,Vector2 force, Color color, int num = 50)
     {
         string name = "PlopFluid";
 
@@ -417,11 +429,45 @@ public class EffectManager : ObjectPool
             emp.transform.name = name;
             AddObject(emp);
         }
-        var main = emp.GetComponent<ParticleSystem>().main;
+        ParticleSystem particle = emp.GetComponent<ParticleSystem>();
+        ParticleSystem.VelocityOverLifetimeModule velocity = particle.velocityOverLifetime;
+        ParticleSystem.EmissionModule emission = particle.emission;
+        velocity.x = force.x;
+        velocity.y = force.y;
+        emission.rateOverTime = num;
+        var main = particle.main;
         main.startColor = color;
+        
         emp.SetActive(true);
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
+    }
+    #endregion
+
+    #region[기포]
+    public void BubbleFluid(Vector2 vector2, float speed)
+    {
+        BubbleFluid(vector2, new Vector2(1,1), speed);
+    }
+
+    public void BubbleFluid(Vector2 vector2, Vector2 size, float speed)
+    {
+        string name = "BubbleFluid";
+
+        GameObject emp = FindObject(name);
+
+        if (emp == null)
+        {
+            emp = Instantiate(bubbleFluid);
+            emp.transform.name = name;
+            AddObject(emp);
+        }
+
+        emp.GetComponent<BubbleScript>().speed = speed;
+        emp.SetActive(true);
+        emp.transform.parent = transform;
+        emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
+        emp.transform.localScale = size;
     }
     #endregion
 
@@ -562,6 +608,23 @@ public class EffectManager : ObjectPool
     public void DamageEffect()
     {
         UIManager.instance.playerStateAni.SetTrigger("Act");
+    }
+    #endregion
+
+    #region[기포생성 이펙트]
+    public void CreateBubbleEffect(Vector2 pos, Vector4 Range, int num,  float speed)
+    {
+        StartCoroutine(BubbleEffectAct(pos, Range, num, speed));
+    }
+
+    private IEnumerator BubbleEffectAct(Vector2 pos, Vector4 Range, int num, float speed)
+    {
+        for (int i = 0; i < num; i++)
+        {
+            float size = Random.Range(0.01f, 0.1f);
+            BubbleFluid(pos + new Vector2(Random.Range(Range.x, Range.y), Random.Range(Range.z, Range.w)), new Vector2(size, size), speed);
+            yield return new WaitForSeconds(0.01f);
+        }
     }
     #endregion
 

@@ -114,8 +114,8 @@ public class DamageJudgMent : MonoBehaviour
         if (StageData.instance.groundData[pos.x, pos.y] == (StageData.GroundLayer)(-1))
             return;
 
-        if (SceneController.instance.CheckEventMap())
-            return;
+       // if (SceneController.instance.CheckEventMap())
+       //     return;
 
         #region[광물이펙트]
         if (GroundManager.instance.groundHp[pos.x, pos.y] > 0)

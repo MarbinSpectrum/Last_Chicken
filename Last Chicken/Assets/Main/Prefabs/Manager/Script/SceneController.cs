@@ -200,7 +200,7 @@ public class SceneController : MonoBehaviour
                     Player.instance.canAttack = true;
                     Player.instance.transform.position = new Vector3(GroundManager.instance.shopMap0101StartPos.x, GroundManager.instance.shopMap0101StartPos.y, Player.instance.transform.position.z);
                     Player.instance.transform.localScale = new Vector3(Mathf.Abs(Player.instance.transform.localScale.x) * GroundManager.instance.shopMap0101StartDic, Player.instance.transform.localScale.y, Player.instance.transform.localScale.x);
-                    GroundManager.instance.InitDigMask();
+                    GroundManager.instance.digMask = 0;
                     break;
                 case "Stage0102":
                     Player.instance.canAttack = true;
@@ -211,7 +211,7 @@ public class SceneController : MonoBehaviour
                     Player.instance.canAttack = true;
                     Player.instance.transform.position = new Vector3(GroundManager.instance.shopMap0102StartPos.x, GroundManager.instance.shopMap0102StartPos.y, Player.instance.transform.position.z);
                     Player.instance.transform.localScale = new Vector3(Mathf.Abs(Player.instance.transform.localScale.x) * GroundManager.instance.shopMap0102StartDic, Player.instance.transform.localScale.y, Player.instance.transform.localScale.x);
-                    GroundManager.instance.InitDigMask();
+                    GroundManager.instance.digMask = 0;
                     break;
                 case "Stage0103":
                     Player.instance.canAttack = true;
@@ -222,7 +222,7 @@ public class SceneController : MonoBehaviour
                     Player.instance.canAttack = true;
                     Player.instance.transform.position = new Vector3(GroundManager.instance.shopMap0103StartPos.x, GroundManager.instance.shopMap0103StartPos.y, Player.instance.transform.position.z);
                     Player.instance.transform.localScale = new Vector3(Mathf.Abs(Player.instance.transform.localScale.x) * GroundManager.instance.shopMap0103StartDic, Player.instance.transform.localScale.y, Player.instance.transform.localScale.x);
-                    GroundManager.instance.InitDigMask();
+                    GroundManager.instance.digMask = 0;
                     break;
             }
         }

@@ -99,7 +99,7 @@ public class StageData : TerrainGenerator
             for (int y = 0; y < world.WorldHeight; y++)
             {
                 bool flag = false;
-                for(int i = 0; i < 3; i++)
+                for(int i = 0; i < 4; i++)
                 {
                     int ax = x + Dic[i, 0];
                     int ay = y + Dic[i, 1];

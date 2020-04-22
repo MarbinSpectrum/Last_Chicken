@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4391773552156699246}
   - component: {fileID: 5341681112876549837}
   - component: {fileID: 2127478038100793796}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: PlopFluid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1484,7 +1484,7 @@ ParticleSystem:
     flipU: 0
     flipV: 0
   VelocityModule:
-    enabled: 0
+    enabled: 1
     x:
       serializedVersion: 2
       minMaxState: 0
@@ -1541,7 +1541,7 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 20
       minScalar: 0
       maxCurve:
         serializedVersion: 2

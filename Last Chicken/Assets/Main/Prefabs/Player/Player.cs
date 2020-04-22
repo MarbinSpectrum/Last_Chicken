@@ -89,8 +89,15 @@ public class Player : CustomCollider
     bool hasFeatherShoes;
     [System.NonSerialized] public bool notFallDamage = false;
     bool grounded;
-    bool inFluid;
-    bool effectFluid;
+    [System.NonSerialized] public bool inFluid;
+    bool[] effectFluid = new bool[5];
+    Color[] lastFluidColor = new Color[5];
+
+    [System.NonSerialized] public float bubbleTime;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     bool hang;  //매달림 여부
     bool canHang;
@@ -198,6 +205,7 @@ public class Player : CustomCollider
 
         //자동으로 작동되는 행동
         PlayerFall();
+        PlayerInFluidAct();
         runFlag = false;
         chickenHead.SetActive(getChicken);
 
@@ -224,18 +232,25 @@ public class Player : CustomCollider
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///물에 낙하
 
-        if (AdvancedFluidDynamics.Instance && AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y + 1) != null)
+        #region[물속인지 검사]
+        if (AdvancedFluidDynamics.Instance && AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y + 2) != null)
         {
-            bool fluidCheck = AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y + 1).Weight > 0.1f;
+            bool fluidCheck = AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y + 2).Weight > 0.1f;
 
             if (inFluid != fluidCheck)
             {
                 rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, rigidbody2D.velocity.y / 1.5f);
                 inFluid = fluidCheck;
             }
+        }
+        #endregion
 
-            byte fluidType = AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y + 1).Density;
-            if (AdvancedFluidDynamics.Instance.GetFluidType(fluidType) && AdvancedFluidDynamics.Instance.GetFluidType(fluidType).Name.Equals("Poison"))
+        #region[독에 빠졌는지 검사]
+        if (AdvancedFluidDynamics.Instance && AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y) != null)
+        {
+            bool fluidCheck = AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y).Weight > 0.1f;
+            byte fluidType = AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y).Density;
+            if (fluidCheck && AdvancedFluidDynamics.Instance.GetFluidType(fluidType) && AdvancedFluidDynamics.Instance.GetFluidType(fluidType).Name.Equals("Poison"))
             {
                 Vector2 emp = knockback;
                 knockback = new Vector2(1500, 500);   //넉백수치
@@ -243,20 +258,36 @@ public class Player : CustomCollider
                 knockback = emp;
             }
         }
+        #endregion
 
-
-        if (AdvancedFluidDynamics.Instance && AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y) != null)
+        #region[물에 들어갔을시 이펙트]
+        for (int i = 1; i < 5; i++)
         {
-            bool effectfluidCheck = AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y).Weight > 0.1f;
-
-            if (effectFluid != effectfluidCheck)
+            if (AdvancedFluidDynamics.Instance && AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y + i) != null)
             {
-                Color color = AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y).Color;
-                EffectManager.instance.PlopFluid(transform.position, new Color(color.r, color.g, color.b, 0.2f));
-                effectFluid = effectfluidCheck;
+                bool fluidCheck = AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y + i).Weight > 0.1f;
+
+                if (effectFluid[i] != fluidCheck)
+                {
+                    Color color = AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y + i).Color;
+
+                    Vector2 upPlopForce = new Vector2(0, +10 - i * 1 + (rigidbody2D.velocity.y < 0 ? (int)(Mathf.Abs(rigidbody2D.velocity.y / 2)) : 0));
+                    int upPlopNum = 30 - i * 5 + (rigidbody2D.velocity.y < 0 ? (int)(Mathf.Abs(rigidbody2D.velocity.y / 2)) : 0);
+
+                    //물에 들어갈때
+                    if (fluidCheck)
+                    {
+                        lastFluidColor[i] = color;
+                        if(i == 1)
+                            EffectManager.instance.PlopFluid(transform.position + new Vector3(0, i, 0), new Vector2(0, -20), new Color(0.2f, 0.2f, 0.2f, 0.7f), 50);
+                    }
+                    EffectManager.instance.PlopFluid(transform.position + new Vector3(0, i, 0), upPlopForce, new Color(lastFluidColor[i].r, lastFluidColor[i].g, lastFluidColor[i].b, 0.2f), upPlopNum);
+
+                    effectFluid[i] = fluidCheck;
+                }
             }
         }
-
+        #endregion
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //점프 이펙트 생성
@@ -335,6 +366,26 @@ public class Player : CustomCollider
                 rigidbody2D.gravityScale /= 1.5f;
         }
         animator.SetBool("IsGround?", grounded && rigidbody2D.velocity.y <= 0);
+    }
+    #endregion
+
+    #region[플레이어 물속에 있을때]
+    public void PlayerInFluidAct()
+    {
+        if (!inFluid)
+            return;
+
+        if(bubbleTime > 1)
+        {
+            bubbleTime = 0;
+            int dic = transform.localScale.x < 0 ? -1 : 1;
+            if(dic == -1)
+                EffectManager.instance.CreateBubbleEffect(transform.position, new Vector4(-0.75f, -0.25f, 2, 3), 5, 20);
+            else
+                EffectManager.instance.CreateBubbleEffect(transform.position, new Vector4(+0.25f, +0.75f, 2, 3), 5, 20);
+        }
+        bubbleTime += Time.deltaTime;
+
     }
     #endregion
 
@@ -594,6 +645,9 @@ public class Player : CustomCollider
         //공격처리
         if (Input.GetMouseButton(0) && !attackFlag)
         {
+            if (inFluid)
+                EffectManager.instance.CreateBubbleEffect(transform.position, new Vector4(-2, 2, -1, 1), 20, 20);
+
             //공격중이라고 플레그 설정
             attackFlag = true;
 
