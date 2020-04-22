@@ -66,7 +66,7 @@ public class ItemScript : CustomCollider
         if (!Player.instance)
             return;
 
-        if (GameManager.getItemDelay < 0 &&IsAtPlayer(bodyCollider))
+        if (GameManager.getItemDelay < 0 && IsAtPlayer(bodyCollider))
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -85,8 +85,11 @@ public class ItemScript : CustomCollider
                     {
                         if (GameManager.instance.activeItem.Equals(""))
                         {
-                            GameManager.instance.activeItem = temp;
                             transform.name = "";
+                            num = 0;
+
+                            GameManager.instance.activeItem = temp;
+                            GameManager.instance.activeItemNum = numTemp;
                         }
                         else
                         {
@@ -99,32 +102,6 @@ public class ItemScript : CustomCollider
                     }
                     else
                     {
-                        //int emptySlot = -1;
-                        //for(int i = 0; i < 5; i++)
-                        //{
-                        //    if (!GameManager.instance.passiveSlotAct[i])
-                        //        break;
-                        //    if(GameManager.instance.passiveItem[i].Equals(""))
-                        //    {
-                        //        emptySlot = i;
-                        //        break;
-                        //    }
-                        //}
-
-                        //if(emptySlot != -1)
-                        //{
-                        //    GameManager.instance.passiveItem[emptySlot] = temp;
-                        //    GameManager.instance.passiveItemNum[emptySlot] = numTemp;
-                        //}
-                        //else
-                        //{
-                        //    transform.name = GameManager.instance.passiveItem[GameManager.instance.passivePointer];
-                        //    num = GameManager.instance.passiveItemNum[GameManager.instance.passivePointer];
-
-                        //    GameManager.instance.passiveItem[GameManager.instance.passivePointer] = temp;
-                        //    GameManager.instance.passiveItemNum[GameManager.instance.passivePointer] = numTemp;
-                        //}
-
                         transform.name = GameManager.instance.passiveItem[GameManager.instance.passivePointer];
                         num = GameManager.instance.passiveItemNum[GameManager.instance.passivePointer];
 
@@ -147,6 +124,7 @@ public class ItemScript : CustomCollider
                             GameManager.instance.passivePointer = emptySlot;
                     }
 
+                    UIManager.instance.nowItemImage.sprite = spriteRenderer.sprite;
                     GameManager.getItemDelay = 0.1f;
                     EffectManager.instance.GetItem(transform.position, false, temp);
                     SoundManager.instance.ItemGet();

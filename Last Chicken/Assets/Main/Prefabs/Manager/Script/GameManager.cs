@@ -44,7 +44,7 @@ public class GameManager : TerrainGenerator
     public string activeItem;
     [HideInInspector]
     public float activeItemCool;
-    [HideInInspector]
+
     public int activeItemNum;
 
     [HideInInspector]

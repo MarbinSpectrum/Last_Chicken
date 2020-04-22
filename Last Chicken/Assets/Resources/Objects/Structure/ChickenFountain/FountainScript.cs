@@ -10,6 +10,7 @@ public class FountainScript : AreaScript
  
     [System.NonSerialized] public bool thisUse = false;
     [System.NonSerialized] public bool onArea;
+    Animator fountainAnimator;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -20,6 +21,11 @@ public class FountainScript : AreaScript
     {
         base.Awake();
         instance = this;
+        act = false;
+        Transform structrue = transform.Find("Structure");
+        Transform fountain = structrue.Find("Fountain");
+
+        fountainAnimator = fountain.GetComponent<Animator>();
     }
     #endregion
 
@@ -32,11 +38,12 @@ public class FountainScript : AreaScript
         int outHeight = Mathf.FloorToInt(GroundManager.instance.altarRect.GetLength(1) * 0.7f);
         int Inwidth = Mathf.FloorToInt(outWidth * 0.7f);
         int Inheight = 14;
-        inRect = new RectInt((int)(transform.position.x) - Inwidth / 2, (int)(transform.position.y) - 7 + Inheight, Inwidth, Inheight);
+        inRect = new RectInt((int)(transform.position.x) - Inwidth / 2, (int)(transform.position.y) - 6 + Inheight, Inwidth, Inheight);
         outRect = new RectInt((int)(transform.position.x) - outWidth / 2, (int)(transform.position.y) - 7 + outHeight, outWidth, outHeight);
 
         UseArea();
-
+        ActFountain();
+        fountainAnimator.SetBool("used", used);
     }
     #endregion
 
@@ -59,25 +66,36 @@ public class FountainScript : AreaScript
     {
         if (GameManager.instance.gamePause)
             return;
-        if (IsAtPlayer(bodyCollider))
+        if (!used && IsAtPlayer(bodyCollider))
         {
             if (Input.GetMouseButtonDown(1))
             {
-                Player.instance.canControl = thisUse;
-                Player.instance.pray = !thisUse;
-                thisUse = !thisUse;
-                if (!used)
-                {
-                    Player.instance.nowHp = Player.instance.maxHp;
-                    used = true;
-                    EffectManager.instance.HearthEffect();
-                }
+                Player.instance.canControl = true;
+                Player.instance.pray = true;
+                Player.instance.invincibility = true;
+                thisUse = false;
+                used = true;
             }
         }
     }
     #endregion
 
-    #region[플레이어가 분수 내부에 있는지 검사]
+    #region[분수활성화]
+    public void ActFountain()
+    {
+        if (fountainAnimator.GetCurrentAnimatorStateInfo(0).IsName("FountainUsed") && fountainAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && !act)
+        {
+            act = true;
+            Player.instance.canControl = true;
+            Player.instance.pray = false;
+            Player.instance.invincibility = false;             
+            Player.instance.nowHp = Player.instance.maxHp;
+            EffectManager.instance.HearthEffect();
+        }
+    }
+    #endregion
+
+    #region[플레이어가 내부에 있는지 검사]
     public override void PlayerIn()
     {
         if (!Player.instance || !StageData.instance || !StageBackGround.instance)

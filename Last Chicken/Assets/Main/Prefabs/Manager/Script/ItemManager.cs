@@ -412,20 +412,24 @@ public class ItemManager : ObjectPool
 
         if (GameManager.instance.activeItem.Equals(name))
         {
-            if (GameManager.instance.activeItemNum == 0)
+            GameManager.instance.activeItemNum -= n;
+            if (GameManager.instance.activeItemNum <= 0)
+            {
                 GameManager.instance.activeItem = "";
-            else
-                GameManager.instance.activeItemNum -= n;
+                GameManager.instance.activeItemNum = 0;
+            }
             return;
         }
 
         for (int i = 0; i < 5; i++)
             if (GameManager.instance.passiveItem[i].Equals(name))
             {
-                if (GameManager.instance.passiveItemNum[i] == 0)
+                GameManager.instance.passiveItemNum[i] -= n;
+                if (GameManager.instance.passiveItemNum[i] <= 0)
+                {
                     GameManager.instance.passiveItem[i] = "";
-                else
-                    GameManager.instance.passiveItemNum[i] -= n;
+                    GameManager.instance.passiveItemNum[i] = 0;
+                }
                 return;
             }
     }

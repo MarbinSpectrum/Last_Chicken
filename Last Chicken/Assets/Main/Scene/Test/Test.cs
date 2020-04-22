@@ -18,6 +18,8 @@ public class Test : StageData
         GenerateBackGround();
         GenerateGround();
 
+        for (int x = 0; x < world.WorldWidth; x++)
+            ObjectManager.instance.WoodBox(new Vector2(x, 30));
         GroundManager.instance.Init(world);
     }
     #endregion

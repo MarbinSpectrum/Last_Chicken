@@ -21,6 +21,7 @@ public abstract class AreaScript : CustomCollider
     [System.NonSerialized] public bool used;
     [System.NonSerialized] public BoxCollider2D bodyCollider;
     [System.NonSerialized] protected bool act = false;
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     GameObject areaLight;

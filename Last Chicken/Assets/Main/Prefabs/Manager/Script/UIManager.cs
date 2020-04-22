@@ -141,6 +141,7 @@ public class UIManager : MonoBehaviour
 
     [NonSerialized] public GameObject nowItem;    //현재아이템
     [NonSerialized] public Animator nowItemAnimator;
+    [NonSerialized] public Image nowItemImage;
 
     [NonSerialized] public Image activeItemImg;
     [NonSerialized] public Text activeItemNumText;
@@ -265,7 +266,7 @@ public class UIManager : MonoBehaviour
 
         nowItem = playerItem.transform.Find("NowItem").gameObject;
         nowItemAnimator = nowItem.GetComponent<Animator>();
-
+        nowItemImage = nowItem.GetComponent<Image>();
 
         activeItemImg = playerItem.transform.Find("ActiveObject").Find("ActiveItem").GetComponent<Image>();
         activeItemNumText = activeItemImg.transform.Find("Count").GetComponent<Text>();
@@ -526,6 +527,7 @@ public class UIManager : MonoBehaviour
         }
         else
         {
+            #region[제단 UI 조절]
             if (AltarScript.instance)
                 altarUI.SetActive(AltarScript.instance.thisUse);
             if (!altarUI.activeSelf)
@@ -541,6 +543,7 @@ public class UIManager : MonoBehaviour
             }
             else
             {
+                #region[화면크기에 따른 제단 UI 크기조절]
                 Vector3 size = new Vector3(1,1,1);
                 if (Screen.width == windowOption[0, 0] && Screen.height == windowOption[0, 1])
                     size = new Vector3(2.5f, 2.5f, 1);
@@ -579,7 +582,9 @@ public class UIManager : MonoBehaviour
 
                 for (int i = 0; i < 3; i++)
                     caseImage[i].transform.localScale = size;
+                #endregion
             }
+            #endregion
 
             if (ShopScript.instance)
             {

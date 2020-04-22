@@ -549,7 +549,7 @@ public class Stage01_1 : StageData
 
         for (int i = 0; i < world.WorldWidth; i++)
             for (int j = 0; j < world.WorldHeight; j++)
-                if (CanAddArea(i, j, width, height))
+                if (CanAddArea(i, j, width, height) && Mathf.Abs(j - altarRect.y) > 50)
                     fountainList.Add(new Vector2Int(i, j));
 
         if (fountainList.Count > 0)

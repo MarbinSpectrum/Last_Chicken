@@ -41,7 +41,7 @@ public class AltarScript : AreaScript
         int outHeight = Mathf.FloorToInt(GroundManager.instance.altarRect.GetLength(1) * 0.7f);
         int Inwidth = Mathf.FloorToInt(outWidth * 0.7f);
         int Inheight = 14;
-        inRect = new RectInt((int)(transform.position.x) - Inwidth / 2, (int)(transform.position.y) - 7 + Inheight, Inwidth, Inheight);
+        inRect = new RectInt((int)(transform.position.x) - Inwidth / 2, (int)(transform.position.y) - 6 + Inheight, Inwidth, Inheight);
         outRect = new RectInt((int)(transform.position.x) - outWidth / 2, (int)(transform.position.y) - 7 + outHeight, outWidth, outHeight);
 
         UseArea();

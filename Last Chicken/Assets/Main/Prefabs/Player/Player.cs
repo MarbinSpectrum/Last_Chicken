@@ -788,7 +788,7 @@ public class Player : CustomCollider
                 ItemManager.instance.UseItem("ShopVIpSpecial");
                 GameManager.instance.playData.shopVIP = true;
             }
-            else if (ItemManager.instance.HasItemCheck("Bell") && GameManager.instance.activeItemCool >= ItemManager.instance.itemData[ItemManager.FindData("Beer")].value0)
+            else if (ItemManager.instance.HasItemCheck("Bell") && GameManager.instance.activeItemCool >= ItemManager.instance.itemData[ItemManager.FindData("Bell")].value0)
             {
                 GameManager.instance.activeItemCool = 0;
                 Chicken.instance.patternTime = 3;

@@ -22,11 +22,14 @@ public class ThrowObject : CustomCollider
     #region[Update]
     void Update()
     {
-        if(cool >= 0.25f && Vector2.Distance(rigidbody2D.velocity,Vector2.zero) > 5)
+        if(Vector2.Distance(rigidbody2D.velocity,Vector2.zero) > 5)
         {
             AttackMonster(damage);
-            AttackObject(damage);
-            cool = 0;
+            if(cool >= 0.25f)
+            {
+                AttackObject(damage);
+                cool = 0;
+            }
         }
         cool += Time.deltaTime;
     }
