@@ -238,10 +238,7 @@ public class Player : CustomCollider
             bool fluidCheck = AdvancedFluidDynamics.Instance.GetFluidBlock((int)transform.position.x, (int)transform.position.y + 2).Weight > 0.1f;
 
             if (inFluid != fluidCheck)
-            {
-                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, rigidbody2D.velocity.y / 1.5f);
                 inFluid = fluidCheck;
-            }
         }
         #endregion
 
@@ -279,9 +276,18 @@ public class Player : CustomCollider
                     {
                         lastFluidColor[i] = color;
                         if(i == 1)
-                            EffectManager.instance.PlopFluid(transform.position + new Vector3(0, i, 0), new Vector2(0, -20), new Color(0.2f, 0.2f, 0.2f, 0.7f), 50);
+                        {
+                            SoundManager.instance.PlayerSplash();
+                            if (rigidbody2D.velocity.y < -5)
+                                EffectManager.instance.PlopFluid(transform.position + new Vector3(0, i, 0), new Vector2(0, -20), new Color(0.2f, 0.2f, 0.2f, 0.7f), 50);
+                        }
+                        else
+                        {
+                            SoundManager.instance.PlayerSplashSmall();
+                        }
                     }
-                    EffectManager.instance.PlopFluid(transform.position + new Vector3(0, i, 0), upPlopForce, new Color(lastFluidColor[i].r, lastFluidColor[i].g, lastFluidColor[i].b, 0.2f), upPlopNum);
+                    if (rigidbody2D.velocity.y < -5)
+                        EffectManager.instance.PlopFluid(transform.position + new Vector3(0, i, 0), upPlopForce, new Color(lastFluidColor[i].r, lastFluidColor[i].g, lastFluidColor[i].b, 0.2f), upPlopNum);
 
                     effectFluid[i] = fluidCheck;
                 }

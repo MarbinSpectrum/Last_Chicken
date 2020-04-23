@@ -231,13 +231,11 @@ public class ShopScript : AreaScript
         if (itemIndex == -1)
             return 0;
         int value = ItemManager.instance.itemData[ItemManager.FindData(s)].cost;
-        //Debug.Log(randomDice);
         int minValue = 100;
-        minValue = Mathf.Min(ItemManager.instance.HasItemCheck("ShopVIpNormal") ? (100 - Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("ShopVIpNormal")].value0)) : 100);
-        minValue = Mathf.Min(shopVIP ? (100 - Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("ShopVIpSpecial")].value0)) : 100);
-        minValue = Mathf.Min(ItemManager.instance.HasItemCheck("SaleCoupon") ? (100 - Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("SaleCoupon")].value0)) : 100);
+        minValue = Mathf.Min(minValue,(ItemManager.instance.HasItemCheck("ShopVIpNormal") ? (100 - Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("ShopVIpNormal")].value0)) : 100));
+        minValue = Mathf.Min(minValue, (shopVIP ? (100 - Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("ShopVIpSpecial")].value0)) : 100));
+        minValue = Mathf.Min(minValue,(ItemManager.instance.HasItemCheck("SaleCoupon") ? (100 - Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("SaleCoupon")].value0)) : 100));
         minValue = Mathf.FloorToInt((float)minValue * ((float)randomDice / 100f));
-        //Debug.Log(minValue);
         return Mathf.FloorToInt(value * (minValue / 100f));
     }
     #endregion

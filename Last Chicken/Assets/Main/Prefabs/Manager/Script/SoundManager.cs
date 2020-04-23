@@ -35,6 +35,8 @@ public class SoundManager : MonoBehaviour
     AudioClip playerBell;
     AudioClip playerGun;
     AudioClip playerJump;
+    AudioClip playerSplash;
+    AudioClip playerSplashSmall;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -115,6 +117,8 @@ public class SoundManager : MonoBehaviour
             playerBell = Resources.Load("Sounds/SE/Player/방울소리") as AudioClip;
             playerGun = Resources.Load("Sounds/SE/Player/총소리") as AudioClip;
             playerJump = Resources.Load("Sounds/SE/Player/점프소리") as AudioClip;
+            playerSplash = Resources.Load("Sounds/SE/Player/첨벙") as AudioClip;
+            playerSplashSmall = Resources.Load("Sounds/SE/Player/첨벙작은") as AudioClip;
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -397,6 +401,32 @@ public class SoundManager : MonoBehaviour
         {
             StopSE.volume = SE.volume;
             StopSE.PlayOneShot(playerJump);
+        }
+    }
+    #endregion
+
+    #region[플레이어 첨벙]
+    public void PlayerSplash(bool canStop = false)
+    {
+        if (!canStop)
+            SE.PlayOneShot(playerSplash);
+        else
+        {
+            StopSE.volume = SE.volume;
+            StopSE.PlayOneShot(playerSplash);
+        }
+    }
+    #endregion
+
+    #region[플레이어 첨벙 작은]
+    public void PlayerSplashSmall(bool canStop = false)
+    {
+        if (!canStop)
+            SE.PlayOneShot(playerSplashSmall);
+        else
+        {
+            StopSE.volume = SE.volume;
+            StopSE.PlayOneShot(playerSplashSmall);
         }
     }
     #endregion
