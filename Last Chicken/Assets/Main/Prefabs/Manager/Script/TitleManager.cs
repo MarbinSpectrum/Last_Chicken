@@ -20,6 +20,11 @@ public class TitleManager : MonoBehaviour
     Button loadGameOPTION;
     Button loadGameQUIT;
 
+    private GameObject newGameCheck;
+    Button newGameCheckExit;
+    Button newGameCheckYes;
+    Button newGameCheckNo;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -44,6 +49,11 @@ public class TitleManager : MonoBehaviour
         loadGameTUTORIAL = loadGame.transform.Find("Tutorial").GetComponent<Button>();
         loadGameOPTION = loadGame.transform.Find("Option").GetComponent<Button>();
         loadGameQUIT = loadGame.transform.Find("Quit").GetComponent<Button>();
+
+        newGameCheck = loadGame.transform.Find("NewGameCheck").gameObject;
+        newGameCheckYes = newGameCheck.transform.Find("Yes").GetComponent<Button>();
+        newGameCheckNo = newGameCheck.transform.Find("No").GetComponent<Button>();
+        newGameCheckExit = newGameCheck.transform.Find("Exit").GetComponent<Button>();
 
         newGameTUTORIAL.onClick.AddListener(() =>
         {
@@ -91,12 +101,28 @@ public class TitleManager : MonoBehaviour
         });
         loadGameNEW.onClick.AddListener(() =>
         {
+            SoundManager.instance.BtnClick();
+            newGameCheck.SetActive(true);
+        });
+        newGameCheckYes.onClick.AddListener(() =>
+        {
             if (SceneController.instance.nowSceneMoving)
                 return;
+            newGameCheck.SetActive(false);
             GameManager.instance.ClearData();
             SoundManager.instance.BtnClick();
             SoundManager.instance.ChickenCoco();
             SceneController.instance.MoveScene(GameManager.instance.playData.stageName);
+        });
+        newGameCheckNo.onClick.AddListener(() =>
+        {
+            SoundManager.instance.BtnClick();
+            newGameCheck.SetActive(false);
+        });
+        newGameCheckExit.onClick.AddListener(() =>
+        {
+            SoundManager.instance.BtnClick();
+            newGameCheck.SetActive(false);
         });
         loadGameTUTORIAL.onClick.AddListener(() =>
         {
