@@ -504,12 +504,22 @@ public class UIManager : MonoBehaviour
         {
             if (GameManager.instance.InGame())
             {
-                if (settingMenu.activeSelf)
-                    ActSettingMenu(false);
-                else if (pauseMenu.activeSelf)
-                    ActPauseMenu(false);
-                else if (!pauseMenu.activeSelf)
-                    ActPauseMenu(true);
+                if (GameManager.instance.playData.firstGame)
+                {
+                    if (settingMenu.activeSelf)
+                        ActSettingMenu(false);
+                    else if (!settingMenu.activeSelf)
+                        ActSettingMenu(true);
+                }
+                else
+                {
+                    if (settingMenu.activeSelf)
+                        ActSettingMenu(false);
+                    else if (pauseMenu.activeSelf)
+                        ActPauseMenu(false);
+                    else if (!pauseMenu.activeSelf)
+                        ActPauseMenu(true);
+                }
             }
         }
 
@@ -993,6 +1003,8 @@ public class UIManager : MonoBehaviour
         SoundManager.instance.SelectMenu();
         settingMenu.SetActive(b);
         uiBack.SetActive(b);
+        if(!pauseMenu.activeSelf)
+            GameManager.instance.gamePause = b;
     }
     #endregion
 

@@ -193,7 +193,7 @@ public class ShopMap0101 : StageData
             for (int y = 0; y < world.WorldHeight; y++)
                 if (backGroundData[x, y] == BackGroundLayer.NormalBackGround && GetBlockVariation(x, y, (byte)Layers.BackGround) >= 16)
                 {
-                    int r = UnityEngine.Random.Range(16, 100);
+                    int r = UnityEngine.Random.Range(16, 400);
                     #region[돌생성타입1]
                     if (r == 32)
                         SetStone(x, y, 0, 4);
