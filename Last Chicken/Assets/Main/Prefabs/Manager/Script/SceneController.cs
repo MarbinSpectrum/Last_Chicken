@@ -246,6 +246,7 @@ public class SceneController : MonoBehaviour
         {
             yield return new WaitForSeconds(0.1f);
         }
+        SceneManager.LoadScene(s);
     }
 
     #endregion
