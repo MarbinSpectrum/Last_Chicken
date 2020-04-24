@@ -223,7 +223,7 @@ public class Player : CustomCollider
     }
     #endregion
 
-    #region[플레이어 낙하]
+    #region[플레이어 낙하 및 낙하]
     void PlayerFall()
     {
         //아래에 지형이 있는지 검사
@@ -309,7 +309,8 @@ public class Player : CustomCollider
                     EffectManager.instance.HighLand(new Vector2(transform.position.x, transform.position.y + 0.2f));
                 else
                     EffectManager.instance.Land(new Vector2(transform.position.x, transform.position.y + 0.2f));
-                SoundManager.instance.PlayerJump();
+                if(!inFluid)
+                    SoundManager.instance.PlayerLand();
             }
 
             //높은 점프 상태를 초기화
@@ -417,8 +418,12 @@ public class Player : CustomCollider
 
             //매달릴 수 있는 지형이 존재하고 한번 매달린 방향이 아닐경우
             if (hangCheck && hangDic != playerMoveDirection)
+            {
+                if(!inFluid)
+                    SoundManager.instance.AttackStone();
                 //매달리게 처리
                 InitHang(playerMoveDirection, true, false);
+            }
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -551,10 +556,14 @@ public class Player : CustomCollider
                     (1 << (int)StageData.GroundLayer.Silver) |
                     (1 << (int)StageData.GroundLayer.Gold);
 
-                if ((1 << (int)StageData.instance.GetBlock(pos) & dirtSoundMask) != 0)
-                    SoundManager.instance.PlayerRunDirt();
-                else if ((1 << (int)StageData.instance.GetBlock(pos) & stoneSoundMask) != 0)
-                    SoundManager.instance.PlayerRunStone();
+                if(!inFluid)
+                {
+
+                    if ((1 << (int)StageData.instance.GetBlock(pos) & dirtSoundMask) != 0)
+                        SoundManager.instance.PlayerRunDirt();
+                    else if ((1 << (int)StageData.instance.GetBlock(pos) & stoneSoundMask) != 0)
+                        SoundManager.instance.PlayerRunStone();
+                }
             }
         }
 
@@ -562,7 +571,7 @@ public class Player : CustomCollider
     }
     #endregion
 
-    #region[플레이어 점프 및 착지]
+    #region[플레이어 점프]
     void PlayerJump()
     {
         //땅에 서있거나 매달려 있으면 점프가 가능함
@@ -576,7 +585,8 @@ public class Player : CustomCollider
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 //점프사운드
-                SoundManager.instance.PlayerJump();
+                if (!inFluid)
+                    SoundManager.instance.PlayerJump();
                 //점프력이 약해지지 않도록 순간적인 y가속도값을 0으로 해줌
                 rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0);
                 //위로 점프하도록 물리적으로 위로 밀어줌
