@@ -1,8 +1,12 @@
 # The_Last_Chicken
 <img src="./README_DATA/IMG/TITLE.png" width="100%">
-<img src="./README_DATA/IMG/INGAME.png" width="100%">
-
-
+<img src="./README_DATA/IMG/INGAME0.png" width="100%">
+<img src="./README_DATA/IMG/INGAME1.png" width="100%">
+<img src="./README_DATA/IMG/INGAME2.png" width="100%">
+<img src="./README_DATA/IMG/INGAME3.png" width="100%">
+<img src="./README_DATA/IMG/INGAME4.png" width="100%">
+<img src="./README_DATA/IMG/INGAME5.png" width="100%">
+<img src="./README_DATA/IMG/INGAME6.png" width="100%">
 <h3>조작</h3>
 <table border="0">
 	<tr>
