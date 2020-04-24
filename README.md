@@ -9,17 +9,17 @@
 	    <td>
 		    <table border="0">
 			<tr>
-	    			<td>이동 : 방향키 </td>
+	    			<td>이동 : AS </td>
 	    			<td>점프 : Space </td>
-				<td>회피 : D </td>
+				<td>떨어지기 : ↓ + Space</td>
 			</tr>
 			<tr>
-	    			<td>공격 : A </td>
-	    			<td>화살 : S </td>
+	    			<td>공격 :  </td>
+	    			<td>아이템사용 : S </td>
 				<td> </td>			
 			</tr>
   			<tr>
-				<td>아이템 사용 : F </td>
+				<td>아이템 버리기 : F </td>
 	    			<td>아이템 교체 : Q </td>
 				<td>메뉴 : ESC </td>
 			</tr>
