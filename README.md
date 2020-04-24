@@ -2,4 +2,47 @@
 <img src="./README_DATA/IMG/TITLE.png" width="100%">
 <img src="./README_DATA/IMG/INGAME.png" width="100%">
 
-장르 : 플래포머 액션게임
+
+<h3>조작</h3>
+<table border="0">
+	<tr>
+	    <td>
+		    <table border="0">
+			<tr>
+	    			<td>이동 : 방향키 </td>
+	    			<td>점프 : Space </td>
+				<td>회피 : D </td>
+			</tr>
+			<tr>
+	    			<td>공격 : A </td>
+	    			<td>화살 : S </td>
+				<td> </td>			
+			</tr>
+  			<tr>
+				<td>아이템 사용 : F </td>
+	    			<td>아이템 교체 : Q </td>
+				<td>메뉴 : ESC </td>
+			</tr>
+    		    </table>
+	    </td>
+	    <td>
+		    <table border="0">
+			<tr>
+	    			<td>이동 : LStick </td>
+	    			<td>점프 : A </td>
+				<td>회피 : RT </td>
+			</tr>
+			<tr>
+	    			<td>공격 : X </td>
+	    			<td>화살 : B </td>
+				<td> </td>			
+			</tr>
+  			<tr>
+				<td>아이템 사용 : Y </td>
+	    			<td>아이템 교체 : LT </td>
+				<td>메뉴 : Back </td>
+			</tr>
+    	            </table>
+	    </td>
+	</tr>
+</table>
