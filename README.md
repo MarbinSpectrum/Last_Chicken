@@ -34,7 +34,7 @@
   			<tr>
 	    			<td><img src="./README_DATA/IMG/Q.png" width="40%"></td>
 	    			<td><img src="./README_DATA/IMG/F.png" width="20%"></td>
-				<td><img src="./README_DATA/IMG/RIGHT.png" width="15%"></td>
+				<td><img src="./README_DATA/IMG/RIGHT.png" width="13%"></td>
 			</tr>
 			<tr>
 	    			<td>공격  </td>
