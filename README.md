@@ -9,12 +9,17 @@
 	    <td>
 		    <table border="0">
 			<tr>
-	    			<td>이동 : AS </td>
-	    			<td>점프 : Space </td>
-				<td>떨어지기 : ↓ + Space</td>
+	    		<td>이동</td>
+	    		<td>점프</td>
+			<td>낙하</td>
 			</tr>
 			<tr>
-	    			<td>공격 :  </td>
+	    			<td><img src="./README_DATA/IMG/A.png" width="20%"><img src="./README_DATA/IMG/D.png" width="20%"></td>
+	    			<td><img src="./README_DATA/IMG/SPACE.png" width="20%"></td>
+				<td><img src="./README_DATA/IMG/S_SPACE.png" width="20%"></td>
+			</tr>
+			<tr>
+	    			<td></td>
 	    			<td>아이템사용 : S </td>
 				<td> </td>			
 			</tr>
