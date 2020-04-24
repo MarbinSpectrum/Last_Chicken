@@ -25,24 +25,5 @@
 			</tr>
     		    </table>
 	    </td>
-	    <td>
-		    <table border="0">
-			<tr>
-	    			<td>이동 : LStick </td>
-	    			<td>점프 : A </td>
-				<td>회피 : RT </td>
-			</tr>
-			<tr>
-	    			<td>공격 : X </td>
-	    			<td>화살 : B </td>
-				<td> </td>			
-			</tr>
-  			<tr>
-				<td>아이템 사용 : Y </td>
-	    			<td>아이템 교체 : LT </td>
-				<td>메뉴 : Back </td>
-			</tr>
-    	            </table>
-	    </td>
 	</tr>
 </table>
