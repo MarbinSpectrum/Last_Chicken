@@ -19,14 +19,24 @@
 				<td><img src="./README_DATA/IMG/S_SPACE.png" width="80%"></td>
 			</tr>
 			<tr>
-	    			<td>아이템교체  </td>
-	    			<td>아이템버리기</td>
-				<td>줍기 & 잡기 </td>			
+	    			<td>아이템 교체  </td>
+	    			<td>아이템 버리기</td>
+				<td>아이템 사용  </td>			
 			</tr>
   			<tr>
 	    			<td><img src="./README_DATA/IMG/Q.png" width="40%"></td>
 	    			<td><img src="./README_DATA/IMG/F.png" width="20%"></td>
-				<td><img src="./README_DATA/IMG/E.png" width="15%"></td>
+				<td><img src="./README_DATA/IMG/RIGHT.png" width="15%"></td>
+			</tr>
+			<tr>
+	    			<td>공격  </td>
+	    			<td>줍기 & 잡기</td>
+				<td></td>			
+			</tr>
+  			<tr>
+	    			<td><img src="./README_DATA/IMG/LEFT.png" width="40%"></td>
+	    			<td><img src="./README_DATA/IMG/E.png" width="20%"></td>
+				<td> </td>
 			</tr>
     		    </table>
 	    </td>
