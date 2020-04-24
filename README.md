@@ -1,4 +1,6 @@
 # The_Last_Chicken
+선택받은 소년과 함께 치킨을 위한 모험을 떠나보자!!
+
 <img src="./README_DATA/IMG/TITLE.png" width="100%">
 <img src="./README_DATA/IMG/INGAME0.png" width="100%">
 <img src="./README_DATA/IMG/INGAME1.png" width="100%">
