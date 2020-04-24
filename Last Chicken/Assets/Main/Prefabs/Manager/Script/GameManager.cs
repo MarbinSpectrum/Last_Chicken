@@ -41,20 +41,13 @@ public class GameManager : TerrainGenerator
     public int playerMoney;
 
     [HideInInspector]
-    public string activeItem;
+    public string[] itemSlot = new string[6];
     [HideInInspector]
-    public float activeItemCool;
-
-    public int activeItemNum;
-
+    public bool[] slotAct = new bool[6];
     [HideInInspector]
-    public bool[] passiveSlotAct = new bool[5];
+    public int[] itemNum = new int[6];
     [HideInInspector]
-    public string[] passiveItem = new string[5];
-    [HideInInspector]
-    public int[] passiveItemNum = new int[5];
-    [HideInInspector]
-    public int passivePointer = 0;
+    public float[] itemCool = new float[6];
 
     public static float getItemDelay = 0;
 
@@ -136,19 +129,13 @@ public class GameManager : TerrainGenerator
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-        activeItem = playData.playerActiveItem;
-        activeItemNum = playData.playerActiveItemNum;
-        activeItemCool = 1000;
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////
-
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 6; i++)
         {
-            passiveSlotAct[i] = playData.playerPassiveSlotAct[i];
-            passiveItem[i] = playData.playerPassiveItem[i];
-            passiveItemNum[i] = playData.playerPassiveItemNum[i];
+            slotAct[i] = playData.slotAct[i];
+            itemSlot[i] = playData.itemSlot[i];
+            itemNum[i] = playData.itemNum[i];
+            itemCool[i] = 1000;
         }
-        passivePointer = playData.playerPassivePointer;
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -178,19 +165,16 @@ public class GameManager : TerrainGenerator
         if (data != null)
             playData = JsonUtility.FromJson<PlayData>(data.ToString());
 
-        activeItem = playData.playerActiveItem;
-        activeItemNum = playData.playerActiveItemNum;
-        activeItemCool = 1000;
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 6; i++)
         {
-            passiveSlotAct[i] = playData.playerPassiveSlotAct[i];
-            passiveItem[i] = playData.playerPassiveItem[i];
-            passiveItemNum[i] = playData.playerPassiveItemNum[i];
+            slotAct[i] = playData.slotAct[i];
+            itemSlot[i] = playData.itemSlot[i];
+            itemNum[i] = playData.itemNum[i];
+            itemCool[i] = 1000;
         }
-        passivePointer = playData.playerPassivePointer;
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -215,18 +199,12 @@ public class GameManager : TerrainGenerator
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-        playData.playerActiveItem = activeItem;
-        playData.playerActiveItemNum = activeItemNum;
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////
-
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 6; i++)
         {
-            playData.playerPassiveSlotAct[i] = passiveSlotAct[i];
-            playData.playerPassiveItem[i] = passiveItem[i];
-            playData.playerPassiveItemNum[i] = passiveItemNum[i];
+            playData.slotAct[i] = slotAct[i];
+            playData.itemSlot[i] = itemSlot[i];
+            playData.itemNum[i] = itemNum[i];
         }
-        playData.playerPassivePointer = passivePointer;
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -261,16 +239,17 @@ public class GameManager : TerrainGenerator
     #region[수치 설정]
     public void SetValue()
     {
-        if (activeItemNum > 99)
-            activeItemNum = 99;
-        for(int i = 0; i < 5; i++)
-        if (passiveItemNum[i] > 99)
-                passiveItemNum[i] = 99;
+        for (int i = 0; i < 6; i++)
+        {
+            if (itemNum[i] > 99)
+                itemNum[i] = 99;
+
+            itemCool[i] += Time.deltaTime;
+        }
 
         if (playerMoney > 999999)
             playerMoney = 999999;
 
-        activeItemCool += Time.deltaTime;
     }
     #endregion
 

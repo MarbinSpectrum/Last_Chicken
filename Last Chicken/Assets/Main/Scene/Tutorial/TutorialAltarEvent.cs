@@ -126,7 +126,7 @@ public class TutorialAltarEvent : CustomCollider
                 chickenFlag = true;
                 Player.instance.canControl = true;
                 Player.instance.pray = false;
-                followGetItem.GetComponent<Follow>().followUI = UIManager.instance.activeItemImg.gameObject;
+                followGetItem.GetComponent<Follow>().followUI = UIManager.instance.itemImg[0].gameObject;
                 followChicken.transform.GetChild(0).gameObject.SetActive(true);
                 followGetItem.SetActive(true);
                 SoundManager.instance.StopBGM_Sound();

@@ -115,7 +115,8 @@ public class Player : CustomCollider
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    [System.NonSerialized] public GameObject playerLight;
+    [System.NonSerialized] public GameObject torchLight;
+    [System.NonSerialized] public GameObject mineHelmetLight;
     [System.NonSerialized] public BlockLightSource playerBlockLightSource;
     Vector2 frontPos = Vector2.zero;
 
@@ -151,8 +152,9 @@ public class Player : CustomCollider
 
         shiledBuff = transform.Find("Shield").gameObject;
 
-        playerLight = transform.Find("PlayerLight").Find("BlockLight").gameObject;
-        playerBlockLightSource = playerLight.GetComponent<BlockLightSource>();
+        torchLight = transform.Find("TorchLight").gameObject;
+        mineHelmetLight = transform.Find("MineHelmet").gameObject;
+        playerBlockLightSource = transform.Find("PlayerLight").Find("BlockLight").GetComponent<BlockLightSource>();
 
         nowHp = GameManager.instance.playData.playerNowHp;
         maxHp = GameManager.instance.playData.playerMaxHp;
@@ -722,35 +724,37 @@ public class Player : CustomCollider
     {
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        Monster.useMonsterRadar = ItemManager.instance.HasItemCheck("Monster_Radar");
-        TreasureBoxScirpt.useTreasureBoxRadar = ItemManager.instance.HasItemCheck("TreasureBox_Radar");
-        TrapScript.useTrapRadar = ItemManager.instance.HasItemCheck("Trap_Radar");
+        Monster.useMonsterRadar = ItemManager.instance.CanUsePassiveItem("Monster_Radar");
+        TreasureBoxScirpt.useTreasureBoxRadar = ItemManager.instance.CanUsePassiveItem("TreasureBox_Radar");
+        TrapScript.useTrapRadar = ItemManager.instance.CanUsePassiveItem("Trap_Radar");
 
-        hasFeatherShoes = ItemManager.instance.HasItemCheck("Feather_Shoes");
+        hasFeatherShoes = ItemManager.instance.CanUsePassiveItem("Feather_Shoes");
 
-        bool lightFlag = (ItemManager.instance.HasItemCheck("Torch") || ItemManager.instance.HasItemCheck("Mine_Helmet"));
-        if (playerLight.activeSelf != lightFlag)
-            playerLight.SetActive(lightFlag);
+        bool lightFlag = (ItemManager.instance.CanUsePassiveItem("Torch") || ItemManager.instance.CanUsePassiveItem("Mine_Helmet"));
+        if (torchLight.activeSelf != lightFlag)
+            torchLight.SetActive(lightFlag);
+        if (mineHelmetLight.activeSelf != ItemManager.instance.CanUsePassiveItem("Mine_Helmet"))
+            mineHelmetLight.SetActive(ItemManager.instance.CanUsePassiveItem("Mine_Helmet"));
 
         float maxAttackSpeed = 100;
         float maxAttackPower = 100;
 
-        bool reinforce = ItemManager.instance.HasItemCheck("Smart_Light_Pick") || ItemManager.instance.HasItemCheck("Smart_Heavy_Pick") || ItemManager.instance.HasItemCheck("Smart_Advanced_Pick");
+        bool reinforce = ItemManager.instance.CanUsePassiveItem("Smart_Light_Pick") || ItemManager.instance.HasItemCheck("Smart_Heavy_Pick") || ItemManager.instance.CanUsePassiveItem("Smart_Advanced_Pick");
 
-        if (ItemManager.instance.HasItemCheck("Light_Pick"))
+        if (ItemManager.instance.CanUsePassiveItem("Light_Pick"))
             maxAttackSpeed = Mathf.Max(maxAttackSpeed,ItemManager.instance.itemData[ItemManager.FindData("Light_Pick")].value0);
-        if (ItemManager.instance.HasItemCheck("Heavy_Pick"))
+        if (ItemManager.instance.CanUsePassiveItem("Heavy_Pick"))
             maxAttackPower = Mathf.Max(maxAttackPower, ItemManager.instance.itemData[ItemManager.FindData("Heavy_Pick")].value0);
-        if (ItemManager.instance.HasItemCheck("Advanced_Pick"))
+        if (ItemManager.instance.CanUsePassiveItem("Advanced_Pick"))
         {
             maxAttackSpeed = Mathf.Max(maxAttackSpeed, ItemManager.instance.itemData[ItemManager.FindData("Advanced_Pick")].value0);
             maxAttackPower = Mathf.Max(maxAttackPower, ItemManager.instance.itemData[ItemManager.FindData("Advanced_Pick")].value1);
         }
-        if (ItemManager.instance.HasItemCheck("Smart_Light_Pick"))
+        if (ItemManager.instance.CanUsePassiveItem("Smart_Light_Pick"))
             maxAttackSpeed = Mathf.Max(maxAttackSpeed, ItemManager.instance.itemData[ItemManager.FindData("Smart_Light_Pick")].value0);
-        if (ItemManager.instance.HasItemCheck("Smart_Heavy_Pick"))
+        if (ItemManager.instance.CanUsePassiveItem("Smart_Heavy_Pick"))
             maxAttackPower = Mathf.Max(maxAttackPower, ItemManager.instance.itemData[ItemManager.FindData("Smart_Heavy_Pick")].value0);
-        if (ItemManager.instance.HasItemCheck("Smart_Advanced_Pick"))
+        if (ItemManager.instance.CanUsePassiveItem("Smart_Advanced_Pick"))
         {
             maxAttackSpeed = Mathf.Max(maxAttackSpeed, ItemManager.instance.itemData[ItemManager.FindData("Smart_Advanced_Pick")].value0);
             maxAttackPower = Mathf.Max(maxAttackPower, ItemManager.instance.itemData[ItemManager.FindData("Smart_Advanced_Pick")].value1);
@@ -772,41 +776,41 @@ public class Player : CustomCollider
             if (FountainScript.instance && FountainScript.instance.onArea)
                 return;
 
-            if (ItemManager.instance.HasItemCheck("Coke"))
+            if (ItemManager.instance.CanUseActiveItem("Coke"))
             {
-                ItemManager.instance.UseItem("Coke");
+                ItemManager.instance.CostItem("Coke");
                 SoundManager.instance.PlayerGlup();
                 nowHp += ItemManager.instance.itemData[ItemManager.FindData("Coke")].value0;
                 nowHp = nowHp > maxHp ? maxHp : nowHp;
                 EffectManager.instance.HearthEffect();
             }
-            else if (ItemManager.instance.HasItemCheck("Beer"))
+            else if (ItemManager.instance.CanUseActiveItem("Beer"))
             {
-                ItemManager.instance.UseItem("Beer");
+                ItemManager.instance.CostItem("Beer");
                 SoundManager.instance.PlayerGlup();
                 maxHp += ItemManager.instance.itemData[ItemManager.FindData("Beer")].value0;
                 maxHp = maxHp >= 10 ? 10 : maxHp;
             }
-            else if (ItemManager.instance.HasItemCheck("Dynamite"))
+            else if (ItemManager.instance.CanUseActiveItem("Dynamite"))
             {
-                ItemManager.instance.UseItem("Dynamite");
+                ItemManager.instance.CostItem("Dynamite");
                 ObjectManager.instance.Dynamite(transform.position + new Vector3(0, 1, 0));
             }
-            else if (ItemManager.instance.HasItemCheck("BoomItem"))
+            else if (ItemManager.instance.CanUseActiveItem("BoomItem"))
             {
-                ItemManager.instance.UseItem("BoomItem");
+                ItemManager.instance.CostItem("BoomItem");
                 Vector2 dic = MouseManager.instance.mousePos - (Vector2)transform.position;
                 dic = dic.normalized;
                 ObjectManager.instance.Boom(transform.position + new Vector3(0,1,0),dic*3000);
             }
-            else if (ItemManager.instance.HasItemCheck("ShopVIpSpecial"))
+            else if (ItemManager.instance.CanUseActiveItem("ShopVIpSpecial"))
             {
-                ItemManager.instance.UseItem("ShopVIpSpecial");
+                ItemManager.instance.CostItem("ShopVIpSpecial");
                 GameManager.instance.playData.shopVIP = true;
             }
-            else if (ItemManager.instance.HasItemCheck("Bell") && GameManager.instance.activeItemCool >= ItemManager.instance.itemData[ItemManager.FindData("Bell")].value0)
+            else if (ItemManager.instance.CanUseActiveItem("Bell"))
             {
-                GameManager.instance.activeItemCool = 0;
+                ItemManager.instance.UseItem("Bell");
                 Chicken.instance.patternTime = 3;
                 SoundManager.instance.PlayerBell();
                 if (Mathf.Abs(transform.position.x - Chicken.instance.transform.position.x) < 1)
@@ -831,10 +835,10 @@ public class Player : CustomCollider
                         Chicken.instance.pattenType = Chicken.Pattern.왼쪽으로;
                 }
             }
-            else if (ItemManager.instance.HasItemCheck("Russian_Roulette") && !damage)
+            else if (ItemManager.instance.CanUseActiveItem("Russian_Roulette") && !damage)
             {
                 SoundManager.instance.PlayerGlup();
-                ItemManager.instance.UseItem("Russian_Roulette");
+                ItemManager.instance.CostItem("Russian_Roulette");
                 if (Random.Range(0, 100) > 50)
                 {
                     nowHp += ItemManager.instance.itemData[ItemManager.FindData("Russian_Roulette")].value1;
@@ -847,23 +851,23 @@ public class Player : CustomCollider
                     PlayerDamage(ItemManager.instance.itemData[ItemManager.FindData("Russian_Roulette")].value0, Random.Range(0, 100) > 50 ? +1 : -1);
                 }
             }
-            else if (ItemManager.instance.HasItemCheck("OldPocket"))
+            else if (ItemManager.instance.CanUseActiveItem("OldPocket"))
             {
-                ItemManager.instance.UseItem("OldPocket");
+                ItemManager.instance.CostItem("OldPocket");
                 int minValue = Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("OldPocket")].value0);
                 int maxValue = Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("OldPocket")].value1);
                 GameManager.instance.playerMoney += Random.Range(minValue, maxValue + 1);
             }
-            else if (ItemManager.instance.HasItemCheck("RainbowPocket"))
+            else if (ItemManager.instance.CanUseActiveItem("RainbowPocket"))
             {
-                ItemManager.instance.UseItem("RainbowPocket");
+                ItemManager.instance.CostItem("RainbowPocket");
                 int data = ItemManager.instance.GetRandomItemAtShop();
                 if (data != -1)
                     ItemManager.instance.SpawnItem(transform.position, ItemManager.itemName[data]);
             }
-            else if (ItemManager.instance.HasItemCheck("RandomDice"))
+            else if (ItemManager.instance.CanUseActiveItem("RandomDice"))
             {
-                ItemManager.instance.UseItem("RandomDice");
+                ItemManager.instance.CostItem("RandomDice");
                 int minValue = Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("RandomDice")].value0);
                 int maxValue = Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("RandomDice")].value1);
                 GameManager.instance.playData.randomDice = Random.Range(minValue, maxValue + 1);
@@ -906,7 +910,7 @@ public class Player : CustomCollider
         else
         {
             if (ItemManager.instance.HasItemCheck("Medkit") && nowHp - n <= 0)
-                ItemManager.instance.UseItem("Medkit");
+                ItemManager.instance.CostItem("Medkit");
             else
             {
                 if (!notDamage)
@@ -984,25 +988,25 @@ public class Player : CustomCollider
                     switch (BuffManager.instance.nowBuffList[BuffManager.buffName[i]].hasNum * BuffManager.instance.buffData[i].value)
                     {
                         case 0:
-                            GameManager.instance.passiveSlotAct[2] = false;
-                            GameManager.instance.passiveSlotAct[3] = false;
-                            GameManager.instance.passiveSlotAct[4] = false;
+                            GameManager.instance.slotAct[3] = false;
+                            GameManager.instance.slotAct[4] = false;
+                            GameManager.instance.slotAct[5] = false;
                             break;
                         case 1:
-                            GameManager.instance.passiveSlotAct[2] = true;
-                            GameManager.instance.passiveSlotAct[3] = false;
-                            GameManager.instance.passiveSlotAct[4] = false;
+                            GameManager.instance.slotAct[3] = true;
+                            GameManager.instance.slotAct[4] = false;
+                            GameManager.instance.slotAct[5] = false;
                             break;
                         case 2:
-                            GameManager.instance.passiveSlotAct[2] = true;
-                            GameManager.instance.passiveSlotAct[3] = true;
-                            GameManager.instance.passiveSlotAct[4] = false;
+                            GameManager.instance.slotAct[3] = true;
+                            GameManager.instance.slotAct[4] = true;
+                            GameManager.instance.slotAct[5] = false;
                             break;
                         default:
                         case 3:
-                            GameManager.instance.passiveSlotAct[2] = true;
-                            GameManager.instance.passiveSlotAct[3] = true;
-                            GameManager.instance.passiveSlotAct[4] = true;
+                            GameManager.instance.slotAct[3] = true;
+                            GameManager.instance.slotAct[4] = true;
+                            GameManager.instance.slotAct[5] = true;
                             break;
                     }
                     break;

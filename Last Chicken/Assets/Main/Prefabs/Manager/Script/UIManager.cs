@@ -143,14 +143,10 @@ public class UIManager : MonoBehaviour
     [NonSerialized] public Animator nowItemAnimator;
     [NonSerialized] public Image nowItemImage;
 
-    [NonSerialized] public Image activeItemImg;
-    [NonSerialized] public Text activeItemNumText;
-    [NonSerialized] public Image activeItemCoolImg;
-
-    [NonSerialized] public GameObject[] passiveItemObject = new GameObject[5];
-    [NonSerialized] public Image[] passiveItemImg = new Image[5];
-    [NonSerialized] public Image[] passivePointer = new Image[5];
-    [NonSerialized] public Text[] passiveItemNumText = new Text[5];
+    [NonSerialized] public GameObject[] itemObject = new GameObject[6];
+    [NonSerialized] public Image[] itemImg = new Image[6];
+    [NonSerialized] public Text[] itemNumText = new Text[6];
+    [NonSerialized] public Image[] itemCoolImg = new Image[6];
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -268,64 +264,66 @@ public class UIManager : MonoBehaviour
         nowItemAnimator = nowItem.GetComponent<Animator>();
         nowItemImage = nowItem.GetComponent<Image>();
 
-        activeItemImg = playerItem.transform.Find("ActiveObject").Find("ActiveItem").GetComponent<Image>();
-        activeItemNumText = activeItemImg.transform.Find("Count").GetComponent<Text>();
-        activeItemCoolImg = activeItemImg.transform.Find("Cool").GetComponent<Image>();
+        itemObject[0] = playerItem.transform.Find("MainObject").gameObject;
+        itemImg[0] = itemObject[0].transform.Find("ItemImg").GetComponent<Image>();
+        itemNumText[0] = itemObject[0].transform.Find("Count").GetComponent<Text>();
+        itemCoolImg[0] = itemObject[0].transform.Find("Cool").GetComponent<Image>();
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 1; i < 6; i++)
         {
-            passiveItemObject[i] = playerItem.transform.Find("PassiveObject").GetChild(i).gameObject;
-            passiveItemImg[i] = passiveItemObject[i].transform.Find("PassiveItem").GetComponent<Image>();
-            passivePointer[i] = passiveItemImg[i].transform.Find("center").GetComponent<Image>();
-            passiveItemNumText[i] = passiveItemImg[i].transform.Find("Count").GetComponent<Text>();
+            itemObject[i] = playerItem.transform.Find("SubGroup").GetChild(i - 1).gameObject;
+            itemImg[i] = itemObject[i].transform.Find("ItemImg").GetComponent<Image>();
+            itemNumText[i] = itemObject[i].transform.Find("Count").GetComponent<Text>();
+            itemCoolImg[i] = itemObject[i].transform.Find("Cool").GetComponent<Image>();
         }
 
         #region[마우스가 들어갔을때 이벤트]
 
-        EventTrigger.Entry activeItemPointerEnter = new EventTrigger.Entry();
-        activeItemPointerEnter.eventID = EventTriggerType.PointerEnter;
-        activeItemPointerEnter.callback.AddListener((data) => 
+        EventTrigger.Entry mainitemPointerEnter = new EventTrigger.Entry();
+        mainitemPointerEnter.eventID = EventTriggerType.PointerEnter;
+        mainitemPointerEnter.callback.AddListener((data) =>
         {
-            if (ItemManager.FindData(GameManager.instance.activeItem) != -1)
+            if (GameManager.instance.itemSlot[0] != null && ItemManager.FindData(GameManager.instance.itemSlot[0]) != -1)
             {
                 explainObject.SetActive(true);
-                ExplainPlayerItem(GameManager.instance.activeItem);
+                ExplainPlayerItem(GameManager.instance.itemSlot[0]);
+
             }
         });
-        playerItem.transform.Find("ActiveObject").Find("ActiveItem").GetComponent<EventTrigger>().triggers.Add(activeItemPointerEnter);
+        playerItem.transform.Find("MainObject").GetComponent<EventTrigger>().triggers.Add(mainitemPointerEnter);
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 1; i < 6; i++)
         {
             int n = i;
-            EventTrigger.Entry passiveItemPointerEnter = new EventTrigger.Entry();
-            passiveItemPointerEnter.eventID = EventTriggerType.PointerEnter;
-            passiveItemPointerEnter.callback.AddListener((data) =>
+            EventTrigger.Entry itemPointerEnter = new EventTrigger.Entry();
+            itemPointerEnter.eventID = EventTriggerType.PointerEnter;
+            itemPointerEnter.callback.AddListener((data) =>
             {
-                if (GameManager.instance.passiveItem[n] != null && ItemManager.FindData(GameManager.instance.passiveItem[n]) != -1)
+                if (GameManager.instance.itemSlot[n] != null && ItemManager.FindData(GameManager.instance.itemSlot[n]) != -1)
                 {
                     explainObject.SetActive(true);
-                    ExplainPlayerItem(GameManager.instance.passiveItem[n]);
+                    ExplainPlayerItem(GameManager.instance.itemSlot[n]);
 
                 }
             });
-            playerItem.transform.Find("PassiveObject").GetChild(i).Find("PassiveItem").GetComponent<EventTrigger>().triggers.Add(passiveItemPointerEnter);
+            playerItem.transform.Find("SubGroup").GetChild(i - 1).GetComponent<EventTrigger>().triggers.Add(itemPointerEnter);
         }
 
         #endregion
 
         #region[마우스가 나갔을때 이벤트]
 
-        EventTrigger.Entry activeItemPointerExit = new EventTrigger.Entry();
-        activeItemPointerExit.eventID = EventTriggerType.PointerExit;
-        activeItemPointerExit.callback.AddListener((data) => { explainObject.SetActive(false); });
-        playerItem.transform.Find("ActiveObject").Find("ActiveItem").GetComponent<EventTrigger>().triggers.Add(activeItemPointerExit);
+        EventTrigger.Entry mainItemPointerExit = new EventTrigger.Entry();
+        mainItemPointerExit.eventID = EventTriggerType.PointerExit;
+        mainItemPointerExit.callback.AddListener((data) => { explainObject.SetActive(false); });
+        playerItem.transform.Find("MainObject").GetComponent<EventTrigger>().triggers.Add(mainItemPointerExit);
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 1; i < 6; i++)
         {
-            EventTrigger.Entry passiveItemPointerExit = new EventTrigger.Entry();
-            passiveItemPointerExit.eventID = EventTriggerType.PointerExit;
-            passiveItemPointerExit.callback.AddListener((data) => { explainObject.SetActive(false); });
-            playerItem.transform.Find("PassiveObject").GetChild(i).Find("PassiveItem").GetComponent<EventTrigger>().triggers.Add(passiveItemPointerExit);
+            EventTrigger.Entry itemPointerExit = new EventTrigger.Entry();
+            itemPointerExit.eventID = EventTriggerType.PointerExit;
+            itemPointerExit.callback.AddListener((data) => { explainObject.SetActive(false); });
+            playerItem.transform.Find("SubGroup").GetChild(i - 1).GetComponent<EventTrigger>().triggers.Add(itemPointerExit);
         }
 
         #endregion
@@ -810,6 +808,13 @@ public class UIManager : MonoBehaviour
     #region[플레이어 아이템]
     void PlayerItem()
     {
+        ////////////////////////////////////////////////////////////////////////////////////////
+        //활성화슬롯갯수를 파악
+        int actSlotNum = 0;
+        for (int i = 0; i < 6; i++)
+            if (GameManager.instance.slotAct[i])
+                actSlotNum++; 
+
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -817,19 +822,49 @@ public class UIManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetAxis("Mouse ScrollWheel") > 0)
         {
-            int slotNum = 0;
-            for (int i = 0; i < 5; i++)
-                if (GameManager.instance.passiveSlotAct[i])
-                    slotNum++;
-            GameManager.instance.passivePointer = (GameManager.instance.passivePointer + 1) % slotNum;
+            ////////////////////////////////////////////////////////////////////////////////////////
+            //슬롯 회전
+            if (actSlotNum >= 1)
+            {
+                string tempItem = GameManager.instance.itemSlot[0];
+                int tempItemCount = GameManager.instance.itemNum[0];
+                float tempItemCool = GameManager.instance.itemCool[0];
+
+                for (int j = 0; j < actSlotNum - 1; j++)
+                {
+                    GameManager.instance.itemSlot[j] = GameManager.instance.itemSlot[j + 1];
+                    GameManager.instance.itemNum[j] = GameManager.instance.itemNum[j + 1];
+                    GameManager.instance.itemCool[j] = GameManager.instance.itemCool[j + 1];
+                }
+                GameManager.instance.itemSlot[actSlotNum - 1] = tempItem;
+                GameManager.instance.itemNum[actSlotNum - 1] = tempItemCount;
+                GameManager.instance.itemCool[actSlotNum - 1] = tempItemCool;
+            }
+
+            MoveItem();
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
-            int slotNum = 0;
-            for (int i = 0; i < 5; i++)
-                if (GameManager.instance.passiveSlotAct[i])
-                    slotNum++;
-            GameManager.instance.passivePointer = (GameManager.instance.passivePointer - 1 < 0 ? GameManager.instance.passivePointer - 1 + slotNum : GameManager.instance.passivePointer - 1) % slotNum;
+            ////////////////////////////////////////////////////////////////////////////////////////
+            //슬롯 회전
+            if (actSlotNum >= 1)
+            {
+                string tempItem = GameManager.instance.itemSlot[actSlotNum - 1];
+                int tempItemCount = GameManager.instance.itemNum[actSlotNum - 1];
+                float tempItemCool = GameManager.instance.itemCool[actSlotNum - 1];
+
+                for (int j = actSlotNum - 1; j >= 1; j--)
+                {
+                    GameManager.instance.itemSlot[j] = GameManager.instance.itemSlot[j - 1];
+                    GameManager.instance.itemNum[j] = GameManager.instance.itemNum[j - 1];
+                    GameManager.instance.itemCool[j] = GameManager.instance.itemCool[j - 1];
+                }
+                GameManager.instance.itemSlot[0] = tempItem;
+                GameManager.instance.itemNum[0] = tempItemCount;
+                GameManager.instance.itemCool[0] = tempItemCool;
+            }
+
+            MoveItem();
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -837,52 +872,23 @@ public class UIManager : MonoBehaviour
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //아이템버리기
 
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && Player.instance.canControl)
         {
-            string tempName = GameManager.instance.passiveItem[GameManager.instance.passivePointer];
-            int tempNum = GameManager.instance.passiveItemNum[GameManager.instance.passivePointer];
-
-            ItemManager.instance.SpawnItem(Player.instance.transform.position, tempName, tempNum);
-
-            GameManager.instance.passiveItem[GameManager.instance.passivePointer] = "";
-            GameManager.instance.passiveItemNum[GameManager.instance.passivePointer] = 0;
-
-            int emptySlot = -1;
-            for (int i = 0; i < 5; i++)
+            if (!GameManager.instance.itemSlot[0].Equals(""))
             {
-                if (!GameManager.instance.passiveSlotAct[i])
-                    break;
-                if (!GameManager.instance.passiveItem[i].Equals(""))
-                {
-                    emptySlot = i;
-                    break;
-                }
+                string tempName = GameManager.instance.itemSlot[0];
+                int tempNum = GameManager.instance.itemNum[0];
+
+                ItemManager.instance.SpawnItem(Player.instance.transform.position, tempName, tempNum);
+
+                GameManager.instance.itemSlot[0] = "";
+                GameManager.instance.itemNum[0] = 0;
+
+                ////////////////////////////////////////////////////////////////////////////////////////
+                //0번슬롯에 아이템이 존재할때까지회전
+                MoveItem();
             }
-
-            if (emptySlot != -1)
-                GameManager.instance.passivePointer = emptySlot;
         }
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            string tempName = GameManager.instance.activeItem;
-            int tempNum = GameManager.instance.activeItemNum;
-
-            ItemManager.instance.SpawnItem(Player.instance.transform.position, tempName, tempNum);
-
-            GameManager.instance.activeItem = "";
-            GameManager.instance.activeItemNum = 0;
-        }
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //포인터위치
-
-        for (int i = 0; i < 5; i++)
-            passivePointer[i].enabled = false;
-
-        passivePointer[GameManager.instance.passivePointer].enabled = true;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -891,22 +897,17 @@ public class UIManager : MonoBehaviour
 
         if (ItemManager.instance)
         {
-            try { activeItemImg.sprite = ItemManager.instance.itemData[ItemManager.FindData(GameManager.instance.activeItem)].itemImg; activeItemImg.enabled = true; }
-            catch { activeItemImg.enabled = false; }
-
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 6; i++)
             {
-                try { passiveItemImg[i].sprite = ItemManager.instance.itemData[ItemManager.FindData(GameManager.instance.passiveItem[i])].itemImg; passiveItemImg[i].enabled = true; }
-                catch { passiveItemImg[i].enabled = false; }
+                try { itemImg[i].sprite = ItemManager.instance.itemData[ItemManager.FindData(GameManager.instance.itemSlot[i])].itemImg; itemImg[i].enabled = true; }
+                catch { itemImg[i].enabled = false; }
             }
         }
 
-        activeItemNumText.text = (GameManager.instance.activeItemNum > 0) ? GameManager.instance.activeItemNum.ToString() : "";
-
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 6; i++)
         {
-            passiveItemNumText[i].text = (GameManager.instance.passiveItemNum[i] > 0) ? GameManager.instance.passiveItemNum[i].ToString() : "";
-            passiveItemObject[i].SetActive(GameManager.instance.passiveSlotAct[i]);
+            itemNumText[i].text = (GameManager.instance.itemNum[i] > 0) ? GameManager.instance.itemNum[i].ToString() : "";
+            itemObject[i].SetActive(GameManager.instance.slotAct[i]);
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -926,23 +927,66 @@ public class UIManager : MonoBehaviour
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///아이템쿨타임
 
-        if (ItemManager.CheckCoolTimeItem(GameManager.instance.activeItem))
+        for (int i = 0; i < 6; i++)
         {
-            activeItemCoolImg.enabled = true;
-            float cool = 0;
-            switch (GameManager.instance.activeItem)
+            if (ItemManager.CheckCoolTimeItem(GameManager.instance.itemSlot[i]))
             {
-                case "Bell":
-                    cool = ItemManager.instance.itemData[ItemManager.FindData("Bell")].value0;
-                    break;
+                itemCoolImg[i].enabled = true;
+                float cool = 0;
+                switch (GameManager.instance.itemSlot[i])
+                {
+                    case "Bell":
+                        cool = ItemManager.instance.itemData[ItemManager.FindData("Bell")].value0;
+                        break;
+                }
+                cool = (GameManager.instance.itemCool[i] > cool ? cool : GameManager.instance.itemCool[i]) / cool;
+
+                itemCoolImg[i].fillAmount = 1 - cool;
             }
-            cool = (GameManager.instance.activeItemCool > cool ? cool : GameManager.instance.activeItemCool) / cool;
-
-            activeItemCoolImg.fillAmount = 1 - cool;
+            else
+                itemCoolImg[i].enabled = false;
         }
-        else
-            activeItemCoolImg.enabled = false;
+    }
 
+    public void MoveItem()
+    {
+        //활성화슬롯갯수를 파악
+        int actSlotNum = 0;
+        for (int i = 0; i < 6; i++)
+            if (GameManager.instance.slotAct[i])
+                actSlotNum++;
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///아이템앞으로
+
+        List<string> hasItemList = new List<string>();
+        List<int> hasItemNumList = new List<int>();
+        List<float> hasItemCoolList = new List<float>();
+
+        for (int i = 0; i < actSlotNum; i++)
+            if (!GameManager.instance.itemSlot[i].Equals(""))
+            {
+                hasItemList.Add(GameManager.instance.itemSlot[i]);
+                hasItemNumList.Add(GameManager.instance.itemNum[i]);
+                hasItemCoolList.Add(GameManager.instance.itemCool[i]);
+            }
+
+
+        for (int i = 0; i < actSlotNum; i++)
+        {
+            GameManager.instance.itemSlot[i] = "";
+            GameManager.instance.itemNum[i] = 0;
+            GameManager.instance.itemCool[i] = 0;
+        }
+
+        for (int i = 0; i < hasItemList.Count; i++)
+        {
+            GameManager.instance.itemSlot[i] = hasItemList[i];
+            GameManager.instance.itemNum[i] = hasItemNumList[i];
+            GameManager.instance.itemCool[i] = hasItemCoolList[i];
+        }
     }
     #endregion
 

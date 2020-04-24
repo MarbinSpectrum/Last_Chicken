@@ -23,16 +23,9 @@ public class PlayData
 
     ///////////////////////////////////////////////////////////////////
 
-    public string playerActiveItem;   //플레이어 액티브
-    public int playerActiveItemNum;
-
-    ///////////////////////////////////////////////////////////////////
-
-    public string[] playerPassiveItem = new string[5];    //플레이어 서브 아이템
-    public int[] playerPassiveItemNum = new int[5];
-    public bool[] playerPassiveSlotAct = new bool[5];
-
-    public int playerPassivePointer;
+    public string[] itemSlot = new string[6];    
+    public int[] itemNum = new int[6];
+    public bool[] slotAct = new bool[6];
 
     ///////////////////////////////////////////////////////////////////
 
@@ -72,24 +65,20 @@ public class PlayData
 
         ///////////////////////////////////////////////////////////////////
 
-        playerActiveItem = ItemManager.itemName[0];
-        playerActiveItemNum = 0;
-
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < 6; i++)
         {
-            playerPassiveSlotAct[i] = false;
-            playerPassiveItem[i] = "";
-            playerPassiveItemNum[i] = 0;
+            slotAct[i] = false;
+            itemSlot[i] = "";
+            itemNum[i] = 0;
         }
 
         ///////////////////////////////////////////////////////////////////
 
-        playerPassiveSlotAct[0] = true;
-        playerPassiveSlotAct[1] = true;
-        playerPassiveItem[0] = ItemManager.itemName[4];
-        playerPassiveItem[1] = ItemManager.itemName[5];
-
-        playerPassivePointer = 0;
+        slotAct[0] = true;
+        slotAct[1] = true;
+        slotAct[2] = true;
+        itemSlot[0] = ItemManager.itemName[0];
+        itemSlot[1] = ItemManager.itemName[5];
 
         ///////////////////////////////////////////////////////////////////
 

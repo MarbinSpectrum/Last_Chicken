@@ -10,13 +10,14 @@ public class ItemScript : CustomCollider
 
     //[HideInInspector]
     public int num;
+    public float cool;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     #region[Awake]
     public virtual void Awake()
     {
@@ -57,6 +58,8 @@ public class ItemScript : CustomCollider
 
         if (ItemManager.FindData(transform.name) != -1)
             spriteRenderer.sprite = ItemManager.instance.itemData[ItemManager.FindData(transform.name)].itemImg;
+
+        cool += Time.deltaTime;
     }
     #endregion
 
@@ -72,62 +75,92 @@ public class ItemScript : CustomCollider
             {
                 if (ItemManager.FindData(transform.name) != -1)
                 {
-                    string temp = transform.name;
-                    int numTemp = num;
-
-                    if (ItemManager.instance.AddItemCheck(temp))
+                    string getItem = transform.name;
+                    if (ItemManager.instance.AddItemCheck(transform.name))
                     {
-                        ItemManager.instance.AddItem(temp, num);
+                        ItemManager.instance.AddItem(transform.name, num);
                         transform.name = "";
                         num = 0;
                     }
-                    else if (ItemManager.CheckActiveItem(temp))
-                    {
-                        if (GameManager.instance.activeItem.Equals(""))
-                        {
-                            transform.name = "";
-                            num = 0;
-
-                            GameManager.instance.activeItem = temp;
-                            GameManager.instance.activeItemNum = numTemp;
-                        }
-                        else
-                        {
-                            transform.name = GameManager.instance.activeItem;
-                            num = GameManager.instance.activeItemNum;
-
-                            GameManager.instance.activeItem = temp;
-                            GameManager.instance.activeItemNum = numTemp;
-                        }
-                    }
                     else
                     {
-                        transform.name = GameManager.instance.passiveItem[GameManager.instance.passivePointer];
-                        num = GameManager.instance.passiveItemNum[GameManager.instance.passivePointer];
-
-                        GameManager.instance.passiveItem[GameManager.instance.passivePointer] = temp;
-                        GameManager.instance.passiveItemNum[GameManager.instance.passivePointer] = numTemp;
-
                         int emptySlot = -1;
-                        for (int i = 0; i < 5; i++)
+                        for (int i = 0; i < 6; i++)
                         {
-                            if (!GameManager.instance.passiveSlotAct[i])
+                            if (!GameManager.instance.slotAct[i])
                                 break;
-                            if (GameManager.instance.passiveItem[i].Equals(""))
+                            if (GameManager.instance.itemSlot[i].Equals(""))
                             {
                                 emptySlot = i;
                                 break;
                             }
                         }
 
-                        if (emptySlot != -1)
-                            GameManager.instance.passivePointer = emptySlot;
+                        //빈슬롯없음
+                        if (emptySlot == -1)
+                        {
+                            ////////////////////////////////////////////////////////////////////////////////////////
+                            //0번 슬롯에 아이템을 넣어줌
+                            string tempItem = GameManager.instance.itemSlot[0];
+                            int tempItemCount = GameManager.instance.itemNum[0];
+                            float tempItemCool = GameManager.instance.itemCool[0];
+
+                            GameManager.instance.itemSlot[0] = transform.name;
+                            GameManager.instance.itemNum[0] = num;
+                            GameManager.instance.itemCool[0] = cool;
+
+                            transform.name = tempItem;
+                            num = tempItemCount;
+                            cool = tempItemCool;
+                        }
+                        //빈슬롯존재
+                        else
+                        {
+                            ////////////////////////////////////////////////////////////////////////////////////////
+                            //활성화슬롯갯수를 파악
+                            int actSlotNum = 0;
+                            for (int i = 0; i < 6; i++)
+                                if (GameManager.instance.slotAct[i])
+                                    actSlotNum++;
+                            ////////////////////////////////////////////////////////////////////////////////////////
+                            //빈슬롯이 0번이 될때까지 회전
+                            if (actSlotNum >= 1)
+                            {
+                                for (int i = 0; i < 6; i++)
+                                {
+                                    if (GameManager.instance.itemSlot[0].Equals(""))
+                                        break;
+                                    string tempItem = GameManager.instance.itemSlot[0];
+                                    int tempItemCount = GameManager.instance.itemNum[0];
+                                    float tempItemCool = GameManager.instance.itemCool[0];
+
+                                    for (int j = 0; j < actSlotNum - 1; j++)
+                                    {
+                                        GameManager.instance.itemSlot[j] = GameManager.instance.itemSlot[j + 1];
+                                        GameManager.instance.itemNum[j] = GameManager.instance.itemNum[j + 1];
+                                        GameManager.instance.itemCool[j] = GameManager.instance.itemCool[j + 1];
+                                    }
+                                    GameManager.instance.itemSlot[actSlotNum - 1] = tempItem;
+                                    GameManager.instance.itemNum[actSlotNum - 1] = tempItemCount;
+                                    GameManager.instance.itemCool[actSlotNum - 1] = tempItemCool;
+                                }
+                            }
+                            ////////////////////////////////////////////////////////////////////////////////////////
+                            //0번슬롯에 아이템을 채워줌
+                            GameManager.instance.itemSlot[0] = transform.name;
+                            GameManager.instance.itemNum[0] = num;
+                            GameManager.instance.itemCool[0] = cool;
+
+                            transform.name = "";
+                            num = 0;
+                        }
                     }
 
                     UIManager.instance.nowItemImage.sprite = spriteRenderer.sprite;
                     GameManager.getItemDelay = 0.1f;
-                    EffectManager.instance.GetItem(transform.position, false, temp);
+                    EffectManager.instance.GetItem(transform.position, false, getItem);
                     SoundManager.instance.ItemGet();
+                    UIManager.instance.MoveItem();
                 }
             }
         }

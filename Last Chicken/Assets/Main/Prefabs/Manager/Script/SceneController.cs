@@ -173,18 +173,16 @@ public class SceneController : MonoBehaviour
                 case "Tutorial":
                     Player.instance.canAttack = true;
                     Player.instance.notDamage = true;
-                    GameManager.instance.activeItem = "";
 
-                    for(int i = 0; i < 5; i++)
+                    for(int i = 0; i < 6; i++)
                     {
-                        GameManager.instance.passiveItem[i] = "";
-                        GameManager.instance.passiveSlotAct[i] = false;
+                        GameManager.instance.itemSlot[i] = "";
+                        GameManager.instance.itemNum[i] = 0;
+                        GameManager.instance.itemCool[i] = 1000;
                     }
-
-                    GameManager.instance.passiveItem[0] = "Torch";
-                    GameManager.instance.passiveSlotAct[0] = true;
-                    GameManager.instance.passiveItem[1] = "";
-                    GameManager.instance.passiveSlotAct[1] = true;
+                    GameManager.instance.slotAct[0] = true;
+                    GameManager.instance.slotAct[1] = true;
+                    GameManager.instance.slotAct[2] = true;
 
                     Player.instance.getChicken = false;
                     Player.instance.transform.position = new Vector3(22, 115, Player.instance.transform.position.z);

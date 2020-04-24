@@ -142,84 +142,76 @@ public class ShopScript : AreaScript
             ItemManager.instance.AddItem(itemName, itemCount);
         else
         {
-            if (ItemManager.instance.AddItemCheck(itemName))
-                ItemManager.instance.AddItem(itemName, itemCount);
-            else if (ItemManager.CheckActiveItem(itemName))
+            int emptySlot = -1;
+            for (int i = 0; i < 6; i++)
             {
-                if (GameManager.instance.activeItem.Equals(""))
+                if (!GameManager.instance.slotAct[i])
+                    break;
+                if (GameManager.instance.itemSlot[i].Equals(""))
                 {
-                    GameManager.instance.activeItem = itemName;
-                    transform.name = "";
-                }
-                else
-                {
-                    string tempName = GameManager.instance.activeItem;
-                    int tmpNum = GameManager.instance.activeItemNum;
-
-                    GameManager.instance.activeItem = itemName;
-                    GameManager.instance.activeItemNum = itemCount;
-
-                    ItemManager.instance.SpawnItem(Player.instance.transform.position, tempName, tmpNum);
+                    emptySlot = i;
+                    break;
                 }
             }
+
+            //빈슬롯없음
+            if(emptySlot == -1)
+            {
+                ////////////////////////////////////////////////////////////////////////////////////////
+                //0번 슬롯에 아이템을 넣어줌
+                string tempItem = GameManager.instance.itemSlot[0];
+                int tempItemCount = GameManager.instance.itemNum[0];
+                float tempItemCool = GameManager.instance.itemCool[0];
+
+                ItemManager.instance.SpawnItem(Player.instance.transform.position, tempItem, tempItemCool, tempItemCount);
+
+                GameManager.instance.itemSlot[0] = itemName;
+                GameManager.instance.itemNum[0] = itemCount;
+                GameManager.instance.itemCool[0] = 10000;
+
+            }
+            //빈슬롯존재
             else
             {
-                //int emptySlot = -1;
-                //for (int i = 0; i < 5; i++)
-                //{
-                //    if (!GameManager.instance.passiveSlotAct[i])
-                //        break;
-                //    if (GameManager.instance.passiveItem[i].Equals(""))
-                //    {
-                //        emptySlot = i;
-                //        break;
-                //    }
-                //}
-
-                //if (emptySlot != -1)
-                //{
-                //    GameManager.instance.passiveItem[emptySlot] = itemName;
-                //    GameManager.instance.passiveItemNum[emptySlot] = itemCount;
-                //}
-                //else
-                //{
-                //    string tempName = GameManager.instance.passiveItem[GameManager.instance.passivePointer];
-                //    int tempNum = GameManager.instance.passiveItemNum[GameManager.instance.passivePointer];
-
-                //    GameManager.instance.passiveItem[GameManager.instance.passivePointer] = itemName;
-                //    GameManager.instance.passiveItemNum[GameManager.instance.passivePointer] = itemCount;
-
-                //    ItemManager.instance.SpawnItem(Player.instance.transform.position, itemName, itemCount);
-                //}
-
-                string tempName = GameManager.instance.passiveItem[GameManager.instance.passivePointer];
-                int tempNum = GameManager.instance.passiveItemNum[GameManager.instance.passivePointer];
-
-                GameManager.instance.passiveItem[GameManager.instance.passivePointer] = itemName;
-                GameManager.instance.passiveItemNum[GameManager.instance.passivePointer] = itemCount;
-
-                ItemManager.instance.SpawnItem(Player.instance.transform.position, tempName, tempNum);
-
-                int emptySlot = -1;
-                for (int i = 0; i < 5; i++)
+                ////////////////////////////////////////////////////////////////////////////////////////
+                //활성화슬롯갯수를 파악
+                int actSlotNum = 0;
+                for (int i = 0; i < 6; i++)
+                    if (GameManager.instance.slotAct[i])
+                        actSlotNum++;
+                ////////////////////////////////////////////////////////////////////////////////////////
+                //빈슬롯이 0번이 될때까지 회전
+                if (actSlotNum >= 1)
                 {
-                    if (!GameManager.instance.passiveSlotAct[i])
-                        break;
-                    if (GameManager.instance.passiveItem[i].Equals(""))
+                    for (int i = 0; i < 6; i++)
                     {
-                        emptySlot = i;
-                        break;
+                        if (GameManager.instance.itemSlot[0].Equals(""))
+                            break;
+                        string tempItem = GameManager.instance.itemSlot[0];
+                        int tempItemCount = GameManager.instance.itemNum[0];
+                        float tempItemCool = GameManager.instance.itemCool[0];
+
+                        for (int j = 0; j < actSlotNum - 1; j++)
+                        {
+                            GameManager.instance.itemSlot[j] = GameManager.instance.itemSlot[j + 1];
+                            GameManager.instance.itemNum[j] = GameManager.instance.itemNum[j + 1];
+                            GameManager.instance.itemCool[j] = GameManager.instance.itemCool[j + 1];
+                        }
+                        GameManager.instance.itemSlot[actSlotNum - 1] = tempItem;
+                        GameManager.instance.itemNum[actSlotNum - 1] = tempItemCount;
+                        GameManager.instance.itemCool[actSlotNum - 1] = tempItemCool;
                     }
                 }
-
-                if (emptySlot != -1)
-                    GameManager.instance.passivePointer = emptySlot;
+                ////////////////////////////////////////////////////////////////////////////////////////
+                //0번슬롯에 아이템을 채워줌
+                GameManager.instance.itemSlot[0] = itemName;
+                GameManager.instance.itemNum[0] = itemCount;
+                GameManager.instance.itemCool[0] = 10000;
             }
-
-            EffectManager.instance.GetItem(transform.position, false, itemName);
-            SoundManager.instance.ItemGet();
-
+            UIManager.instance.MoveItem();
         }
+
+        SoundManager.instance.ItemGet();
         EffectManager.instance.GetItem(Player.instance.transform.position, false, itemName);
     }
     #endregion

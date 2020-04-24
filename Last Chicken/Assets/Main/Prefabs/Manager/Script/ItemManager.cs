@@ -182,6 +182,11 @@ public class ItemManager : ObjectPool
     #region[아이템 생성]
     public void SpawnItem(Vector2 vector2, string name,int num = -1)
     {
+        SpawnItem(vector2, name, 10000, num);
+    }
+
+    public void SpawnItem(Vector2 vector2, string name, float cool, int num = -1)
+    {
         if (FindData(name) == -1)
             name = "";
 
@@ -194,7 +199,7 @@ public class ItemManager : ObjectPool
             AddObject(emp);
         }
 
-        if(num == -1)
+        if (num == -1)
         {
             if (name.Equals("BoomItem"))
                 emp.GetComponent<ItemScript>().num = (int)itemData[FindData("BoomItem")].value1;
@@ -205,6 +210,8 @@ public class ItemManager : ObjectPool
         {
             emp.GetComponent<ItemScript>().num = num;
         }
+
+        emp.GetComponent<ItemScript>().cool = cool;
 
         emp.SetActive(true);
         emp.transform.parent = transform;
@@ -392,45 +399,76 @@ public class ItemManager : ObjectPool
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    #region[액티브 아이템 사용가능 검사]
+    public bool CanUseActiveItem(string name)
+    {
+        if (GameManager.instance.itemSlot[0].Equals(name))
+        {
+            switch(name)
+            {
+                case "Bell":
+                    return GameManager.instance.itemCool[0] >= itemData[FindData("Bell")].value0;
+            }
+            return true;
+        }
+        return false;
+    }
+    #endregion
+
+    #region[패시브 아이템 사용가능 검사]
+    public bool CanUsePassiveItem(string name)
+    {
+        return HasItemCheck(name);
+    }
+    #endregion
+
     #region[아이템 보유여부검사]
     public bool HasItemCheck(string name)
     {
-        if (GameManager.instance.activeItem.Equals(name))
-            return true;
-        for(int i = 0; i < 5; i++)
-            if (GameManager.instance.passiveItem[i].Equals(name))
+        for(int i = 0; i < 6; i++)
+            if (GameManager.instance.itemSlot[i].Equals(name))
                 return true;
         return false;
     }
     #endregion
 
-    #region[아이템을 사용]
-    public void UseItem(string name,int n = 1)
+    #region[아이템을 소비]
+    public void CostItem(string name,int n = 1)
     {
         if (!HasItemCheck(name))
             return;
 
-        if (GameManager.instance.activeItem.Equals(name))
-        {
-            GameManager.instance.activeItemNum -= n;
-            if (GameManager.instance.activeItemNum <= 0)
+        for (int i = 0; i < 6; i++)
+            if (GameManager.instance.itemSlot[i].Equals(name))
             {
-                GameManager.instance.activeItem = "";
-                GameManager.instance.activeItemNum = 0;
-            }
-            return;
-        }
-
-        for (int i = 0; i < 5; i++)
-            if (GameManager.instance.passiveItem[i].Equals(name))
-            {
-                GameManager.instance.passiveItemNum[i] -= n;
-                if (GameManager.instance.passiveItemNum[i] <= 0)
+                GameManager.instance.itemNum[i] -= n;
+                if (GameManager.instance.itemNum[i] <= 0)
                 {
-                    GameManager.instance.passiveItem[i] = "";
-                    GameManager.instance.passiveItemNum[i] = 0;
+                    GameManager.instance.itemSlot[i] = "";
+                    GameManager.instance.itemNum[i] = 0;
+                    UIManager.instance.MoveItem();
                 }
                 return;
+            }
+    }
+    #endregion
+
+    #region[아이템을 사용]
+    public void UseItem(string name)
+    {
+        if (!HasItemCheck(name))
+            return;
+
+        for (int i = 0; i < 6; i++)
+            if (GameManager.instance.itemSlot[i].Equals(name))
+            {
+                switch (name)
+                {
+                    case "Bell":
+                        GameManager.instance.itemCool[0] = 0;
+                        break;
+                }
+                break;
             }
     }
     #endregion
@@ -447,16 +485,10 @@ public class ItemManager : ObjectPool
 
     public void AddItem(string name,int n)
     {
-        if (GameManager.instance.activeItem.Equals(name))
-        {
-            GameManager.instance.activeItemNum += n;
-            return;
-        }
-
-        for (int i = 0; i < 5; i++)
-            if (GameManager.instance.passiveItem[i].Equals(name))
+        for (int i = 0; i < 6; i++)
+            if (GameManager.instance.itemSlot[i].Equals(name))
             {
-                GameManager.instance.passiveItemNum[i] += n;
+                GameManager.instance.itemNum[i] += n;
                 return;
             }
     }

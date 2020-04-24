@@ -513,7 +513,7 @@ public class EffectManager : ObjectPool
         emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1);
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
         emp.GetComponent<SpriteRenderer>().sprite = sprite;
-        emp.GetComponent<Follow>().followUI = UIManager.instance.activeItemImg.transform.Find("center").gameObject;
+        emp.GetComponent<Follow>().followUI = UIManager.instance.itemObject[0].transform.Find("center").gameObject;
         if(size != Vector2.zero)
             emp.transform.GetChild(0).GetChild(0).GetComponent<RectTransform>().sizeDelta = size;
 
