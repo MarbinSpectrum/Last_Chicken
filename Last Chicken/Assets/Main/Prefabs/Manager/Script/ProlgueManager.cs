@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ProlgueManager : MonoBehaviour
 {
 
-    Text prolgueText;
+    TextMeshProUGUI prolgueText;
     Image prolgueImg;
     Animator prolgueAnimator;
 
@@ -39,7 +40,7 @@ public class ProlgueManager : MonoBehaviour
 
         prolgueImg = canvas.Find("PrologueImg").GetComponent<Image>();
         prolgueAnimator = canvas.Find("PrologueImg").GetComponent<Animator>();
-        prolgueText = canvas.Find("PrologueText").GetComponent<Text>();
+        prolgueText = canvas.Find("PrologueText").GetComponent<TextMeshProUGUI>();
     }
     #endregion
 

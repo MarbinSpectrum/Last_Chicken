@@ -72,7 +72,7 @@ public class Player : CustomCollider
     [System.NonSerialized] public bool invincibilityFlag = false;
 
     int stunTime = -1;          //스턴시간
-    int noDamageTime = 60;     //무적시간
+    int noDamageTime = 120;     //무적시간
 
     enum moveDic { 경사아래로 = -1, 앞으로 = 0, 경사위로 = 1 };
     int flipX = 0;
@@ -758,6 +758,12 @@ public class Player : CustomCollider
         {
             maxAttackSpeed = Mathf.Max(maxAttackSpeed, ItemManager.instance.itemData[ItemManager.FindData("Smart_Advanced_Pick")].value0);
             maxAttackPower = Mathf.Max(maxAttackPower, ItemManager.instance.itemData[ItemManager.FindData("Smart_Advanced_Pick")].value1);
+        }
+
+        if (ItemManager.instance.CanUsePassiveItem("Hammer"))
+        {
+            maxAttackSpeed -=ItemManager.instance.itemData[ItemManager.FindData("Hammer")].value1;
+            maxAttackPower += ItemManager.instance.itemData[ItemManager.FindData("Hammer")].value0;
         }
 
         attackSpeed *= maxAttackSpeed / 100f;

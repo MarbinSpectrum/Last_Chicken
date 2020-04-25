@@ -36,7 +36,8 @@ public class ItemManager : ObjectPool
         "TreasureBox_Radar",
         "Trap_Radar",
         "RainbowPocket",
-        "Garbage"
+        "Garbage",
+        "Hammer"
     };
 
     #region[액티브 아이템 여부검사]

@@ -268,7 +268,17 @@ public class ItemEditor : MyEditor
                 temp = FloatField("쿨타임", data.value0, dataStyle);
                 temp = temp < 0 ? 0 : temp;
                 data.value0 = temp;
+                break;
+            case "Hammer":
+                temp = FloatField("공격력 증가수치(%)", data.value0, dataStyle);
+                temp = temp < 0 ? 0 : temp;
+                temp = (int)(temp);
+                data.value0 = temp;
 
+                temp = FloatField("공격속도 감소수치(%)", data.value1, dataStyle);
+                temp = temp < 0 ? 0 : temp;
+                temp = (int)(temp);
+                data.value1 = temp;
                 break;
             case "Smart_Advanced_Pick":
                 temp = FloatField("공격속도 증가수치(%)", data.value0, dataStyle);
