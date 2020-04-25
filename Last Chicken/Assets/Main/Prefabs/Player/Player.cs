@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using Custom;
+﻿using System.Collections.Generic;
 using TerrainEngine2D;
 using TerrainEngine2D.Lighting;
+using UnityEngine;
 
 public class Player : CustomCollider
 {
@@ -117,7 +117,9 @@ public class Player : CustomCollider
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     [System.NonSerialized] public GameObject torchLight;
+    [System.NonSerialized] public List<BlockLightSource> torchLightSourceList = new List<BlockLightSource>();
     [System.NonSerialized] public GameObject mineHelmetLight;
+    [System.NonSerialized] public List<BlockLightSource> mineHelmetLighSourceList = new List<BlockLightSource>();
     [System.NonSerialized] public BlockLightSource playerBlockLightSource;
     Vector2 frontPos = Vector2.zero;
 
@@ -153,9 +155,13 @@ public class Player : CustomCollider
 
         shiledBuff = transform.Find("Shield").gameObject;
 
-        torchLight = transform.Find("TorchLight").gameObject;
-        mineHelmetLight = transform.Find("MineHelmet").gameObject;
         playerBlockLightSource = transform.Find("PlayerLight").Find("BlockLight").GetComponent<BlockLightSource>();
+        torchLight = transform.Find("TorchLight").gameObject;
+        for (int i = 0; i < torchLight.transform.childCount; i++)
+            torchLightSourceList.Add(torchLight.transform.GetChild(i).GetChild(0).GetComponent<BlockLightSource>());
+        mineHelmetLight = transform.Find("MineHelmet").gameObject;
+        for (int i = 0; i < mineHelmetLight.transform.childCount; i++)
+            mineHelmetLighSourceList.Add(mineHelmetLight.transform.GetChild(i).GetChild(0).GetComponent<BlockLightSource>());
 
         nowHp = GameManager.instance.playData.playerNowHp;
         maxHp = GameManager.instance.playData.playerMaxHp;
@@ -188,6 +194,7 @@ public class Player : CustomCollider
     #region[LateUpdate]
     public void LateUpdate()
     {
+        PlayerLightColor();
         PlayerBuffCheck();
         PlayerReinforceCheck();
         PlayerAct();
@@ -255,7 +262,7 @@ public class Player : CustomCollider
             {
                 Vector2 emp = knockback;
                 knockback = new Vector2(1500, 500);   //넉백수치
-                PlayerDamage(1, Random.Range(0, 100) < 50 ? +1 : -1);
+                PlayerDamage(1, UnityEngine.Random.Range(0, 100) < 50 ? +1 : -1);
                 knockback = emp;
             }
         }
@@ -346,7 +353,7 @@ public class Player : CustomCollider
                 {
                     Vector2 emp = knockback;
                     knockback = new Vector2(1500, 500);   //넉백수치
-                    PlayerDamage(1, Random.Range(0, 100) < 50 ? +1 : -1);
+                    PlayerDamage(1, UnityEngine.Random.Range(0, 100) < 50 ? +1 : -1);
                     knockback = emp;
                 }
 
@@ -805,7 +812,7 @@ public class Player : CustomCollider
                 SoundManager.instance.PlayerBell();
                 if (Mathf.Abs(transform.position.x - Chicken.instance.transform.position.x) < 1)
                 {
-                    if (Random.Range(0, 100) > 50)
+                    if (UnityEngine.Random.Range(0, 100) > 50)
                         Chicken.instance.pattenType = Chicken.Pattern.대기;
                     else
                         Chicken.instance.pattenType = Chicken.Pattern.제자리점프;
@@ -829,7 +836,7 @@ public class Player : CustomCollider
             {
                 SoundManager.instance.PlayerGlup();
                 ItemManager.instance.CostItem("Russian_Roulette");
-                if (Random.Range(0, 100) > 50)
+                if (UnityEngine.Random.Range(0, 100) > 50)
                 {
                     nowHp += ItemManager.instance.itemData[ItemManager.FindData("Russian_Roulette")].value1;
                     nowHp = nowHp > maxHp ? maxHp : nowHp;
@@ -838,7 +845,7 @@ public class Player : CustomCollider
                 else
                 {
                     SoundManager.instance.PlayerGun();
-                    PlayerDamage(ItemManager.instance.itemData[ItemManager.FindData("Russian_Roulette")].value0, Random.Range(0, 100) > 50 ? +1 : -1);
+                    PlayerDamage(ItemManager.instance.itemData[ItemManager.FindData("Russian_Roulette")].value0, UnityEngine.Random.Range(0, 100) > 50 ? +1 : -1);
                 }
             }
             else if (ItemManager.instance.CanUseActiveItem("OldPocket"))
@@ -846,7 +853,7 @@ public class Player : CustomCollider
                 ItemManager.instance.CostItem("OldPocket");
                 int minValue = Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("OldPocket")].value0);
                 int maxValue = Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("OldPocket")].value1);
-                GameManager.instance.playerMoney += Random.Range(minValue, maxValue + 1);
+                GameManager.instance.playerMoney += UnityEngine.Random.Range(minValue, maxValue + 1);
             }
             else if (ItemManager.instance.CanUseActiveItem("RainbowPocket"))
             {
@@ -860,7 +867,7 @@ public class Player : CustomCollider
                 ItemManager.instance.CostItem("RandomDice");
                 int minValue = Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("RandomDice")].value0);
                 int maxValue = Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("RandomDice")].value1);
-                GameManager.instance.playData.randomDice = Random.Range(minValue, maxValue + 1);
+                GameManager.instance.playData.randomDice = UnityEngine.Random.Range(minValue, maxValue + 1);
             }
         }
     }
@@ -921,7 +928,7 @@ public class Player : CustomCollider
             Chicken.instance.ChickenJump(knockback.x * -dic,false);
             Chicken.instance.cryTime = -5;
 
-            EffectManager.instance.ChickenFeather(transform.position, Random.Range(0, 100) < 50);
+            EffectManager.instance.ChickenFeather(transform.position, UnityEngine.Random.Range(0, 100) < 50);
         }
 
         //매달린 상태 취소
@@ -1033,6 +1040,21 @@ public class Player : CustomCollider
         }
 
 
+    }
+    #endregion
+
+    #region[스테이지따른 플레이어 광원색 조정]
+    private void PlayerLightColor()
+    {
+        if (SceneController.instance.nowScene.Contains("Smithy"))
+        {
+            Color color = new Color(0, 0, 0);
+            playerBlockLightSource.LightColor = color;
+            for (int i = 0; i < mineHelmetLighSourceList.Count; i++)
+                mineHelmetLighSourceList[i].LightColor = color;
+            for (int i = 0; i < torchLightSourceList.Count; i++)
+                torchLightSourceList[i].LightColor = color;
+        }
     }
     #endregion
 

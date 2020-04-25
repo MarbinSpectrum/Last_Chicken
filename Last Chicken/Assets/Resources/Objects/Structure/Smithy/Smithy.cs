@@ -12,6 +12,7 @@ public class Smithy : AreaScript
     [System.NonSerialized] public bool thisUse = false;
     [System.NonSerialized] public bool onArea;
     public static int[] reinforceCost = new int[4] { 2500, 5000, 7500, 10000 };
+    float time = 13;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -30,6 +31,7 @@ public class Smithy : AreaScript
     {
         onArea = IsAtPlayer(bodyCollider);
         UseArea();
+        SmithySound();
     }
     #endregion
 
@@ -62,5 +64,15 @@ public class Smithy : AreaScript
         }
     }
     #endregion
+
+    public void SmithySound()
+    {
+        time += Time.deltaTime;
+        if(time > 12)
+        {
+            time = 0;
+            SoundManager.instance.Smithy();
+        }
+    }
 
 }

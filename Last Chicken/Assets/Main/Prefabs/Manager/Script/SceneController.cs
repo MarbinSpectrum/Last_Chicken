@@ -112,13 +112,6 @@ public class SceneController : MonoBehaviour
                 GameSceneSet();
                 SoundManager.instance.Stage1();
                 break;
-            case "SmithyMap0101":
-                if (stageBackGround)
-                    stageBackGround.sprite = StageManager.instance.stage0101_BackGround;
-                UIManager.instance.showStageNameText.text = "";
-                GameSceneSet();
-                SoundManager.instance.Stage1();
-                break;
             case "Stage0102":
                 if (stageBackGround)
                     stageBackGround.sprite = StageManager.instance.stage0102_BackGround;
@@ -129,13 +122,6 @@ public class SceneController : MonoBehaviour
             case "ShopMap0102":
                 if (stageBackGround)
                     stageBackGround.sprite = StageManager.instance.stage0102_BackGround;
-                UIManager.instance.showStageNameText.text = "";
-                GameSceneSet();
-                SoundManager.instance.Stage1();
-                break;
-            case "SmithyMap0102":
-                if (stageBackGround)
-                    stageBackGround.sprite = StageManager.instance.stage0101_BackGround;
                 UIManager.instance.showStageNameText.text = "";
                 GameSceneSet();
                 SoundManager.instance.Stage1();
@@ -154,12 +140,13 @@ public class SceneController : MonoBehaviour
                 GameSceneSet();
                 SoundManager.instance.Stage1();
                 break;
+            case "SmithyMap0101":
+            case "SmithyMap0102":
             case "SmithyMap0103":
                 if (stageBackGround)
-                    stageBackGround.sprite = StageManager.instance.stage0101_BackGround;
+                    stageBackGround.sprite = null;
                 UIManager.instance.showStageNameText.text = "";
                 GameSceneSet();
-                SoundManager.instance.Stage1();
                 break;
         }
     }

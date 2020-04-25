@@ -21,6 +21,7 @@ public class SmithyMap01_1 : StageData
         base.Awake();
 
         GroundManager.instance.smithyMap0101Data = Resources.Load("TerrainData/Smithy/Smithy01") as Texture2D;
+        GroundManager.instance.smithyMap0101BackData = Resources.Load("TerrainData/Smithy/SmithyBackData01") as Texture2D;
 
         int activeWall = 0;
         GroundManager.instance.smithyMap0101StartDic = 1;
@@ -29,9 +30,14 @@ public class SmithyMap01_1 : StageData
 
         bool filpX = Random.Range(0, 100) > 50;
         Texture2D mapData = new Texture2D(GroundManager.instance.smithyMap0101Data.width, GroundManager.instance.smithyMap0101Data.height);
+        Texture2D mapBackData = new Texture2D(GroundManager.instance.smithyMap0101BackData.width, GroundManager.instance.smithyMap0101BackData.height);
+
         for (int y = 0; y < mapData.height; y++)
             for (int x = 0; x < mapData.width; x++)
+            {
                 mapData.SetPixel(filpX ? mapData.width - x - 1 : x, y, GroundManager.instance.smithyMap0101Data.GetPixel(x, y));
+                mapBackData.SetPixel(filpX ? mapBackData.width - x - 1 : x, y, GroundManager.instance.smithyMap0101BackData.GetPixel(x, y));
+            }
 
         if (filpX)
         {
@@ -45,6 +51,7 @@ public class SmithyMap01_1 : StageData
 
         GroundManager.instance.smithyMap0101Rect = new GroundLayer[GroundManager.instance.smithyMap0101Data.width, GroundManager.instance.smithyMap0101Data.height];
         GroundManager.instance.smithyMap0101Fluid = new FluidType[GroundManager.instance.smithyMap0101Data.width, GroundManager.instance.smithyMap0101Data.height];
+        GroundManager.instance.smithyMap0101BackGround = new BackGroundLayer[GroundManager.instance.smithyMap0101BackData.width, GroundManager.instance.smithyMap0101BackData.height];
 
         GroundManager.instance.smithyMap0101SmithyPos = Vector2.zero;
         GroundManager.instance.smithyMap0101TreasurePos = Vector2.zero;
@@ -65,6 +72,10 @@ public class SmithyMap01_1 : StageData
         for (int i = 0; i < GroundManager.instance.smithyMap0101Data.width; i++)
             for (int j = 0; j < GroundManager.instance.smithyMap0101Data.height; j++)
                 GroundManager.instance.smithyMap0101Fluid[i, j] = GroundManager.instance.ColorToFluidData(GroundManager.instance.smithyMap0101Data.GetPixel(i, j));
+
+        for (int i = 0; i < GroundManager.instance.smithyMap0101BackData.width; i++)
+            for (int j = 0; j < GroundManager.instance.smithyMap0101BackData.height; j++)
+                GroundManager.instance.smithyMap0101BackGround[i, j] = GroundManager.instance.ColorToBackData(GroundManager.instance.smithyMap0101BackData.GetPixel(i, j));
 
         switch (activeWall)
         {
@@ -112,11 +123,7 @@ public class SmithyMap01_1 : StageData
         backGroundData = new BackGroundLayer[world.WorldWidth, world.WorldHeight];
         for (int x = 0; x < world.WorldWidth; x++)
             for (int y = 0; y < world.WorldHeight; y++)
-                backGroundData[x, y] = (BackGroundLayer)(-1);
-
-        for (int x = 0; x < world.WorldWidth; x++)
-            for (int y = 0; y < world.WorldHeight; y++)
-                backGroundData[x, y] = BackGroundLayer.NormalBackGround;
+                backGroundData[x, y] = GroundManager.instance.smithyMap0101BackGround[x, y];
     }
     #endregion
 

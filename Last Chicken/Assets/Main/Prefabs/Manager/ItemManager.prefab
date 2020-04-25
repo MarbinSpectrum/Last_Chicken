@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f6c3b0f7fd236c41836c8cfba34702f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalRate: 10
+  normalRate: 30
   rareRate: 5
   specialRate: 3
   legendRate: 1
@@ -62,10 +62,10 @@ MonoBehaviour:
     spawnTreasureBox: 0
     activeItem: 0
     shopItemExplain:
+    - "\uC0AC\uC6A9\uC2DC \uB2ED\uC774 \uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C"
+    - "\uC774\uB3D9\uD569\uB2C8\uB2E4."
     - 
-    - 
-    - 
-    - 
+    - <color=#ff0000ff>Active</color>
   - itemImg: {fileID: -5940822720616900610, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uAE43\uD138\uC2E0\uBC1C"
@@ -114,10 +114,10 @@ MonoBehaviour:
     spawnTreasureBox: 0
     activeItem: 0
     shopItemExplain:
+    - "\uC989\uC0AC\uD560 \uB370\uBBF8\uC9C0\uBC1B\uC544\uB3C4 "
+    - "\uB531 \uD55C\uBC88 \uC0B4\uB824\uC90D\uB2C8\uB2E4. "
     - 
-    - 
-    - 
-    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: 3106559140910016383, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uD683\uBD88"
@@ -131,10 +131,10 @@ MonoBehaviour:
     spawnTreasureBox: 0
     activeItem: 0
     shopItemExplain:
+    - "\uC880\uB354 \uC2DC\uC57C\uAC00 \uB113\uC5B4\uC9D1\uB2C8\uB2E4."
     - 
     - 
-    - 
-    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: 7937556763755152812, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uB124\uC78E\uD074\uB85C\uBC84"
@@ -166,10 +166,10 @@ MonoBehaviour:
     spawnTreasureBox: 0
     activeItem: 0
     shopItemExplain:
+    - "\uC26C\uC6D0\uD55C \uCF5C\uB77C\uC785\uB2C8\uB2E4."
+    - "\uCCB4\uB825 1 \uD68C\uBCF5"
     - 
-    - 
-    - 
-    - 
+    - <color=#ff0000ff>Active</color>
   - itemImg: {fileID: -1085531528030470992, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uB9E5\uC8FC"
@@ -184,10 +184,10 @@ MonoBehaviour:
     spawnTreasureBox: 0
     activeItem: 0
     shopItemExplain:
+    - "\uC26C\uC6D0\uD55C \uB9E5\uC8FC\uC785\uB2C8\uB2E4."
+    - "\uCD5C\uB300\uCCB4\uB825 0.5\uC99D\uAC00"
     - 
-    - 
-    - 
-    - 
+    - <color=#ff0000ff>Active</color>
   - itemImg: {fileID: 5127810894942316752, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uBAAC\uC2A4\uD130\uD0D0\uC9C0\uAE30"
@@ -201,10 +201,10 @@ MonoBehaviour:
     spawnTreasureBox: 0
     activeItem: 0
     shopItemExplain:
+    - "\uBAAC\uC2A4\uD130\uC758 \uC704\uCE58\uB97C \uD0D0\uC9C0"
     - 
     - 
-    - 
-    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: 6828611306581335411, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uB7EC\uC2DC\uC548\uB8F0\uB81B"
@@ -214,15 +214,15 @@ MonoBehaviour:
     itemExplain: "\uC0AC\uC6A9\uC2DC 50%\uD655\uB960\uB85C \uD50C\uB808\uC774\uC5B4\uC758
       \uCCB4\uB825\uC774 \uBAA8\uB450 \n\uD68C\uBCF5\uB418\uAC70\uB098 1 \uC783\uC2B5\uB2C8\uB2E4."
     cost: 2500
-    spawnObject: 1
+    spawnObject: 0
     spawnShop: 1
     spawnTreasureBox: 0
     activeItem: 0
     shopItemExplain:
-    - 
-    - 
-    - 
-    - 
+    - "50%\uD655\uB960\uB85C \uCCB4\uB825\uC774"
+    - "\uBAA8\uB450  \uD68C\uBCF5\uB418\uAC70\uB098"
+    - "1 \uC783\uC2B5\uB2C8\uB2E4."
+    - <color=#ff0000ff>Active</color>
   - itemImg: {fileID: -3147309375951365641, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uAD11\uC0B0\uD5EC\uBA67"
@@ -237,10 +237,10 @@ MonoBehaviour:
     spawnTreasureBox: 1
     activeItem: 0
     shopItemExplain:
+    - "\uC8FC\uC704\uB97C \uBC1D\uD600\uC8FC\uACE0"
+    - "\uBA38\uB9AC\uB97C \uBCF4\uD638\uD569\uB2C8\uB2E4."
     - 
-    - 
-    - 
-    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: 21300000, guid: 84b9d2378dc2a4f41bf48df10714217e, type: 3}
     itemName: "\uBB34\uAC70\uC6B4\uACE1\uAD2D\uC774"
     value0: 150
@@ -288,10 +288,10 @@ MonoBehaviour:
     spawnTreasureBox: 0
     activeItem: 0
     shopItemExplain:
+    - "\uAD11\uC0B0\uC5D0\uC11C \uAD6C\uBA4D\uC744 \uB6AB\uAE30\uC704\uD55C"
+    - "\uD3ED\uD0C4\uC785\uB2C8\uB2E4."
     - 
-    - 
-    - 
-    - 
+    - <color=#ff0000ff>Active</color>
   - itemImg: {fileID: 5467324578614741987, guid: c59dac0c2b4d80f4aa7b58328ff973f7,
       type: 3}
     itemName: "\uB2E4\uC774\uB108\uB9C8\uC774\uD2B8"
@@ -306,10 +306,10 @@ MonoBehaviour:
     spawnTreasureBox: 0
     activeItem: 0
     shopItemExplain:
+    - "\uAD11\uC0B0\uC5D0\uC11C \uAD6C\uBA4D\uC744 \uB6AB\uAE30\uC704\uD55C"
+    - "\uD3ED\uD0C4\uC785\uB2C8\uB2E4."
     - 
-    - 
-    - 
-    - 
+    - <color=#ff0000ff>Active</color>
   - itemImg: {fileID: 21300000, guid: 3cf36eaa5bb235e41aff47ddffa877f2, type: 3}
     itemName: "\uD3B8\uB9AC\uD55C \uAC00\uBCBC\uC6B4 \uACE1\uAD2D\uC774"
     value0: 150
@@ -375,10 +375,10 @@ MonoBehaviour:
     spawnTreasureBox: 0
     activeItem: 0
     shopItemExplain:
+    - "\uAD11\uBB3C\uC774 \uC790\uB3D9\uC73C\uB85C \uAC00\uBC29\uC73C\uB85C"
+    - "\uB4E4\uC5B4\uAC11\uB2C8\uB2E4."
     - 
-    - 
-    - 
-    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: -4768684599799397655, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uD3B8\uB9AC\uD55C \uAD11\uBB3C\uAC00\uBC29"
@@ -411,10 +411,10 @@ MonoBehaviour:
     spawnTreasureBox: 0
     activeItem: 0
     shopItemExplain:
+    - "30% \uD560\uC778\uCFE0\uD3F0"
     - 
     - 
-    - 
-    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: -1154901020958969117, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uC0C1\uC810\uD68C\uC6D0\uC99D"
@@ -429,10 +429,10 @@ MonoBehaviour:
     spawnTreasureBox: 0
     activeItem: 0
     shopItemExplain:
+    - "\uC0C1\uC810 VIP \uD68C\uC6D0\uC99D"
+    - "\uBB3C\uAC74\uB4E4\uC774 30% \uD560\uC778\uB428"
     - 
-    - 
-    - 
-    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: -1154901020958969117, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uC0C1\uC810VIP\uD68C\uC6D0\uC99D"
@@ -500,10 +500,10 @@ MonoBehaviour:
     spawnTreasureBox: 0
     activeItem: 0
     shopItemExplain:
+    - "\uBCF4\uBB3C\uC758 \uC704\uCE58\uB97C \uD45C\uC2DC\uD569\uB2C8\uB2E4"
     - 
     - 
-    - 
-    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: -59980677053996228, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uD568\uC815\uD0D0\uC9C0\uAE30"
@@ -517,10 +517,10 @@ MonoBehaviour:
     spawnTreasureBox: 0
     activeItem: 0
     shopItemExplain:
+    - "\uD568\uC815\uC758 \uC704\uCE58\uB97C \uD45C\uC2DC\uD569\uB2C8\uB2E4."
     - 
     - 
-    - 
-    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: 3700716698973616315, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uBB34\uC9C0\uAC1C \uBCF4\uB530\uB9AC"
@@ -535,10 +535,10 @@ MonoBehaviour:
     spawnTreasureBox: 1
     activeItem: 0
     shopItemExplain:
+    - "\uC800\uB3C4 \uBB50\uAC00 \uB098\uC62C\uC9C0 \uBAB0\uB77C\uC694?"
     - 
     - 
-    - 
-    - 
+    - <color=#ff0000ff>Active</color>
   - itemImg: {fileID: 21300000, guid: 12e37735202c44644bcf58d32d675b82, type: 3}
     itemName: "\uC4F0\uB808\uAE30"
     value0: 0

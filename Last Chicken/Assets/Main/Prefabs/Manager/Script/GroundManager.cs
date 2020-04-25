@@ -123,6 +123,8 @@ public class GroundManager : MonoBehaviour
     public int smithyMap0101StartDic;
     public Vector2 smithyMap0101SmithyPos;
     public Vector2 smithyMap0101TreasurePos;
+    public Texture2D smithyMap0101BackData;
+    public StageData.BackGroundLayer[,] smithyMap0101BackGround;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -141,6 +143,8 @@ public class GroundManager : MonoBehaviour
     public int smithyMap0102StartDic;
     public Vector2 smithyMap0102SmithyPos;
     public Vector2 smithyMap0102TreasurePos;
+    public Texture2D smithyMap0102BackData;
+    public StageData.BackGroundLayer[,] smithyMap0102BackGround;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -159,6 +163,8 @@ public class GroundManager : MonoBehaviour
     public int smithyMap0103StartDic;
     public Vector2 smithyMap0103SmithyPos;
     public Vector2 smithyMap0103TreasurePos;
+    public Texture2D smithyMap0103BackData;
+    public StageData.BackGroundLayer[,] smithyMap0103BackGround;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
