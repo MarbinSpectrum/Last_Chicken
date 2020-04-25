@@ -187,6 +187,14 @@ public class UIManager : MonoBehaviour
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    [NonSerialized] public GameObject smithyUI;               //대장간 UI
+    [NonSerialized] public Text smithyText;
+    [NonSerialized] public GameObject smithyYes;               
+    [NonSerialized] public GameObject smithyNo;
+    [NonSerialized] public GameObject smithyOk;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     [NonSerialized] public GameObject settingMenu;  //설정 메뉴
     Dropdown windowDropdown;
     Toggle windowToggle;
@@ -443,6 +451,46 @@ public class UIManager : MonoBehaviour
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        smithyUI = canvas.Find("SmithyUI").gameObject;
+        smithyYes = smithyUI.transform.Find("Yes").gameObject;
+        smithyNo = smithyUI.transform.Find("No").gameObject;
+        smithyOk = smithyUI.transform.Find("Ok").gameObject;
+        smithyYes.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            if (ItemManager.instance.HasItemCheck("Hammer"))
+            {
+                ItemManager.instance.CostItem("Hammer");
+                Smithy.instance.used = true;
+                Player.instance.pickLevel++;
+                Player.instance.canControl = false;
+                Smithy.instance.thisUse = false;
+            }
+            else
+            {
+                if (GameManager.instance.playerMoney >= Smithy.reinforceCost[Player.instance.pickLevel])
+                {
+                    GameManager.instance.playerMoney -= Smithy.reinforceCost[Player.instance.pickLevel];
+                    Smithy.instance.used = true;
+                    Player.instance.pickLevel++;
+                    Player.instance.canControl = false;
+                    Smithy.instance.thisUse = false;
+                }
+            }
+        });
+        smithyNo.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            Smithy.instance.thisUse = false;
+            Player.instance.canControl = true;
+        });
+        smithyOk.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            Smithy.instance.thisUse = false;
+            Player.instance.canControl = true;
+        });
+        smithyText = smithyUI.transform.Find("Text").GetComponent<Text>();
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         settingMenu = canvas.Find("SettingMenu").gameObject;
         seSlider = settingMenu.transform.Find("SE").Find("Slider").GetComponent<Slider>();
         bgmSlider = settingMenu.transform.Find("BGM").Find("Slider").GetComponent<Slider>();
@@ -529,6 +577,7 @@ public class UIManager : MonoBehaviour
             playerHp.SetActive(false);
             altarUI.SetActive(false);
             shopUI.SetActive(false);
+            smithyUI.SetActive(false);
             explainObject.SetActive(false);
             playerMoney.SetActive(false);
             playerState.SetActive(false);
@@ -601,6 +650,35 @@ public class UIManager : MonoBehaviour
                     shopItemSoldOut[i].SetActive(ShopScript.instance.itmeBuyList[i]);
             }
 
+            if (Smithy.instance)
+            {
+                smithyUI.SetActive(Smithy.instance.thisUse);
+                if (Player.instance.pickLevel >= 4)
+                {
+                    smithyNo.SetActive(false);
+                    smithyYes.SetActive(false);
+                    smithyOk.SetActive(true);
+                    smithyText.text = "더 이상 곡괭이를 강화할 수 없어 보인다.";
+                }
+                else if (ItemManager.instance.HasItemCheck("Hammer"))
+                {
+                    smithyNo.SetActive(true);
+                    smithyYes.SetActive(true);
+                    smithyOk.SetActive(false);
+                    smithyText.text = "망치를 사용하면 곡괭이를 한단계 강화할 수 있을것같다.\n강화할까?";
+                }
+                else
+                {
+                    smithyNo.SetActive(true);
+                    smithyYes.SetActive(true);
+                    smithyOk.SetActive(false);
+                    if (Player.instance.pickLevel >= 4)
+                        return;
+                    smithyText.text = Smithy.reinforceCost[Player.instance.pickLevel] + "$을 지불하면 곡괭이를 강화할 수 있을것 같다.\n강화할까?";
+                }
+
+            }
+
             if (Player.instance)
             {
                 nowItem.transform.position = Camera.main.WorldToScreenPoint(Player.instance.transform.position + new Vector3(0, 5f, 0));
@@ -626,7 +704,7 @@ public class UIManager : MonoBehaviour
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    #region[닭위치표시기]
+    #region[닭 위치 표시기]
     void SetChickenPos()
     {  
         if (Player.instance && Player.instance.getChicken || SceneController.instance.nowScene.Equals("Tutorial"))

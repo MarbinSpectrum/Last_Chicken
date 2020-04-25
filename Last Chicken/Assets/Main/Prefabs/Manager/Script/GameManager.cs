@@ -143,6 +143,10 @@ public class GameManager : TerrainGenerator
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+        playData.pickLevel = 0;
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+
         BuffManager.loadEnd = false;
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -195,6 +199,7 @@ public class GameManager : TerrainGenerator
         {
             playData.playerNowHp = Player.instance.nowHp;
             playData.playerMaxHp = Player.instance.maxHp;
+            playData.pickLevel = Player.instance.pickLevel;
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -359,11 +364,15 @@ public class GameManager : TerrainGenerator
             case "Stage0101":
                 if (Player.instance.transform.position.y >= -5)
                     return;
-                playData.stageName = "ShopMap0101";
+                if(ItemManager.instance.HasItemCheck("Hammer") || UnityEngine.Random.Range(0, 100) > 90)
+                    playData.stageName = "SmithyMap0101";
+                else
+                    playData.stageName = "ShopMap0101";
                 SaveData();
                 SceneController.instance.MoveScene(playData.stageName);
                 break;
             case "ShopMap0101":
+            case "SmithyMap0101":
                 if (Player.instance.transform.position.y >= -5)
                     return;
                 playData.stageName = "Stage0102";
@@ -373,11 +382,15 @@ public class GameManager : TerrainGenerator
             case "Stage0102":
                 if (Player.instance.transform.position.y >= -5)
                     return;
-                playData.stageName = "ShopMap0102";
+                if (ItemManager.instance.HasItemCheck("Hammer") || UnityEngine.Random.Range(0, 100) > 90)
+                    playData.stageName = "SmithyMap0102";
+                else
+                    playData.stageName = "ShopMap0102";
                 SaveData();
                 SceneController.instance.MoveScene(playData.stageName);
                 break;
             case "ShopMap0102":
+            case "SmithyMap0102":
                 if (Player.instance.transform.position.y >= -5)
                     return;
                 playData.stageName = "Stage0103";
@@ -387,11 +400,15 @@ public class GameManager : TerrainGenerator
             case "Stage0103":
                 if (Player.instance.transform.position.y >= -5)
                     return;
-                playData.stageName = "ShopMap0103";
+                if (ItemManager.instance.HasItemCheck("Hammer") || UnityEngine.Random.Range(0, 100) > 90)
+                    playData.stageName = "SmithyMap0103";
+                else
+                    playData.stageName = "ShopMap0103";
                 SaveData();
                 SceneController.instance.MoveScene(playData.stageName);
                 break;
             case "ShopMap0103":
+            case "SmithyMap0103":
                 if (Player.instance.transform.position.y >= -5)
                     return;
                 playData.stageName = "Demo";

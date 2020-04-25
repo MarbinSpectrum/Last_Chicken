@@ -329,6 +329,7 @@ public class Chicken : CustomCollider
                 animator.SetBool("Coco", true);
                 pattenType = Pattern.대기;
             }
+            cryTime = 180;
             animator.SetTrigger("Cry");
         }
 

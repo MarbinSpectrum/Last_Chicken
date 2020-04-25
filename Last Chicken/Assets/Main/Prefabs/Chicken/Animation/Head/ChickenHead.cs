@@ -62,6 +62,7 @@ public class ChickenHead : MonoBehaviour
             {
                 animator.SetBool("Coco", true);
             }
+            cryTime = 180;
             animator.SetTrigger("Cry");
         }
     }

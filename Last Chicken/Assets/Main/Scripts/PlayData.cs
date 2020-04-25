@@ -38,6 +38,10 @@ public class PlayData
 
     ///////////////////////////////////////////////////////////////////
 
+    public int pickLevel = 0;
+
+    ///////////////////////////////////////////////////////////////////
+
     public bool[] playerBuffItemHas = new bool[BuffManager.buffName.Length];
     public int[] playerBuffItemNum = new int[BuffManager.buffName.Length];
     public float[] playerBuffItemTime = new float[BuffManager.buffName.Length];
@@ -88,6 +92,10 @@ public class PlayData
 
         shopVIP = false;
         randomDice = 100;
+
+        ///////////////////////////////////////////////////////////////////
+
+        pickLevel = 0;
 
         ///////////////////////////////////////////////////////////////////
 

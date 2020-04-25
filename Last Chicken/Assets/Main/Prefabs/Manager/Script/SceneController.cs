@@ -112,6 +112,13 @@ public class SceneController : MonoBehaviour
                 GameSceneSet();
                 SoundManager.instance.Stage1();
                 break;
+            case "SmithyMap0101":
+                if (stageBackGround)
+                    stageBackGround.sprite = StageManager.instance.stage0101_BackGround;
+                UIManager.instance.showStageNameText.text = "";
+                GameSceneSet();
+                SoundManager.instance.Stage1();
+                break;
             case "Stage0102":
                 if (stageBackGround)
                     stageBackGround.sprite = StageManager.instance.stage0102_BackGround;
@@ -126,6 +133,13 @@ public class SceneController : MonoBehaviour
                 GameSceneSet();
                 SoundManager.instance.Stage1();
                 break;
+            case "SmithyMap0102":
+                if (stageBackGround)
+                    stageBackGround.sprite = StageManager.instance.stage0101_BackGround;
+                UIManager.instance.showStageNameText.text = "";
+                GameSceneSet();
+                SoundManager.instance.Stage1();
+                break;
             case "Stage0103":
                 if (stageBackGround)
                     stageBackGround.sprite = StageManager.instance.stage0103_BackGround;
@@ -136,6 +150,13 @@ public class SceneController : MonoBehaviour
             case "ShopMap0103":
                 if (stageBackGround)
                     stageBackGround.sprite = StageManager.instance.stage0103_BackGround;
+                UIManager.instance.showStageNameText.text = "";
+                GameSceneSet();
+                SoundManager.instance.Stage1();
+                break;
+            case "SmithyMap0103":
+                if (stageBackGround)
+                    stageBackGround.sprite = StageManager.instance.stage0101_BackGround;
                 UIManager.instance.showStageNameText.text = "";
                 GameSceneSet();
                 SoundManager.instance.Stage1();
@@ -200,6 +221,12 @@ public class SceneController : MonoBehaviour
                     Player.instance.transform.localScale = new Vector3(Mathf.Abs(Player.instance.transform.localScale.x) * GroundManager.instance.shopMap0101StartDic, Player.instance.transform.localScale.y, Player.instance.transform.localScale.x);
                     GroundManager.instance.digMask = 0;
                     break;
+                case "SmithyMap0101":
+                    Player.instance.canAttack = true;
+                    Player.instance.transform.position = new Vector3(GroundManager.instance.smithyMap0101StartPos.x, GroundManager.instance.smithyMap0101StartPos.y, Player.instance.transform.position.z);
+                    Player.instance.transform.localScale = new Vector3(Mathf.Abs(Player.instance.transform.localScale.x) * GroundManager.instance.smithyMap0101StartDic, Player.instance.transform.localScale.y, Player.instance.transform.localScale.x);
+                    GroundManager.instance.digMask = 0;
+                    break;
                 case "Stage0102":
                     Player.instance.canAttack = true;
                     Player.instance.transform.position = new Vector3(World.Instance.WorldWidth / 2, World.Instance.WorldHeight + 30, Player.instance.transform.position.z);
@@ -211,6 +238,12 @@ public class SceneController : MonoBehaviour
                     Player.instance.transform.localScale = new Vector3(Mathf.Abs(Player.instance.transform.localScale.x) * GroundManager.instance.shopMap0102StartDic, Player.instance.transform.localScale.y, Player.instance.transform.localScale.x);
                     GroundManager.instance.digMask = 0;
                     break;
+                case "SmithyMap0102":
+                    Player.instance.canAttack = true;
+                    Player.instance.transform.position = new Vector3(GroundManager.instance.smithyMap0102StartPos.x, GroundManager.instance.smithyMap0102StartPos.y, Player.instance.transform.position.z);
+                    Player.instance.transform.localScale = new Vector3(Mathf.Abs(Player.instance.transform.localScale.x) * GroundManager.instance.smithyMap0102StartDic, Player.instance.transform.localScale.y, Player.instance.transform.localScale.x);
+                    GroundManager.instance.digMask = 0;
+                    break;
                 case "Stage0103":
                     Player.instance.canAttack = true;
                     Player.instance.transform.position = new Vector3(World.Instance.WorldWidth / 2, World.Instance.WorldHeight + 30, Player.instance.transform.position.z);
@@ -220,6 +253,12 @@ public class SceneController : MonoBehaviour
                     Player.instance.canAttack = true;
                     Player.instance.transform.position = new Vector3(GroundManager.instance.shopMap0103StartPos.x, GroundManager.instance.shopMap0103StartPos.y, Player.instance.transform.position.z);
                     Player.instance.transform.localScale = new Vector3(Mathf.Abs(Player.instance.transform.localScale.x) * GroundManager.instance.shopMap0103StartDic, Player.instance.transform.localScale.y, Player.instance.transform.localScale.x);
+                    GroundManager.instance.digMask = 0;
+                    break;
+                case "SmithyMap0103":
+                    Player.instance.canAttack = true;
+                    Player.instance.transform.position = new Vector3(GroundManager.instance.smithyMap0103StartPos.x, GroundManager.instance.smithyMap0103StartPos.y, Player.instance.transform.position.z);
+                    Player.instance.transform.localScale = new Vector3(Mathf.Abs(Player.instance.transform.localScale.x) * GroundManager.instance.smithyMap0103StartDic, Player.instance.transform.localScale.y, Player.instance.transform.localScale.x);
                     GroundManager.instance.digMask = 0;
                     break;
             }

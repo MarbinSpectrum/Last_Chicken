@@ -103,6 +103,7 @@ public class Player : CustomCollider
     bool canHang;
     float hangDic = 0;  //매달린방향
 
+    [System.NonSerialized] public int pickLevel;
     [System.NonSerialized] public bool canAttack;
     [System.NonSerialized] public bool attackTop;   //상단 공격여부
     int combo = 0;
@@ -188,6 +189,7 @@ public class Player : CustomCollider
     public void LateUpdate()
     {
         PlayerBuffCheck();
+        PlayerReinforceCheck();
         PlayerAct();
         PlayerAni();
     }
@@ -739,27 +741,6 @@ public class Player : CustomCollider
         float maxAttackSpeed = 100;
         float maxAttackPower = 100;
 
-        bool reinforce = ItemManager.instance.CanUsePassiveItem("Smart_Light_Pick") || ItemManager.instance.HasItemCheck("Smart_Heavy_Pick") || ItemManager.instance.CanUsePassiveItem("Smart_Advanced_Pick");
-
-        if (ItemManager.instance.CanUsePassiveItem("Light_Pick"))
-            maxAttackSpeed = Mathf.Max(maxAttackSpeed,ItemManager.instance.itemData[ItemManager.FindData("Light_Pick")].value0);
-        if (ItemManager.instance.CanUsePassiveItem("Heavy_Pick"))
-            maxAttackPower = Mathf.Max(maxAttackPower, ItemManager.instance.itemData[ItemManager.FindData("Heavy_Pick")].value0);
-        if (ItemManager.instance.CanUsePassiveItem("Advanced_Pick"))
-        {
-            maxAttackSpeed = Mathf.Max(maxAttackSpeed, ItemManager.instance.itemData[ItemManager.FindData("Advanced_Pick")].value0);
-            maxAttackPower = Mathf.Max(maxAttackPower, ItemManager.instance.itemData[ItemManager.FindData("Advanced_Pick")].value1);
-        }
-        if (ItemManager.instance.CanUsePassiveItem("Smart_Light_Pick"))
-            maxAttackSpeed = Mathf.Max(maxAttackSpeed, ItemManager.instance.itemData[ItemManager.FindData("Smart_Light_Pick")].value0);
-        if (ItemManager.instance.CanUsePassiveItem("Smart_Heavy_Pick"))
-            maxAttackPower = Mathf.Max(maxAttackPower, ItemManager.instance.itemData[ItemManager.FindData("Smart_Heavy_Pick")].value0);
-        if (ItemManager.instance.CanUsePassiveItem("Smart_Advanced_Pick"))
-        {
-            maxAttackSpeed = Mathf.Max(maxAttackSpeed, ItemManager.instance.itemData[ItemManager.FindData("Smart_Advanced_Pick")].value0);
-            maxAttackPower = Mathf.Max(maxAttackPower, ItemManager.instance.itemData[ItemManager.FindData("Smart_Advanced_Pick")].value1);
-        }
-
         if (ItemManager.instance.CanUsePassiveItem("Hammer"))
         {
             maxAttackSpeed -=ItemManager.instance.itemData[ItemManager.FindData("Hammer")].value1;
@@ -780,6 +761,9 @@ public class Player : CustomCollider
                 return;
 
             if (FountainScript.instance && FountainScript.instance.onArea)
+                return;
+
+            if (Smithy.instance && Smithy.instance.onArea)
                 return;
 
             if (ItemManager.instance.CanUseActiveItem("Coke"))
@@ -1020,6 +1004,34 @@ public class Player : CustomCollider
         }
         jumpPower = baseJumpPower;
         gravity = baseGravity;
+
+    }
+    #endregion
+
+    #region[플레이어 강화 처리]
+    void PlayerReinforceCheck()
+    {
+        pickLevel = GameManager.instance.playData.pickLevel;
+
+        switch(pickLevel)
+        {
+            case 1:
+                attackPower += 3;
+                break;
+            case 2:
+                attackPower += 6;
+                attackSpeed += 1;
+                break;
+            case 3:
+                attackPower += 9;
+                attackSpeed += 2;
+                break;
+            case 4:
+                attackPower += 12;
+                attackSpeed += 3;
+                break;
+        }
+
 
     }
     #endregion
