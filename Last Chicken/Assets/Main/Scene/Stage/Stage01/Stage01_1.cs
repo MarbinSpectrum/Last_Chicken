@@ -33,7 +33,7 @@ public class Stage01_1 : StageData
         SetDust();
 
         GroundManager.instance.Init(world);
-        MonsterManager.instance.Init(world,50);
+        MonsterManager.instance.Init(world,20);
     }
     #endregion
 
@@ -127,8 +127,8 @@ public class Stage01_1 : StageData
 
         ProceduralGeneration(world, groundData, GroundLayer.Stone);
 
-        SetAltar();
-        SetFountain();
+        //SetAltar();
+        //SetFountain();
         MineArea();
 
         FillArea(150);
@@ -141,58 +141,38 @@ public class Stage01_1 : StageData
             for (int x = 0; x < world.WorldWidth; x++)
                 for (int y = 0; y < world.WorldHeight; y++)
                 {
-                    if (Random.Range(0, 1000) <= 995)
+                    if (Random.Range(0, 1000) <= 998)
                         continue;
 
                     if (groundData[x, y] == GroundLayer.Dirt)
                         groundData[x, y] = Minerals[n];
 
-                    int randomType = Random.Range(0, 3);
-                    switch (randomType)
+                    int randomType = Random.Range(0, 4);
+
+                    for (int i = 0; i < 36; i++)
                     {
-                        case 0:
-                            for (int i = 0; i < 4; i++)
-                            {
-                                int ax = x + Dic[i, 0];
-                                int ay = y + Dic[i, 1];
-                                if (Exception.IndexOutRange(ax, ay, groundData))
-                                    if (groundData[ax, ay] == GroundLayer.Dirt)
-                                        groundData[ax, ay] = Minerals[n];
-                            }
-                            break;
-                        case 1:
-                            for (int i = 0; i < 4; i++)
-                            {
-                                int ax = x + i % 2;
-                                int ay = y + i / 2;
-                                if (Exception.IndexOutRange(ax, ay, groundData))
-                                    if (groundData[ax, ay] == GroundLayer.Dirt)
-                                        groundData[ax, ay] = Minerals[n];
-                            }
-                            break;
-                        case 2:
-                            for (int i = 0; i < 6; i++)
-                            {
-                                int ax = x + i % 2;
-                                int ay = y + i / 2;
-                                if (Exception.IndexOutRange(ax, ay, groundData))
-                                    if (groundData[ax, ay] == GroundLayer.Dirt)
-                                        groundData[ax, ay] = Minerals[n];
-                            }
-                            break;
+                        int ax = x + i % 6;
+                        int ay = y + i / 6;
+                        if (Exception.IndexOutRange(ax, ay, groundData))
+                            if (groundData[ax, ay] == GroundLayer.Dirt && MineralType[randomType, i % 6, i / 6] == 1)
+                                groundData[ax, ay] = Minerals[n];
                     }
                 }
             // ProceduralGeneration(world, groundData, Minerals[n]);
         }
-        for (int y = 0; y < world.WorldHeight; y++)
-            for (int x = 0; x < world.WorldWidth; x++)
-                if (GroundManager.instance.stage01OutlineRect[x, y] == GroundLayer.UnBreakable)
-                    groundData[x, y] = GroundLayer.UnBreakable;
+
+        bool flipX = Random.Range(0, 100) > 50;
 
         for (int y = 0; y < world.WorldHeight; y++)
             for (int x = 0; x < world.WorldWidth; x++)
-                if (GroundManager.instance.stage01OutlineRect[x, y] == GroundLayer.Dirt)
+            {
+                int fx = flipX ? x : world.WorldWidth - x - 1;
+                if (GroundManager.instance.stage01OutlineRect[fx, y] == GroundLayer.UnBreakable)
+                    groundData[x, y] = GroundLayer.UnBreakable;
+                else if (GroundManager.instance.stage01OutlineRect[fx, y] == GroundLayer.Dirt)
                     groundData[x, y] = (GroundLayer)(-1);
+            }
+
     }
     #endregion
 
@@ -570,12 +550,16 @@ public class Stage01_1 : StageData
     #region[오브젝트 설치]
     void SetObject()
     {
-        for(int i = 0; i < mineRoadArea.Count; i++)
+        #region[길에 따른 오브젝트배치]
+        for (int i = 0; i < mineRoadArea.Count; i++)
         {
+            #region[길배치]
             int num = (i != 0 && i != mineRoadArea.Count - 1) ? 3 : 4;
             for (int j = 0; j < num; j++)
                 ObjectManager.instance.MineWoodBoard(new Vector2(mineRoadArea[i].x + j * 59, mineRoadArea[i].y - mineRoadArea[i].height - 1));
+            #endregion
 
+            #region[오브젝트 배치]
             int addX = 10;
             for(int j = 0; j < 15; j++)
             {
@@ -613,7 +597,9 @@ public class Stage01_1 : StageData
                 }
                 addX += Random.Range(10, 15);
             }
+            #endregion
 
+            #region[나무상자 배치]
             addX = 10;
             for (int j = 0; j < 15; j++)
             {
@@ -626,7 +612,9 @@ public class Stage01_1 : StageData
                 ObjectManager.instance.WoodBox(objectPos);
                 addX += Random.Range(10, 15);
             }
+            #endregion
 
+            #region[석순 배치]
             if (i < Mathf.Abs(mineRoadArea.Count * 0.3f))
                 continue;
             addX = 10;
@@ -654,9 +642,35 @@ public class Stage01_1 : StageData
                 }
                 addX += Random.Range(10, 15);
             }
-
+            #endregion
         }
+        #endregion
 
+        #region[지뢰설치]
+        //List<Vector2> minePos = new List<Vector2>();
+
+        //for (int x = 0; x < world.WorldWidth; x++)
+        //    for (int y = 50; y < world.WorldHeight - 50; y++)
+        //        if (groundData[x, y] == GroundLayer.Dirt && Random.Range(0, 100) > 98)
+        //        {
+        //            bool flag = true;
+        //            for (int k = 0; k < minePos.Count; k++)
+        //            {
+        //                if (Vector2.Distance(minePos[k], new Vector2(x, y)) < 10)
+        //                {
+        //                    flag = false;
+        //                    break;
+        //                }
+        //            }
+        //            if (flag)
+        //            {
+        //                minePos.Add(new Vector2(x, y));
+        //                ObjectManager.instance.LandMine(new Vector2(x, y));
+        //            }
+        //        }
+        #endregion
+
+        #region[보물배치]
         if (Random.Range(0, 100) > 80)
         {
             List<Vector2Int> treasureList = new List<Vector2Int>();
@@ -686,6 +700,7 @@ public class Stage01_1 : StageData
                 ObjectManager.instance.TreasureBox(pos + new Vector2Int(3, 2));
             }
         }
+        #endregion
 
         Vector2 altarPos = new Vector2(altarRect.x + altarRect.width/2f, altarRect.y - 26.5f);
         ObjectManager.instance.Altar(altarPos);

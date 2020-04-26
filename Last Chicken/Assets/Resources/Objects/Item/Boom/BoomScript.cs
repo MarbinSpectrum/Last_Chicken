@@ -8,7 +8,7 @@ public class BoomScript : MonoBehaviour
     public int range = 4;
     public string boomname;
 
-    int damage;
+    public int damage;
     Animator animator;
 
     #region[Awake]
@@ -21,7 +21,8 @@ public class BoomScript : MonoBehaviour
     #region[Update]
     void Update()
     {
-        damage = Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData(boomname)].value0);
+        if(ItemManager.FindData(boomname) != -1)
+            damage = Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData(boomname)].value0);
         Vector2Int nowPos = new Vector2Int(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y));
         if (animator)
             if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)

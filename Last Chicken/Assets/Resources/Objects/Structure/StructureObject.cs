@@ -20,7 +20,7 @@ public class StructureObject : CustomCollider
     protected float damageTime; //데미지
     protected int maxHp;
     protected int nowHp;
-    float time = 0;
+    protected float time = 0;
 
     bool updateFlag = false;
 
@@ -57,17 +57,7 @@ public class StructureObject : CustomCollider
     {
         if (updateFlag)
             UpdateStats();
-        if (!body.activeSelf)
-        {
-            time += Time.deltaTime;
-
-            if (time > 2)
-                gameObject.SetActive(false);
-        }
-        else
-            SpecialEvent();
-
-        damageTime -= Time.deltaTime;
+        ObjectActive();
     }
     #endregion
 
@@ -87,6 +77,23 @@ public class StructureObject : CustomCollider
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    #region[활성화설정]
+    public virtual void ObjectActive()
+    {
+        if (!body.activeSelf)
+        {
+            time += Time.deltaTime;
+
+            if (time > 2)
+                gameObject.SetActive(false);
+        }
+        else
+            SpecialEvent();
+
+        damageTime -= Time.deltaTime;
+    }
+    #endregion
 
     #region[능력치 갱신]
     public virtual void UpdateStats()

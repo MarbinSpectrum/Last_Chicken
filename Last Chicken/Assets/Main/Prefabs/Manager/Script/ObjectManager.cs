@@ -27,7 +27,8 @@ public class ObjectManager : ObjectPool
         "Stalagmite3",
         "Stalagmite4",
         "Stalagmite5",
-        "Sign"
+        "Sign",
+        "LandMine"
     };
 
     [System.Serializable]
@@ -91,6 +92,8 @@ public class ObjectManager : ObjectPool
     GameObject shovel;
 
     GameObject[] stalagmite = new GameObject[6];
+
+    GameObject landMine;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -178,7 +181,7 @@ public class ObjectManager : ObjectPool
 
             for (int i = 0; i < stalagmite.Length; i++)
                 stalagmite[i] = Resources.Load("Objects/Trap/Stalagmite" + i) as GameObject;
-
+            landMine = Resources.Load("Objects/Trap/LandMine") as GameObject;
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             shop = Resources.Load("Objects/Structure/Shop/Shop") as GameObject;
@@ -756,6 +759,28 @@ public class ObjectManager : ObjectPool
     public void Stalagmite(Vector2 vector2, bool flipX = false)
     {
         Stalagmite(vector2, Random.Range(0, stalagmite.Length), flipX);
+    }
+    #endregion
+
+    #region[지뢰]
+    public void LandMine(Vector2 vector2, bool flipX = false)
+    {
+        string name = "LandMine";
+
+        GameObject emp = FindObject(name);
+
+        if (emp == null)
+        {
+            emp = Instantiate(landMine);
+            emp.transform.name = name;
+            AddObject(emp);
+        }
+
+        emp.SetActive(true);
+        emp.transform.localRotation = Quaternion.identity;
+        emp.transform.parent = transform;
+        emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
+        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
     }
     #endregion
 
