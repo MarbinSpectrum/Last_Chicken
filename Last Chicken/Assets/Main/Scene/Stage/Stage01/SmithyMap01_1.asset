@@ -20,8 +20,8 @@ MonoBehaviour:
   SaveWorld: 0
   LoadWorld: 0
   Name: ShopMap0101
-  WorldWidth: 128
-  WorldHeight: 48
+  WorldWidth: 64
+  WorldHeight: 64
   Seed: -8937902
   WorldDirectory: 
   ChunkSize: 16
@@ -57,23 +57,23 @@ MonoBehaviour:
   BasicLighting: 0
   LightBleedAmount: 3
   LightLayer: 1
-  BlockLightSpread: 100
+  BlockLightSpread: 18
   BlockLightTransmission: 5
   AmbientLightDisabled: 0
   AmbientLightLayer: 1
   AmbientLightSpread: 18
   AmbientLightTransmission: 5
-  UseHeightMap: 0
+  UseHeightMap: 1
   PauseTime: 1
   TimeFactor: 100
   DaylightColor:
     serializedVersion: 2
-    rgba: 3015680
+    rgba: 4278190080
   NightColor:
     serializedVersion: 2
     rgba: 4282466625
-  SunriseTime: 5.4590693
-  SunsetTime: 17.459072
+  SunriseTime: 7
+  SunsetTime: 19
   DownRes: 2
   NumberBlurPasses: 3
   FallingBlocksDisabled: 1
@@ -118,7 +118,7 @@ MonoBehaviour:
       fallingBlock: 0
   - colliderLayer: 1
     name: Ground
-    material: {fileID: 2100000, guid: 32fa9445716fa8444a1d9bf6b1e2e8c8, type: 2}
+    material: {fileID: 2100000, guid: 37f087e34f7decf40b78fe14d7d71876, type: 2}
     blockInfo:
     - name: Dirt
       texturePositionX: 0

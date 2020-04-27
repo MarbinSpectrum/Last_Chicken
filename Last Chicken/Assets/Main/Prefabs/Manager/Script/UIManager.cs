@@ -462,7 +462,7 @@ public class UIManager : MonoBehaviour
                 ItemManager.instance.CostItem("Hammer");
                 Smithy.instance.used = true;
                 Player.instance.pickLevel++;
-                Player.instance.canControl = false;
+                Player.instance.canControl = true;
                 Smithy.instance.thisUse = false;
             }
             else
@@ -472,7 +472,7 @@ public class UIManager : MonoBehaviour
                     GameManager.instance.playerMoney -= Smithy.reinforceCost[Player.instance.pickLevel];
                     Smithy.instance.used = true;
                     Player.instance.pickLevel++;
-                    Player.instance.canControl = false;
+                    Player.instance.canControl = true;
                     Smithy.instance.thisUse = false;
                 }
             }
@@ -643,13 +643,16 @@ public class UIManager : MonoBehaviour
             }
             #endregion
 
+            #region[상점 UI 조절]
             if (ShopScript.instance)
             {
                 shopUI.SetActive(ShopScript.instance.thisUse);
                 for (int i = 0; i < ShopScript.instance.itmeBuyList.Count; i++)
                     shopItemSoldOut[i].SetActive(ShopScript.instance.itmeBuyList[i]);
             }
+            #endregion
 
+            #region[모루 UI 조절]
             if (Smithy.instance)
             {
                 smithyUI.SetActive(Smithy.instance.thisUse);
@@ -678,6 +681,7 @@ public class UIManager : MonoBehaviour
                 }
 
             }
+            #endregion
 
             if (Player.instance)
             {

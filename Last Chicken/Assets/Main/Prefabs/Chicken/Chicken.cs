@@ -60,6 +60,9 @@ public class Chicken : CustomCollider
 
     GameObject chickenLight;
 
+    [System.NonSerialized] public GameObject deleteChickenImg;
+    Animator deleteChickenAni;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -80,6 +83,9 @@ public class Chicken : CustomCollider
         bodyCollider = checkList.Find("Body").GetComponent<BoxCollider2D>();
 
         chickenLight = transform.Find("Light").gameObject;
+
+        deleteChickenImg = transform.Find("DeleteChicken").gameObject;
+        deleteChickenAni = deleteChickenImg.GetComponent<Animator>();
     }
     #endregion
 
@@ -90,6 +96,7 @@ public class Chicken : CustomCollider
             return;
         ChickenPattern();
         ChickenAni();
+        ChickenDelete();
     }
     #endregion
 
@@ -283,6 +290,20 @@ public class Chicken : CustomCollider
             MoveDirection = 0;
 
         flipX = MoveDirection != 0 ? MoveDirection : flipX;
+    }
+    #endregion
+
+    #region[닭 소멸]
+    public void ChickenDelete()
+    {
+        if (!deleteChickenImg.activeSelf)
+            return;
+
+        if(deleteChickenAni.GetCurrentAnimatorStateInfo(0).IsName("DeleteChicken") && deleteChickenAni.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f)
+        {
+            EffectManager.instance.ChickenFeather(transform.position, UnityEngine.Random.Range(0, 100) < 50);
+            gameObject.SetActive(false);
+        }
     }
     #endregion
 

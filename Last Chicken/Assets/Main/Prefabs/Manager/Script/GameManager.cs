@@ -292,7 +292,14 @@ public class GameManager : TerrainGenerator
                         SoundManager.instance.Ticking();
                     }
 
-                    if (countDown < 0)
+                    if (-3 <= countDown && countDown < 0)
+                    {
+                        if (Chicken.instance)
+                            Chicken.instance.deleteChickenImg.SetActive(true);
+                        if (Player.instance)
+                            Player.instance.canControl = false;
+                    }
+                    else if (countDown < -3)
                     {
                         SetGameOver();
                         return;
@@ -364,7 +371,7 @@ public class GameManager : TerrainGenerator
             case "Stage0101":
                 if (Player.instance.transform.position.y >= -5)
                     return;
-                if(ItemManager.instance.HasItemCheck("Hammer") || UnityEngine.Random.Range(0, 100) > 90)
+                if(ItemManager.instance.HasItemCheck("Hammer") || UnityEngine.Random.Range(0, 100) > 60)
                     playData.stageName = "SmithyMap0101";
                 else
                     playData.stageName = "ShopMap0101";
@@ -382,7 +389,7 @@ public class GameManager : TerrainGenerator
             case "Stage0102":
                 if (Player.instance.transform.position.y >= -5)
                     return;
-                if (ItemManager.instance.HasItemCheck("Hammer") || UnityEngine.Random.Range(0, 100) > 90)
+                if (ItemManager.instance.HasItemCheck("Hammer") || UnityEngine.Random.Range(0, 100) > 60)
                     playData.stageName = "SmithyMap0102";
                 else
                     playData.stageName = "ShopMap0102";
@@ -400,7 +407,7 @@ public class GameManager : TerrainGenerator
             case "Stage0103":
                 if (Player.instance.transform.position.y >= -5)
                     return;
-                if (ItemManager.instance.HasItemCheck("Hammer") || UnityEngine.Random.Range(0, 100) > 90)
+                if (ItemManager.instance.HasItemCheck("Hammer") || UnityEngine.Random.Range(0, 100) > 60)
                     playData.stageName = "SmithyMap0103";
                 else
                     playData.stageName = "ShopMap0103";

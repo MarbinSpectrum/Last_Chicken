@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class LandMineScript : TrapScript
 {
+    GameObject boom;
+
     BoomScript boomScript;
+
     public int range;
+    public float speed;
+
     #region[Awake]
     public override void Awake()
     {
         base.Awake();
-        boomScript = transform.Find("Piece").Find("Parts").Find("Body").GetComponent<BoomScript>();
+        boom = transform.Find("Piece").Find("Parts").Find("Body").gameObject;
+        boomScript = boom.GetComponent<BoomScript>();
         boomScript.damage = Mathf.FloorToInt(damage);
         boomScript.range = range;
+        boom.GetComponent<Animator>().speed = speed;
     }
     #endregion
 
@@ -34,6 +41,7 @@ public class LandMineScript : TrapScript
     public override void OnEnable()
     {
         base.OnEnable();
+        boom.SetActive(true);
     }
     #endregion
 

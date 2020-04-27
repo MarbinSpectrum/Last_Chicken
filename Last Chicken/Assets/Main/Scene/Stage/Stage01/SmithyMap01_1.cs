@@ -106,7 +106,7 @@ public class SmithyMap01_1 : StageData
         SetObject();
         GenerateBackGround();
         GenerateGround();
-        CameraController.Instance.SetOffset(12);
+        //CameraController.Instance.SetOffset(12);
         GroundManager.instance.Init(world);
     }
     #endregion

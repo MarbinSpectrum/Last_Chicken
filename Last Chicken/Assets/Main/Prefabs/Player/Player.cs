@@ -1046,6 +1046,7 @@ public class Player : CustomCollider
     #region[스테이지따른 플레이어 광원색 조정]
     private void PlayerLightColor()
     {
+        return;
         if (SceneController.instance.nowScene.Contains("Smithy"))
         {
             Color color = new Color(0, 0, 0);

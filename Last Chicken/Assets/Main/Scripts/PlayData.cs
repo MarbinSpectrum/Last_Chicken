@@ -51,9 +51,9 @@ public class PlayData
     {
         SE_Volume = 0.5f;
         BGM_Volume = 0.5f;
-        ScreenWidth = 1920;
-        ScreenHeight = 1080;
-        fullScreen = true;
+        ScreenWidth = 1600;
+        ScreenHeight = 900;
+        fullScreen = false;
         firstGame = true;
 
         ///////////////////////////////////////////////////////////////////

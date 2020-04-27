@@ -265,8 +265,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 0
   inItem: Random
-  damage: 10
+  damage: 40
   range: 6
+  speed: 3
 --- !u!1 &4712376644051184204
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,11 +470,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.01663971, y: 0.7086735}
-      - {x: -0.6680527, y: 0.5504036}
-      - {x: -0.5961075, y: -0.5926037}
-      - {x: 0.62940216, y: -0.6342201}
-      - {x: 0.67637634, y: 0.48381424}
+    - - {x: 0.16294861, y: 0.880455}
+      - {x: 0.10495758, y: 0.51916885}
+      - {x: 0.10662842, y: 0.10232735}
+      - {x: 0.87926483, y: 0.09194374}
+      - {x: 0.8793869, y: 0.8273754}
 --- !u!61 &3711400507018293967
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -487,7 +488,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.49972534, y: 0.507535}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -498,7 +499,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.7501373, y: 0.7657528}
   m_EdgeRadius: 0
 --- !u!1 &7131576513406941098
 GameObject:
