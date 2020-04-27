@@ -489,8 +489,10 @@ public class Stage01_1 : StageData
             addX = 10;
             for (int j = 0; j < 15; j++)
             {
+                if (i == 0)
+                    continue;
                 Vector2 objectPos = new Vector2(mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height);
-                if (Random.Range(0, 100) <= StageManager.instance.stage0101_WoodBoxValue || Exception.IndexOutRange(mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height - 1, groundData) && groundData[mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height - 1] == (GroundLayer)(-1))
+                if (Random.Range(0, 100) > StageManager.instance.stage0101_WoodBoxValue || Exception.IndexOutRange(mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height - 1, groundData) && groundData[mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height - 1] == (GroundLayer)(-1))
                 {
                     addX += Random.Range(10, 15);
                     continue;
@@ -501,11 +503,11 @@ public class Stage01_1 : StageData
             #endregion
 
             #region[석순 배치]
-            if (i < Mathf.Abs(mineRoadArea.Count * 0.3f))
-                continue;
             addX = 10;
             for (int j = 0; j < 15; j++)
             {
+                if (i < Mathf.Abs(mineRoadArea.Count * 0.3f))
+                    continue;
                 Vector2 objectPos = new Vector2(mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height);
                 if (Random.Range(0, 100) <= StageManager.instance.stage0101_TrapValue || Exception.IndexOutRange(mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height - 1, groundData) && groundData[mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height - 1] == (GroundLayer)(-1))
                 {
