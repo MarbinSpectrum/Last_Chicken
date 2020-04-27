@@ -5,7 +5,7 @@
     "ScreenHeight": 1080,
     "fullScreen": true,
     "firstGame": false,
-    "stageName": "Demo",
+    "stageName": "ShopMap0101",
     "playerNowHp": 3.0,
     "playerMaxHp": 3.0,
     "itemSlot": [
@@ -28,7 +28,7 @@
         true,
         true,
         true,
-        false,
+        true,
         false,
         false
     ],
@@ -37,27 +37,27 @@
     "randomDice": 100,
     "pickLevel": 0,
     "playerBuffItemHas": [
+        true,
+        false,
+        true,
         false,
         false,
-        false,
-        false,
-        false,
-        false
+        true
     ],
     "playerBuffItemNum": [
+        1,
+        0,
+        1,
         0,
         0,
-        0,
-        0,
-        0,
-        0
+        1
     ],
     "playerBuffItemTime": [
+        60.0,
+        0.0,
+        60.0,
         0.0,
         0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0
+        60.0
     ]
 }

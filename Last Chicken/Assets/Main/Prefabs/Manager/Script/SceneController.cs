@@ -143,10 +143,17 @@ public class SceneController : MonoBehaviour
             case "SmithyMap0101":
             case "SmithyMap0102":
             case "SmithyMap0103":
+            case "AltarMap0101":
+            case "AltarMap0102":
+            case "AltarMap0103":
+            case "FountainMap0101":
+            case "FountainMap0102":
+            case "FountainMap0103":
                 if (stageBackGround)
                     stageBackGround.sprite = null;
                 UIManager.instance.showStageNameText.text = "";
                 GameSceneSet();
+                SoundManager.instance.StopBGM_Sound();
                 break;
         }
     }
@@ -198,11 +205,17 @@ public class SceneController : MonoBehaviour
                     GroundManager.instance.digMask = GroundManager.instance.digMask | (int)(Mathf.Pow(2, (int)StageData.GroundLayer.Stone));
                     break;
                 case "ShopMap0101":
-                case "SmithyMap0101":
                 case "ShopMap0102":
-                case "SmithyMap0102":
                 case "ShopMap0103":
+                case "SmithyMap0101":
+                case "SmithyMap0102":
                 case "SmithyMap0103":
+                case "AltarMap0101":
+                case "AltarMap0102":
+                case "AltarMap0103":
+                case "FountainMap0101":
+                case "FountainMap0102":
+                case "FountainMap0103":
                     Player.instance.canAttack = true;
                     Player.instance.transform.position = new Vector3(GroundManager.instance.eventMapStartPos.x, GroundManager.instance.eventMapStartPos.y, Player.instance.transform.position.z);
                     Player.instance.transform.localScale = new Vector3(Mathf.Abs(Player.instance.transform.localScale.x) * GroundManager.instance.eventMapStartDic, Player.instance.transform.localScale.y, Player.instance.transform.localScale.x);

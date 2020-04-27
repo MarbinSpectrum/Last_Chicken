@@ -129,7 +129,7 @@ public abstract class AreaScript : CustomCollider
         }
         else
         {
-            SoundManager.instance.Stage1();
+            SoundManager.instance.StopBGM_Sound();
             StageBackGround.instance.Fadein();
             areaLight.SetActive(false);
             Player.instance.playerBlockLightSource.LightColor = defaultColor;

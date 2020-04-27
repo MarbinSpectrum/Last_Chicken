@@ -71,7 +71,6 @@ public class Stage01_2 : StageData
     #endregion
 
     #region[지형 설정]
-
     public override void SetGround()
     {
         SetMineRoad();
@@ -126,10 +125,6 @@ public class Stage01_2 : StageData
                     groundData[x, y] = GroundLayer.Stone;
 
         ProceduralGeneration(world, groundData, GroundLayer.Stone);
-
-        //SetAltar();
-        //SetFountain();
-        MineArea();
 
         FillArea(150);
         RemoveArea();
@@ -318,116 +313,6 @@ public class Stage01_2 : StageData
 
             //새로경로에 추가
             verticalArea.Add(deleteRoad);
-        }
-    }
-    #endregion
-
-    #region[채광시설 생성]
-    void MineArea()
-    {
-        CheckArea();
-
-        List<Vector3Int> mineAreaList = new List<Vector3Int>();
-
-        Vector2Int mineAreaSize = new Vector2Int(GroundManager.instance.mineAreaRect.GetLength(0), GroundManager.instance.mineAreaRect.GetLength(1));
-
-        for (int i = 0; i < mineRoadArea.Count; i++)
-        {
-            Vector2Int startPos = new Vector2Int(mineRoadArea[i].x - 1, mineRoadArea[i].y/* - mineRoadArea[i].height + mineAreaSize.y*/);
-            Vector2Int endPos = new Vector2Int(mineRoadArea[i].x + mineRoadArea[i].width + mineAreaSize.x - 1, mineRoadArea[i].y/* - mineRoadArea[i].height + mineAreaSize.y*/);
-
-
-            if (Exception.IndexOutRange(startPos.x, startPos.y, maxRect))
-                if (CanAddArea(startPos.x, startPos.y, mineAreaSize.x, mineAreaSize.y))
-                    mineAreaList.Add(new Vector3Int(startPos.x, startPos.y, -1));
-
-            if (Exception.IndexOutRange(endPos.x, endPos.y, maxRect))
-                if (CanAddArea(endPos.x, endPos.y, mineAreaSize.x, mineAreaSize.y))
-                    mineAreaList.Add(new Vector3Int(endPos.x, endPos.y, +1));
-        }
-
-        for (int i = 0; i < mineAreaList.Count; i++)
-        {
-            Vector3Int MineAreaPos = mineAreaList[i];
-            MineAreaPos = new Vector3Int(MineAreaPos.x - mineAreaSize.x, MineAreaPos.y - mineAreaSize.y, MineAreaPos.z);
-
-            for (int j = 0; j < mineAreaSize.x; j++)
-                for (int k = 0; k < mineAreaSize.y; k++)
-                    if (MineAreaPos.z == 1)
-                    {
-                        if (Exception.IndexOutRange(MineAreaPos.x + j, MineAreaPos.y + k, groundData))
-                            groundData[MineAreaPos.x + j, MineAreaPos.y + k] = GroundManager.instance.mineAreaRect[j, k];
-                    }
-                    else
-                    {
-                        if (Exception.IndexOutRange(MineAreaPos.x + j + 1, MineAreaPos.y + k, groundData))
-                            groundData[MineAreaPos.x + j + 1, MineAreaPos.y + k] = GroundManager.instance.mineAreaRect[mineAreaSize.x - j - 1, k];
-                    }
-        }
-
-    }
-    #endregion
-
-    #region[제단 세팅]
-    void SetAltar()
-    {
-        CheckArea();
-
-        List<Vector2Int> altarList = new List<Vector2Int>();
-
-        if (GroundManager.instance == null)
-            GroundManager.instance = new GroundManager();
-
-        int width = GroundManager.instance.altarRect.GetLength(0);
-        int height = GroundManager.instance.altarRect.GetLength(1);
-
-
-        for (int i = 0; i < world.WorldWidth; i++)
-            for (int j = 0; j < world.WorldHeight; j++)
-                if (CanAddArea(i, j, width, height))
-                    altarList.Add(new Vector2Int(i, j));
-
-        if (altarList.Count > 0)
-        {
-            Vector2Int altarPos = altarList[Random.Range(0, altarList.Count)];
-
-            altarRect = new RectInt(altarPos.x - width, altarPos.y, width, height);
-
-            altarPos -= new Vector2Int(altarRect.width, altarRect.height);
-            for (int i = 0; i < GroundManager.instance.altarRect.GetLength(0); i++)
-                for (int j = 0; j < GroundManager.instance.altarRect.GetLength(1); j++)
-                    if (Exception.IndexOutRange(altarPos.x + i, altarPos.y + j, groundData))
-                        groundData[altarPos.x + i, altarPos.y + j] = GroundManager.instance.altarRect[i, j];
-        }
-    }
-    #endregion
-
-    #region[분수 세팅]
-    void SetFountain()
-    {
-        CheckArea();
-
-        List<Vector2Int> fountainList = new List<Vector2Int>();
-
-        int width = GroundManager.instance.fountainRect.GetLength(0);
-        int height = GroundManager.instance.fountainRect.GetLength(1);
-
-        for (int i = 0; i < world.WorldWidth; i++)
-            for (int j = 0; j < world.WorldHeight; j++)
-                if (CanAddArea(i, j, width, height) && Mathf.Abs(j - altarRect.y) > 50)
-                    fountainList.Add(new Vector2Int(i, j));
-
-        if (fountainList.Count > 0)
-        {
-            Vector2Int fountainPos = fountainList[Random.Range(0, fountainList.Count)];
-
-            fountainRect = new RectInt(fountainPos.x - width, fountainPos.y, width, height);
-
-            fountainPos -= new Vector2Int(fountainRect.width, fountainRect.height);
-            for (int i = 0; i < GroundManager.instance.fountainRect.GetLength(0); i++)
-                for (int j = 0; j < GroundManager.instance.fountainRect.GetLength(1); j++)
-                    if (Exception.IndexOutRange(fountainPos.x + i, fountainPos.y + j, groundData))
-                        groundData[fountainPos.x + i, fountainPos.y + j] = GroundManager.instance.fountainRect[i, j];
         }
     }
     #endregion

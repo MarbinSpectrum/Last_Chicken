@@ -31,7 +31,7 @@ public class Smithy : AreaScript
     {
         onArea = IsAtPlayer(bodyCollider);
         UseArea();
-        SmithySound();
+        //SmithySound();
     }
     #endregion
 
@@ -65,6 +65,7 @@ public class Smithy : AreaScript
     }
     #endregion
 
+    #region[대장간소리]
     public void SmithySound()
     {
         time += Time.deltaTime;
@@ -74,5 +75,6 @@ public class Smithy : AreaScript
             SoundManager.instance.Smithy();
         }
     }
+    #endregion
 
 }

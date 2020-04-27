@@ -83,27 +83,24 @@ public class GroundManager : MonoBehaviour
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    Texture2D altarData;
+    public Texture2D altarData;
     public StageData.GroundLayer[,] altarRect;
 
-    Texture2D fountainData;
+    public Texture2D fountainData;
     public StageData.GroundLayer[,] fountainRect;
-
-    Texture2D mineAreaData;
-    public StageData.GroundLayer[,] mineAreaRect;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    Texture2D tutorialData;
+    public Texture2D tutorialData;
     public StageData.GroundLayer[,] tutorialRect;
     public StageData.FluidType[,] tutorialFluid;
 
-    Texture2D tutorialBackData;
+    public Texture2D tutorialBackData;
     public StageData.BackGroundLayer[,] tutorialBackGround;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    Texture2D stage01Outline;
+    public Texture2D stage01Outline;
     public StageData.GroundLayer[,] stage01OutlineRect;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -117,10 +114,6 @@ public class GroundManager : MonoBehaviour
     public List<Vector2> eventMapTreasurePos = new List<Vector2>();
     public Texture2D eventMapBackData;
     public StageData.BackGroundLayer[,] eventBackGround;
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -193,23 +186,17 @@ public class GroundManager : MonoBehaviour
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            altarData = Resources.Load("TerrainData/AltarData") as Texture2D;
+            altarData = Resources.Load("TerrainData/Altar/AltarData") as Texture2D;
             altarRect = new StageData.GroundLayer[altarData.width, altarData.height];
             for (int i = 0; i < altarData.width; i++)
                 for (int j = 0; j < altarData.height; j++)
                     altarRect[i, j] = ColorToGroundData(altarData.GetPixel(i, j));
 
-            fountainData = Resources.Load("TerrainData/FountainData") as Texture2D;
+            fountainData = Resources.Load("TerrainData/Fountain/FountainData") as Texture2D;
             fountainRect = new StageData.GroundLayer[fountainData.width, fountainData.height];
             for (int i = 0; i < fountainData.width; i++)
                 for (int j = 0; j < fountainData.height; j++)
                     fountainRect[i, j] = ColorToGroundData(fountainData.GetPixel(i, j));
-
-            mineAreaData = Resources.Load("TerrainData/MineAreaData") as Texture2D;
-            mineAreaRect = new StageData.GroundLayer[mineAreaData.width, mineAreaData.height];
-            for (int i = 0; i < mineAreaData.width; i++)
-                for (int j = 0; j < mineAreaData.height; j++)
-                    mineAreaRect[i, j] = ColorToGroundData(mineAreaData.GetPixel(i, j));
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
