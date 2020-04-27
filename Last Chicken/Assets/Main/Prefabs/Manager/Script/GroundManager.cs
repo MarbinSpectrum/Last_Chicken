@@ -108,63 +108,19 @@ public class GroundManager : MonoBehaviour
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public StageData.GroundLayer[,] shopMap0101Rect;
-    public StageData.FluidType[,] shopMap0101Fluid;
-    public Texture2D shopMap0101Data;
-    public Vector2 shopMap0101StartPos;
-    public int shopMap0101StartDic;
-    public Vector2 shopMap0101ShopPos;
-    public Vector2 shopMap0101TreasurePos;
-
-    public StageData.GroundLayer[,] smithyMap0101Rect;
-    public StageData.FluidType[,] smithyMap0101Fluid;
-    public Texture2D smithyMap0101Data;
-    public Vector2 smithyMap0101StartPos;
-    public int smithyMap0101StartDic;
-    public Vector2 smithyMap0101SmithyPos;
-    public Vector2 smithyMap0101TreasurePos;
-    public Texture2D smithyMap0101BackData;
-    public StageData.BackGroundLayer[,] smithyMap0101BackGround;
+    public StageData.GroundLayer[,] eventMapRect;
+    public StageData.FluidType[,] eventMapFluid;
+    public Texture2D eventMapData;
+    public Vector2 eventMapStartPos;
+    public int eventMapStartDic;
+    public Vector2 eventMapMainObjectPos;
+    public List<Vector2> eventMapTreasurePos = new List<Vector2>();
+    public Texture2D eventMapBackData;
+    public StageData.BackGroundLayer[,] eventBackGround;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public StageData.GroundLayer[,] shopMap0102Rect;
-    public StageData.FluidType[,] shopMap0102Fluid;
-    public Texture2D shopMap0102Data;
-    public Vector2 shopMap0102StartPos;
-    public int shopMap0102StartDic;
-    public Vector2 shopMap0102ShopPos;
-    public Vector2 shopMap0102TreasurePos;
 
-    public StageData.GroundLayer[,] smithyMap0102Rect;
-    public StageData.FluidType[,] smithyMap0102Fluid;
-    public Texture2D smithyMap0102Data;
-    public Vector2 smithyMap0102StartPos;
-    public int smithyMap0102StartDic;
-    public Vector2 smithyMap0102SmithyPos;
-    public Vector2 smithyMap0102TreasurePos;
-    public Texture2D smithyMap0102BackData;
-    public StageData.BackGroundLayer[,] smithyMap0102BackGround;
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    public StageData.GroundLayer[,] shopMap0103Rect;
-    public StageData.FluidType[,] shopMap0103Fluid;
-    public Texture2D shopMap0103Data;
-    public Vector2 shopMap0103StartPos;
-    public int shopMap0103StartDic;
-    public Vector2 shopMap0103ShopPos;
-    public Vector2 shopMap0103TreasurePos;
-
-    public StageData.GroundLayer[,] smithyMap0103Rect;
-    public StageData.FluidType[,] smithyMap0103Fluid;
-    public Texture2D smithyMap0103Data;
-    public Vector2 smithyMap0103StartPos;
-    public int smithyMap0103StartDic;
-    public Vector2 smithyMap0103SmithyPos;
-    public Vector2 smithyMap0103TreasurePos;
-    public Texture2D smithyMap0103BackData;
-    public StageData.BackGroundLayer[,] smithyMap0103BackGround;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

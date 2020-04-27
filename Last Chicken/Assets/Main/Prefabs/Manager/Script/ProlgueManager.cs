@@ -54,7 +54,7 @@ public class ProlgueManager : MonoBehaviour
     #region[Update]
     void Update()
     {
-        if (!prolgueOut && Input.GetMouseButtonDown(0))
+        if (!prolgueOut && Input.GetMouseButtonDown(0) && GameManager.instance && !GameManager.instance.playData.firstGame)
             prolgueOut = true;
 
         if (prolgueOut)

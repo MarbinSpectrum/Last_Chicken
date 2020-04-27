@@ -197,56 +197,23 @@ public class SceneController : MonoBehaviour
                     GroundManager.instance.digMask = 0;
                     GroundManager.instance.digMask = GroundManager.instance.digMask | (int)(Mathf.Pow(2, (int)StageData.GroundLayer.Stone));
                     break;
-                case "Stage0101":
-                    Player.instance.canAttack = true;
-                    Player.instance.transform.position = new Vector3(World.Instance.WorldWidth / 2, World.Instance.WorldHeight + 30, Player.instance.transform.position.z);
-                    GroundManager.instance.InitDigMask();
-                    break;
                 case "ShopMap0101":
-                    Player.instance.canAttack = true;
-                    Player.instance.transform.position = new Vector3(GroundManager.instance.shopMap0101StartPos.x, GroundManager.instance.shopMap0101StartPos.y, Player.instance.transform.position.z);
-                    Player.instance.transform.localScale = new Vector3(Mathf.Abs(Player.instance.transform.localScale.x) * GroundManager.instance.shopMap0101StartDic, Player.instance.transform.localScale.y, Player.instance.transform.localScale.x);
-                    GroundManager.instance.digMask = 0;
-                    break;
                 case "SmithyMap0101":
-                    Player.instance.canAttack = true;
-                    Player.instance.transform.position = new Vector3(GroundManager.instance.smithyMap0101StartPos.x, GroundManager.instance.smithyMap0101StartPos.y, Player.instance.transform.position.z);
-                    Player.instance.transform.localScale = new Vector3(Mathf.Abs(Player.instance.transform.localScale.x) * GroundManager.instance.smithyMap0101StartDic, Player.instance.transform.localScale.y, Player.instance.transform.localScale.x);
-                    GroundManager.instance.digMask = 0;
-                    break;
-                case "Stage0102":
-                    Player.instance.canAttack = true;
-                    Player.instance.transform.position = new Vector3(World.Instance.WorldWidth / 2, World.Instance.WorldHeight + 30, Player.instance.transform.position.z);
-                    GroundManager.instance.InitDigMask();
-                    break;
                 case "ShopMap0102":
-                    Player.instance.canAttack = true;
-                    Player.instance.transform.position = new Vector3(GroundManager.instance.shopMap0102StartPos.x, GroundManager.instance.shopMap0102StartPos.y, Player.instance.transform.position.z);
-                    Player.instance.transform.localScale = new Vector3(Mathf.Abs(Player.instance.transform.localScale.x) * GroundManager.instance.shopMap0102StartDic, Player.instance.transform.localScale.y, Player.instance.transform.localScale.x);
-                    GroundManager.instance.digMask = 0;
-                    break;
                 case "SmithyMap0102":
+                case "ShopMap0103":
+                case "SmithyMap0103":
                     Player.instance.canAttack = true;
-                    Player.instance.transform.position = new Vector3(GroundManager.instance.smithyMap0102StartPos.x, GroundManager.instance.smithyMap0102StartPos.y, Player.instance.transform.position.z);
-                    Player.instance.transform.localScale = new Vector3(Mathf.Abs(Player.instance.transform.localScale.x) * GroundManager.instance.smithyMap0102StartDic, Player.instance.transform.localScale.y, Player.instance.transform.localScale.x);
+                    Player.instance.transform.position = new Vector3(GroundManager.instance.eventMapStartPos.x, GroundManager.instance.eventMapStartPos.y, Player.instance.transform.position.z);
+                    Player.instance.transform.localScale = new Vector3(Mathf.Abs(Player.instance.transform.localScale.x) * GroundManager.instance.eventMapStartDic, Player.instance.transform.localScale.y, Player.instance.transform.localScale.x);
                     GroundManager.instance.digMask = 0;
                     break;
+                case "Stage0101":
+                case "Stage0102":
                 case "Stage0103":
                     Player.instance.canAttack = true;
                     Player.instance.transform.position = new Vector3(World.Instance.WorldWidth / 2, World.Instance.WorldHeight + 30, Player.instance.transform.position.z);
                     GroundManager.instance.InitDigMask();
-                    break;
-                case "ShopMap0103":
-                    Player.instance.canAttack = true;
-                    Player.instance.transform.position = new Vector3(GroundManager.instance.shopMap0103StartPos.x, GroundManager.instance.shopMap0103StartPos.y, Player.instance.transform.position.z);
-                    Player.instance.transform.localScale = new Vector3(Mathf.Abs(Player.instance.transform.localScale.x) * GroundManager.instance.shopMap0103StartDic, Player.instance.transform.localScale.y, Player.instance.transform.localScale.x);
-                    GroundManager.instance.digMask = 0;
-                    break;
-                case "SmithyMap0103":
-                    Player.instance.canAttack = true;
-                    Player.instance.transform.position = new Vector3(GroundManager.instance.smithyMap0103StartPos.x, GroundManager.instance.smithyMap0103StartPos.y, Player.instance.transform.position.z);
-                    Player.instance.transform.localScale = new Vector3(Mathf.Abs(Player.instance.transform.localScale.x) * GroundManager.instance.smithyMap0103StartDic, Player.instance.transform.localScale.y, Player.instance.transform.localScale.x);
-                    GroundManager.instance.digMask = 0;
                     break;
             }
         }

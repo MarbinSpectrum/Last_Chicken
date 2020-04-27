@@ -42,6 +42,8 @@ public class MonsterManager : ObjectPool
         return 0;
     }
 
+    List<Vector2Int> monsterPosList = new List<Vector2Int>();
+
     public MonsterStats[] monsterData = new MonsterStats[monsterName.Length];
 
     GameObject bat;
@@ -100,9 +102,10 @@ public class MonsterManager : ObjectPool
     {
         PoolOff();
         SetMonsterList(SceneController.instance.nowScene);
-        List<Vector2Int> monsterPos = MonsterSpawnPos(world);
+        monsterPosList.Clear();
         for (int i = 0; i < num; i++)
         {
+            List<Vector2Int> monsterPos = MonsterSpawnPos(world);
             Vector2Int pos = monsterPos[Random.Range(0, monsterPos.Count)];
             if (monsterList.Count > 0)
             {
@@ -172,12 +175,17 @@ public class MonsterManager : ObjectPool
                 if (Exception.IndexOutRange(x, y, donSetPos))
                     donSetPos[x, y] = true;
 
+        int r = 10;
+        for (int i = 0; i < monsterPosList.Count; i++)
+            for (int x = monsterPosList[i].x - r; x < monsterPosList[i].x + r; x++)
+                for (int y = monsterPosList[i].y - r; y < monsterPosList[i].y + r; y++)
+                    if (Exception.IndexOutRange(x, y, donSetPos))
+                        donSetPos[x, y] = true;
+
         for (int x = 0; x < world.WorldWidth; x++)
             for (int y = 0; y < world.WorldHeight - 50; y++)
                 if (StageData.instance.GetBlock(x, y) == (StageData.GroundLayer)(-1) && !donSetPos[x,y])
                     emp.Add(new Vector2Int(x, y));
-
-
 
         //for (int i = 0; i < GroundManager.instance.linkAreaList.Count; i++)
         //    if (Vector2.Distance(Player.instance.transform.position, GroundManager.instance.linkAreaList[i]) < 30)
