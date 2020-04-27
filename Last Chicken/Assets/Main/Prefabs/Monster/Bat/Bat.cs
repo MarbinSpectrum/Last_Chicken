@@ -70,11 +70,13 @@ public class Bat : Monster
     {
         if (Vector2.Distance(nowPos, Player.instance.transform.position) < 10 && nowPos.y >= Player.instance.transform.position.y)
             if (Mathf.Sign(Player.instance.transform.localScale.x) == Mathf.Sign(transform.localScale.x))
-            {
-                MovingFly(0, 0);
-                batStop = true;
-                return;
-            }
+                if ((Player.instance.transform.localScale.x > 0 && Player.instance.transform.position.x < transform.position.x) ||
+                    (Player.instance.transform.localScale.x < 0 && Player.instance.transform.position.x > transform.position.x))
+                {
+                    MovingFly(0, 0);
+                    batStop = true;
+                    return;
+                }
 
         batStop = false;
 

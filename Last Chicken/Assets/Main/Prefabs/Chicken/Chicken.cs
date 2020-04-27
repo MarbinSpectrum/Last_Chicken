@@ -301,7 +301,11 @@ public class Chicken : CustomCollider
 
         if(deleteChickenAni.GetCurrentAnimatorStateInfo(0).IsName("DeleteChicken") && deleteChickenAni.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f)
         {
-            EffectManager.instance.ChickenFeather(transform.position, UnityEngine.Random.Range(0, 100) < 50);
+            for(int i = 0; i < 8; i++)
+            {
+                Vector2 force = new Vector2(Random.Range(-1.0f, 1.0f), 1);
+                EffectManager.instance.LightFeather(transform.position, force * 100, Random.Range(0, 3));
+            }
             gameObject.SetActive(false);
         }
     }

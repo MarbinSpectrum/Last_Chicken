@@ -230,9 +230,8 @@ MonoBehaviour:
       \uC0B6\uC744 \uC0B4\uACE0 \uC788\uC5C8\uB2E4."
   - sprite: {fileID: 21300000, guid: 809e1032cc166b1458f2ade129e93f7a, type: 3}
     context: "\uADF8\uB7EC\uB098 \uC721\uC2DD\uC744 \uC804\uD600 \uD558\uC9C0 \uC54A\uB294
-      \uC678\uACC4 \uC885\uC871\n'\uBE44\uAC70\uB2C8\uB098\uD2F0'\uAC00 \uD589\uC131\uC5D0
-      \uCE68\uC785\uD574\n\uC9C0\uD558 \uAE4A\uC740 \uACF3\uC758 \uCE58\uD0A8 \uC2E0\uC804\uC744
-      \uC7A5\uC545\uD558\uACE0 \n\uC2E0\uC758 \uD798\uC744 \uBD09\uC778\uD558\uAC8C\uB41C\uB2E4."
+      \uC678\uACC4 \uC885\uC871\r\n'\uBE44\uAC70\uB2C8\uB098\uD2F0'\uAC00 \uD589\uC131\uC744
+      \uCE68\uB7B5\uD558\uACE0\r\n\uCE58\uD0A8 \uC2E0\uC758 \uD798\uC744 \uBD09\uC778\uD558\uAC8C\uB41C\uB2E4."
   - sprite: {fileID: 21300000, guid: 9d1d1cbd75a4ad9429b85e8f52bc0b5a, type: 3}
     context: "\uCE58\uD0A8 \uC2E0\uC758 \uC740\uD61C\uB294 \uC0AC\uB77C\uC838\uBC84\uB838\uACE0\n\uB354\uC774\uC0C1
       \uB2ED\uC744 \uC8FC\uC2DD\uC73C\uB85C \uD560 \uC218 \uC5C6\uAC8C \uB3FC\uBC84\uB838\uB2E4."
@@ -305,10 +304,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC774\uC5D0 \uCE58\uD0A8 \uC2E0\uC740 \uD798\uC744 \uB418\uCC3E\uACE0
-    \uC740\uD61C\uB97C \uB0B4\uB9AC\uAE30 \uC704\uD574 \n\uB2ED\uC744 \uB108\uBB34\uB098\uB3C4
-    \uC88B\uC544\uD558\uB294 \uD55C \uC18C\uB144\uC5D0\uAC8C \n\uD2B9\uBCC4\uD55C
-    \uC784\uBB34\uB97C \uB9E1\uAE30\uAC8C \uB41C\uB2E4."
+  m_text: "\uC5EC\uAE30\uB294                                                "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d201a0d4ab84b1d4796477c516574389, type: 2}
   m_sharedMaterial: {fileID: -4139152016495125239, guid: d201a0d4ab84b1d4796477c516574389,
@@ -378,12 +374,12 @@ MonoBehaviour:
   m_margin: {x: -540.9519, y: -21.259491, z: -509.386, w: -191.33578}
   m_textInfo:
     textComponent: {fileID: 3532545806126728266}
-    characterCount: 64
+    characterCount: 51
     spriteCount: 0
-    spaceCount: 18
-    wordCount: 17
+    spaceCount: 48
+    wordCount: 1
     linkCount: 0
-    lineCount: 3
+    lineCount: 1
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -413,7 +409,7 @@ GameObject:
   - component: {fileID: 4532508338441080637}
   - component: {fileID: 8599625239871108849}
   m_Layer: 5
-  m_Name: TMP SubMeshUI [DungGeunMo SDF Material + LiberationSans SDF Atlas]
+  m_Name: TMP SubMeshUI [DungGeunMo SDF Prologue Material + LiberationSans SDF Atlas]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -469,7 +465,7 @@ MonoBehaviour:
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
   m_isDefaultMaterial: 0
-  m_padding: 3.176
+  m_padding: 1.25
   m_canvasRenderer: {fileID: 4532508338441080637}
   m_TextComponent: {fileID: 3532545806126728266}
   m_materialReferenceIndex: 1

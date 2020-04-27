@@ -93,7 +93,12 @@ public class ProlgueManager : MonoBehaviour
             for (int i = 0; i < prolgueDatas[n].context.Length; i++)
             {
                 prolgueString += prolgueDatas[n].context[i];
-                prolgueText.text = prolgueString;
+                string tempString = prolgueString;
+                tempString += "<color=#00000000>";
+                for (int j = i + 1; j < prolgueDatas[n].context.Length; j++)
+                    tempString += prolgueDatas[n].context[j];
+                tempString += "</color>";
+                prolgueText.text = tempString;
                 if (!prolgueOut)
                     SoundManager.instance.BtnClick();
                 yield return new WaitForSeconds(0.1f);

@@ -15,6 +15,7 @@ public class EffectManager : ObjectPool
     GameObject highLand;
     GameObject[] attackEffect = new GameObject[3];
     GameObject chickenFeather;
+    GameObject[] lightFeather = new GameObject[3];
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -95,6 +96,8 @@ public class EffectManager : ObjectPool
             for (int i = 0; i < attackEffect.Length; i++)
                 attackEffect[i] = Resources.Load("Graphics/Effects/Player/Attack/AttackEffect" + i) as GameObject;
             chickenFeather = Resources.Load("Graphics/Effects/Feather/ChickenFeather") as GameObject;
+            for (int i = 0; i < 3; i++)
+                lightFeather[i] = Resources.Load("Graphics/Effects/Feather/Feather" + i) as GameObject;
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -237,6 +240,32 @@ public class EffectManager : ObjectPool
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
         emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1);
+    }
+    #endregion
+
+    #region[빛나는깃털]
+    public void LightFeather(Vector2 vector2, bool flipX,Vector2 force, int type = 0)
+    {
+        string name = "LightFeather" + type;
+
+        GameObject emp = FindObject(name);
+
+        if (emp == null)
+        {
+            emp = Instantiate(lightFeather[type]);
+            emp.transform.name = name;
+            AddObject(emp);
+        }
+        emp.GetComponent<Rigidbody2D>().AddForce(force);
+        emp.SetActive(true);
+        emp.transform.parent = transform;
+        emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
+        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1);
+    }
+
+    public void LightFeather(Vector3 vector3, Vector2 force, int type = 0)
+    {
+        LightFeather(vector3, (Random.Range(0, 100) > 50 ? false : true), force, type);
     }
     #endregion
 
