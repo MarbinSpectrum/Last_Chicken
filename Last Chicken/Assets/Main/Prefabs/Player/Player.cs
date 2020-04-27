@@ -785,8 +785,9 @@ public class Player : CustomCollider
             {
                 ItemManager.instance.CostItem("Beer");
                 SoundManager.instance.PlayerGlup();
-                maxHp += ItemManager.instance.itemData[ItemManager.FindData("Beer")].value0;
-                maxHp = maxHp >= 10 ? 10 : maxHp;
+                nowHp += ItemManager.instance.itemData[ItemManager.FindData("Coke")].value0;
+                nowHp = nowHp > maxHp ? maxHp : nowHp;
+                EffectManager.instance.HearthEffect();
             }
             else if (ItemManager.instance.CanUseActiveItem("Dynamite"))
             {

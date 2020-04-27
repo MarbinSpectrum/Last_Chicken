@@ -80,10 +80,11 @@ public class StalagmiteScript : TrapScript
     }
     #endregion
 
-
     #region[닿았을때 데미지]
     public override void EnterDamage()
     {
+        if(stalagmiteType == Type.낙석석순 && ItemManager.instance.HasItemCheck("Mine_Helmet"))
+            return;
         Vector2 digPos = (Vector2)transform.position + new Vector2(bodyCollider.offset.x * transform.localScale.x, bodyCollider.offset.y * transform.localScale.y);
         Vector2 newSize = new Vector2(Mathf.Abs(bodyCollider.size.x * transform.localScale.x) * 0.9f, Mathf.Abs(bodyCollider.size.y * transform.localScale.y) * 0.9f);
         RaycastHit2D[] targets = Physics2D.BoxCastAll(digPos, newSize, 0, Vector2.zero, 0, 1 << LayerMask.NameToLayer("Body"));
