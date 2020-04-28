@@ -13,6 +13,7 @@ public class AltarScript : AreaScript
     [System.NonSerialized] public List<int> buffList = new List<int>();
     [System.NonSerialized] public bool onArea;
     Animator altarAnimator;
+    GameObject uiMouse;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -28,6 +29,8 @@ public class AltarScript : AreaScript
         Transform altar = structrue.Find("Altar");
 
         altarAnimator = altar.GetComponent<Animator>();
+
+        uiMouse = transform.Find("UIMouse").gameObject;
 
     }
     #endregion
@@ -81,7 +84,10 @@ public class AltarScript : AreaScript
                 Player.instance.pray = !thisUse;
                 thisUse = !thisUse;
             }
+            uiMouse.SetActive(!thisUse);
         }
+        else
+            uiMouse.SetActive(false);
     }
     #endregion
 

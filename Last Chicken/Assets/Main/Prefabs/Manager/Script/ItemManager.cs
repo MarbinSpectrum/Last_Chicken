@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Custom;
 
 public class ItemManager : ObjectPool
 {
@@ -222,13 +223,6 @@ public class ItemManager : ObjectPool
     {
         if (FindData(name) == -1)
             name = "";
-        else if (!CheckReSpawnItem(name))
-        {
-            if (ReSpawnItemList.Contains(FindData(name)))
-                name = "";
-            else
-                ReSpawnItemList.Add(FindData(name));
-        }
 
         GameObject emp = FindObject(name);
 
@@ -304,6 +298,15 @@ public class ItemManager : ObjectPool
     public void SpawnItemRandomAtObject(Vector2 vector2)
     {
         int itemNum = GetRandomItemAtWoodBox();
+
+        if (Exception.IndexOutRange(itemNum, itemName) && !CheckReSpawnItem(itemName[itemNum]))
+        {
+            if (ReSpawnItemList.Contains(itemNum))
+                itemNum = -1;
+            else
+                ReSpawnItemList.Add(itemNum);
+        }
+
         if (itemNum != -1)
             SpawnItem(vector2, itemName[itemNum]);
     }

@@ -11,6 +11,7 @@ public class FountainScript : AreaScript
     [System.NonSerialized] public bool thisUse = false;
     [System.NonSerialized] public bool onArea;
     Animator fountainAnimator;
+    GameObject uiMouse;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,6 +27,8 @@ public class FountainScript : AreaScript
         Transform fountain = structrue.Find("Fountain");
 
         fountainAnimator = fountain.GetComponent<Animator>();
+
+        uiMouse = transform.Find("UIMouse").gameObject;
     }
     #endregion
 
@@ -78,7 +81,10 @@ public class FountainScript : AreaScript
                 thisUse = false;
                 used = true;
             }
+            uiMouse.SetActive(!thisUse);
         }
+        else
+            uiMouse.SetActive(false);
     }
     #endregion
 

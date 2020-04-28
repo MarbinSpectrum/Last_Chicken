@@ -13,6 +13,7 @@ public class Smithy : AreaScript
     [System.NonSerialized] public bool onArea;
     public static int[] reinforceCost = new int[4] { 2500, 5000, 7500, 10000 };
     float time = 13;
+    GameObject uiMouse;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -21,8 +22,10 @@ public class Smithy : AreaScript
     #region[Awake]
     public override void Awake()
     {
-        bodyCollider = GetComponent<BoxCollider2D>();
         instance = this;
+        bodyCollider = GetComponent<BoxCollider2D>();
+
+        uiMouse = transform.Find("UIMouse").gameObject;
     }
     #endregion
 
@@ -61,7 +64,10 @@ public class Smithy : AreaScript
                 Player.instance.canControl = thisUse;
                 thisUse = !thisUse;
             }
+            uiMouse.SetActive(!thisUse);
         }
+        else
+            uiMouse.SetActive(false);
     }
     #endregion
 

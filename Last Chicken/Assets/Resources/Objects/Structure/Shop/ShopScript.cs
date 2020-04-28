@@ -15,7 +15,8 @@ public class ShopScript : AreaScript
     [System.NonSerialized] public bool onArea;
     [System.NonSerialized] public bool shopVIP;
     [System.NonSerialized] public int randomDice;
-    
+    GameObject uiMouse;
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -23,8 +24,10 @@ public class ShopScript : AreaScript
     #region[Awake]
     public override void Awake()
     {
-        bodyCollider = GetComponent<BoxCollider2D>();
         instance = this;
+        bodyCollider = GetComponent<BoxCollider2D>();
+
+        uiMouse = transform.Find("UIMouse").gameObject;
     }
     #endregion
 
@@ -64,7 +67,10 @@ public class ShopScript : AreaScript
                 Player.instance.canControl = thisUse;
                 thisUse = !thisUse;
             }
+            uiMouse.SetActive(!thisUse);
         }
+        else
+            uiMouse.SetActive(false);
     }
     #endregion
 
