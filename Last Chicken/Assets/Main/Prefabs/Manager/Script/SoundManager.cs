@@ -38,6 +38,7 @@ public class SoundManager : MonoBehaviour
     AudioClip playerLand;
     AudioClip playerSplash;
     AudioClip playerSplashSmall;
+    AudioClip playerMoney;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -55,6 +56,7 @@ public class SoundManager : MonoBehaviour
     AudioClip explosion;
     AudioClip ignite;
     AudioClip smithy;
+    AudioClip bombCount;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -122,12 +124,14 @@ public class SoundManager : MonoBehaviour
             playerLand = Resources.Load("Sounds/SE/Player/착지소리") as AudioClip;
             playerSplash = Resources.Load("Sounds/SE/Player/첨벙") as AudioClip;
             playerSplashSmall = Resources.Load("Sounds/SE/Player/첨벙작은") as AudioClip;
+            playerMoney = Resources.Load("Sounds/SE/Player/돈소리") as AudioClip;
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             for (int i = 0; i < 11; i++)
                 chickenBark[i] = Resources.Load("Sounds/SE/Chicken/닭" + (i + 1)) as AudioClip;
             chickenCoco = Resources.Load("Sounds/SE/Chicken/꼬끼오") as AudioClip;
+
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             monsterDamage = Resources.Load("Sounds/SE/Monster/몬스터피격") as AudioClip;
@@ -142,6 +146,7 @@ public class SoundManager : MonoBehaviour
             woodObjectAttack = Resources.Load("Sounds/SE/Object/나무오브젝트타격") as AudioClip;
             explosion = Resources.Load("Sounds/SE/Object/폭탄폭발") as AudioClip;
             ignite = Resources.Load("Sounds/SE/Object/불꽃점화") as AudioClip;
+            bombCount = Resources.Load("Sounds/SE/Object/폭탄카운트") as AudioClip;
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -451,6 +456,19 @@ public class SoundManager : MonoBehaviour
     }
     #endregion
 
+    #region[플레이어 돈소리]
+    public void PlayerMoney(bool canStop = false)
+    {
+        if (!canStop)
+            SE.PlayOneShot(playerMoney);
+        else
+        {
+            StopSE.volume = SE.volume;
+            StopSE.PlayOneShot(playerMoney);
+        }
+    }
+    #endregion
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     #region[닭 울음소리]
@@ -558,6 +576,19 @@ public class SoundManager : MonoBehaviour
         {
             StopSE.volume = SE.volume;
             StopSE.PlayOneShot(ignite);
+        }
+    }
+    #endregion
+
+    #region[폭탄카운트]
+    public void BombCount(bool canStop = false)
+    {
+        if (!canStop)
+            SE.PlayOneShot(bombCount);
+        else
+        {
+            StopSE.volume = SE.volume;
+            StopSE.PlayOneShot(bombCount);
         }
     }
     #endregion

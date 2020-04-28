@@ -96,6 +96,8 @@ ScriptsOnlyBuild:
     - SpriteGlow.SpriteGlowEffect
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
+    - UnityEditor.Tilemaps.GridPaletteBrushes
+    - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.TileDragAndDropManager
     Unity.RenderPipelines.Core.Runtime.dll:
@@ -140,13 +142,18 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateMachineNode
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
+    UnityEditor.UI.dll:
+    - UnityEditor.UI.TextEditor
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.EventTrigger
@@ -5017,7 +5024,7 @@ ScriptsOnlyBuild:
     className: TMP_SpriteAsset
   - hash:
       serializedVersion: 2
-      Hash: 0adafcd65243d2f5333f68e5d769be1f
+      Hash: eb2ddb6c9c0d2a52e9a7016baeed5c42
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: LandMineScript
@@ -5991,4 +5998,4 @@ ScriptsOnlyBuild:
   - Assets/Main/Scene/Stage/Stage01/AltarMap0103.unity
   - Assets/Main/Scene/Stage/Stage01/FountainMap0103.unity
   - Assets/Main/Scene/Demo.unity
-  playerPath: E:/YoungMookKang/Last Chicken/LastChicken.exe
+  playerPath: "C:/Users/9507y/OneDrive/\uBC14\uD0D5 \uD654\uBA74/Game/LastChicken.exe"

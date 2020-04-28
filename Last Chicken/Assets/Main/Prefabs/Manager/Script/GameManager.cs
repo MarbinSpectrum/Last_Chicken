@@ -284,7 +284,7 @@ public class GameManager : TerrainGenerator
         if (Player.instance)
         {
             #region[닭을 놓쳐서 게임오버가 되는경우]
-            if (!SceneController.instance.nowScene.Equals("Tutorial"))
+            if (!SceneController.instance.nowScene.Equals("Tutorial") && Player.instance.nowHp > 0)
             {
                 if (Player.instance.getChicken)
                 {
@@ -296,7 +296,7 @@ public class GameManager : TerrainGenerator
                     countDown -= Time.deltaTime;
                     clockFlag -= Time.deltaTime;
 
-                    if (clockFlag < 0)
+                    if (clockFlag < 0 && countDown >= 0)
                     {
                         clockFlag = 1;
                         SoundManager.instance.Ticking();

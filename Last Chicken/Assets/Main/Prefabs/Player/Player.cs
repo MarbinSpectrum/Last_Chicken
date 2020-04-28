@@ -52,6 +52,8 @@ public class Player : CustomCollider
     GameObject chickenHeadLight;
     SpriteRenderer chickenHeadSpriteRenderer;
 
+    GameObject dizzyStar;
+
     GameObject shiledBuff;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -72,7 +74,7 @@ public class Player : CustomCollider
     [System.NonSerialized] public bool invincibilityFlag = false;
 
     int stunTime = -1;         
-    float canControllTime = 0.5f;  //스턴시간
+    float canControllTime = 1.5f;  //스턴시간
     int noDamageTime = 4;     //무적시간
 
     enum moveDic { 경사아래로 = -1, 앞으로 = 0, 경사위로 = 1 };
@@ -156,11 +158,13 @@ public class Player : CustomCollider
 
         shiledBuff = transform.Find("Shield").gameObject;
 
-        playerBlockLightSource = transform.Find("PlayerLight").Find("BlockLight").GetComponent<BlockLightSource>();
-        torchLight = transform.Find("TorchLight").gameObject;
+        dizzyStar = transform.Find("DizzyStars").gameObject;
+
+        playerBlockLightSource = transform.Find("Light").Find("PlayerLight").Find("BlockLight").GetComponent<BlockLightSource>();
+        torchLight = transform.Find("Light").Find("TorchLight").gameObject;
         for (int i = 0; i < torchLight.transform.childCount; i++)
             torchLightSourceList.Add(torchLight.transform.GetChild(i).GetChild(0).GetComponent<BlockLightSource>());
-        mineHelmetLight = transform.Find("MineHelmet").gameObject;
+        mineHelmetLight = transform.Find("Light").Find("MineHelmet").gameObject;
         for (int i = 0; i < mineHelmetLight.transform.childCount; i++)
             mineHelmetLighSourceList.Add(mineHelmetLight.transform.GetChild(i).GetChild(0).GetComponent<BlockLightSource>());
 
@@ -856,6 +860,7 @@ public class Player : CustomCollider
                 int minValue = Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("OldPocket")].value0);
                 int maxValue = Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("OldPocket")].value1);
                 GameManager.instance.playerMoney += UnityEngine.Random.Range(minValue, maxValue + 1);
+                SoundManager.instance.PlayerMoney();
             }
             else if (ItemManager.instance.CanUseActiveItem("RainbowPocket"))
             {
@@ -950,7 +955,8 @@ public class Player : CustomCollider
         damage = true; //데미지 받은 상태로 설정
 
         //소리출력
-        SoundManager.instance.PlayerDamage();
+        if(nowHp > 0)
+            SoundManager.instance.PlayerDamage();
 
         //중력값조절하고 넉백
         rigidbody2D.gravityScale = gravity;
@@ -1099,6 +1105,9 @@ public class Player : CustomCollider
     #region[플레이어 데미지 시간]
     void PlayerDamageTime()
     {
+        if (nowHp <= 0)
+            return;
+        dizzyStar.SetActive(stunTime > 0);
         //게임시작한지 5초동안은 무적처리
         if (GameManager.instance.stageTime >= 3.5f && !invincibilityFlag)
         {

@@ -11,6 +11,9 @@ public class LandMineScript : TrapScript
     public int range;
     public float speed;
 
+    public float soundtime = 0;
+    public float soundFlag = 0.5f;
+
     #region[Awake]
     public override void Awake()
     {
@@ -34,6 +37,7 @@ public class LandMineScript : TrapScript
     public override void Update()
     {
         base.Update();
+        BombSound();
     }
     #endregion
 
@@ -42,8 +46,14 @@ public class LandMineScript : TrapScript
     {
         base.OnEnable();
         boom.SetActive(true);
+        soundFlag = 0.5f;
+        soundtime = 0;
     }
     #endregion
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     #region[활성화설정]
     public override void ObjectActive()
@@ -59,6 +69,21 @@ public class LandMineScript : TrapScript
             SpecialEvent();
 
         damageTime -= Time.deltaTime;
+    }
+    #endregion
+
+    #region[폭탄소리]
+    public void BombSound()
+    {
+        if (nowHp > 0 || !boom.activeSelf)
+            return;
+        soundtime += Time.deltaTime;
+        if (soundtime > soundFlag)
+        {
+            soundtime = 0;
+            soundFlag *= 0.55f;
+            SoundManager.instance.BombCount();
+        }
     }
     #endregion
 }

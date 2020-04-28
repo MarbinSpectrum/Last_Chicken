@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TerrainEngine2D;
 
 public class TutorialAltarEvent : CustomCollider
@@ -13,6 +14,9 @@ public class TutorialAltarEvent : CustomCollider
 
     GameObject wallObject;
     GameObject followChicken;
+    GameObject chickenMessage;
+    bool[] messageFlag = new bool[2];
+    string[] message = new string[] { "마지막 남은 닭", "그 닭을 지키면서 지하에 있는 나의 신전으로 와라." };
     GameObject uiMouse;
     GameObject followGetItem;
     GameObject followPlayerY;
@@ -44,6 +48,7 @@ public class TutorialAltarEvent : CustomCollider
         wallObject = transform.Find("Wall").gameObject;
         uiMouse = transform.Find("UIMouse").gameObject;
         followChicken = transform.Find("FollowChicken").gameObject;
+        chickenMessage = transform.Find("ChickenMessage").Find("Text").gameObject;
         followGetItem = transform.Find("FollowUI").gameObject;
         followPlayerY = transform.Find("FollowPlayerY").gameObject;
     }
@@ -127,6 +132,20 @@ public class TutorialAltarEvent : CustomCollider
             Chicken.instance.pattenType = Chicken.Pattern.대기;
             chickenRigid.velocity = new Vector2(0, -0.8f);
             chickenDownTime += Time.deltaTime;
+            if(chickenDownTime > 5 && !messageFlag[0])
+            {
+                messageFlag[0] = true;
+                chickenMessage.SetActive(true);
+                chickenMessage.GetComponent<Text>().text = message[0];
+            }
+
+            if (chickenDownTime > 9 && !messageFlag[1])
+            {
+                messageFlag[1] = true;
+                chickenMessage.SetActive(true);
+                chickenMessage.GetComponent<Text>().text = message[1];
+            }
+
             if (chickenDownTime > 14)
             {
                 chickenFlag = true;

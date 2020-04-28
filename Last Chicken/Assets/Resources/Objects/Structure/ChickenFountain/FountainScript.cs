@@ -58,6 +58,7 @@ public class FountainScript : AreaScript
         used = false;
         thisUse = false;
         act = false;
+        onPlayer = false;
     }
     #endregion
 
