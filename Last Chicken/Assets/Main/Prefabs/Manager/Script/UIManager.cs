@@ -461,20 +461,23 @@ public class UIManager : MonoBehaviour
             {
                 ItemManager.instance.CostItem("Hammer");
                 Smithy.instance.used = true;
-                Player.instance.pickLevel++;
+                GameManager.instance.playData.pickLevel++;
                 Player.instance.canControl = true;
                 Smithy.instance.thisUse = false;
+                SoundManager.instance.Smithy();
             }
-            else
+            else if (GameManager.instance.playerMoney >= Smithy.reinforceCost[Player.instance.pickLevel])
             {
-                if (GameManager.instance.playerMoney >= Smithy.reinforceCost[Player.instance.pickLevel])
-                {
-                    GameManager.instance.playerMoney -= Smithy.reinforceCost[Player.instance.pickLevel];
-                    Smithy.instance.used = true;
-                    Player.instance.pickLevel++;
-                    Player.instance.canControl = true;
-                    Smithy.instance.thisUse = false;
-                }
+                GameManager.instance.playerMoney -= Smithy.reinforceCost[Player.instance.pickLevel];
+                Smithy.instance.used = true;
+                GameManager.instance.playData.pickLevel++;
+                Player.instance.canControl = true;
+                Smithy.instance.thisUse = false;
+                SoundManager.instance.Smithy();
+            }
+            else 
+            {
+                SoundManager.instance.CantRun();
             }
         });
         smithyNo.GetComponent<Button>().onClick.AddListener(() =>
@@ -668,7 +671,7 @@ public class UIManager : MonoBehaviour
                     smithyNo.SetActive(true);
                     smithyYes.SetActive(true);
                     smithyOk.SetActive(false);
-                    smithyText.text = "망치를 사용하면 곡괭이를 한단계 강화할 수 있을것같다.\n강화할까?";
+                    smithyText.text = "대장장이의 신께 망치를 바치면 곡괭이가 더 강해질 것 같다.\n망치를 바칠까?";
                 }
                 else
                 {
@@ -677,9 +680,17 @@ public class UIManager : MonoBehaviour
                     smithyOk.SetActive(false);
                     if (Player.instance.pickLevel >= 4)
                         return;
-                    smithyText.text = Smithy.reinforceCost[Player.instance.pickLevel] + "$을 지불하면 곡괭이를 강화할 수 있을것 같다.\n강화할까?";
+                    smithyText.text = "대장장이의 신께 <color=#FFD600>" + Smithy.reinforceCost[Player.instance.pickLevel] + "</color> 만큼의 제물을 바치면 곡괭이가 더 강해질 것 같다.\n제물을 바칠까?";
                 }
 
+                if(Player.instance.pickLevel == 0)
+                    smithyText.text += "\n<color=#886688ff><size=40>곡괭이가 좀 더 튼튼해집니다.(공격력 상승)</size></color>";
+                else if (Player.instance.pickLevel == 1)
+                    smithyText.text += "\n<color=#446688ff><size=40>곡괭이의 손잡이를 다듬습니다.(공격속도 상승)</size></color>";
+                else if (Player.instance.pickLevel == 2)
+                    smithyText.text += "\n<color=#446644ff><size=40>곡괭이의 전체적인 밸런스를 조절합니다.(공격력 상승, 공격속도 상승)</size></color>";
+                else if (Player.instance.pickLevel == 3)
+                    smithyText.text += "\n<color=#886600ff><size=40>곡괭이의 전체적인 질을 올립니다.(공격력 상승, 공격속도 상승)</size></color>";
             }
             #endregion
 

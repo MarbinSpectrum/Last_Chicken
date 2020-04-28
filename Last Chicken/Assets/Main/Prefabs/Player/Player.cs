@@ -171,7 +171,7 @@ public class Player : CustomCollider
         nowHp = GameManager.instance.playData.playerNowHp;
         maxHp = GameManager.instance.playData.playerMaxHp;
 
-        if(BuffManager.instance)
+        if (BuffManager.instance)
         {
             for (int i = 0; i < BuffManager.buffName.Length; i++)
             {
@@ -1017,15 +1017,15 @@ public class Player : CustomCollider
                 attackPower += 3;
                 break;
             case 2:
-                attackPower += 6;
+                attackPower += 3;
                 attackSpeed += 1;
                 break;
             case 3:
-                attackPower += 9;
+                attackPower += 6;
                 attackSpeed += 2;
                 break;
             case 4:
-                attackPower += 12;
+                attackPower += 9;
                 attackSpeed += 3;
                 break;
         }

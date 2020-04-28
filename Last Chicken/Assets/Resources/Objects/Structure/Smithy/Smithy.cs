@@ -11,8 +11,8 @@ public class Smithy : AreaScript
 
     [System.NonSerialized] public bool thisUse = false;
     [System.NonSerialized] public bool onArea;
-    public static int[] reinforceCost = new int[4] { 2500, 5000, 7500, 10000 };
-    float time = 13;
+    public static int[] reinforceCost = new int[4] { 2500, 5000, 10000, 20000 };
+
     GameObject uiMouse;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -34,7 +34,7 @@ public class Smithy : AreaScript
     {
         onArea = IsAtPlayer(bodyCollider);
         UseArea();
-        //SmithySound();
+
     }
     #endregion
 
@@ -68,18 +68,6 @@ public class Smithy : AreaScript
         }
         else
             uiMouse.SetActive(false);
-    }
-    #endregion
-
-    #region[대장간소리]
-    public void SmithySound()
-    {
-        time += Time.deltaTime;
-        if(time > 12)
-        {
-            time = 0;
-            SoundManager.instance.Smithy();
-        }
     }
     #endregion
 

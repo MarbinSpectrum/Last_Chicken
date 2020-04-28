@@ -12,9 +12,7 @@ public class Stage01_3 : StageData
     List<RectInt> mineRoadArea = new List<RectInt>();       //가로 길
 
     int startMineAreaY = 10;   //시작 광산로 Y좌표
-
-    public GameObject leftWall;
-    public GameObject rightWall;
+    bool outlineflipX;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -160,12 +158,12 @@ public class Stage01_3 : StageData
             // ProceduralGeneration(world, groundData, Minerals[n]);
         }
 
-        bool flipX = Random.Range(0, 100) > 50;
+        outlineflipX = Random.Range(0, 100) > 50;
 
         for (int y = 0; y < world.WorldHeight; y++)
             for (int x = 0; x < world.WorldWidth; x++)
             {
-                int fx = flipX ? x : world.WorldWidth - x - 1;
+                int fx = outlineflipX ? x : world.WorldWidth - x - 1;
                 if (GroundManager.instance.stage01OutlineRect[fx, y] == GroundLayer.UnBreakable)
                     groundData[x, y] = GroundLayer.UnBreakable;
                 else if (GroundManager.instance.stage01OutlineRect[fx, y] == GroundLayer.Dirt)
@@ -487,11 +485,8 @@ public class Stage01_3 : StageData
         }
         #endregion
 
-        Vector2 altarPos = new Vector2(altarRect.x + altarRect.width / 2f, altarRect.y - 26.5f);
-        ObjectManager.instance.Altar(altarPos);
-
-        Vector2 fountainPos = new Vector2(fountainRect.x + fountainRect.width / 2f, fountainRect.y - 26.5f);
-        ObjectManager.instance.Fountain(fountainPos);
+        ObjectManager.instance.Sign(new Vector2(66 + (outlineflipX ? 0 : -52), 26), outlineflipX);
+        ObjectManager.instance.Sign(new Vector2(82 + (outlineflipX ? 0 : -52), 26), !outlineflipX);
 
     }
     #endregion

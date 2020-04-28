@@ -95,6 +95,8 @@ public class ObjectManager : ObjectPool
 
     GameObject landMine;
 
+    GameObject sign;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     GameObject altar;
@@ -157,6 +159,7 @@ public class ObjectManager : ObjectPool
             for (int i = 0; i < woodBoard.Length; i++)
                 woodBoard[i] = Resources.Load("Objects/Structure/Stage01/WoodBoard" + i) as GameObject;
             shovel = Resources.Load("Objects/Structure/Stage01/Shovel") as GameObject;
+            sign = Resources.Load("Objects/Structure/Sign") as GameObject;
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -499,6 +502,28 @@ public class ObjectManager : ObjectPool
         if (emp == null)
         {
             emp = Instantiate(shovel);
+            emp.transform.name = name;
+            AddObject(emp);
+        }
+
+        emp.SetActive(true);
+        emp.transform.localRotation = Quaternion.identity;
+        emp.transform.parent = transform;
+        emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
+        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
+    }
+    #endregion
+
+    #region[표지판]
+    public void Sign(Vector2 vector2, bool flipX = false)
+    {
+        string name = objectName[17];
+
+        GameObject emp = FindObject(name);
+
+        if (emp == null)
+        {
+            emp = Instantiate(sign);
             emp.transform.name = name;
             AddObject(emp);
         }

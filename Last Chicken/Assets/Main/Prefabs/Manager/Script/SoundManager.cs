@@ -66,6 +66,7 @@ public class SoundManager : MonoBehaviour
 
     AudioClip btnClick;
     AudioClip selectMenu;
+    AudioClip cantRun;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -152,6 +153,7 @@ public class SoundManager : MonoBehaviour
 
             btnClick = Resources.Load("Sounds/SE/UI/버튼클릭") as AudioClip;
             selectMenu = Resources.Load("Sounds/SE/UI/메뉴선택") as AudioClip;
+            cantRun = Resources.Load("Sounds/SE/UI/실행안됨") as AudioClip;
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -636,8 +638,21 @@ public class SoundManager : MonoBehaviour
     }
     #endregion
 
+    #region[실행 안됨]
+    public void CantRun(bool canStop = false)
+    {
+        if (!canStop)
+            SE.PlayOneShot(cantRun);
+        else
+        {
+            StopSE.volume = SE.volume;
+            StopSE.PlayOneShot(cantRun);
+        }
+    }
+    #endregion
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     #region[아이템획득]
     public void ItemGet(bool canStop = false)
     {

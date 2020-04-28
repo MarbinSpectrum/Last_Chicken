@@ -122,12 +122,18 @@ public class ShopScript : AreaScript
     public void BuyItem(int itemNum)
     {
         if (itmeBuyList[itemNum])
+        {
+            SoundManager.instance.CantRun();
             return;
+        }
 
         int cost = GetItemValue(ItemManager.itemName[itmeList[itemNum]]);
 
         if (GameManager.instance.playerMoney < cost)
+        {
+            SoundManager.instance.CantRun();
             return;
+        }
 
         GameManager.instance.playerMoney -= cost;
 

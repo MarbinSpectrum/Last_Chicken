@@ -207,7 +207,6 @@ public class GameManager : TerrainGenerator
         {
             playData.playerNowHp = Player.instance.nowHp;
             playData.playerMaxHp = Player.instance.maxHp;
-            playData.pickLevel = Player.instance.pickLevel;
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -311,6 +310,7 @@ public class GameManager : TerrainGenerator
                                 Chicken.instance.deleteChickenImg.SetActive(true);
                             if (Player.instance)
                                 Player.instance.canControl = false;
+                            SoundManager.instance.StopBGM_Sound();
                         }
                         else
                         {
@@ -334,6 +334,7 @@ public class GameManager : TerrainGenerator
                     {
                         Player.instance.canControl = false;
                         Player.instance.notDamage = true;
+                        SoundManager.instance.StopBGM_Sound();
                     }                   
                 }
                 else
