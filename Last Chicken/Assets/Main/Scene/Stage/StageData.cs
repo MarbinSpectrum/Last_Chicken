@@ -89,6 +89,7 @@ public class StageData : TerrainGenerator
     public virtual void Awake()
     {
         instance = this;
+        UnityEngine.Random.InitState(GameManager.instance.playData.seed);
 
         #region[Enum 배열화]
         List<string> groundlist = new List<string>();
@@ -103,7 +104,6 @@ public class StageData : TerrainGenerator
     public override void GenerateData()
     {
         base.GenerateData();
-        world.Seed = UnityEngine.Random.Range(0, 10000);
     }
     #endregion
 

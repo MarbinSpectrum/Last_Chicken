@@ -107,6 +107,7 @@ public class MonsterManager : ObjectPool
         {
             List<Vector2Int> monsterPos = MonsterSpawnPos(world);
             Vector2Int pos = monsterPos[Random.Range(0, monsterPos.Count)];
+            monsterPosList.Add(pos);
             if (monsterList.Count > 0)
             {
                 int r = monsterList[Random.Range(0, monsterList.Count)];
@@ -175,7 +176,7 @@ public class MonsterManager : ObjectPool
                 if (Exception.IndexOutRange(x, y, donSetPos))
                     donSetPos[x, y] = true;
 
-        int r = 10;
+        int r = 15;
         for (int i = 0; i < monsterPosList.Count; i++)
             for (int x = monsterPosList[i].x - r; x < monsterPosList[i].x + r; x++)
                 for (int y = monsterPosList[i].y - r; y < monsterPosList[i].y + r; y++)

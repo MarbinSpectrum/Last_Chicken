@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TerrainEngine2D;
+using Custom;
 
 public class Lantern : MonoBehaviour
 {

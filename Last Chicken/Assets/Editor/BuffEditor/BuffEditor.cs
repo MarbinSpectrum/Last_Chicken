@@ -50,7 +50,6 @@ public class BuffEditor : MyEditor
                 emp.Overlap = buffManager.buffData[i].Overlap;
                 emp.time = buffManager.buffData[i].time;
                 emp.limitTime = buffManager.buffData[i].limitTime;
-                emp.infinite = buffManager.buffData[i].infinite;
                 temp.Add(emp);
             }
 
@@ -69,7 +68,6 @@ public class BuffEditor : MyEditor
                 buffManager.buffData[i].Overlap = temp[i].Overlap;
                 buffManager.buffData[i].time = temp[i].time;
                 buffManager.buffData[i].limitTime = temp[i].limitTime;
-                buffManager.buffData[i].infinite = temp[i].infinite;
             }
         }
         else if (buffManager.buffData.Length > BuffManager.buffName.Length)
@@ -87,7 +85,6 @@ public class BuffEditor : MyEditor
                 emp.Overlap = buffManager.buffData[i].Overlap;
                 emp.time = buffManager.buffData[i].time;
                 emp.limitTime = buffManager.buffData[i].limitTime;
-                emp.infinite = buffManager.buffData[i].infinite;
                 temp.Add(emp);
             }
 
@@ -106,7 +103,6 @@ public class BuffEditor : MyEditor
                 buffManager.buffData[i].Overlap = temp[i].Overlap;
                 buffManager.buffData[i].time = temp[i].time;
                 buffManager.buffData[i].limitTime = temp[i].limitTime;
-                buffManager.buffData[i].infinite = temp[i].infinite;
             }
         }
         #endregion
@@ -206,10 +202,6 @@ public class BuffEditor : MyEditor
         {
             data.time = 60;
         }
-
-        EditorGUILayout.BeginHorizontal();
-        data.infinite = ToggleField("다음 스테이지에도 보유", data.infinite, dataStyle);
-        EditorGUILayout.EndHorizontal();
     }
     #endregion
 

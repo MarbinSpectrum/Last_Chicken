@@ -49,68 +49,52 @@ MonoBehaviour:
     buffColor: {r: 1, g: 0, b: 0, a: 1}
     buffGlow: 1.13
     buffName: "\uD798\uC758 \uCD95\uBCF5"
-    buffExplain: "\uC601\uAD6C\uC801\uC73C\uB85C \uD798\uC744 1 \uB9CC\uD07C \uC5BB\uC2B5\uB2C8\uB2E4."
-    value: 1
+    buffExplain: "\uB2E4\uC74C \uC2A4\uD14C\uC774\uC9C0\uB3D9\uC548 \uD798\uC774
+      \n\uAC15\uD574\uC9D1\uB2C8\uB2E4."
+    value: 6
     Overlap: 1
     time: 60
     limitTime: 0
-    infinite: 1
   - BuffImg: {fileID: -6312089022126183285, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     buffColor: {r: 0.84313726, g: 0.49411765, b: 0.15686275, a: 1}
     buffGlow: 1.13
     buffName: "\uBCF4\uD638\uC758 \uCD95\uBCF5"
-    buffExplain: "1\uBD84\uB3D9\uC548 \uC720\uC9C0\uB418\uB294 \uD53C\uD574\uB97C
-      \n1\uD68C \uB9C9\uC544\uC8FC\uB294 \uBC29\uC5B4\uB9C9\uC744 \uC5BB\uC2B5\uB2C8\uB2E4."
-    value: 1
+    buffExplain: "\uD53C\uD574\uB97C 3\uD68C \uB9C9\uC544\uC8FC\uB294 \uBC29\uC5B4\uB9C9\uC744
+      \n\uC5BB\uC2B5\uB2C8\uB2E4."
+    value: 3
     Overlap: 0
     time: 60
-    limitTime: 1
-    infinite: 0
+    limitTime: 0
   - BuffImg: {fileID: -1300555539043026897, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     buffColor: {r: 0, g: 1, b: 0.10499692, a: 1}
     buffGlow: 1.13
     buffName: "\uC2E0\uC18D\uC758 \uCD95\uBCF5"
-    buffExplain: "\uC601\uAD6C\uC801\uC73C\uB85C \uC774\uB3D9\uC18D\uB3C4\uB97C 1
-      \uC5BB\uC2B5\uB2C8\uB2E4."
-    value: 1
+    buffExplain: "\uB2E4\uC74C \uC2A4\uD14C\uC774\uC9C0\uB3D9\uC548 \uC774\uB3D9\uC18D\uB3C4\uAC00
+      \n\uBE68\uB77C\uC9D1\uB2C8\uB2E4."
+    value: 3
     Overlap: 1
     time: 60
     limitTime: 0
-    infinite: 1
   - BuffImg: {fileID: -6709756301831217367, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
-    buffColor: {r: 0, g: 0.8584906, b: 0.6016089, a: 1}
-    buffGlow: 1.13
-    buffName: "\uC18D\uB3C4\uC758 \uCD95\uBCF5"
-    buffExplain: "\uC601\uAD6C\uC801\uC73C\uB85C \uACF5\uACA9\uC18D\uB3C4\uB97C 1
-      \uB9CC\uD07C \uC5BB\uC2B5\uB2C8\uB2E4."
-    value: 1
-    Overlap: 1
+    buffColor: {r: 0, g: 0.93945074, b: 1, a: 1}
+    buffGlow: 1
+    buffName: "\uC2E0\uC18D\uC758 \uCD95\uBCF5"
+    buffExplain: "\uB2E4\uC74C \uC2A4\uD14C\uC774\uC9C0\uB3D9\uC548 \uACF5\uACA9\uC18D\uB3C4\uAC00\n\uBE68\uB77C\uC9D1\uB2C8\uB2E4"
+    value: 3
+    Overlap: 0
     time: 60
     limitTime: 0
-    infinite: 1
   - BuffImg: {fileID: 2592151365173113033, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
-    buffColor: {r: 1, g: 0.98480475, b: 0, a: 1}
-    buffGlow: 1.13
+    buffColor: {r: 1, g: 0.75357646, b: 0, a: 1}
+    buffGlow: 1
     buffName: "\uBE5B\uC758 \uCD95\uBCF5"
-    buffExplain: "\uC774\uBC88 \uC2A4\uD14C\uC774\uC9C0 \uB3D9\uC548 \uB2ED\uC774
-      \uBE5B\uB0A9\uB2C8\uB2E4."
+    buffExplain: "\uB2E4\uC74C \uC2A4\uD14C\uC774\uC9C0\uB3D9\uC548 \uB2ED\uC758
+      \uC704\uCE58\uAC00\n\uBE5B\uB0A9\uB2C8\uB2E4."
     value: 0
     Overlap: 0
     time: 60
     limitTime: 0
-    infinite: 0
-  - BuffImg: {fileID: 21300000, guid: b067f80c7656ffe4e89da986ca3c06c3, type: 3}
-    buffColor: {r: 0, g: 1, b: 0.9278722, a: 1}
-    buffGlow: 1.13
-    buffName: "\uACF5\uAC04\uC758 \uCD95\uBCF5"
-    buffExplain: "\uD50C\uB808\uC774\uC5B4\uC758 \uD328\uC2DC\uBE0C \uC2AC\uB86F\uC758
-      \uC790\uB9AC\uAC00 \uD558\uB098 \uCD94\uAC00\uB429\uB2C8\uB2E4."
-    value: 1
-    Overlap: 1
-    time: 60
-    limitTime: 0
-    infinite: 1

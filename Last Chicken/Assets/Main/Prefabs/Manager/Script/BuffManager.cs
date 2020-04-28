@@ -13,7 +13,7 @@ public class BuffManager : MonoBehaviour
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
-    public static string[] buffName = new string[] { "Power", "Shield", "Speed", "AttackSpeed", "Luminous", "Space" };
+    public static string[] buffName = new string[] { "Power", "Shield", "Speed", "AttackSpeed", "Luminous"};
 
     [System.Serializable]
     public class BuffStats
@@ -27,7 +27,6 @@ public class BuffManager : MonoBehaviour
         public bool Overlap;
         public float time = 0;
         public bool limitTime = false;
-        public bool infinite = false;
     }
 
     public static int FindData(string s)
@@ -140,16 +139,14 @@ public class BuffManager : MonoBehaviour
     }
     #endregion
 
-    #region[다음스테이지에 버프 다지움]
-    public void NextStageBuffRemove()
+    #region[버프 다지움]
+    public void BuffRemove()
     {
         for (int i = 0; i < buffName.Length; i++)
         {
-            if (!buffData[i].infinite)
-            {
-                nowBuffList[buffName[i]].time = 0;
-                nowBuffList[buffName[i]].hasNum = 0;
-            }
+            GameManager.instance.playData.playerBuffItemHas[i] = false;
+            GameManager.instance.playData.playerBuffItemNum[i] = 0;
+            GameManager.instance.playData.playerBuffItemNum[i] = 0;
         }
     }
     #endregion

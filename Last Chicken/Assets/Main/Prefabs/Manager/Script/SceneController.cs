@@ -172,12 +172,8 @@ public class SceneController : MonoBehaviour
 
         if (b)
         {
+            ItemManager.instance.ReSpawnItemList.Clear();
             BuffManager.loadEnd = false;
-            BuffManager.instance.NextStageBuffRemove();
-        }
-
-        if (b)
-        {
             stageBackGround.color = Color.white;
             switch(nowScene)
             {
@@ -216,6 +212,7 @@ public class SceneController : MonoBehaviour
                 case "FountainMap0101":
                 case "FountainMap0102":
                 case "FountainMap0103":
+                    BuffManager.instance.BuffRemove();
                     Player.instance.canAttack = true;
                     Player.instance.transform.position = new Vector3(GroundManager.instance.eventMapStartPos.x, GroundManager.instance.eventMapStartPos.y, Player.instance.transform.position.z);
                     Player.instance.transform.localScale = new Vector3(Mathf.Abs(Player.instance.transform.localScale.x) * GroundManager.instance.eventMapStartDic, Player.instance.transform.localScale.y, Player.instance.transform.localScale.x);
@@ -227,6 +224,7 @@ public class SceneController : MonoBehaviour
                     Player.instance.canAttack = true;
                     Player.instance.transform.position = new Vector3(World.Instance.WorldWidth / 2, World.Instance.WorldHeight + 30, Player.instance.transform.position.z);
                     GroundManager.instance.InitDigMask();
+                    GameManager.instance.playData.seed = Random.Range(0, 10000);
                     break;
             }
         }

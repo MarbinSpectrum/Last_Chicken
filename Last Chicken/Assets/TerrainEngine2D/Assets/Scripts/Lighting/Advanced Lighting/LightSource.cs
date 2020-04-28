@@ -43,7 +43,8 @@ namespace TerrainEngine2D.Lighting
             {
                 LightOff();
                 keyPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
-                LightOn();
+                if(World.Instance && World.Instance.GetBlockLayer(1).GetBlockInfo(keyPosition.x, keyPosition.y) == null)
+                 LightOn();
             }
             // AdvancedLightSystem.Instance.SendMessage("LightAdded", this, SendMessageOptions.RequireReceiver);
         }

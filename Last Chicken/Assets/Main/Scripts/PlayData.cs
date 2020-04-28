@@ -46,6 +46,10 @@ public class PlayData
     public int[] playerBuffItemNum = new int[BuffManager.buffName.Length];
     public float[] playerBuffItemTime = new float[BuffManager.buffName.Length];
 
+    ///////////////////////////////////////////////////////////////////
+
+    public int seed = 0;
+
     //초기화
     public PlayData()
     {
@@ -105,6 +109,8 @@ public class PlayData
             playerBuffItemNum[i] = 0;
             playerBuffItemTime[i] = 0;
         }
+
+        seed = Random.Range(0, 10000);
     }
 
 }

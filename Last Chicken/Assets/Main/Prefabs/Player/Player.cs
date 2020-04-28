@@ -71,8 +71,9 @@ public class Player : CustomCollider
     [System.NonSerialized] public bool invincibility = true;
     [System.NonSerialized] public bool invincibilityFlag = false;
 
-    int stunTime = -1;          //스턴시간
-    int noDamageTime = 120;     //무적시간
+    int stunTime = -1;         
+    float canControllTime = 0.5f;  //스턴시간
+    int noDamageTime = 4;     //무적시간
 
     enum moveDic { 경사아래로 = -1, 앞으로 = 0, 경사위로 = 1 };
     int flipX = 0;
@@ -908,7 +909,13 @@ public class Player : CustomCollider
         else
         {
             if (ItemManager.instance.HasItemCheck("Medkit") && nowHp - n <= 0)
+            {
                 ItemManager.instance.CostItem("Medkit");
+                nowHp = maxHp;
+                nowHp -= n;
+                EffectManager.instance.HearthEffect();
+                EffectManager.instance.DamageEffect();
+            }
             else
             {
                 if (!notDamage)
@@ -919,6 +926,9 @@ public class Player : CustomCollider
                 EffectManager.instance.DamageEffect();
             }
         }
+
+        if(nowHp <= 0)
+            animator.SetBool("Dead",true);
 
         //닭잡은 상태 취소
         if (getChicken)
@@ -936,7 +946,7 @@ public class Player : CustomCollider
         InitHang();
 
         //스턴시간 및 데미지받은 상태로 처리
-        stunTime = 60; //대략 0.5초 멈춤
+        stunTime = (int)(canControllTime / Time.deltaTime);
         damage = true; //데미지 받은 상태로 설정
 
         //소리출력
@@ -981,32 +991,6 @@ public class Player : CustomCollider
                     break;
                 case "Luminous":
                     chickenHeadLight.SetActive(BuffManager.instance.nowBuffList[BuffManager.buffName[i]].hasBuff);
-                    break;
-                case "Space":
-                    switch (BuffManager.instance.nowBuffList[BuffManager.buffName[i]].hasNum * BuffManager.instance.buffData[i].value)
-                    {
-                        case 0:
-                            GameManager.instance.slotAct[3] = false;
-                            GameManager.instance.slotAct[4] = false;
-                            GameManager.instance.slotAct[5] = false;
-                            break;
-                        case 1:
-                            GameManager.instance.slotAct[3] = true;
-                            GameManager.instance.slotAct[4] = false;
-                            GameManager.instance.slotAct[5] = false;
-                            break;
-                        case 2:
-                            GameManager.instance.slotAct[3] = true;
-                            GameManager.instance.slotAct[4] = true;
-                            GameManager.instance.slotAct[5] = false;
-                            break;
-                        default:
-                        case 3:
-                            GameManager.instance.slotAct[3] = true;
-                            GameManager.instance.slotAct[4] = true;
-                            GameManager.instance.slotAct[5] = true;
-                            break;
-                    }
                     break;
             }
         }
@@ -1123,7 +1107,7 @@ public class Player : CustomCollider
         }
 
         stunTime -= 1;
-        if (stunTime < -noDamageTime)
+        if (stunTime * Time.deltaTime < -noDamageTime)
             damage = false;
 
         if (stunTime == 0)

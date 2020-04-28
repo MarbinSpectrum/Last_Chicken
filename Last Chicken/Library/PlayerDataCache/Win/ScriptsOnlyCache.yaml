@@ -142,8 +142,11 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateMachineNode
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -5607,7 +5610,7 @@ ScriptsOnlyBuild:
     className: GraphicRaycaster
   - hash:
       serializedVersion: 2
-      Hash: 06871a0bb584304fb6e6d21a573014bc
+      Hash: cce3e215fe5e80f289923db4d7b440a6
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: BuffManager
@@ -5993,4 +5996,4 @@ ScriptsOnlyBuild:
   - Assets/Main/Scene/Stage/Stage01/AltarMap0103.unity
   - Assets/Main/Scene/Stage/Stage01/FountainMap0103.unity
   - Assets/Main/Scene/Demo.unity
-  playerPath: "C:/Users/9507y/OneDrive/\uBC14\uD0D5 \uD654\uBA74/Game/LastChicken.exe"
+  playerPath: E:/YoungMookKang/Last Chicken/LastChicken.exe

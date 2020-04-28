@@ -1,11 +1,11 @@
 {
-    "SE_Volume": 1.0,
+    "SE_Volume": 0.5,
     "BGM_Volume": 0.5,
-    "ScreenWidth": 1920,
-    "ScreenHeight": 1080,
-    "fullScreen": true,
+    "ScreenWidth": 1600,
+    "ScreenHeight": 900,
+    "fullScreen": false,
     "firstGame": false,
-    "stageName": "ShopMap0101",
+    "stageName": "Stage0102",
     "playerNowHp": 3.0,
     "playerMaxHp": 3.0,
     "itemSlot": [
@@ -28,7 +28,7 @@
         true,
         true,
         true,
-        true,
+        false,
         false,
         false
     ],
@@ -37,27 +37,25 @@
     "randomDice": 100,
     "pickLevel": 0,
     "playerBuffItemHas": [
-        true,
-        false,
-        true,
         false,
         false,
-        true
+        false,
+        false,
+        false
     ],
     "playerBuffItemNum": [
-        1,
-        0,
-        1,
         0,
         0,
-        1
+        0,
+        0,
+        0
     ],
     "playerBuffItemTime": [
-        60.0,
-        0.0,
-        60.0,
         0.0,
         0.0,
-        60.0
-    ]
+        0.0,
+        0.0,
+        0.0
+    ],
+    "seed": 4482
 }

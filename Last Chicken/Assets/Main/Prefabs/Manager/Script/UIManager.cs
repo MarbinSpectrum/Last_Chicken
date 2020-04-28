@@ -646,7 +646,7 @@ public class UIManager : MonoBehaviour
             #region[상점 UI 조절]
             if (ShopScript.instance)
             {
-                shopUI.SetActive(ShopScript.instance.thisUse);
+                shopUI.SetActive(ShopScript.instance.thisUse && ShopScript.instance.gameObject.activeSelf);
                 for (int i = 0; i < ShopScript.instance.itmeBuyList.Count; i++)
                     shopItemSoldOut[i].SetActive(ShopScript.instance.itmeBuyList[i]);
             }
@@ -1092,10 +1092,13 @@ public class UIManager : MonoBehaviour
     {
         showTimer.SetActive(false);
 
-        if (Player.instance && Player.instance.getChicken || SceneController.instance.nowScene.Equals("Tutorial"))
+        if (Player.instance && Player.instance.getChicken)
             return;
-
-        if((int)GameManager.instance.countDown >= 0)
+        if (SceneController.instance.nowScene.Equals("Tutorial"))
+            return;
+        if (Player.instance && Player.instance.nowHp <= 0)
+            return;
+        if ((int)GameManager.instance.countDown >= 0)
         {
             showTimer.SetActive(true);
             countDown.text = (int)GameManager.instance.countDown + "";

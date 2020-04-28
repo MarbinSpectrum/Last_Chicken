@@ -271,7 +271,7 @@ public class Stage01_3 : StageData
     #region[광산로 세팅]
     void SetMineRoad()
     {
-        Vector2Int HorizontalPathSize = new Vector2Int(177, 7); //가로통로 크기
+        Vector2Int HorizontalPathSize = new Vector2Int((int)(world.WorldWidth * 0.75f), 7); //가로통로 크기
 
         int verticalPathWidth = 6;  //새로경로 너비
 
@@ -282,12 +282,12 @@ public class Stage01_3 : StageData
         mineRoadArea.Add(mineRoad);
 
         //중간지점 광산로
-        int addH = 60;
-        while (world.WorldHeight - addH > 60)
+        int addH = 40;
+        while (world.WorldHeight - addH > 40)
         {
             mineRoad = new RectInt(Random.Range(0, world.WorldWidth - HorizontalPathSize.x), world.WorldHeight - addH, HorizontalPathSize.x, HorizontalPathSize.y);
             mineRoadArea.Add(mineRoad);
-            addH += Random.Range(50, 70);
+            addH += Random.Range(30, 50);
         }
 
         //마지막지점 광산로
@@ -328,7 +328,7 @@ public class Stage01_3 : StageData
         for (int i = 0; i < mineRoadArea.Count; i++)
         {
             #region[길배치]
-            int num = (i != 0 && i != mineRoadArea.Count - 1) ? 3 : 4;
+            int num = 2;
             for (int j = 0; j < num; j++)
                 ObjectManager.instance.MineWoodBoard(new Vector2(mineRoadArea[i].x + j * 59, mineRoadArea[i].y - mineRoadArea[i].height - 1));
             #endregion

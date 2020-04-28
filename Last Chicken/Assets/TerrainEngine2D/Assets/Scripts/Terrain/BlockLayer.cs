@@ -160,6 +160,8 @@ namespace TerrainEngine2D
         /// <returns>Returns the block info</returns>
         public BlockInfo GetBlockInfo(int x, int y)
         {
+            if (x < 0 || x >= blockType.GetLength(0) || y < 0 || y >= blockType.GetLength(1))
+                return null;
             return GetBlockInfo(blockType[x, y]);
         }
         /// <summary>

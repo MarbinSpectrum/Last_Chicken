@@ -33,6 +33,7 @@ public class GameManager : TerrainGenerator
     [System.NonSerialized] public float maxCountDown = 10;
 
     [System.NonSerialized] public bool gameOver = false;
+    [System.NonSerialized] public float gameOverdelayTime;
     [System.NonSerialized] public float gameOverTime = 2;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -156,6 +157,10 @@ public class GameManager : TerrainGenerator
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+        playData.seed = UnityEngine.Random.Range(0, 10000);
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+
         File.WriteAllText(Application.dataPath + "/Resources/PlayData.json", JsonUtility.ToJson(playData, true));
     }
 
@@ -189,6 +194,9 @@ public class GameManager : TerrainGenerator
         BuffManager.loadEnd = false;
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+        UnityEngine.Random.InitState(playData.seed);
+
     }
     #endregion
 
@@ -255,6 +263,8 @@ public class GameManager : TerrainGenerator
         if (playerMoney > 999999)
             playerMoney = 999999;
 
+        UnityEngine.Random.InitState(playData.seed);
+
     }
     #endregion
 
@@ -292,17 +302,22 @@ public class GameManager : TerrainGenerator
                         SoundManager.instance.Ticking();
                     }
 
-                    if (-3 <= countDown && countDown < 0)
+                    if (countDown < 0)
                     {
-                        if (Chicken.instance)
-                            Chicken.instance.deleteChickenImg.SetActive(true);
-                        if (Player.instance)
-                            Player.instance.canControl = false;
-                    }
-                    else if (countDown < -3)
-                    {
-                        SetGameOver();
-                        return;
+                        gameOverdelayTime += Time.deltaTime;
+                        if (gameOverdelayTime < 3)
+                        {
+                            if (Chicken.instance)
+                                Chicken.instance.deleteChickenImg.SetActive(true);
+                            if (Player.instance)
+                                Player.instance.canControl = false;
+                        }
+                        else
+                        {
+                            gameOverdelayTime = 0;
+                            SetGameOver();
+                            return;
+                        }
                     }
                 }
             }
@@ -311,8 +326,22 @@ public class GameManager : TerrainGenerator
             #region[체력이 적어서 게임오버가 되는경우]
             if (Player.instance.nowHp <= 0)
             {
-                SetGameOver();
-                return;
+                gameOverdelayTime += Time.deltaTime;
+
+                if (gameOverdelayTime < 3)
+                {
+                    if (Player.instance)
+                    {
+                        Player.instance.canControl = false;
+                        Player.instance.notDamage = true;
+                    }                   
+                }
+                else
+                {
+                    gameOverdelayTime = 0;
+                    SetGameOver();
+                    return;
+                }
             }
             #endregion
         }
@@ -359,7 +388,6 @@ public class GameManager : TerrainGenerator
     {
         if (gameOver || !Player.instance)
             return;
-
         switch (SceneController.instance.nowScene)
         {
             case "Tutorial":
@@ -386,19 +414,19 @@ public class GameManager : TerrainGenerator
                 if(nextArea.Equals(""))
                 {
                     int r = UnityEngine.Random.Range(0, 100);
-                    if (0 <= r && r < 15)
+                    if (0 <= r && r < 10)
                         nextArea = "SmithyMap";
-                    else if (15 <= r && r < 45)
+                    else if (10 <= r && r < 35)
                         nextArea = "FountainMap";
-                    else if (45 <= r && r < 65)
+                    else if (35 <= r && r < 60)
                         nextArea = "AltarMap";
-                    else if (65 <= r && r < 100)
+                    else if (60 <= r && r < 100)
                         nextArea = "ShopMap";
                 }
 
                 playData.stageName = nextArea + temp;
-                SaveData();
                 SceneController.instance.MoveScene(playData.stageName);
+                SaveData();
                 break;
             case "ShopMap0101":
             case "SmithyMap0101":
@@ -407,8 +435,8 @@ public class GameManager : TerrainGenerator
                 if (Player.instance.transform.position.y >= -5)
                     return;
                 playData.stageName = "Stage0102";
-                SaveData();
                 SceneController.instance.MoveScene(playData.stageName);
+                SaveData();
                 break;
             case "ShopMap0102":
             case "SmithyMap0102":
@@ -417,8 +445,8 @@ public class GameManager : TerrainGenerator
                 if (Player.instance.transform.position.y >= -5)
                     return;
                 playData.stageName = "Stage0103";
-                SaveData();
                 SceneController.instance.MoveScene(playData.stageName);
+                SaveData();
                 break;
             case "ShopMap0103":
             case "SmithyMap0103":
@@ -427,8 +455,8 @@ public class GameManager : TerrainGenerator
                 if (Player.instance.transform.position.y >= -5)
                     return;
                 playData.stageName = "Demo";
-                SaveData();
                 SceneController.instance.MoveScene(playData.stageName);
+                SaveData();
                 break;
         }
     }

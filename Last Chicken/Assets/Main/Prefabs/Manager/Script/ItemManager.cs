@@ -97,6 +97,36 @@ public class ItemManager : ObjectPool
     }
     #endregion
 
+    #region[재등장 아이템 여부검사]
+    public static bool CheckReSpawnItem(string itemName)
+    {
+
+        bool activeItem = false;
+        switch (itemName)
+        {
+            case "Coke":
+                activeItem = true;
+                break;
+            case "Beer":
+                activeItem = true;
+                break;
+            case "BoomItem":
+                activeItem = true;
+                break;
+            case "Dynamite":
+                activeItem = true;
+                break;
+            case "OldPocket":
+                activeItem = true;
+                break;
+            case "RainbowPocket":
+                activeItem = true;
+                break;
+        }
+        return activeItem;
+    }
+    #endregion
+
     public int normalRate;
     public int rareRate;
     public int specialRate;
@@ -148,6 +178,8 @@ public class ItemManager : ObjectPool
     GameObject itemPrefab;
     GameObject mineralPrefab;
 
+    public List<int> ReSpawnItemList = new List<int>();
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -190,6 +222,13 @@ public class ItemManager : ObjectPool
     {
         if (FindData(name) == -1)
             name = "";
+        else if (!CheckReSpawnItem(name))
+        {
+            if (ReSpawnItemList.Contains(FindData(name)))
+                name = "";
+            else
+                ReSpawnItemList.Add(FindData(name));
+        }
 
         GameObject emp = FindObject(name);
 
