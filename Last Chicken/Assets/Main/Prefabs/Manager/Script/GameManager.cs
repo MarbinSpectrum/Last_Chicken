@@ -327,15 +327,30 @@ public class GameManager : TerrainGenerator
             if (Player.instance.nowHp <= 0)
             {
                 gameOverdelayTime += Time.deltaTime;
+                bool medkitFlag = (Player.instance.nowHp > -1000 && ItemManager.instance.HasItemCheck("Medkit"));
 
-                if (gameOverdelayTime < 3)
+                if (gameOverdelayTime < (medkitFlag ? 3 : 1))
                 {
-                    if (Player.instance)
+                    Player.instance.canControl = false;
+                    Player.instance.notDamage = true;
+                    SoundManager.instance.PlayBGM_Sound(false);
+
+                    #region[구급상자로 소생]
+                    if (gameOverdelayTime > 2.75f && medkitFlag)
                     {
-                        Player.instance.canControl = false;
-                        Player.instance.notDamage = true;
-                        SoundManager.instance.StopBGM_Sound();
-                    }                   
+                        ItemManager.instance.CostItem("Medkit");
+                        Player.instance.nowHp = Player.instance.maxHp;
+                        Player.instance.canControl = true;
+                        Player.instance.notDamage = false;
+                        Player.instance.stunTime = 80;
+                        Player.instance.animator.SetBool("Dead", false);
+                        EffectManager.instance.HearthEffect();
+                        EffectManager.instance.DamageEffect();
+                        EffectManager.instance.NowItem(ItemManager.instance.itemData[ItemManager.FindData("Medkit")].itemImg);
+                        SoundManager.instance.PlayBGM_Sound(true);
+                        gameOverdelayTime = 0;
+                    }
+                    #endregion
                 }
                 else
                 {

@@ -545,7 +545,13 @@ public class EffectManager : ObjectPool
         emp.GetComponent<Follow>().followUI = UIManager.instance.itemObject[0].transform.Find("center").gameObject;
         if(size != Vector2.zero)
             emp.transform.GetChild(0).GetChild(0).GetComponent<RectTransform>().sizeDelta = size;
+    }
+    #endregion
 
+    #region[현재 아이템 표시]
+    public void NowItem(Sprite sprite)
+    {
+        UIManager.instance.nowItemImage.sprite = sprite;
         UIManager.instance.nowItem.SetActive(true);
         UIManager.instance.nowItemAnimator.SetTrigger("Change");
     }

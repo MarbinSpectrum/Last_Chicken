@@ -484,8 +484,8 @@ public class Stage01_2 : StageData
         }
         #endregion
 
-        ObjectManager.instance.Sign(new Vector2(66 + (outlineflipX ? 0 : -52), 26), outlineflipX);
-        ObjectManager.instance.Sign(new Vector2(82 + (outlineflipX ? 0 : -52), 26), !outlineflipX);
+        ObjectManager.instance.Sign(new Vector2(66 + (outlineflipX ? 0 : -52), 26), false);
+        ObjectManager.instance.Sign(new Vector2(82 + (outlineflipX ? 0 : -52), 26), true);
 
     }
     #endregion

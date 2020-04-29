@@ -156,7 +156,7 @@ public class ItemScript : CustomCollider
                         }
                     }
 
-                    UIManager.instance.nowItemImage.sprite = spriteRenderer.sprite;
+                    EffectManager.instance.NowItem(spriteRenderer.sprite);
                     GameManager.getItemDelay = 0.1f;
                     EffectManager.instance.GetItem(transform.position, false, getItem);
                     SoundManager.instance.ItemGet();

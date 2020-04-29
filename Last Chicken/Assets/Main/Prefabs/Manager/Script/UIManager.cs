@@ -803,6 +803,7 @@ public class UIManager : MonoBehaviour
         }
 
         int hpNow = (Player.instance.nowHp != (int)Player.instance.nowHp) ? (int)Player.instance.nowHp + 1 : (int)Player.instance.nowHp;
+        hpNow = Player.instance.nowHp <= 0 ? 0 : hpNow;
 
         for (int i = 0; i < hpNow - 1; i++)
             hearthData[i].full.SetActive(true);

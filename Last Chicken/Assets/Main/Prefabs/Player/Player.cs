@@ -37,7 +37,7 @@ public class Player : CustomCollider
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    Animator animator;
+    [System.NonSerialized] public Animator animator;
 
     SpriteRenderer spriteRenderer;
 
@@ -73,7 +73,7 @@ public class Player : CustomCollider
     [System.NonSerialized] public bool invincibility = true;
     [System.NonSerialized] public bool invincibilityFlag = false;
 
-    int stunTime = -1;         
+    [System.NonSerialized] public int stunTime = -1;         
     float canControllTime = 1.5f;  //스턴시간
     int noDamageTime = 4;     //무적시간
 
@@ -92,6 +92,7 @@ public class Player : CustomCollider
     bool hasFeatherShoes;
     [System.NonSerialized] public bool notFallDamage = false;
     bool grounded;
+    float groundedTime = 0;
     [System.NonSerialized] public bool inFluid;
     bool[] effectFluid = new bool[5];
     Color[] lastFluidColor = new Color[5];
@@ -388,7 +389,12 @@ public class Player : CustomCollider
             if (inFluid)
                 rigidbody2D.gravityScale /= 1.5f;
         }
-        animator.SetBool("IsGround?", grounded && rigidbody2D.velocity.y <= 0);
+        if (grounded)
+            groundedTime += Time.deltaTime;
+        else
+            groundedTime = 0;
+
+        animator.SetBool("IsGround?", grounded /*&& rigidbody2D.velocity.y <= 0f*/ && groundedTime > 0.1f);
     }
     #endregion
 
@@ -913,27 +919,16 @@ public class Player : CustomCollider
             shield--;
         else
         {
-            if (ItemManager.instance.HasItemCheck("Medkit") && nowHp - n <= 0)
+            if (!notDamage)
             {
-                ItemManager.instance.CostItem("Medkit");
-                nowHp = maxHp;
                 nowHp -= n;
                 EffectManager.instance.HearthEffect();
-                EffectManager.instance.DamageEffect();
             }
-            else
-            {
-                if (!notDamage)
-                {
-                    nowHp -= n;
-                    EffectManager.instance.HearthEffect();
-                }
-                EffectManager.instance.DamageEffect();
-            }
+            EffectManager.instance.DamageEffect();
         }
 
         if(nowHp <= 0)
-            animator.SetBool("Dead",true);
+            animator.SetBool("Dead", nowHp <= 0);
 
         //닭잡은 상태 취소
         if (getChicken)
