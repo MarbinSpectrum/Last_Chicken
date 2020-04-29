@@ -303,7 +303,7 @@ public class Chicken : CustomCollider
         {
             for(int i = 0; i < 8; i++)
             {
-                Vector2 force = new Vector2(Random.Range(-1.0f, 1.0f), 1);
+                Vector2 force = new Vector2(Random.Range(-1.5f, 1.5f), 3);
                 EffectManager.instance.LightFeather(transform.position, force * 100, Random.Range(0, 3));
             }
             gameObject.SetActive(false);

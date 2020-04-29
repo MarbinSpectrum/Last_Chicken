@@ -264,28 +264,36 @@ public class ItemManager : ObjectPool
         {
             for (int i = 0; i < itemName.Length; i++)
                 if (itemData[i].itemLevel == ItemLevel.일반 && itemData[i].spawnObject &&
-                    !nowItemList[itemName[i]].used && !HasItemCheck(itemName[i]))
+                    !nowItemList[itemName[i]].used && 
+                    !HasItemCheck(itemName[i]) &&
+                    (!CheckReSpawnItem(itemName[i]) ? !ReSpawnItemList.Contains(i) : true))
                     itemList.Add(i);
         }
         else if (randomValue < normalRate + rareRate)
         {
             for (int i = 0; i < itemName.Length; i++)
                 if (itemData[i].itemLevel == ItemLevel.희귀 && itemData[i].spawnObject &&
-                    !nowItemList[itemName[i]].used && !HasItemCheck(itemName[i]))
+                    !nowItemList[itemName[i]].used && 
+                    !HasItemCheck(itemName[i]) &&
+                    (!CheckReSpawnItem(itemName[i]) ? !ReSpawnItemList.Contains(i) : true))
                     itemList.Add(i);
         }
         else if (randomValue < normalRate + rareRate + specialRate)
         {
             for (int i = 0; i < itemName.Length; i++)
                 if (itemData[i].itemLevel == ItemLevel.특급 && itemData[i].spawnObject &&
-                    !nowItemList[itemName[i]].used && !HasItemCheck(itemName[i]))
+                    !nowItemList[itemName[i]].used &&
+                    !HasItemCheck(itemName[i]) &&
+                    (!CheckReSpawnItem(itemName[i]) ? !ReSpawnItemList.Contains(i) : true))
                     itemList.Add(i);
         }
         else if (randomValue < normalRate + rareRate + specialRate + legendRate)
         {
             for (int i = 0; i < itemName.Length; i++)
                 if (itemData[i].itemLevel == ItemLevel.전설 && itemData[i].spawnObject &&
-                    !nowItemList[itemName[i]].used && !HasItemCheck(itemName[i]))
+                    !nowItemList[itemName[i]].used && 
+                    !HasItemCheck(itemName[i]) &&
+                    (!CheckReSpawnItem(itemName[i]) ? !ReSpawnItemList.Contains(i) : true))
                     itemList.Add(i);
         }
 
@@ -299,12 +307,19 @@ public class ItemManager : ObjectPool
     {
         int itemNum = GetRandomItemAtWoodBox();
 
-        if (Exception.IndexOutRange(itemNum, itemName) && !CheckReSpawnItem(itemName[itemNum]))
+        if (Exception.IndexOutRange(itemNum, itemName))
         {
-            if (ReSpawnItemList.Contains(itemNum))
-                itemNum = -1;
-            else
+            if (CheckReSpawnItem(itemName[itemNum]))
+            {
+                int countItem = 0;
+                for (int i = 0; i < ReSpawnItemList.Count; i++)
+                    if (ReSpawnItemList[i] == itemNum)
+                        countItem++;
                 ReSpawnItemList.Add(itemNum);
+                if (Random.Range(0, 100) >= 100 * Mathf.Pow(0.5f, countItem))
+                    itemNum = -1;
+            }
+            ReSpawnItemList.Add(itemNum);
         }
 
         if (itemNum != -1)
