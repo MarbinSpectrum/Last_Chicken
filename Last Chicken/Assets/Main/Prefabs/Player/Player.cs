@@ -225,6 +225,8 @@ public class Player : CustomCollider
         PlayerInFluidAct();
         runFlag = false;
         chickenHead.SetActive(getChicken);
+        animator.SetBool("Hang", hang);
+
 
         //조작가능상태이거나 멈춰있으면
         if (!canControl || stop)
@@ -421,8 +423,6 @@ public class Player : CustomCollider
     #region[플레이어 매달림]
     void PlayerHang()
     {
-        animator.SetBool("Hang", hang);
-
         //땅에 있으면 검사할 필요가 없기 때문에 retun
         if (grounded)
             return;
@@ -1065,7 +1065,10 @@ public class Player : CustomCollider
         else
             animator.SetBool("Run", false);
 
-        animator.SetBool("Pray", pray   );
+        animator.SetBool("Pray", pray);
+
+        animator.SetBool("Hang", hang);
+
     }
     #endregion
 

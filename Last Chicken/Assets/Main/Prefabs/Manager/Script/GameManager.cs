@@ -329,7 +329,7 @@ public class GameManager : TerrainGenerator
                 gameOverdelayTime += Time.deltaTime;
                 bool medkitFlag = (Player.instance.nowHp > -1000 && ItemManager.instance.HasItemCheck("Medkit"));
 
-                if (gameOverdelayTime < (medkitFlag ? 3 : 1))
+                if (gameOverdelayTime < (medkitFlag ? 3 : 3))
                 {
                     Player.instance.canControl = false;
                     Player.instance.notDamage = true;
