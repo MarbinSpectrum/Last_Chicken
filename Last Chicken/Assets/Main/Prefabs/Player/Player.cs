@@ -439,7 +439,7 @@ public class Player : CustomCollider
             bool hangCheck = IsAtTerrain(hangCollider, new Vector2(playerMoveDirection * 0.3f, 0));
 
             //매달릴 수 있는 지형이 존재하고 한번 매달린 방향이 아닐경우
-            if (hangCheck && hangDic != playerMoveDirection)
+            if (hangCheck /*&& hangDic != playerMoveDirection*/)
             {
                 if(!inFluid)
                     SoundManager.instance.AttackStone();
@@ -802,12 +802,12 @@ public class Player : CustomCollider
             }
             else if (ItemManager.instance.CanUseActiveItem("Dynamite"))
             {
-                ItemManager.instance.CostItem("Dynamite");
+                ItemManager.instance.UseItem("Dynamite");
                 ObjectManager.instance.Dynamite(transform.position + new Vector3(0, 1, 0));
             }
             else if (ItemManager.instance.CanUseActiveItem("BoomItem"))
             {
-                ItemManager.instance.CostItem("BoomItem");
+                ItemManager.instance.UseItem("BoomItem");
                 Vector2 dic = MouseManager.instance.mousePos - (Vector2)transform.position;
                 dic = dic.normalized;
                 ObjectManager.instance.Boom(transform.position + new Vector3(0,1,0),dic*3000);

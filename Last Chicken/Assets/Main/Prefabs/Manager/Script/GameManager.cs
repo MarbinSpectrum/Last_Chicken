@@ -42,6 +42,8 @@ public class GameManager : TerrainGenerator
     public int playerMoney;
 
     [HideInInspector]
+    public int selectNum = 1;
+
     public string[] itemSlot = new string[6];
     [HideInInspector]
     public bool[] slotAct = new bool[6];

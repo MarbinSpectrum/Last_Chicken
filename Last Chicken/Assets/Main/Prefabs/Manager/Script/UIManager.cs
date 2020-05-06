@@ -144,6 +144,7 @@ public class UIManager : MonoBehaviour
     [NonSerialized] public Image nowItemImage;
 
     [NonSerialized] public GameObject[] itemObject = new GameObject[6];
+    [NonSerialized] public Image[] itemSelectImg = new Image[6];
     [NonSerialized] public Image[] itemImg = new Image[6];
     [NonSerialized] public Text[] itemNumText = new Text[6];
     [NonSerialized] public Image[] itemCoolImg = new Image[6];
@@ -274,6 +275,7 @@ public class UIManager : MonoBehaviour
 
         itemObject[0] = playerItem.transform.Find("MainObject").gameObject;
         itemImg[0] = itemObject[0].transform.Find("ItemImg").GetComponent<Image>();
+        itemSelectImg[0] = itemObject[0].transform.Find("center").GetComponent<Image>();
         itemNumText[0] = itemObject[0].transform.Find("Count").GetComponent<Text>();
         itemCoolImg[0] = itemObject[0].transform.Find("Cool").GetComponent<Image>();
 
@@ -281,6 +283,7 @@ public class UIManager : MonoBehaviour
         {
             itemObject[i] = playerItem.transform.Find("SubGroup").GetChild(i - 1).gameObject;
             itemImg[i] = itemObject[i].transform.Find("ItemImg").GetComponent<Image>();
+            itemSelectImg[i] = itemObject[i].transform.Find("center").GetComponent<Image>();
             itemNumText[i] = itemObject[i].transform.Find("Count").GetComponent<Text>();
             itemCoolImg[i] = itemObject[i].transform.Find("Cool").GetComponent<Image>();
         }
@@ -918,46 +921,14 @@ public class UIManager : MonoBehaviour
         {
             ////////////////////////////////////////////////////////////////////////////////////////
             //슬롯 회전
-            if (actSlotNum >= 1)
-            {
-                string tempItem = GameManager.instance.itemSlot[0];
-                int tempItemCount = GameManager.instance.itemNum[0];
-                float tempItemCool = GameManager.instance.itemCool[0];
-
-                for (int j = 0; j < actSlotNum - 1; j++)
-                {
-                    GameManager.instance.itemSlot[j] = GameManager.instance.itemSlot[j + 1];
-                    GameManager.instance.itemNum[j] = GameManager.instance.itemNum[j + 1];
-                    GameManager.instance.itemCool[j] = GameManager.instance.itemCool[j + 1];
-                }
-                GameManager.instance.itemSlot[actSlotNum - 1] = tempItem;
-                GameManager.instance.itemNum[actSlotNum - 1] = tempItemCount;
-                GameManager.instance.itemCool[actSlotNum - 1] = tempItemCool;
-            }
-
+            SlotCycle(1);
             MoveItem();
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
             ////////////////////////////////////////////////////////////////////////////////////////
             //슬롯 회전
-            if (actSlotNum >= 1)
-            {
-                string tempItem = GameManager.instance.itemSlot[actSlotNum - 1];
-                int tempItemCount = GameManager.instance.itemNum[actSlotNum - 1];
-                float tempItemCool = GameManager.instance.itemCool[actSlotNum - 1];
-
-                for (int j = actSlotNum - 1; j >= 1; j--)
-                {
-                    GameManager.instance.itemSlot[j] = GameManager.instance.itemSlot[j - 1];
-                    GameManager.instance.itemNum[j] = GameManager.instance.itemNum[j - 1];
-                    GameManager.instance.itemCool[j] = GameManager.instance.itemCool[j - 1];
-                }
-                GameManager.instance.itemSlot[0] = tempItem;
-                GameManager.instance.itemNum[0] = tempItemCount;
-                GameManager.instance.itemCool[0] = tempItemCool;
-            }
-
+            SlotCycle(-1);
             MoveItem();
         }
 
@@ -968,18 +939,21 @@ public class UIManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F) && Player.instance.canControl)
         {
-            if (!GameManager.instance.itemSlot[0].Equals(""))
+            int throwNum = GameManager.instance.selectNum;
+            if (!GameManager.instance.itemSlot[throwNum].Equals(""))
             {
-                string tempName = GameManager.instance.itemSlot[0];
-                int tempNum = GameManager.instance.itemNum[0];
+                string tempName = GameManager.instance.itemSlot[throwNum];
+                int tempNum = GameManager.instance.itemNum[throwNum];
 
                 ItemManager.instance.SpawnItem(Player.instance.transform.position, tempName, tempNum);
 
-                GameManager.instance.itemSlot[0] = "";
-                GameManager.instance.itemNum[0] = 0;
+                GameManager.instance.itemSlot[throwNum] = "";
+                GameManager.instance.itemNum[throwNum] = 0;
 
                 ////////////////////////////////////////////////////////////////////////////////////////
-                //0번슬롯에 아이템이 존재할때까지회전
+
+                GameManager.instance.selectNum = 1;
+
                 MoveItem();
             }
         }
@@ -1003,6 +977,15 @@ public class UIManager : MonoBehaviour
             itemNumText[i].text = (GameManager.instance.itemNum[i] > 0) ? GameManager.instance.itemNum[i].ToString() : "";
             itemObject[i].SetActive(GameManager.instance.slotAct[i]);
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //선택슬롯표시
+
+        for (int i = 0; i < 6; i++)
+            itemSelectImg[i].enabled = false;
+        itemSelectImg[GameManager.instance.selectNum].enabled = true;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1032,6 +1015,12 @@ public class UIManager : MonoBehaviour
                     case "Bell":
                         cool = ItemManager.instance.itemData[ItemManager.FindData("Bell")].value0;
                         break;
+                    case "BoomItem":
+                        cool = ItemManager.instance.itemData[ItemManager.FindData("BoomItem")].value1;
+                        break;
+                    case "Dynamite":
+                        cool = ItemManager.instance.itemData[ItemManager.FindData("Dynamite")].value1;
+                        break;
                 }
                 cool = (GameManager.instance.itemCool[i] > cool ? cool : GameManager.instance.itemCool[i]) / cool;
 
@@ -1042,6 +1031,62 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    #region[슬롯회전]
+    public void SlotCycle(int dic)
+    {
+        int actSlotNum = 0;
+        for (int i = 0; i < 6; i++)
+            if (GameManager.instance.slotAct[i])
+                actSlotNum++;
+        if (actSlotNum < 1)
+            return;
+
+        GameManager.instance.selectNum += ((dic >= 0) ? 1 : -1);
+        if (GameManager.instance.selectNum < 0)
+            GameManager.instance.selectNum += actSlotNum;
+        GameManager.instance.selectNum %= actSlotNum;
+        if (GameManager.instance.selectNum == 0)
+            GameManager.instance.selectNum = 1;
+
+        #region[슬롯회전]
+            //슬롯 회전
+            //if (dic >= 0)
+            //{
+            //    string tempItem = GameManager.instance.itemSlot[0];
+            //    int tempItemCount = GameManager.instance.itemNum[0];
+            //    float tempItemCool = GameManager.instance.itemCool[0];
+
+            //    for (int j = 0; j < actSlotNum - 1; j++)
+            //    {
+            //        GameManager.instance.itemSlot[j] = GameManager.instance.itemSlot[j + 1];
+            //        GameManager.instance.itemNum[j] = GameManager.instance.itemNum[j + 1];
+            //        GameManager.instance.itemCool[j] = GameManager.instance.itemCool[j + 1];
+            //    }
+            //    GameManager.instance.itemSlot[actSlotNum - 1] = tempItem;
+            //    GameManager.instance.itemNum[actSlotNum - 1] = tempItemCount;
+            //    GameManager.instance.itemCool[actSlotNum - 1] = tempItemCool;
+            //}
+            //else
+            //{
+            //    string tempItem = GameManager.instance.itemSlot[actSlotNum - 1];
+            //    int tempItemCount = GameManager.instance.itemNum[actSlotNum - 1];
+            //    float tempItemCool = GameManager.instance.itemCool[actSlotNum - 1];
+
+            //    for (int j = actSlotNum - 1; j >= 1; j--)
+            //    {
+            //        GameManager.instance.itemSlot[j] = GameManager.instance.itemSlot[j - 1];
+            //        GameManager.instance.itemNum[j] = GameManager.instance.itemNum[j - 1];
+            //        GameManager.instance.itemCool[j] = GameManager.instance.itemCool[j - 1];
+            //    }
+            //    GameManager.instance.itemSlot[0] = tempItem;
+            //    GameManager.instance.itemNum[0] = tempItemCount;
+            //    GameManager.instance.itemCool[0] = tempItemCool;
+            //}
+            #endregion
+    }
+    #endregion
+
+    #region[아이템이동]
     public void MoveItem()
     {
         //활성화슬롯갯수를 파악
@@ -1059,7 +1104,7 @@ public class UIManager : MonoBehaviour
         List<int> hasItemNumList = new List<int>();
         List<float> hasItemCoolList = new List<float>();
 
-        for (int i = 0; i < actSlotNum; i++)
+        for (int i = 1; i < actSlotNum; i++)
             if (!GameManager.instance.itemSlot[i].Equals(""))
             {
                 hasItemList.Add(GameManager.instance.itemSlot[i]);
@@ -1068,7 +1113,7 @@ public class UIManager : MonoBehaviour
             }
 
 
-        for (int i = 0; i < actSlotNum; i++)
+        for (int i = 1; i < actSlotNum; i++)
         {
             GameManager.instance.itemSlot[i] = "";
             GameManager.instance.itemNum[i] = 0;
@@ -1077,11 +1122,13 @@ public class UIManager : MonoBehaviour
 
         for (int i = 0; i < hasItemList.Count; i++)
         {
-            GameManager.instance.itemSlot[i] = hasItemList[i];
-            GameManager.instance.itemNum[i] = hasItemNumList[i];
-            GameManager.instance.itemCool[i] = hasItemCoolList[i];
+            GameManager.instance.itemSlot[i + 1] = hasItemList[i];
+            GameManager.instance.itemNum[i + 1] = hasItemNumList[i];
+            GameManager.instance.itemCool[i + 1] = hasItemCoolList[i];
         }
     }
+    #endregion
+
     #endregion
 
     #region[플레이어 아이템 설명표시]

@@ -83,6 +83,13 @@ public class ItemManager : ObjectPool
     }
     #endregion
 
+    #region[패시브 아이템 여부검사]
+    public static bool CheckPassiveItem(string itemName)
+    {
+        return !CheckActiveItem(itemName);
+    }
+    #endregion
+
     #region[쿨타임 아이템 여부검사]
     public static bool CheckCoolTimeItem(string itemName)
     {
@@ -91,6 +98,12 @@ public class ItemManager : ObjectPool
         switch (itemName)
         {
             case "Bell":
+                activeItem = true;
+                break;
+            case "BoomItem":
+                activeItem = true;
+                break;
+            case "Dynamite":
                 activeItem = true;
                 break;
         }
@@ -466,6 +479,10 @@ public class ItemManager : ObjectPool
             {
                 case "Bell":
                     return GameManager.instance.itemCool[0] >= itemData[FindData("Bell")].value0;
+                case "BoomItem":
+                    return GameManager.instance.itemCool[0] >= itemData[FindData("BoomItem")].value1;
+                case "Dynamite":
+                    return GameManager.instance.itemCool[0] >= itemData[FindData("Dynamite")].value1;
             }
             return true;
         }
@@ -523,6 +540,12 @@ public class ItemManager : ObjectPool
                 switch (name)
                 {
                     case "Bell":
+                        GameManager.instance.itemCool[0] = 0;
+                        break;
+                    case "BoomItem":
+                        GameManager.instance.itemCool[0] = 0;
+                        break;
+                    case "Dynamite":
                         GameManager.instance.itemCool[0] = 0;
                         break;
                 }

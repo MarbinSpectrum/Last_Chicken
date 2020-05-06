@@ -154,71 +154,57 @@ public class ShopScript : AreaScript
             ItemManager.instance.AddItem(itemName, itemCount);
         else
         {
+            //빈슬롯검사
             int emptySlot = -1;
-            for (int i = 0; i < 6; i++)
+            if (ItemManager.CheckPassiveItem(itemName))
             {
-                if (!GameManager.instance.slotAct[i])
-                    break;
-                if (GameManager.instance.itemSlot[i].Equals(""))
+                for (int i = 1; i < 6; i++)
                 {
-                    emptySlot = i;
-                    break;
+                    if (!GameManager.instance.slotAct[i])
+                        break;
+                    if (GameManager.instance.itemSlot[i].Equals(""))
+                    {
+                        emptySlot = i;
+                        break;
+                    }
                 }
+            }
+            else
+            {
+                if (GameManager.instance.itemSlot[0].Equals(""))
+                    emptySlot = 0;
             }
 
             //빈슬롯없음
             if(emptySlot == -1)
             {
+                int getSlot = 0;
+                if (ItemManager.CheckPassiveItem(itemName))
+                    getSlot = GameManager.instance.selectNum;
+
                 ////////////////////////////////////////////////////////////////////////////////////////
-                //0번 슬롯에 아이템을 넣어줌
-                string tempItem = GameManager.instance.itemSlot[0];
-                int tempItemCount = GameManager.instance.itemNum[0];
-                float tempItemCool = GameManager.instance.itemCool[0];
+                //getSlot에 아이템을 넣어줌
+                string tempItem = GameManager.instance.itemSlot[getSlot];
+                int tempItemCount = GameManager.instance.itemNum[getSlot];
+                float tempItemCool = GameManager.instance.itemCool[getSlot];
 
                 ItemManager.instance.SpawnItem(Player.instance.transform.position, tempItem, tempItemCool, tempItemCount);
 
-                GameManager.instance.itemSlot[0] = itemName;
-                GameManager.instance.itemNum[0] = itemCount;
-                GameManager.instance.itemCool[0] = 10000;
+                GameManager.instance.itemSlot[getSlot] = itemName;
+                GameManager.instance.itemNum[getSlot] = itemCount;
+                GameManager.instance.itemCool[getSlot] = 10000;
 
             }
             //빈슬롯존재
             else
             {
+                int getSlot = emptySlot;
+                GameManager.instance.selectNum = emptySlot;
                 ////////////////////////////////////////////////////////////////////////////////////////
-                //활성화슬롯갯수를 파악
-                int actSlotNum = 0;
-                for (int i = 0; i < 6; i++)
-                    if (GameManager.instance.slotAct[i])
-                        actSlotNum++;
-                ////////////////////////////////////////////////////////////////////////////////////////
-                //빈슬롯이 0번이 될때까지 회전
-                if (actSlotNum >= 1)
-                {
-                    for (int i = 0; i < 6; i++)
-                    {
-                        if (GameManager.instance.itemSlot[0].Equals(""))
-                            break;
-                        string tempItem = GameManager.instance.itemSlot[0];
-                        int tempItemCount = GameManager.instance.itemNum[0];
-                        float tempItemCool = GameManager.instance.itemCool[0];
-
-                        for (int j = 0; j < actSlotNum - 1; j++)
-                        {
-                            GameManager.instance.itemSlot[j] = GameManager.instance.itemSlot[j + 1];
-                            GameManager.instance.itemNum[j] = GameManager.instance.itemNum[j + 1];
-                            GameManager.instance.itemCool[j] = GameManager.instance.itemCool[j + 1];
-                        }
-                        GameManager.instance.itemSlot[actSlotNum - 1] = tempItem;
-                        GameManager.instance.itemNum[actSlotNum - 1] = tempItemCount;
-                        GameManager.instance.itemCool[actSlotNum - 1] = tempItemCool;
-                    }
-                }
-                ////////////////////////////////////////////////////////////////////////////////////////
-                //0번슬롯에 아이템을 채워줌
-                GameManager.instance.itemSlot[0] = itemName;
-                GameManager.instance.itemNum[0] = itemCount;
-                GameManager.instance.itemCool[0] = 10000;
+                //emptySlot에 아이템을 채워줌
+                GameManager.instance.itemSlot[getSlot] = itemName;
+                GameManager.instance.itemNum[getSlot] = itemCount;
+                GameManager.instance.itemCool[getSlot] = 10000;
             }
             UIManager.instance.MoveItem();
         }

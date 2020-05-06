@@ -355,7 +355,7 @@ public class ItemEditor : MyEditor
                 temp = (int)(temp);
                 data.value0 = temp;
 
-                temp = FloatField("갯수", data.value1, dataStyle);
+                temp = FloatField("쿨타임", data.value1, dataStyle);
                 temp = temp < 0 ? 0 : temp;
                 temp = (int)(temp);
                 data.value1 = temp;
@@ -366,7 +366,7 @@ public class ItemEditor : MyEditor
                 temp = (int)(temp);
                 data.value0 = temp;
 
-                temp = FloatField("갯수", data.value1, dataStyle);
+                temp = FloatField("쿨타임", data.value1, dataStyle);
                 temp = temp < 0 ? 0 : temp;
                 temp = (int)(temp);
                 data.value1 = temp;

@@ -84,30 +84,44 @@ public class ItemScript : CustomCollider
                     }
                     else
                     {
+                        //빈슬롯검사
                         int emptySlot = -1;
-                        for (int i = 0; i < 6; i++)
+                        if (ItemManager.CheckPassiveItem(transform.name))
                         {
-                            if (!GameManager.instance.slotAct[i])
-                                break;
-                            if (GameManager.instance.itemSlot[i].Equals(""))
+                            for (int i = 1; i < 6; i++)
                             {
-                                emptySlot = i;
-                                break;
+                                if (!GameManager.instance.slotAct[i])
+                                    break;
+                                if (GameManager.instance.itemSlot[i].Equals(""))
+                                {
+                                    emptySlot = i;
+                                    break;
+                                }
                             }
+                        }
+                        else
+                        {
+                            if (GameManager.instance.itemSlot[0].Equals(""))
+                                emptySlot = 0;
                         }
 
                         //빈슬롯없음
                         if (emptySlot == -1)
                         {
-                            ////////////////////////////////////////////////////////////////////////////////////////
-                            //0번 슬롯에 아이템을 넣어줌
-                            string tempItem = GameManager.instance.itemSlot[0];
-                            int tempItemCount = GameManager.instance.itemNum[0];
-                            float tempItemCool = GameManager.instance.itemCool[0];
 
-                            GameManager.instance.itemSlot[0] = transform.name;
-                            GameManager.instance.itemNum[0] = num;
-                            GameManager.instance.itemCool[0] = cool;
+                            int getSlot = 0;
+                            if (ItemManager.CheckPassiveItem(transform.name))
+                                getSlot = GameManager.instance.selectNum;
+
+                            ////////////////////////////////////////////////////////////////////////////////////////
+                            //getSlot에 아이템을 넣어줌
+                            string tempItem = GameManager.instance.itemSlot[getSlot];
+                            int tempItemCount = GameManager.instance.itemNum[getSlot];
+                            float tempItemCool = GameManager.instance.itemCool[getSlot];
+
+                            GameManager.instance.itemSlot[getSlot] = transform.name;
+                            GameManager.instance.itemNum[getSlot] = num;
+                            GameManager.instance.itemCool[getSlot] = cool;
 
                             transform.name = tempItem;
                             num = tempItemCount;
@@ -116,40 +130,13 @@ public class ItemScript : CustomCollider
                         //빈슬롯존재
                         else
                         {
-                            ////////////////////////////////////////////////////////////////////////////////////////
-                            //활성화슬롯갯수를 파악
-                            int actSlotNum = 0;
-                            for (int i = 0; i < 6; i++)
-                                if (GameManager.instance.slotAct[i])
-                                    actSlotNum++;
-                            ////////////////////////////////////////////////////////////////////////////////////////
-                            //빈슬롯이 0번이 될때까지 회전
-                            if (actSlotNum >= 1)
-                            {
-                                for (int i = 0; i < 6; i++)
-                                {
-                                    if (GameManager.instance.itemSlot[0].Equals(""))
-                                        break;
-                                    string tempItem = GameManager.instance.itemSlot[0];
-                                    int tempItemCount = GameManager.instance.itemNum[0];
-                                    float tempItemCool = GameManager.instance.itemCool[0];
-
-                                    for (int j = 0; j < actSlotNum - 1; j++)
-                                    {
-                                        GameManager.instance.itemSlot[j] = GameManager.instance.itemSlot[j + 1];
-                                        GameManager.instance.itemNum[j] = GameManager.instance.itemNum[j + 1];
-                                        GameManager.instance.itemCool[j] = GameManager.instance.itemCool[j + 1];
-                                    }
-                                    GameManager.instance.itemSlot[actSlotNum - 1] = tempItem;
-                                    GameManager.instance.itemNum[actSlotNum - 1] = tempItemCount;
-                                    GameManager.instance.itemCool[actSlotNum - 1] = tempItemCool;
-                                }
-                            }
+                            int getSlot = emptySlot;
+                            GameManager.instance.selectNum = emptySlot;
                             ////////////////////////////////////////////////////////////////////////////////////////
                             //0번슬롯에 아이템을 채워줌
-                            GameManager.instance.itemSlot[0] = transform.name;
-                            GameManager.instance.itemNum[0] = num;
-                            GameManager.instance.itemCool[0] = cool;
+                            GameManager.instance.itemSlot[getSlot] = transform.name;
+                            GameManager.instance.itemNum[getSlot] = num;
+                            GameManager.instance.itemCool[getSlot] = cool;
 
                             transform.name = "";
                             num = 0;
