@@ -111,16 +111,17 @@ public class MonsterManager : ObjectPool
             if (monsterList.Count > 0)
             {
                 int r = monsterList[Random.Range(0, monsterList.Count)];
+                Vector2 offset = new Vector2(0, 1);
                 switch (r)
                 {
                     case 0:
-                        Bat(new Vector3(pos.x, pos.y, -2));
+                        Bat(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
                         break;
                     case 1:
-                        Rat(new Vector3(pos.x, pos.y, -2));
+                        Rat(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
                         break;
                     case 2:
-                        Snake(new Vector3(pos.x, pos.y, -2));
+                        Snake(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
                         break;
                 }
             }
@@ -176,7 +177,7 @@ public class MonsterManager : ObjectPool
                 if (Exception.IndexOutRange(x, y, donSetPos))
                     donSetPos[x, y] = true;
 
-        int r = 15;
+        int r = 20;
         for (int i = 0; i < monsterPosList.Count; i++)
             for (int x = monsterPosList[i].x - r; x < monsterPosList[i].x + r; x++)
                 for (int y = monsterPosList[i].y - r; y < monsterPosList[i].y + r; y++)
@@ -184,7 +185,13 @@ public class MonsterManager : ObjectPool
                         donSetPos[x, y] = true;
 
         for (int x = 0; x < world.WorldWidth; x++)
-            for (int y = 0; y < world.WorldHeight - 50; y++)
+            for (int y = 0; y < world.WorldHeight; y++)
+                if (Exception.IndexOutRange(x, y - 1, donSetPos))
+                    if (StageData.instance.GetBlock(x, y - 1) == (StageData.GroundLayer)(-1))
+                        donSetPos[x, y] = true;
+
+        for (int x = 0; x < world.WorldWidth; x++)
+            for (int y = 0; y < world.WorldHeight - 20; y++)
                 if (StageData.instance.GetBlock(x, y) == (StageData.GroundLayer)(-1) && !donSetPos[x,y])
                     emp.Add(new Vector2Int(x, y));
 
@@ -202,21 +209,21 @@ public class MonsterManager : ObjectPool
         if (!GameManager.instance.InGame())
             return;
 
-        for (int i = 0; i < objectPool.Count; i++)
-            if (objectPool[i] && objectPool[i].GetComponent<Monster>())
-            {
-                Vector3 targetScreenPos = Camera.main.WorldToViewportPoint(objectPool[i].transform.position);
+        //for (int i = 0; i < objectPool.Count; i++)
+        //    if (objectPool[i] && objectPool[i].GetComponent<Monster>())
+        //    {
+        //        Vector3 targetScreenPos = Camera.main.WorldToViewportPoint(objectPool[i].transform.position);
 
-                Vector2 size = new Vector2(1.5f, 1.5f);
+        //        Vector2 size = new Vector2(1.5f, 1.5f);
 
-                objectPool[i].GetComponent<Monster>().enabled =
-                    !(
-                    targetScreenPos.x > (1 + size.x) / 2f ||
-                    targetScreenPos.x < (1 - size.x) / 2f ||
-                    targetScreenPos.y > (1 + size.y) / 2f ||
-                    targetScreenPos.y < (1 - size.x) / 2f
-                    );
-            }
+        //        objectPool[i].GetComponent<Monster>().enabled =
+        //            !(
+        //            targetScreenPos.x > (1 + size.x) / 2f ||
+        //            targetScreenPos.x < (1 - size.x) / 2f ||
+        //            targetScreenPos.y > (1 + size.y) / 2f ||
+        //            targetScreenPos.y < (1 - size.x) / 2f
+        //            );
+        //    }
     }
     #endregion
 

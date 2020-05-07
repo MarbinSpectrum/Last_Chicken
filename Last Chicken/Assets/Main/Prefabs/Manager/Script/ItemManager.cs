@@ -114,30 +114,44 @@ public class ItemManager : ObjectPool
     #region[재등장 아이템 여부검사]
     public static bool CheckReSpawnItem(string itemName)
     {
-
-        bool activeItem = false;
         switch (itemName)
         {
             case "Coke":
-                activeItem = true;
-                break;
             case "Beer":
-                activeItem = true;
-                break;
-            case "BoomItem":
-                activeItem = true;
-                break;
-            case "Dynamite":
-                activeItem = true;
-                break;
             case "OldPocket":
-                activeItem = true;
-                break;
             case "RainbowPocket":
-                activeItem = true;
-                break;
+                return true;
         }
-        return activeItem;
+        return false;
+    }
+    #endregion
+
+    #region[획득발동 아이템 여부검사]
+    public static bool CheckGetActiveItem(string itemName)
+    {
+        switch (itemName)
+        {
+            case "Russian_Roulette":
+            case "OldPocket":
+            case "RainbowPocket":
+            case "RandomDice":
+            case "ShopVIpSpecial":
+            case "Coke":
+            case "Beer":
+                return true;
+        }
+        return false;
+    }
+    #endregion
+
+    #region[갯수 아이템 여부검사]
+    public bool AddItemCheck(string name)
+    {
+        //if (name.Equals("BoomItem") && HasItemCheck(name))
+        //    return true;
+        //if (name.Equals("Dynamite") && HasItemCheck(name))
+        //    return true;
+        return false;
     }
     #endregion
 
@@ -248,10 +262,10 @@ public class ItemManager : ObjectPool
 
         if (num == -1)
         {
-            if (name.Equals("BoomItem"))
-                emp.GetComponent<ItemScript>().num = (int)itemData[FindData("BoomItem")].value1;
-            else if (name.Equals("Dynamite"))
-                emp.GetComponent<ItemScript>().num = (int)itemData[FindData("Dynamite")].value1;
+            //if (name.Equals("BoomItem"))
+            //    emp.GetComponent<ItemScript>().num = (int)itemData[FindData("BoomItem")].value1;
+            //else if (name.Equals("Dynamite"))
+            //    emp.GetComponent<ItemScript>().num = (int)itemData[FindData("Dynamite")].value1;
         }
         else
         {
@@ -555,15 +569,6 @@ public class ItemManager : ObjectPool
     #endregion
 
     #region[아이템을 추가]
-    public bool AddItemCheck(string name)
-    {
-        if (name.Equals("BoomItem") && HasItemCheck(name))
-            return true;
-        if (name.Equals("Dynamite") && HasItemCheck(name))
-            return true;
-        return false;
-    }
-
     public void AddItem(string name,int n)
     {
         for (int i = 0; i < 6; i++)

@@ -82,6 +82,12 @@ public class ItemScript : CustomCollider
                         transform.name = "";
                         num = 0;
                     }
+                    else if (ItemManager.CheckGetActiveItem(transform.name))
+                    {
+                        Player.instance.ActItem(transform.name);
+                        transform.name = "";
+                        num = 0;
+                    }
                     else
                     {
                         //빈슬롯검사

@@ -126,7 +126,14 @@ public class Snake : Monster
                 if (patrolTime < 0)
                 {
                     patrolTime = isPatrolTime;
-                    patrolDic = (MoveDic)Random.Range(0, 3);
+                    Random.InitState((int)Time.time * Random.Range(0, 100));
+                    int r = Random.Range(0, 100);
+                    if (r < 20)
+                        patrolDic = MoveDic.정지;
+                    else if (r < 60)
+                        patrolDic = MoveDic.오른쪽;
+                    else if (r < 100)
+                        patrolDic = MoveDic.왼쪽;
                 }
                 else
                 {
@@ -134,16 +141,21 @@ public class Snake : Monster
                     switch (patrolDic)
                     {
                         case MoveDic.오른쪽:
-                            MovingGround(+speed);
+                            if (CanFallBlock(speed, 4) && CanMove(speed))
+                                MovingGround(+speed);
+                            else
+                                patrolDic = MoveDic.왼쪽;
                             break;
                         case MoveDic.왼쪽:
-                            MovingGround(-speed);
+                            if (CanFallBlock(-speed, 4) && CanMove(-speed))
+                                MovingGround(-speed);
+                            else
+                                patrolDic = MoveDic.오른쪽;
                             break;
                         case MoveDic.정지:
                             MovingGround(+0);
                             break;
                     }
-
                 }
             }
         }

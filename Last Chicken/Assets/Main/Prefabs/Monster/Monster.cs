@@ -21,7 +21,7 @@ public abstract class Monster : CustomCollider
     protected int nowPoint = -1;  //이동포인터
     protected Vector2Int nowPos;  //몬스터위치
     protected Vector2Int targetPos; //타겟위치
-    protected int range = 15;   //탐색범위
+    protected int range = 25;   //탐색범위
     protected int AstarRange = 20;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -242,6 +242,28 @@ public abstract class Monster : CustomCollider
     }
     #endregion
 
+    #region[이동검사]
+    public bool CanMove(float dic)
+    {
+        if (StageData.instance.GetBlock(nowPos + new Vector2Int((int)Mathf.Sign(dic), 0)) != (StageData.GroundLayer)(-1) &&
+            StageData.instance.GetBlock(nowPos + new Vector2Int((int)Mathf.Sign(dic), 1)) != (StageData.GroundLayer)(-1))
+            return false;
+        return true;
+    }
+    #endregion
+
+    #region[떨어질수있는 블록 검사]
+    public bool CanFallBlock(float dic, int n)
+    {
+        for (int i = 1; i <= n; i++)
+        {
+            if (StageData.instance.GetBlock(nowPos + new Vector2Int((int)Mathf.Sign(dic), -i)) != (StageData.GroundLayer)(-1))
+                return true;
+        }
+        return false;
+    }
+    #endregion
+
     #region[공격처리]
     public virtual void Attack()
     {
@@ -269,6 +291,8 @@ public abstract class Monster : CustomCollider
         rigidbody2D.AddForce(vector2);
     }
     #endregion
+
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

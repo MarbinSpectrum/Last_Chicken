@@ -59,7 +59,6 @@ public class Rat : Monster
             GroundManager.instance.linkArea[nowPos.x, nowPos.y] &&
                 Mathf.Abs(nowPos.y - targetPos.y) <= 5)
         {
-
             if (Mathf.Abs(nowPos.x - targetPos.x) < 0.15f)
                 MovingGround(+0);
             else if (nowPos.x < targetPos.x)
@@ -72,7 +71,14 @@ public class Rat : Monster
             if (patrolTime < 0)
             {
                 patrolTime = isPatrolTime;
-                patrolDic = (MoveDic)Random.Range(0, 3);
+                Random.InitState((int)Time.time * Random.Range(0, 100));
+                int r = Random.Range(0, 100);
+                if (r < 20)
+                    patrolDic = MoveDic.정지;
+                else if (r < 60)
+                    patrolDic = MoveDic.오른쪽;
+                else if (r < 100)
+                    patrolDic = MoveDic.왼쪽;
             }
             else
             {
@@ -80,13 +86,19 @@ public class Rat : Monster
                 switch (patrolDic)
                 {
                     case MoveDic.오른쪽:
-                        MovingGround(+newSpeed);
+                        if (CanFallBlock(newSpeed, 4) && CanMove(newSpeed))
+                            MovingGround(+newSpeed);
+                        else
+                            patrolDic = MoveDic.왼쪽;
                         break;
                     case MoveDic.왼쪽:
-                        MovingGround(-newSpeed);
+                        if (CanFallBlock(-newSpeed, 4) && CanMove(-newSpeed))
+                            MovingGround(-newSpeed);
+                        else
+                            patrolDic = MoveDic.오른쪽;
                         break;
                     case MoveDic.정지:
-                        MovingGround(+0);
+                            MovingGround(+0);
                         break;
                 }
 

@@ -145,13 +145,15 @@ public class ShopScript : AreaScript
         string itemName = ItemManager.itemName[itmeList[itemNum]];
 
         int itemCount = 0;
-        if (itemName.Equals("BoomItem"))
-            itemCount = (int)ItemManager.instance.itemData[ItemManager.FindData(itemName)].value1;
-        else if (itemName.Equals("Dynamite"))
-            itemCount = (int)ItemManager.instance.itemData[ItemManager.FindData(itemName)].value1;
+        //if (itemName.Equals("BoomItem"))
+        //    itemCount = (int)ItemManager.instance.itemData[ItemManager.FindData(itemName)].value1;
+        //else if (itemName.Equals("Dynamite"))
+        //    itemCount = (int)ItemManager.instance.itemData[ItemManager.FindData(itemName)].value1;
 
         if (ItemManager.instance.AddItemCheck(itemName))
             ItemManager.instance.AddItem(itemName, itemCount);
+        else if (ItemManager.CheckGetActiveItem(itemName))
+            Player.instance.ActItem(itemName);
         else
         {
             //빈슬롯검사

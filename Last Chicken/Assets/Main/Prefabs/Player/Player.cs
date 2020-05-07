@@ -784,23 +784,7 @@ public class Player : CustomCollider
             if (Smithy.instance && Smithy.instance.onArea)
                 return;
 
-            if (ItemManager.instance.CanUseActiveItem("Coke"))
-            {
-                ItemManager.instance.CostItem("Coke");
-                SoundManager.instance.PlayerGlup();
-                nowHp += ItemManager.instance.itemData[ItemManager.FindData("Coke")].value0;
-                nowHp = nowHp > maxHp ? maxHp : nowHp;
-                EffectManager.instance.HearthEffect();
-            }
-            else if (ItemManager.instance.CanUseActiveItem("Beer"))
-            {
-                ItemManager.instance.CostItem("Beer");
-                SoundManager.instance.PlayerGlup();
-                nowHp += ItemManager.instance.itemData[ItemManager.FindData("Coke")].value0;
-                nowHp = nowHp > maxHp ? maxHp : nowHp;
-                EffectManager.instance.HearthEffect();
-            }
-            else if (ItemManager.instance.CanUseActiveItem("Dynamite"))
+            if (ItemManager.instance.CanUseActiveItem("Dynamite"))
             {
                 ItemManager.instance.UseItem("Dynamite");
                 ObjectManager.instance.Dynamite(transform.position + new Vector3(0, 1, 0));
@@ -811,11 +795,6 @@ public class Player : CustomCollider
                 Vector2 dic = MouseManager.instance.mousePos - (Vector2)transform.position;
                 dic = dic.normalized;
                 ObjectManager.instance.Boom(transform.position + new Vector3(0,1,0),dic*3000);
-            }
-            else if (ItemManager.instance.CanUseActiveItem("ShopVIpSpecial"))
-            {
-                ItemManager.instance.CostItem("ShopVIpSpecial");
-                GameManager.instance.playData.shopVIP = true;
             }
             else if (ItemManager.instance.CanUseActiveItem("Bell"))
             {
@@ -844,44 +823,62 @@ public class Player : CustomCollider
                         Chicken.instance.pattenType = Chicken.Pattern.왼쪽으로;
                 }
             }
-            else if (ItemManager.instance.CanUseActiveItem("Russian_Roulette") && !damage)
+        }
+    }
+
+    public void ActItem(string name)
+    {
+        if (name.Equals("Russian_Roulette"))
+        {
+            SoundManager.instance.PlayerGlup();
+            if (UnityEngine.Random.Range(0, 100) > 50)
             {
-                SoundManager.instance.PlayerGlup();
-                ItemManager.instance.CostItem("Russian_Roulette");
-                if (UnityEngine.Random.Range(0, 100) > 50)
-                {
-                    nowHp += ItemManager.instance.itemData[ItemManager.FindData("Russian_Roulette")].value1;
-                    nowHp = nowHp > maxHp ? maxHp : nowHp;
-                    EffectManager.instance.HearthEffect();
-                }
-                else
-                {
-                    SoundManager.instance.PlayerGun();
-                    PlayerDamage(ItemManager.instance.itemData[ItemManager.FindData("Russian_Roulette")].value0, UnityEngine.Random.Range(0, 100) > 50 ? +1 : -1);
-                }
+                nowHp += ItemManager.instance.itemData[ItemManager.FindData("Russian_Roulette")].value1;
+                nowHp = nowHp > maxHp ? maxHp : nowHp;
+                EffectManager.instance.HearthEffect();
             }
-            else if (ItemManager.instance.CanUseActiveItem("OldPocket"))
+            else
             {
-                ItemManager.instance.CostItem("OldPocket");
-                int minValue = Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("OldPocket")].value0);
-                int maxValue = Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("OldPocket")].value1);
-                GameManager.instance.playerMoney += UnityEngine.Random.Range(minValue, maxValue + 1);
-                SoundManager.instance.PlayerMoney();
+                SoundManager.instance.PlayerGun();
+                PlayerDamage(ItemManager.instance.itemData[ItemManager.FindData("Russian_Roulette")].value0, UnityEngine.Random.Range(0, 100) > 50 ? +1 : -1);
             }
-            else if (ItemManager.instance.CanUseActiveItem("RainbowPocket"))
-            {
-                ItemManager.instance.CostItem("RainbowPocket");
-                int data = ItemManager.instance.GetRandomItemAtShop();
-                if (data != -1)
-                    ItemManager.instance.SpawnItem(transform.position, ItemManager.itemName[data]);
-            }
-            else if (ItemManager.instance.CanUseActiveItem("RandomDice"))
-            {
-                ItemManager.instance.CostItem("RandomDice");
-                int minValue = Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("RandomDice")].value0);
-                int maxValue = Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("RandomDice")].value1);
-                GameManager.instance.playData.randomDice = UnityEngine.Random.Range(minValue, maxValue + 1);
-            }
+        }
+        else if (name.Equals("OldPocket"))
+        {
+            int minValue = Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("OldPocket")].value0);
+            int maxValue = Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("OldPocket")].value1);
+            GameManager.instance.playerMoney += UnityEngine.Random.Range(minValue, maxValue + 1);
+            SoundManager.instance.PlayerMoney();
+        }
+        else if (name.Equals("RainbowPocket"))
+        {
+            int data = ItemManager.instance.GetRandomItemAtShop();
+            if (data != -1)
+                ItemManager.instance.SpawnItem(transform.position, ItemManager.itemName[data]);
+        }
+        else if (name.Equals("RandomDice"))
+        {
+            int minValue = Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("RandomDice")].value0);
+            int maxValue = Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("RandomDice")].value1);
+            GameManager.instance.playData.randomDice = UnityEngine.Random.Range(minValue, maxValue + 1);
+        }
+        else if (name.Equals("ShopVIpSpecial"))
+        {
+            GameManager.instance.playData.shopVIP = true;
+        }
+        else if (name.Equals("Coke"))
+        {
+            SoundManager.instance.PlayerGlup();
+            nowHp += ItemManager.instance.itemData[ItemManager.FindData("Coke")].value0;
+            nowHp = nowHp > maxHp ? maxHp : nowHp;
+            EffectManager.instance.HearthEffect();
+        }
+        else if (name.Equals("Beer"))
+        {
+            SoundManager.instance.PlayerGlup();
+            nowHp += ItemManager.instance.itemData[ItemManager.FindData("Beer")].value0;
+            nowHp = nowHp > maxHp ? maxHp : nowHp;
+            EffectManager.instance.HearthEffect();
         }
     }
     #endregion
