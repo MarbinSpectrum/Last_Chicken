@@ -149,8 +149,6 @@ ScriptsOnlyBuild:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
-    UnityEditor.UI.dll:
-    - UnityEditor.UI.CanvasScalerEditor
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.EventTrigger
@@ -4847,7 +4845,7 @@ ScriptsOnlyBuild:
     className: MeshLight
   - hash:
       serializedVersion: 2
-      Hash: a588ea194f1d231aaa2cf31c1c26d85e
+      Hash: 1301b3c344b0716703db01d5342fe68d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GroundManager

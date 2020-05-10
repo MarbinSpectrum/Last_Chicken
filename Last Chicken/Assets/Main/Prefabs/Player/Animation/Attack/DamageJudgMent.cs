@@ -31,6 +31,8 @@ public class DamageJudgMent : MonoBehaviour
     #region[지형 공격]
     public void AttackTerrain()
     {
+        if (GroundManager.instance.StaminaFlag)
+            return;
 
         int[] SoundGroup = new int[17];
 
@@ -50,6 +52,13 @@ public class DamageJudgMent : MonoBehaviour
                                 AttackTerrain(new Vector2Int(x, y), Player.instance.attackPower);
                             }
         #endregion
+
+        for (int i = 0; i < 17; i++)
+            if(SoundGroup[i] > 0)
+            {
+                GroundManager.instance.Stamina += 2;
+                break;
+            }
 
         #region[광물에 따른 소리 출력]
         for (int i = 0; i < 17; i++)

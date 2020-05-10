@@ -26,7 +26,7 @@ public abstract class Monster : CustomCollider
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public enum MonsterType { Fly, Ground };
+    public enum MonsterType { Fly, Ground, Dig };
     protected MonsterType monsterType;    //몬스터종류
 
     protected int maxHp; //체력
@@ -121,7 +121,7 @@ public abstract class Monster : CustomCollider
     #region[지상판정]
     void GroundedCheck()
     {
-        if (monsterType == MonsterType.Fly)
+        if (monsterType == MonsterType.Fly || monsterType == MonsterType.Dig)
         {
             if (!damage)
                 rigidbody2D.gravityScale = 0;
@@ -292,8 +292,6 @@ public abstract class Monster : CustomCollider
     }
     #endregion
 
-
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -312,13 +310,12 @@ public abstract class Monster : CustomCollider
     #region[탐색경로 생성]
     void MakeAreaList()
     {
-        if (monsterType != MonsterType.Fly)
+        if (monsterType != MonsterType.Fly && monsterType != MonsterType.Dig)
             return;
 
         if (reExploreTime >= 1f && Vector2.Distance(nowPos, targetPos) <= AstarRange)
         {
             reExploreTime = 0;
-
             //탐색경로를 만듬
             TryRoute();
         }
@@ -326,11 +323,15 @@ public abstract class Monster : CustomCollider
         {
             reExploreTime += Time.deltaTime;
         }
+
+        //if(AreaList != null)
+        //    for (int i = 0; i < AreaList.Count - 1; i++)
+        //        Debug.DrawLine(AreaList[i], AreaList[i + 1], Color.red, 0, false);
     }
 
     void TryRoute()
     {
-        if (Exception.IndexOutRange(nowPos, GroundManager.instance.linkArea) && GroundManager.instance.linkArea[nowPos.x, nowPos.y])
+        if (monsterType == MonsterType.Dig || (Exception.IndexOutRange(nowPos, GroundManager.instance.linkArea) && GroundManager.instance.linkArea[nowPos.x, nowPos.y]))
         {
             //탐색경로도 갱신
             List<Vector2> emp = new List<Vector2>();
@@ -346,6 +347,8 @@ public abstract class Monster : CustomCollider
             }
             else
                 AreaList = emp;
+
+
         }
     }
     #endregion
@@ -371,6 +374,8 @@ public abstract class Monster : CustomCollider
         //탐색시작
         if (monsterType == MonsterType.Fly)
             FlyExplore(end);
+        else if (monsterType == MonsterType.Dig)
+            DigExplore(end);
 
         //탐색결과로 길을 그려줌
         if (explore)
@@ -481,20 +486,123 @@ public abstract class Monster : CustomCollider
     }
     #endregion
 
+    #region[땅속의 경우 탐색]
+    public void DigExplore(Vector2Int end)
+    {
+        int MinV = 0;
+
+        while (OpenList.Count > 0)
+        {
+            int MaxV = 2147483647;
+
+            int ax = 0;
+            int ay = 0;
+
+            int[] way = { -1, -1, -1, -1, -1, -1, -1, -1 };
+            //위 아래 왼쪽 오른쪽 왼위 오위 오아 왼아
+            int[,] offset = { { 0, 1 }, { 0, -1 }, { -1, 0 }, { 1, 0 }, { -1, 1 }, { 1, 1 }, { 1, -1 }, { -1, -1 } };
+
+            for (int i = 0; i < 8; i++)
+            {
+                ax = OpenList[MinV].x + offset[i, 0];
+                ay = OpenList[MinV].y + offset[i, 1];
+                int mintax = (int)Vector2.Distance(new Vector2(ax, ay), end);
+                if (Exception.IndexOutRange(ax, ay, Area))
+                {
+                    if (i < 4)
+                    {
+                        if (NotPassList(ax, ay))
+                        {
+                            if (CheckOpenList(ax, ay))
+                            {
+                                if (Area[ax, ay].w > Area[OpenList[MinV].x, OpenList[MinV].y].w + 10)
+                                {
+                                    Area[ax, ay].w = Area[OpenList[MinV].x, OpenList[MinV].y].w + 10;
+                                    Area[ax, ay].parents = OpenList[MinV];
+                                }
+                            }
+                            else
+                            {
+                                OpenList.Add(new Vector2Int(ax, ay));
+                                Area[ax, ay].w = Area[OpenList[MinV].x, OpenList[MinV].y].w + 10;
+                                Area[ax, ay].parents = OpenList[MinV];
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (NotPassList(ax, ay) && NotPassList(OpenList[MinV].x, ay) && NotPassList(ax, OpenList[MinV].y))
+                        {
+                            if (CheckOpenList(ax, ay))
+                            {
+                                if (Area[ax, ay].w > Area[OpenList[MinV].x, OpenList[MinV].y].w + 14)
+                                {
+                                    Area[ax, ay].w = Area[OpenList[MinV].x, OpenList[MinV].y].w + 10;
+                                    Area[ax, ay].parents = OpenList[MinV];
+                                }
+                            }
+                            else
+                            {
+                                OpenList.Add(new Vector2Int(ax, ay));
+                                Area[ax, ay].w = Area[OpenList[MinV].x, OpenList[MinV].y].w + 14;
+                                Area[ax, ay].parents = OpenList[MinV];
+                            }
+                        }
+                    }
+                }
+
+                if (CheckOpenList(end.x, end.y))
+                {
+                    explore = true;
+                    break;
+                }
+            }
+
+            if (explore)
+                break;
+
+            for (int i = 0; i < OpenList.Count; i++)
+            {
+                if (i == MinV)
+                {
+                    CloseList.Add(OpenList[MinV]);
+                    OpenList.RemoveAt(i);
+                }
+            }
+
+            if (OpenList.Count > 0)
+            {
+                for (int i = 0; i < OpenList.Count; i++)
+                {
+                    int tax = (int)Vector2.Distance(OpenList[i], end);
+                    if (MaxV > tax + Area[OpenList[i].x, OpenList[i].y].w)
+                    {
+                        MaxV = tax + Area[OpenList[i].x, OpenList[i].y].w;
+                        MinV = i;
+                    }
+                }
+            }
+        }
+    }
+    #endregion
+
     #region[이동불가 부분 조건]
     public bool NotPassList(int x, int y)
     {
+       
         if (Vector2.Distance(transform.position, new Vector2(x, y)) > AstarRange)
             return false;
 
         if (CloseList.Contains(new Vector2Int(x, y)))
             return false;
 
-        if (StageData.instance.GetBlock(x, y) != (StageData.GroundLayer)(-1))
-            return false;
+        if (monsterType == MonsterType.Fly)
+            if (StageData.instance.GetBlock(x, y) != (StageData.GroundLayer)(-1))
+                return false;
 
-        //if (GroundManager.instance.groundHp[x,y] > 0)
-        //    return false;
+        if (monsterType == MonsterType.Dig)
+            if (StageData.instance.GetBlock(x, y) != (StageData.GroundLayer)(-1))
+                return false;
 
         bool hit = IsAtTerrain(boxCollider2D, new Vector2(x + 0.5f, y + 0.5f), false);
 

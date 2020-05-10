@@ -133,6 +133,7 @@ public class Bat : Monster
         {
             if (patrolTime < 0)
             {
+                Random.InitState((int)Time.time * Random.Range(0, 100));
                 patrolTime = isPatrolTime;
                 patrolDic = (MoveDic)Random.Range(0, 8);
             }

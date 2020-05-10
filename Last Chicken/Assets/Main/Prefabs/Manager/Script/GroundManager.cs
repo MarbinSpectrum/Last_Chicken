@@ -115,6 +115,9 @@ public class GroundManager : MonoBehaviour
     public Texture2D eventMapBackData;
     public StageData.BackGroundLayer[,] eventBackGround;
 
+    public float Stamina = 0;
+    public bool StaminaFlag = false;
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -214,6 +217,18 @@ public class GroundManager : MonoBehaviour
     private void Update()
     {
         SurfaceFluid();
+        if (Stamina > 0)
+        {
+            if (StaminaFlag)
+                Stamina -= Time.deltaTime * 10;
+            else
+                Stamina -= Time.deltaTime;
+        }
+        if (StaminaFlag && Stamina < 0)
+            StaminaFlag = false;
+        if (!StaminaFlag && Stamina > 100)
+            StaminaFlag = true;
+
     }
     #endregion
 

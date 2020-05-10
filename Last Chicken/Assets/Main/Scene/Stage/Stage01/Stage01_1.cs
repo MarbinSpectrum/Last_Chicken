@@ -515,30 +515,34 @@ public class Stage01_1 : StageData
             {
                 if (i < Mathf.Abs(mineRoadArea.Count * 0.3f))
                     continue;
-                Vector2 objectPos = new Vector2(mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height);
-                if (Random.Range(0, 100) <= StageManager.instance.stage0101_TrapValue ||
-                    !Exception.IndexOutRange(mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height - 1, groundData) ||
-                    (Exception.IndexOutRange(mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height - 1, groundData) &&
-                    groundData[mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height - 1] == (GroundLayer)(-1)))
-                {
-                    addX += Random.Range(10, 15);
-                    continue;
-                }
+
                 int randomObject = Random.Range(0, 6);
+
+                Vector2 objectPos = new Vector2(mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height);
+                Vector2Int tempPos = new Vector2Int((int)objectPos.x, (int)objectPos.y);
+
+                addX += Random.Range(5, 8);
+
+                if (Random.Range(0, 100) <= StageManager.instance.stage0101_TrapValue)
+                    continue;
+
                 switch (randomObject)
                 {
                     case 0:
                     case 1:
                     case 2:
-                        ObjectManager.instance.Stalagmite(objectPos + new Vector2(0, 5.5f), randomObject);
+                        if ((Exception.IndexOutRange(tempPos.x, tempPos.y + 3, groundData) && groundData[tempPos.x, tempPos.y + 3] == (GroundLayer)(-1)) &&
+        (Exception.IndexOutRange(tempPos.x + 1, tempPos.y + 3, groundData) && groundData[tempPos.x + 1, tempPos.y + 3] == (GroundLayer)(-1)))
+                            ObjectManager.instance.Stalagmite(objectPos + new Vector2(0, 5.5f), randomObject);
                         break;
                     case 3:
                     case 4:
                     case 5:
-                        ObjectManager.instance.Stalagmite(objectPos + new Vector2(0, 1.5f), randomObject);
+                        if ((Exception.IndexOutRange(tempPos.x, tempPos.y, groundData) && groundData[tempPos.x, tempPos.y] == (GroundLayer)(-1)) &&
+    (Exception.IndexOutRange(tempPos.x + 1, tempPos.y, groundData) && groundData[tempPos.x + 1, tempPos.y] == (GroundLayer)(-1)))
+                            ObjectManager.instance.Stalagmite(objectPos + new Vector2(0, 1.5f), randomObject);
                         break;
                 }
-                addX += Random.Range(10, 15);
             }
             #endregion
         }
