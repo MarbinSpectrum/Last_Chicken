@@ -52,6 +52,8 @@ public class MonsterManager : ObjectPool
 
     GameObject snake;
 
+    GameObject mole;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -71,6 +73,8 @@ public class MonsterManager : ObjectPool
             rat = Resources.Load("Objects/Monster/Rat") as GameObject;
 
             snake = Resources.Load("Objects/Monster/Snake") as GameObject;
+
+            mole = Resources.Load("Objects/Monster/Mole") as GameObject;
 
             for (int i = 0; i < 100; i++)
             {
@@ -122,6 +126,9 @@ public class MonsterManager : ObjectPool
                         break;
                     case 2:
                         Snake(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
+                        break;
+                    case 3:
+                        Mole(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
                         break;
                 }
             }
@@ -283,6 +290,27 @@ public class MonsterManager : ObjectPool
         if (emp == null)
         {
             emp = Instantiate(snake);
+            emp.transform.name = name;
+            AddObject(emp);
+        }
+
+        emp.SetActive(true);
+        emp.transform.parent = transform;
+        emp.transform.position = new Vector3(vector3.x, vector3.y, emp.transform.position.z);
+        emp.transform.rotation = new Quaternion(0, 0, 0, 0);
+    }
+    #endregion
+
+    #region[두더지]
+    public void Mole(Vector3 vector3)
+    {
+        string name = monsterName[3];
+
+        GameObject emp = FindObject(name);
+
+        if (emp == null)
+        {
+            emp = Instantiate(mole);
             emp.transform.name = name;
             AddObject(emp);
         }

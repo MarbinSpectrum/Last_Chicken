@@ -20,7 +20,7 @@ namespace Custom
 
         public static bool IndexOutRange<T>(int a, List<T> array)
         {
-            if (a >= array.Count || a < 0)
+            if (array == null || a >= array.Count || a < 0)
                 return false;
             return true;
         }

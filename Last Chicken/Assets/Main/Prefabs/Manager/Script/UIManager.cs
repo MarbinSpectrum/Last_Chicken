@@ -149,8 +149,6 @@ public class UIManager : MonoBehaviour
     [NonSerialized] public Text[] itemNumText = new Text[6];
     [NonSerialized] public Image[] itemCoolImg = new Image[6];
 
-    [NonSerialized] public Image stamina;
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     [NonSerialized] public GameObject playerState;    //플레이어상태
@@ -280,8 +278,6 @@ public class UIManager : MonoBehaviour
         itemSelectImg[0] = itemObject[0].transform.Find("center").GetComponent<Image>();
         itemNumText[0] = itemObject[0].transform.Find("Count").GetComponent<Text>();
         itemCoolImg[0] = itemObject[0].transform.Find("Cool").GetComponent<Image>();
-
-        stamina = playerItem.transform.Find("Stamina").Find("Bar").GetComponent<Image>();
 
         for (int i = 1; i < 6; i++)
         {
@@ -556,11 +552,7 @@ public class UIManager : MonoBehaviour
     #region[Update]
     void Update()
     {
-        stamina.fillAmount = GroundManager.instance.Stamina / 100f < 0 ? 0 : GroundManager.instance.Stamina / 100f;
-        if (!GroundManager.instance.StaminaFlag)
-            stamina.color = new Color(1, 1, 0);
-        else
-            stamina.color = new Color(1, 0, 0.5f);
+
 
         if (Input.GetKeyDown(KeyCode.Escape) && !goTitle)
         {

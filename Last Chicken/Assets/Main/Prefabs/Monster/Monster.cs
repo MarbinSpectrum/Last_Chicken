@@ -324,7 +324,7 @@ public abstract class Monster : CustomCollider
             reExploreTime += Time.deltaTime;
         }
 
-        //if(AreaList != null)
+        //if (AreaList != null)
         //    for (int i = 0; i < AreaList.Count - 1; i++)
         //        Debug.DrawLine(AreaList[i], AreaList[i + 1], Color.red, 0, false);
     }
@@ -335,7 +335,32 @@ public abstract class Monster : CustomCollider
         {
             //탐색경로도 갱신
             List<Vector2> emp = new List<Vector2>();
-            emp = Astar(nowPos, targetPos);
+
+            if(monsterType == MonsterType.Dig)
+            {
+                Vector2Int temp = targetPos + new Vector2Int(0, -3);
+                for (int i = 0; i < StageData.Dic8.GetLength(0); i++)
+                {
+                    int ax = targetPos.x + StageData.Dic8[i, 0];
+                    int ay = targetPos.y + StageData.Dic8[i, 1];
+                    if(StageData.instance.GetBlock(ax,ay) != (StageData.GroundLayer)(-1))
+                    {
+                        temp = new Vector2Int(ax, ay);
+                        break;
+                    }
+                    ax = targetPos.x + 2 * StageData.Dic8[i, 0];
+                    ay = targetPos.y + 2 * StageData.Dic8[i, 1];
+                    if (StageData.instance.GetBlock(ax, ay) != (StageData.GroundLayer)(-1))
+                    {
+                        temp = new Vector2Int(ax, ay);
+                        break;
+                    }
+                }
+                emp = Astar(nowPos, temp);
+
+            }
+            else
+                emp = Astar(nowPos, targetPos);
             if (emp != null)
             {
                 if (AreaList == null)
@@ -601,7 +626,7 @@ public abstract class Monster : CustomCollider
                 return false;
 
         if (monsterType == MonsterType.Dig)
-            if (StageData.instance.GetBlock(x, y) != (StageData.GroundLayer)(-1))
+            if (StageData.instance.GetBlock(x, y) == (StageData.GroundLayer)(-1))
                 return false;
 
         bool hit = IsAtTerrain(boxCollider2D, new Vector2(x + 0.5f, y + 0.5f), false);

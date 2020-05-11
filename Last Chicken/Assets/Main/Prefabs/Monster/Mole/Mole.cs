@@ -47,7 +47,7 @@ public class Mole : Monster
         maxHp = MonsterManager.instance.monsterData[MonsterManager.FindData(transform.name)].Hp;
         speed = MonsterManager.instance.monsterData[MonsterManager.FindData(transform.name)].Speed;
         attackPower = MonsterManager.instance.monsterData[MonsterManager.FindData(transform.name)].AttackPower;
-        jumpPower = MonsterManager.instance.monsterData[MonsterManager.FindData(transform.name)].JumpPower;
+  
         if (boxCollider2D)
             boxCollider2D.isTrigger = true;
     }
@@ -56,7 +56,7 @@ public class Mole : Monster
     #region[애니메이션]
     public void Ani()
     {
-        animator.SetBool("Damage", damage);
+        //animator.SetBool("Damage", damage);
 
         if (damage || moveDic == 0)
             return;
@@ -76,7 +76,7 @@ public class Mole : Monster
     #region[이동처리]
     public void Move()
     {
-        Debug.Log(monsterType);
+        #region[상태변환]
         if (monsterType == MonsterType.Dig && StageData.instance.GetBlock(nowPos.x, nowPos.y) == (StageData.GroundLayer)(-1))
         {
             monsterType = MonsterType.Ground;
@@ -110,21 +110,19 @@ public class Mole : Monster
                 digGroundTime = 0;
                 if (grounded)
                 {
-                    Debug.Log("체인지");
                     boxCollider2D.isTrigger = true;
                     transform.position += new Vector3(0, -2.5f, 0);
                     monsterType = MonsterType.Dig;
                 }
             }
         }
-
-
+        #endregion
 
         if (monsterType == MonsterType.Dig)
         {
-            if (Vector2.Distance(nowPos, Player.instance.transform.position) < AstarRange)
+            if (Vector2.Distance(nowPos, Player.instance.transform.position) < AstarRange && AreaList != null)
             {
-                if (AreaList != null)
+                if (Vector2.Distance(nowPos, Player.instance.transform.position) >= 2)
                 {
                     if (Exception.IndexOutRange(nowPoint + 1, AreaList))
                     {
@@ -158,6 +156,7 @@ public class Mole : Monster
                         MovingFly(+speed, rigidbody2D.velocity.y);
                     else if (transform.position.x > Player.instance.transform.position.x)
                         MovingFly(-speed, rigidbody2D.velocity.y);
+
 
                     if (Mathf.Abs(transform.position.y - Player.instance.transform.position.y) < 0.15f)
                         MovingFly(rigidbody2D.velocity.x, +0);
