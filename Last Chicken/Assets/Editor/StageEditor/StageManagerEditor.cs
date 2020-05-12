@@ -136,7 +136,7 @@ public class StageManagerEditor : MyEditor
 
                 EditorGUILayout.BeginHorizontal();
                 int dataValue;
-                EditorGUILayout.LabelField("리젠률(%)", GUILayout.Width(60));
+                EditorGUILayout.LabelField("스폰률(%)", GUILayout.Width(60));
                 dataValue = EditorGUILayout.IntField(list.monsterValue[j], GUILayout.Width(30));
                 dataValue = dataValue < 0 ? 0 : dataValue > 100 ? 100 : dataValue;
                 list.monsterValue[j] = dataValue;
@@ -148,9 +148,26 @@ public class StageManagerEditor : MyEditor
         }
         EditorGUILayout.EndVertical();
 
-
         int tempValue;
 
+        EditorGUILayout.BeginVertical("helpbox", GUILayout.Width(220));
+        EditorGUILayout.LabelField("몬스터 생성 설정", GUI.skin.box, GUILayout.Width(220), GUILayout.Height(25));
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("몬스터 생성 수치", GUILayout.Width(125));
+        tempValue = IntField(list.monsterNum);
+        tempValue = tempValue < 0 ? 0 : tempValue > 100 ? 100 : tempValue;
+        list.monsterNum = tempValue;
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+
+        EditorGUILayout.LabelField("몬스터 생성 간격", GUILayout.Width(125));
+        tempValue = IntField(list.monsterDistance);
+        tempValue = tempValue < 0 ? 0 : tempValue > 100 ? 100 : tempValue;
+        list.monsterDistance = tempValue;
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.EndVertical();
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("오브젝트 드랍률(%)", GUILayout.Width(125));
         tempValue = IntField(objectValue);

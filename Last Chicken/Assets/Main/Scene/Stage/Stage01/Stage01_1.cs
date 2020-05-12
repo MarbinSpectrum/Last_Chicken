@@ -34,7 +34,7 @@ public class Stage01_1 : StageData
         SetDust();
 
         GroundManager.instance.Init(world);
-        MonsterManager.instance.Init(world,20);
+        MonsterManager.instance.Init(world,StageManager.instance.stage0101_Monsters.monsterNum, StageManager.instance.stage0101_Monsters.monsterDistance);
     }
     #endregion
 

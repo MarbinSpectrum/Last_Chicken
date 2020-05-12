@@ -14,6 +14,8 @@ public class MonsterManager : ObjectPool
     {
         public bool[] monsters;
         public int[] monsterValue;
+        public int monsterDistance;
+        public int monsterNum;
         public SpawnMonster()
         {
             monsters = new bool[monsterName.Length];
@@ -83,6 +85,7 @@ public class MonsterManager : ObjectPool
                 Bat(Vector3.zero);
                 Rat(Vector3.zero);
                 Snake(Vector3.zero);
+                Mole(Vector3.zero);
             }
 
             PoolOff();
@@ -104,14 +107,16 @@ public class MonsterManager : ObjectPool
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     #region[초기설정]
-    public void Init(World world,int num = 100)
+    public void Init(World world,int num,int dis = 20)
     {
         PoolOff();
         SetMonsterList(SceneController.instance.nowScene);
         monsterPosList.Clear();
         for (int i = 0; i < num; i++)
         {
-            List<Vector2Int> monsterPos = MonsterSpawnPos(world);
+            List<Vector2Int> monsterPos = MonsterSpawnPos(world, dis);
+            if (monsterPos.Count == 0)
+                continue;
             Vector2Int pos = monsterPos[Random.Range(0, monsterPos.Count)];
             monsterPosList.Add(pos);
             if (monsterList.Count > 0)
@@ -197,7 +202,7 @@ public class MonsterManager : ObjectPool
     #endregion
 
     #region[몬스터 생성 위치 리스트]
-    List<Vector2Int> MonsterSpawnPos(World world)
+    List<Vector2Int> MonsterSpawnPos(World world,int dis)
     {
         List<Vector2Int> emp = new List<Vector2Int>();
 
@@ -213,7 +218,7 @@ public class MonsterManager : ObjectPool
                 if (Exception.IndexOutRange(x, y, donSetPos))
                     donSetPos[x, y] = true;
 
-        int r = 20;
+        int r = dis;
         for (int i = 0; i < monsterPosList.Count; i++)
             for (int x = monsterPosList[i].x - r; x < monsterPosList[i].x + r; x++)
                 for (int y = monsterPosList[i].y - r; y < monsterPosList[i].y + r; y++)
