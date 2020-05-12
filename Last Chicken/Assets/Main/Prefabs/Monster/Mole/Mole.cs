@@ -181,43 +181,54 @@ public class Mole : Monster
                     {
                         case MoveDic.오른쪽:
                             if (StageData.instance.GetBlock(nowPos.x + 1, nowPos.y) == (StageData.GroundLayer)(-1))
-                                patrolDic = MoveDic.왼쪽;
-                            MovingFly(+speed, rigidbody2D.velocity.y);
+                                patrolDic = MoveDic.정지;
+                            else
+                                MovingFly(+speed, 0);
                             break;
                         case MoveDic.왼쪽:
                             if (StageData.instance.GetBlock(nowPos.x - 1, nowPos.y) == (StageData.GroundLayer)(-1))
                                 patrolDic = MoveDic.오른쪽;
-                            MovingFly(-speed, rigidbody2D.velocity.y);
+                            else
+                                MovingFly(-speed, 0);
                             break;
                         case MoveDic.위:
                             if (StageData.instance.GetBlock(nowPos.x, nowPos.y + 1) == (StageData.GroundLayer)(-1))
                                 patrolDic = MoveDic.아래;
-                            MovingFly(rigidbody2D.velocity.x, +speed);
+                            else
+                                MovingFly(0, +speed);
                             break;
                         case MoveDic.아래:
                             if (StageData.instance.GetBlock(nowPos.x, nowPos.y - 1) == (StageData.GroundLayer)(-1))
                                 patrolDic = MoveDic.위;
-                            MovingFly(rigidbody2D.velocity.x, -speed);
+                            else
+                                MovingFly(0, -speed);
                             break;
                         case MoveDic.오른쪽_위:
                             if (StageData.instance.GetBlock(nowPos.x + 1, nowPos.y + 1) == (StageData.GroundLayer)(-1))
-                                patrolDic = MoveDic.왼쪽_아래;
-                            MovingFly(+speed, +speed);
+                                patrolDic = MoveDic.정지;
+                            else
+                                MovingFly(+speed, +speed);
                             break;
                         case MoveDic.오른쪽_아래:
                             if (StageData.instance.GetBlock(nowPos.x + 1, nowPos.y - 1) == (StageData.GroundLayer)(-1))
-                                patrolDic = MoveDic.왼쪽_위;
-                            MovingFly(+speed, -speed);
+                                patrolDic = MoveDic.정지;
+                            else
+                                MovingFly(+speed, -speed);
                             break;
                         case MoveDic.왼쪽_위:
                             if (StageData.instance.GetBlock(nowPos.x - 1, nowPos.y + 1) == (StageData.GroundLayer)(-1))
                                 patrolDic = MoveDic.오른쪽_아래;
-                            MovingFly(-speed, +speed);
+                            else
+                                MovingFly(-speed, +speed);
                             break;
                         case MoveDic.왼쪽_아래:
                             if (StageData.instance.GetBlock(nowPos.x - 1, nowPos.y - 1) == (StageData.GroundLayer)(-1))
                                 patrolDic = MoveDic.오른쪽_위;
-                            MovingFly(-speed, -speed);
+                            else
+                                MovingFly(-speed, -speed);
+                            break;
+                        case MoveDic.정지:
+                            MovingFly(0, 0);
                             break;
                     }
                 }

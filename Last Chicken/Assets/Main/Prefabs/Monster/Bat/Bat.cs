@@ -143,16 +143,16 @@ public class Bat : Monster
                 switch (patrolDic)
                 {
                     case MoveDic.오른쪽:
-                        MovingFly(+speed, rigidbody2D.velocity.y);
+                        MovingFly(+speed, 0);
                         break;
                     case MoveDic.왼쪽:
-                        MovingFly(-speed, rigidbody2D.velocity.y);
+                        MovingFly(-speed, 0);
                         break;
                     case MoveDic.위:
-                        MovingFly(rigidbody2D.velocity.x, +speed);
+                        MovingFly(0, +speed);
                         break;
                     case MoveDic.아래:
-                        MovingFly(rigidbody2D.velocity.x, -speed);
+                        MovingFly(0, -speed);
                         break;
                     case MoveDic.오른쪽_위:
                         MovingFly(+speed, +speed);

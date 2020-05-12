@@ -210,6 +210,9 @@ public class StageData : TerrainGenerator
 
     public GroundLayer GetBlock(int x, int y)
     {
+        if(x < 0 || x >= world.WorldWidth || y < 0 || y >= world.WorldHeight)
+            return (GroundLayer)(-1);
+
         if (IsBlockAt(x, y, (byte)Layers.Ground))
         {
             BlockInfo blockInfo = world.GetBlockLayer((int)Layers.Ground).GetBlockInfo(x, y);
