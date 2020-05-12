@@ -127,11 +127,22 @@ public class StageManagerEditor : MyEditor
             EditorGUILayout.BeginHorizontal();
             for (int j = i; (j < i + 2 && j < list.monsters.Length); j++)
             {
+                EditorGUILayout.BeginVertical("helpbox");
+
                 EditorGUILayout.BeginHorizontal("box", GUILayout.Width(90));
                 EditorGUILayout.LabelField(MonsterManagerEditor.getName(MonsterManager.monsterName[j]), GUI.skin.label, GUILayout.Width(75), GUILayout.Height(15));
                 list.monsters[j] = EditorGUILayout.Toggle(list.monsters[j], GUILayout.Width(15));
-
                 EditorGUILayout.EndHorizontal();
+
+                EditorGUILayout.BeginHorizontal();
+                int dataValue;
+                EditorGUILayout.LabelField("리젠률(%)", GUILayout.Width(60));
+                dataValue = EditorGUILayout.IntField(list.monsterValue[j], GUILayout.Width(30));
+                dataValue = dataValue < 0 ? 0 : dataValue > 100 ? 100 : dataValue;
+                list.monsterValue[j] = dataValue;
+                EditorGUILayout.EndHorizontal();
+
+                EditorGUILayout.EndVertical();
             }
             EditorGUILayout.EndHorizontal();
         }

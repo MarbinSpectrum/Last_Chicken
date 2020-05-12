@@ -13,9 +13,11 @@ public class MonsterManager : ObjectPool
     public class SpawnMonster
     {
         public bool[] monsters;
+        public int[] monsterValue;
         public SpawnMonster()
         {
             monsters = new bool[monsterName.Length];
+            monsterValue = new int[monsterName.Length];
         }
     }
 
@@ -159,10 +161,37 @@ public class MonsterManager : ObjectPool
     #region[생성되는 몬스터 리스트 설정]
     List<int> MonsterList(SpawnMonster list)
     {
-        List<int> emp = new List<int>();
+        //드랍몬스터들
+        List<int> tempList = new List<int>();
         for (int i = 0; i < list.monsters.Length; i++)
             if (list.monsters[i])
-                emp.Add(i);
+                tempList.Add(i);
+
+        //합비율
+        float sumValue = 0;
+        for (int i = 0; i < tempList.Count; i++)
+                sumValue += list.monsterValue[tempList[i]];
+        sumValue = 100f / sumValue;
+
+        //드랍률에따른 리스트생성
+        List<int> emp = new List<int>();
+        int v = 100;
+        for (int i = 0; i < tempList.Count; i++)
+        {
+            if(i != tempList.Count - 1)
+            {
+                int temp = (int)(list.monsterValue[tempList[i]] * sumValue);
+                v -= temp;
+                for(int j = 0; j < temp; j++)
+                    emp.Add(tempList[i]);
+            }
+            else
+            {
+                for (int j = 0; j < v; j++)
+                    emp.Add(tempList[i]);
+            }
+        }
+
         return emp;
     }
     #endregion
