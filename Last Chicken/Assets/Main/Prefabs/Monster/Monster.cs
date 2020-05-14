@@ -174,6 +174,8 @@ public abstract class Monster : CustomCollider
         {
             EffectManager.instance.Vibration(EffectManager.instance.monsterDeadVibration.num, EffectManager.instance.monsterDeadVibration.power);
             SoundManager.instance.MonsterDead();
+            transform.position = new Vector3(-1000,-1000,transform.position.z);
+            MonsterManager.instance.ReSwpawn(world, 20);
             gameObject.SetActive(false);
         }
     }

@@ -46,8 +46,6 @@ public class MonsterManager : ObjectPool
         return 0;
     }
 
-    List<Vector2Int> monsterPosList = new List<Vector2Int>();
-
     public MonsterStats[] monsterData = new MonsterStats[monsterName.Length];
 
     GameObject bat;
@@ -82,10 +80,10 @@ public class MonsterManager : ObjectPool
 
             for (int i = 0; i < 100; i++)
             {
-                Bat(Vector3.zero);
-                Rat(Vector3.zero);
-                Snake(Vector3.zero);
-                Mole(Vector3.zero);
+                Bat(new Vector2(-1000,-1000));
+                Rat(new Vector2(-1000, -1000));
+                Snake(new Vector2(-1000, -1000));
+                Mole(new Vector2(-1000, -1000));
             }
 
             PoolOff();
@@ -111,39 +109,43 @@ public class MonsterManager : ObjectPool
     {
         PoolOff();
         SetMonsterList(SceneController.instance.nowScene);
-        monsterPosList.Clear();
+
         for (int i = 0; i < num; i++)
+            ReSwpawn(world, dis);
+    }
+    #endregion
+
+    #region[몬스터 생성]
+    public void ReSwpawn(World world ,int dis = 20)
+    {
+        List<Vector2Int> monsterPos = MonsterSpawnPos(world, dis);
+        if (monsterPos.Count == 0)
+            return;
+        Vector2Int pos = monsterPos[Random.Range(0, monsterPos.Count)];
+        if (monsterList.Count > 0)
         {
-            List<Vector2Int> monsterPos = MonsterSpawnPos(world, dis);
-            if (monsterPos.Count == 0)
-                continue;
-            Vector2Int pos = monsterPos[Random.Range(0, monsterPos.Count)];
-            monsterPosList.Add(pos);
-            if (monsterList.Count > 0)
+            int r = monsterList[Random.Range(0, monsterList.Count)];
+            Vector2 offset = new Vector2(0, 1);
+            switch (r)
             {
-                int r = monsterList[Random.Range(0, monsterList.Count)];
-                Vector2 offset = new Vector2(0, 1);
-                switch (r)
-                {
-                    case 0:
-                        Bat(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
-                        break;
-                    case 1:
-                        Rat(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
-                        break;
-                    case 2:
-                        Snake(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
-                        break;
-                    case 3:
-                        Mole(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
-                        break;
-                }
+                case 0:
+                    Bat(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
+                    break;
+                case 1:
+                    Rat(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
+                    break;
+                case 2:
+                    Snake(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
+                    break;
+                case 3:
+                    Mole(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
+                    break;
             }
         }
     }
     #endregion
 
-    #region[몬스터 생성]
+    #region[몬스터 생성리스트 설정]
     public void SetMonsterList(string s)
     {
         if (monsterList != null)
@@ -163,7 +165,7 @@ public class MonsterManager : ObjectPool
     }
     #endregion
 
-    #region[생성되는 몬스터 리스트 설정]
+    #region[생성되는 몬스터 랜덤값 설정]
     List<int> MonsterList(SpawnMonster list)
     {
         //드랍몬스터들
@@ -218,12 +220,25 @@ public class MonsterManager : ObjectPool
                 if (Exception.IndexOutRange(x, y, donSetPos))
                     donSetPos[x, y] = true;
 
+        Vector2Int pos;
         int r = dis;
-        for (int i = 0; i < monsterPosList.Count; i++)
-            for (int x = monsterPosList[i].x - r; x < monsterPosList[i].x + r; x++)
-                for (int y = monsterPosList[i].y - r; y < monsterPosList[i].y + r; y++)
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            pos = new Vector2Int((int)transform.GetChild(i).position.x, (int)transform.GetChild(i).position.y);
+            for (int x = pos.x - r; x < pos.x + r; x++)
+                for (int y = pos.y - r; y < pos.y + r; y++)
                     if (Exception.IndexOutRange(x, y, donSetPos))
                         donSetPos[x, y] = true;
+        }
+        if(Player.instance)
+        {
+            pos = new Vector2Int((int)Player.instance.transform.position.x, (int)Player.instance.transform.position.y);
+            for (int x = pos.x - r; x < pos.x + r; x++)
+                for (int y = pos.y - r; y < pos.y + r; y++)
+                    if (Exception.IndexOutRange(x, y, donSetPos))
+                        donSetPos[x, y] = true;
+        }
+
 
         for (int x = 0; x < world.WorldWidth; x++)
             for (int y = 0; y < world.WorldHeight; y++)
@@ -232,7 +247,7 @@ public class MonsterManager : ObjectPool
                         donSetPos[x, y] = true;
 
         for (int x = 0; x < world.WorldWidth; x++)
-            for (int y = 0; y < world.WorldHeight - 20; y++)
+            for (int y = 20; y < world.WorldHeight - 20; y++)
                 if (StageData.instance.GetBlock(x, y) == (StageData.GroundLayer)(-1) && !donSetPos[x,y])
                     emp.Add(new Vector2Int(x, y));
 
