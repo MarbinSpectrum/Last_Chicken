@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TerrainEngine2D;
 using UnityEngine;
+using System.Collections;
 
 public class GroundManager : MonoBehaviour
 {
@@ -222,6 +223,24 @@ public class GroundManager : MonoBehaviour
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    #region[얼음파괴]
+
+    public IEnumerator BreakIceProcess(int x, int y)
+    {
+        DamageJudgMent.AttackTerrain(new Vector2Int(x, y), 1000);
+        Debug.Log("Breaik");
+        yield return new WaitForSeconds(0.1f);
+        for(int i = 0; i < 4; i++)
+        {
+            int ax = x + StageData.Dic[i, 0];
+            int ay = y + StageData.Dic[i, 1];
+            if (StageData.instance.GetBlock(ax, ay) == StageData.GroundLayer.Ice)
+                StartCoroutine(BreakIceProcess(ax, ay));
+        }
+    }
+
+    #endregion
 
     #region[SurfaceFluid]
     public void SurfaceFluid()

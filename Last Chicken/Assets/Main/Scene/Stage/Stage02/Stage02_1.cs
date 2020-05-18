@@ -9,6 +9,7 @@ public class Stage02_1 : StageData
 
     List<RectInt> deleteArea = new List<RectInt>();         //삭제되는 지형
 
+    int startY = 20;   //시작 광산로 Y좌표
     bool outlineflipX;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -80,7 +81,58 @@ public class Stage02_1 : StageData
             for (int y = 0; y < world.WorldHeight; y++)
                 groundData[x, y] = (GroundLayer)(-1);
 
-   
+        //노이즈값으로 지형을 설정
+        for (int x = 0; x < world.WorldWidth; x++)
+            for (int y = 0; y < world.WorldHeight; y++)
+                if (PerlinNoise(x, y, 10, 15, 1) >= 6)
+                    groundData[x, y] = GroundLayer.Dirt;
+
+        for (int x = 0; x < world.WorldWidth; x++)
+            for (int y = world.WorldHeight - startY; y < world.WorldHeight; y++)
+                groundData[x, y] = (GroundLayer)(-1);
+
+        int startGroundH = 3;
+
+        for (int x = 0; x < world.WorldWidth; x++)
+            for (int y = world.WorldHeight - startY - startGroundH; y < world.WorldHeight - startY; y++)
+                groundData[x, y] = GroundLayer.Dirt;
+
+        for (int y = 0; y < world.WorldHeight - startY * 2; y += Random.Range(15, 20))
+        {
+            int sw = Random.Range(30, 50);
+            int sx = Random.Range(0, world.WorldWidth - sw);
+
+            for (int x = sx - 5; x < sx + sw + 5; x++)
+                for (int h = -10; h < 10; h++)
+                    if (Exception.IndexOutRange(x, y + h, groundData))
+                        groundData[x, y + h] = (GroundLayer)(-1);
+
+            for (int x = sx; x < sx + sw; x++)
+                for (int h = 0; h < 3; h++)
+                    if (Exception.IndexOutRange(x, y + h, groundData))
+                        groundData[x, y + h] = GroundLayer.Ice;
+        }
+
+
+        ProceduralGeneration(world, groundData, GroundLayer.Dirt);
+
+
+
+
+
+
+        outlineflipX = Random.Range(0, 100) > 50;
+
+        for (int y = 0; y < world.WorldHeight; y++)
+            for (int x = 0; x < world.WorldWidth; x++)
+            {
+                int fx = outlineflipX ? x : world.WorldWidth - x - 1;
+                if (GroundManager.instance.stage01OutlineRect[fx, y] == GroundLayer.UnBreakable)
+                    groundData[x, y] = GroundLayer.UnBreakable;
+                else if (GroundManager.instance.stage01OutlineRect[fx, y] == GroundLayer.Dirt)
+                    groundData[x, y] = (GroundLayer)(-1);
+            }
+
     }
     #endregion
 
@@ -286,8 +338,6 @@ public class Stage02_1 : StageData
 
         Queue<Vector2Int> fillQuque = new Queue<Vector2Int>();
 
-        int[,] dic = new int[4, 2] { { +1, 0 }, { -1, 0 }, { 0, +1 }, { 0, -1 } };
-
         for (int i = 0; i < world.WorldWidth; i++)
             for (int j = 0; j < world.WorldHeight; j++)
             {
@@ -302,8 +352,8 @@ public class Stage02_1 : StageData
                         Vector2Int emp = fillQuque.Dequeue();
                         for (int k = 0; k < 4; k++)
                         {
-                            int ax = emp.x + dic[k, 0];
-                            int ay = emp.y + dic[k, 1];
+                            int ax = emp.x + Dic[k, 0];
+                            int ay = emp.y + Dic[k, 1];
                             if (Exception.IndexOutRange(ax, ay, fillRect) && fillRect[ax, ay] == 1)
                             {
                                 fillQuque.Enqueue(new Vector2Int(ax, ay));
@@ -325,8 +375,8 @@ public class Stage02_1 : StageData
                         Vector2Int emp = fillQuque.Dequeue();
                         for (int k = 0; k < 4; k++)
                         {
-                            int ax = emp.x + dic[k, 0];
-                            int ay = emp.y + dic[k, 1];
+                            int ax = emp.x + Dic[k, 0];
+                            int ay = emp.y + Dic[k, 1];
                             if (Exception.IndexOutRange(ax, ay, fillRect) && fillRect[ax, ay] == -1)
                             {
                                 fillQuque.Enqueue(new Vector2Int(ax, ay));

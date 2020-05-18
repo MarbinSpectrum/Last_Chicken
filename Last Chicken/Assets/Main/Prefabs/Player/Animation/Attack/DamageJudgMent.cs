@@ -46,8 +46,13 @@ public class DamageJudgMent : MonoBehaviour
                             if ((GroundManager.instance.digMask & (int)Mathf.Pow(2, (int)StageData.instance.groundData[x, y])) != 0)
                             {
                                 SoundGroup[(int)StageData.instance.groundData[x, y]]++;
-                                AttackTerrain(new Vector2Int(x, y), Player.instance.attackPower);
+                                if (StageData.instance.groundData[x, y] == StageData.GroundLayer.Ice)
+                                    StartCoroutine(GroundManager.instance.BreakIceProcess(x, y));
+                                else
+                                    AttackTerrain(new Vector2Int(x, y), Player.instance.attackPower);
                             }
+               
+        
         #endregion
 
         #region[광물에 따른 소리 출력]
@@ -98,6 +103,7 @@ public class DamageJudgMent : MonoBehaviour
 
         }
         #endregion
+
     }
     public static void AttackTerrain(Vector2Int pos, int damage)
     {
@@ -176,6 +182,8 @@ public class DamageJudgMent : MonoBehaviour
         #region[해당위치 광물 제거]
         if (GroundManager.instance.groundHp[pos.x, pos.y] <= 0)
         {
+            bool iceBreak = StageData.instance.GetBlock(pos.x, pos.y) == StageData.GroundLayer.Ice;
+
             GroundManager.instance.groundHp[pos.x, pos.y] = 0;
             StageData.instance.RemoveBlock(pos);
             StageData.instance.groundData[pos.x, pos.y] = (StageData.GroundLayer)(-1);
@@ -184,6 +192,7 @@ public class DamageJudgMent : MonoBehaviour
         #endregion
     }
     #endregion
+
 
     #region[몬스터 공격]
     public void AttackMonster()
