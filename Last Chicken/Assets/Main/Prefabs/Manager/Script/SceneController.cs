@@ -81,16 +81,16 @@ public class SceneController : MonoBehaviour
 
         switch (s)
         {
+            #region[Title]
             case "Title":
                 UIManager.instance.goTitle = false;
                 SoundManager.instance.Title();
                 break;
-            case "Test":
-                if (stageBackGround)
-                    stageBackGround.sprite = null;
-                GameSceneSet();
-                UIManager.instance.showStageNameText.text = "테스트";
-                break;
+            #endregion
+
+            ////////////////////////////// 인게임맵 ///////////////////////////////////////////
+
+            #region[Tutorial]
             case "Tutorial":
                 if (stageBackGround)
                     stageBackGround.sprite = StageManager.instance.tutorial_BackGround;
@@ -98,6 +98,9 @@ public class SceneController : MonoBehaviour
                 UIManager.instance.showStageNameText.text = StageManager.instance.tutorial_Name;
                 SoundManager.instance.Tutorial();
                 break;
+            #endregion
+
+            #region[Stage0101]
             case "Stage0101":
                 if (stageBackGround)
                     stageBackGround.sprite = StageManager.instance.stage0101_BackGround;
@@ -105,13 +108,9 @@ public class SceneController : MonoBehaviour
                 UIManager.instance.showStageNameText.text = StageManager.instance.stage0101_Name;
                 SoundManager.instance.Stage1();
                 break;
-            case "ShopMap0101":
-                if (stageBackGround)
-                    stageBackGround.sprite = StageManager.instance.stage0101_BackGround;
-                UIManager.instance.showStageNameText.text = "";
-                GameSceneSet();
-                SoundManager.instance.Stage1();
-                break;
+            #endregion
+
+            #region[Stage0102]
             case "Stage0102":
                 if (stageBackGround)
                     stageBackGround.sprite = StageManager.instance.stage0102_BackGround;
@@ -119,13 +118,9 @@ public class SceneController : MonoBehaviour
                 UIManager.instance.showStageNameText.text = StageManager.instance.stage0102_Name;
                 SoundManager.instance.Stage1();
                 break;
-            case "ShopMap0102":
-                if (stageBackGround)
-                    stageBackGround.sprite = StageManager.instance.stage0102_BackGround;
-                UIManager.instance.showStageNameText.text = "";
-                GameSceneSet();
-                SoundManager.instance.Stage1();
-                break;
+            #endregion
+
+            #region[Stage0103]
             case "Stage0103":
                 if (stageBackGround)
                     stageBackGround.sprite = StageManager.instance.stage0103_BackGround;
@@ -133,6 +128,50 @@ public class SceneController : MonoBehaviour
                 UIManager.instance.showStageNameText.text = StageManager.instance.stage0103_Name;
                 SoundManager.instance.Stage1();
                 break;
+            #endregion
+
+            #region[Stage0201]
+            case "Stage0201":
+                if (stageBackGround)
+                    stageBackGround.sprite = StageManager.instance.stage0201_BackGround;
+                GameSceneSet();
+                UIManager.instance.showStageNameText.text = StageManager.instance.stage0201_Name;
+                SoundManager.instance.Stage2();
+                break;
+            #endregion
+
+            ////////////////////////////// 이벤트맵 ///////////////////////////////////////////
+
+            #region[Test]
+            case "Test":
+                if (stageBackGround)
+                    stageBackGround.sprite = null;
+                GameSceneSet();
+                UIManager.instance.showStageNameText.text = "테스트";
+                break;
+            #endregion
+
+            #region[ShopMap0101]
+            case "ShopMap0101":
+                if (stageBackGround)
+                    stageBackGround.sprite = StageManager.instance.stage0101_BackGround;
+                UIManager.instance.showStageNameText.text = "";
+                GameSceneSet();
+                SoundManager.instance.Stage1();
+                break;
+            #endregion
+
+            #region[ShopMap0102]
+            case "ShopMap0102":
+                if (stageBackGround)
+                    stageBackGround.sprite = StageManager.instance.stage0102_BackGround;
+                UIManager.instance.showStageNameText.text = "";
+                GameSceneSet();
+                SoundManager.instance.Stage1();
+                break;
+            #endregion
+
+            #region[ShopMap0103]
             case "ShopMap0103":
                 if (stageBackGround)
                     stageBackGround.sprite = StageManager.instance.stage0103_BackGround;
@@ -140,6 +179,10 @@ public class SceneController : MonoBehaviour
                 GameSceneSet();
                 SoundManager.instance.Stage1();
                 break;
+            #endregion
+
+            #region[EventMap]
+
             case "SmithyMap0101":
             case "SmithyMap0102":
             case "SmithyMap0103":
@@ -155,6 +198,7 @@ public class SceneController : MonoBehaviour
                 GameSceneSet();
                 SoundManager.instance.StopBGM_Sound();
                 break;
+            #endregion
         }
     }
 
@@ -177,10 +221,14 @@ public class SceneController : MonoBehaviour
             stageBackGround.color = Color.white;
             switch(nowScene)
             {
+                #region[Test]
                 case "Test":
                     Player.instance.canAttack = true;
                     GroundManager.instance.InitDigMask();
                     break;
+                #endregion
+
+                #region[Tutorial]
                 case "Tutorial":
                     Player.instance.canAttack = true;
                     Player.instance.notDamage = true;
@@ -200,6 +248,9 @@ public class SceneController : MonoBehaviour
                     GroundManager.instance.digMask = 0;
                     GroundManager.instance.digMask = GroundManager.instance.digMask | (int)(Mathf.Pow(2, (int)StageData.GroundLayer.Stone));
                     break;
+                #endregion
+
+                #region[EventMap]
                 case "ShopMap0101":
                 case "ShopMap0102":
                 case "ShopMap0103":
@@ -218,14 +269,19 @@ public class SceneController : MonoBehaviour
                     Player.instance.transform.localScale = new Vector3(Mathf.Abs(Player.instance.transform.localScale.x) * GroundManager.instance.eventMapStartDic, Player.instance.transform.localScale.y, Player.instance.transform.localScale.x);
                     GroundManager.instance.digMask = 0;
                     break;
+                #endregion
+
+                #region[InGame]
                 case "Stage0101":
                 case "Stage0102":
                 case "Stage0103":
+                case "Stage0201":
                     Player.instance.canAttack = true;
                     Player.instance.transform.position = new Vector3(World.Instance.WorldWidth / 2, World.Instance.WorldHeight + 30, Player.instance.transform.position.z);
                     GroundManager.instance.InitDigMask();
                     GameManager.instance.playData.seed = Random.Range(0, 10000);
                     break;
+                #endregion
             }
         }
     }

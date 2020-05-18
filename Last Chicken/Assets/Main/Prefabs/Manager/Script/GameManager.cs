@@ -404,6 +404,10 @@ public class GameManager : TerrainGenerator
     #region[스테이지 클리어]
     public void StageClear()
     {
+        int size;
+        string temp;
+        int stageNum;
+        int stageSubNum;
         if (gameOver || !Player.instance)
             return;
         switch (SceneController.instance.nowScene)
@@ -417,10 +421,11 @@ public class GameManager : TerrainGenerator
             case "Stage0101":
             case "Stage0102":
             case "Stage0103":
+            case "Stage0201":
                 if (Player.instance.transform.position.y >= -5)
                     return;
-                int size = SceneController.instance.nowScene.Length;
-                string temp = "";
+                size = SceneController.instance.nowScene.Length;
+                temp = "";
                 for (int i = 0; i < 4; i++)
                     temp += SceneController.instance.nowScene[size - 4 + i];
 
@@ -450,29 +455,35 @@ public class GameManager : TerrainGenerator
             case "SmithyMap0101":
             case "AltarMap0101":
             case "FountainMap0101":
-                if (Player.instance.transform.position.y >= -5)
-                    return;
-                playData.stageName = "Stage0102";
-                SceneController.instance.MoveScene(playData.stageName);
-                SaveData();
-                break;
             case "ShopMap0102":
             case "SmithyMap0102":
             case "AltarMap0102":
             case "FountainMap0102":
-                if (Player.instance.transform.position.y >= -5)
-                    return;
-                playData.stageName = "Stage0103";
-                SceneController.instance.MoveScene(playData.stageName);
-                SaveData();
-                break;
             case "ShopMap0103":
             case "SmithyMap0103":
             case "AltarMap0103":
             case "FountainMap0103":
                 if (Player.instance.transform.position.y >= -5)
                     return;
-                playData.stageName = "Demo";
+                size = SceneController.instance.nowScene.Length;
+                temp = "";
+                for (int i = 0; i < 4; i++)
+                    temp += SceneController.instance.nowScene[size - 4 + i];
+                stageNum = temp[1] - '0';
+                stageSubNum = temp[3] - '0';
+                stageSubNum++;
+                if(stageSubNum > 3)
+                {
+                    stageSubNum = 1;
+                    stageNum++;
+                }
+                temp = "";
+                temp += "0";
+                temp += stageNum.ToString();
+                temp += "0";
+                temp += stageSubNum.ToString();
+
+                playData.stageName = "Stage" + temp;
                 SceneController.instance.MoveScene(playData.stageName);
                 SaveData();
                 break;

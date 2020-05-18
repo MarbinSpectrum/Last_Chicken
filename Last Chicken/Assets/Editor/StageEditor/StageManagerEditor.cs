@@ -32,6 +32,7 @@ public class StageManagerEditor : MyEditor
         SetStage("스테이지 1-1", ref stageManager.stage0101_Name, ref stageManager.stage0101_BackGround, ref stageManager.stage0101_Monsters, ref stageManager.stage0101_ObjectValue, ref stageManager.stage0101_WoodBoxValue, ref stageManager.stage0101_TrapValue);
         SetStage("스테이지 1-2", ref stageManager.stage0102_Name, ref stageManager.stage0102_BackGround, ref stageManager.stage0102_Monsters, ref stageManager.stage0102_ObjectValue, ref stageManager.stage0102_WoodBoxValue, ref stageManager.stage0102_TrapValue);
         SetStage("스테이지 1-3", ref stageManager.stage0103_Name, ref stageManager.stage0103_BackGround, ref stageManager.stage0103_Monsters, ref stageManager.stage0103_ObjectValue, ref stageManager.stage0103_WoodBoxValue, ref stageManager.stage0103_TrapValue);
+        SetStage("스테이지 2_1", ref stageManager.stage0201_Name, ref stageManager.stage0201_BackGround, ref stageManager.stage0201_Monsters, ref stageManager.stage0201_ObjectValue, ref stageManager.stage0201_WoodBoxValue, ref stageManager.stage0201_TrapValue);
         EditorGUILayout.EndScrollView();
         EditorGUILayout.EndVertical();
 

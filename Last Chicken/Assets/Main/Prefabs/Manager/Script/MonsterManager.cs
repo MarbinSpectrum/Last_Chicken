@@ -161,6 +161,13 @@ public class MonsterManager : ObjectPool
             case "Stage0103":
                 monsterList = MonsterList(StageManager.instance.stage0103_Monsters);
                 break;
+            case "Stage0201":
+                monsterList = MonsterList(StageManager.instance.stage0201_Monsters);
+                break;
+            default:
+                Debug.Log("몬스터 리스트를 설정해주세요!!");
+                monsterList = MonsterList(StageManager.instance.stage0101_Monsters);
+                break;
         }
     }
     #endregion

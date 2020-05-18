@@ -36,6 +36,7 @@ public class EffectManager : ObjectPool
 
     GameObject getItem;
     Material dirtMat;
+    Material snowMat;
     Material stoneMat;
     Material copperMat;
     Material sandMat;
@@ -103,6 +104,7 @@ public class EffectManager : ObjectPool
 
             digGround = Resources.Load("Graphics/Effects/Ground/DigGround") as GameObject;
             dirtMat = Resources.Load("Graphics/Effects/Ground/DirtMat") as Material;
+            snowMat = Resources.Load("Graphics/Effects/Ground/SnowMat") as Material;
             stoneMat = Resources.Load("Graphics/Effects/Ground/StoneMat") as Material;
             copperMat = Resources.Load("Graphics/Effects/Ground/CopperMat") as Material;
             sandMat = Resources.Load("Graphics/Effects/Ground/SandMat") as Material;
@@ -374,6 +376,10 @@ public class EffectManager : ObjectPool
         {
             case StageData.GroundLayer.Dirt:
                 temp = dirtMat;
+                if (SceneController.instance.nowScene.Contains("Stage01"))
+                    temp = dirtMat;
+                else if (SceneController.instance.nowScene.Contains("Stage02"))
+                    temp = snowMat;
                 break;
             case StageData.GroundLayer.Stone:
                 temp = stoneMat;

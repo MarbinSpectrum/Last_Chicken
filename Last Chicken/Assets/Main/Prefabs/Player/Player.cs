@@ -1029,16 +1029,16 @@ public class Player : CustomCollider
     #region[스테이지따른 플레이어 광원색 조정]
     private void PlayerLightColor()
     {
-        return;
-        if (SceneController.instance.nowScene.Contains("Smithy"))
-        {
-            Color color = new Color(0, 0, 0);
-            playerBlockLightSource.LightColor = color;
-            for (int i = 0; i < mineHelmetLighSourceList.Count; i++)
-                mineHelmetLighSourceList[i].LightColor = color;
-            for (int i = 0; i < torchLightSourceList.Count; i++)
-                torchLightSourceList[i].LightColor = color;
-        }
+        Color color = new Color(255 / 255f, 180 / 255f, 55 / 255f);
+        if (SceneController.instance.nowScene.Contains("Stage01"))
+            color = new Color(255 / 255f, 180 / 255f, 55 / 255f);
+        else if (SceneController.instance.nowScene.Contains("Stage02"))
+            color = new Color(126 / 255f, 204 / 255f, 255 / 255f);
+        playerBlockLightSource.LightColor = color;
+        for (int i = 0; i < mineHelmetLighSourceList.Count; i++)
+            mineHelmetLighSourceList[i].LightColor = color;
+        for (int i = 0; i < torchLightSourceList.Count; i++)
+            torchLightSourceList[i].LightColor = color;
     }
     #endregion
 
