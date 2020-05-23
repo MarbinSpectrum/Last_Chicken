@@ -46,10 +46,7 @@ public class DamageJudgMent : MonoBehaviour
                             if ((GroundManager.instance.digMask & (int)Mathf.Pow(2, (int)StageData.instance.groundData[x, y])) != 0)
                             {
                                 SoundGroup[(int)StageData.instance.groundData[x, y]]++;
-                                if (StageData.instance.groundData[x, y] == StageData.GroundLayer.Ice)
-                                    StartCoroutine(GroundManager.instance.BreakIceProcess(x, y));
-                                else
-                                    AttackTerrain(new Vector2Int(x, y), Player.instance.attackPower);
+                                GroundManager.instance.AttackTerrain(new Vector2Int(x, y), Player.instance.attackPower);
                             }
                
         
@@ -104,92 +101,6 @@ public class DamageJudgMent : MonoBehaviour
         }
         #endregion
 
-    }
-    public static void AttackTerrain(Vector2Int pos, int damage)
-    {
-        if(StageData.instance.fluidOutline[pos.x,pos.y])
-            return;
-
-        if (!Exception.IndexOutRange(pos.x, pos.y, GroundManager.instance.groundHp))
-            return;
-
-        if((GroundManager.instance.digMask & (1 << (int)StageData.instance.groundData[pos.x, pos.y])) == 0)
-            return;
-
-        if (StageData.instance.groundData[pos.x, pos.y] == (StageData.GroundLayer)(-1))
-            return;
-
-       // if (SceneController.instance.CheckEventMap())
-       //     return;
-
-        #region[광물이펙트]
-        if (GroundManager.instance.groundHp[pos.x, pos.y] > 0)
-            EffectManager.instance.DigGround(new Vector3(pos.x, pos.y), StageData.instance.groundData[pos.x, pos.y]);
-        #endregion
-
-        //광물 데미지 처리
-        GroundManager.instance.groundHp[pos.x, pos.y] -= damage;
-
-        #region[광물체력에 따른 이미지 변경]
-        int maxHp = GroundManager.instance.GetBlockMaxHp(pos.x, pos.y);
-        if (maxHp * 0.75f < GroundManager.instance.groundHp[pos.x, pos.y] && GroundManager.instance.groundHp[pos.x, pos.y] < maxHp * 1.00f)
-            StageData.instance.SetBlockVariation(pos.x, pos.y, (byte)StageData.Layers.Ground, 0);
-        else if (maxHp * 0.50f < GroundManager.instance.groundHp[pos.x, pos.y] && GroundManager.instance.groundHp[pos.x, pos.y] <= maxHp * 0.75f)
-            StageData.instance.SetBlockVariation(pos.x, pos.y, (byte)StageData.Layers.Ground, 1);
-        else if (maxHp * 0.25f < GroundManager.instance.groundHp[pos.x, pos.y] && GroundManager.instance.groundHp[pos.x, pos.y] <= maxHp * 0.50f)
-            StageData.instance.SetBlockVariation(pos.x, pos.y, (byte)StageData.Layers.Ground, 2);
-        else if (maxHp * 0.00f < GroundManager.instance.groundHp[pos.x, pos.y] && GroundManager.instance.groundHp[pos.x, pos.y] <= maxHp * 0.25f)
-            StageData.instance.SetBlockVariation(pos.x, pos.y, (byte)StageData.Layers.Ground, 3);
-        #endregion
-
-        #region[광물 드랍]
-        if (GroundManager.instance.groundHp[pos.x, pos.y] <= 0)
-        {
-            Vector2 Force = new Vector2(Random.Range(-0.5f, 0.5f), 1);
-            Force *= Force * 1600;
-            switch ((StageData.GroundLayer)(StageData.instance.groundData[pos.x, pos.y]))
-            {
-                //case StageData.GroundLayer.Dirt:
-                //    ItemManager.instance.SpawnMineral(new Vector3(pos.x, pos.y), Force, "Dirt"); break;
-                //case StageData.GroundLayer.Stone:
-                //    ItemManager.instance.SpawnMineral(new Vector3(pos.x, pos.y), Force, "Stone"); break;
-                case StageData.GroundLayer.Copper:
-                    ItemManager.instance.SpawnMineral(new Vector3(pos.x, pos.y), Force, "Copper"); break;
-                //case StageData.GroundLayer.Sand:
-                //    ItemManager.instance.SpawnMineral(new Vector3(pos.x, pos.y), Force, "Sand"); break;
-                case StageData.GroundLayer.Granite:
-                    ItemManager.instance.SpawnMineral(new Vector3(pos.x, pos.y), Force, "Granite"); break;
-                case StageData.GroundLayer.Iron:
-                    ItemManager.instance.SpawnMineral(new Vector3(pos.x, pos.y), Force, "Iron"); break;
-                case StageData.GroundLayer.Silver:
-                    ItemManager.instance.SpawnMineral(new Vector3(pos.x, pos.y), Force, "Silver"); break;
-                case StageData.GroundLayer.Gold:
-                    ItemManager.instance.SpawnMineral(new Vector3(pos.x, pos.y), Force, "Gold"); break;
-                case StageData.GroundLayer.Mithril:
-                    ItemManager.instance.SpawnMineral(new Vector3(pos.x, pos.y), Force, "Mithril"); break;
-                case StageData.GroundLayer.Diamond:
-                    ItemManager.instance.SpawnMineral(new Vector3(pos.x, pos.y), Force, "Diamond"); break;
-                case StageData.GroundLayer.Magnetite:
-                    ItemManager.instance.SpawnMineral(new Vector3(pos.x, pos.y), Force, "Magnetite"); break;
-                case StageData.GroundLayer.Titanium:
-                    ItemManager.instance.SpawnMineral(new Vector3(pos.x, pos.y), Force, "Titanium"); break;
-                case StageData.GroundLayer.Cobalt:
-                    ItemManager.instance.SpawnMineral(new Vector3(pos.x, pos.y), Force, "Cobalt"); break;
-            }
-        }
-        #endregion
-
-        #region[해당위치 광물 제거]
-        if (GroundManager.instance.groundHp[pos.x, pos.y] <= 0)
-        {
-            bool iceBreak = StageData.instance.GetBlock(pos.x, pos.y) == StageData.GroundLayer.Ice;
-
-            GroundManager.instance.groundHp[pos.x, pos.y] = 0;
-            StageData.instance.RemoveBlock(pos);
-            StageData.instance.groundData[pos.x, pos.y] = (StageData.GroundLayer)(-1);
-            GroundManager.instance.LinkArea(pos);
-        }
-        #endregion
     }
     #endregion
 

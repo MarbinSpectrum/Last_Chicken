@@ -36,7 +36,7 @@ public class BoomScript : MonoBehaviour
                         if (Exception.IndexOutRange(x, y, StageData.instance.groundData))
                             if (StageData.instance.groundData[x, y] != (StageData.GroundLayer)(-1))
                                 if (GroundManager.instance.groundHp[x, y] > 0 && Vector2.Distance(nowPos, new Vector2(x, y)) < range)
-                                    DamageJudgMent.AttackTerrain(new Vector2Int(x, y), damage);
+                                    GroundManager.instance.AttackTerrain(new Vector2Int(x, y), damage);
 
 
                     }

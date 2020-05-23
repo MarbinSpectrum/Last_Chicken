@@ -7,16 +7,42 @@ public class Stage02_1 : StageData
 {
     int[,] maxRect;
 
-    List<RectInt> deleteArea = new List<RectInt>();         //삭제되는 지형
+    public GroundLayer[,] mapRect;
+    public FluidType[,] mapFluid;
+    public BackGroundLayer[,] mapBackGround;
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    int startY = 20;   //시작 광산로 Y좌표
-    bool outlineflipX;
+    #region[Awake]
+    public override void Awake()
+    {
+        base.Awake();
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        List<Texture2D> variation = new List<Texture2D>();
+        Texture2D temp;
+        for (int i = 0; i < 2; i++)
+        {
+            temp = Resources.Load("TerrainData/Stage02/Variation" + i) as Texture2D;
+            variation.Add(temp);
+        }
+        int r = Random.Range(0, variation.Count);
+        temp = variation[r];
+
+        mapRect = new GroundLayer[temp.width, temp.height];
+        mapFluid = new FluidType[temp.width, temp.height];
+
+        for (int i = 0; i < temp.width; i++)
+            for (int j = 0; j < temp.height; j++)
+                mapRect[i, j] = GroundManager.instance.ColorToGroundData(temp.GetPixel(i, j));
+
+        for (int i = 0; i < temp.width; i++)
+            for (int j = 0; j < temp.height; j++)
+                mapFluid[i, j] = GroundManager.instance.ColorToFluidData(temp.GetPixel(i, j));
+    }
+    #endregion
 
     #region[GenerateData]
     public override void GenerateData()
@@ -76,63 +102,13 @@ public class Stage02_1 : StageData
         groundData = new GroundLayer[world.WorldWidth, world.WorldHeight];
         fluidData = new FluidType[world.WorldWidth, world.WorldHeight];
 
-        //기본 지형백지화
-        for (int x = 0; x < world.WorldWidth; x++)
-            for (int y = 0; y < world.WorldHeight; y++)
-                groundData[x, y] = (GroundLayer)(-1);
+        for (int i = 0; i < mapRect.GetLength(0); i++)
+            for (int j = 0; j < mapRect.GetLength(1); j++)
+                groundData[i, j] = mapRect[i, j];
 
-        //노이즈값으로 지형을 설정
-        for (int x = 0; x < world.WorldWidth; x++)
-            for (int y = 0; y < world.WorldHeight; y++)
-                if (PerlinNoise(x, y, 10, 15, 1) >= 6)
-                    groundData[x, y] = GroundLayer.Dirt;
-
-        for (int x = 0; x < world.WorldWidth; x++)
-            for (int y = world.WorldHeight - startY; y < world.WorldHeight; y++)
-                groundData[x, y] = (GroundLayer)(-1);
-
-        int startGroundH = 3;
-
-        for (int x = 0; x < world.WorldWidth; x++)
-            for (int y = world.WorldHeight - startY - startGroundH; y < world.WorldHeight - startY; y++)
-                groundData[x, y] = GroundLayer.Dirt;
-
-        for (int y = 0; y < world.WorldHeight - startY * 2; y += Random.Range(15, 20))
-        {
-            int sw = Random.Range(30, 50);
-            int sx = Random.Range(0, world.WorldWidth - sw);
-
-            for (int x = sx - 5; x < sx + sw + 5; x++)
-                for (int h = -10; h < 10; h++)
-                    if (Exception.IndexOutRange(x, y + h, groundData))
-                        groundData[x, y + h] = (GroundLayer)(-1);
-
-            for (int x = sx; x < sx + sw; x++)
-                for (int h = 0; h < 3; h++)
-                    if (Exception.IndexOutRange(x, y + h, groundData))
-                        groundData[x, y + h] = GroundLayer.Ice;
-        }
-
-
-        ProceduralGeneration(world, groundData, GroundLayer.Dirt);
-
-
-
-
-
-
-        outlineflipX = Random.Range(0, 100) > 50;
-
-        for (int y = 0; y < world.WorldHeight; y++)
-            for (int x = 0; x < world.WorldWidth; x++)
-            {
-                int fx = outlineflipX ? x : world.WorldWidth - x - 1;
-                if (GroundManager.instance.stage01OutlineRect[fx, y] == GroundLayer.UnBreakable)
-                    groundData[x, y] = GroundLayer.UnBreakable;
-                else if (GroundManager.instance.stage01OutlineRect[fx, y] == GroundLayer.Dirt)
-                    groundData[x, y] = (GroundLayer)(-1);
-            }
-
+        for (int i = 0; i < mapFluid.GetLength(0); i++)
+            for (int j = 0; j < mapFluid.GetLength(1); j++)
+                fluidData[i, j] = mapFluid[i, j];
     }
     #endregion
 
@@ -146,13 +122,6 @@ public class Stage02_1 : StageData
         for (int i = 0; i < world.WorldWidth; i++)
             for (int j = 0; j < world.WorldHeight; j++)
                 maxRect[i, j] = 1;
-
-        //삭제된 지점은 설치 불가능
-        for (int i = 0; i < deleteArea.Count; i++)
-            for (int x = deleteArea[i].x; x < deleteArea[i].x + deleteArea[i].width; x++)
-                for (int y = deleteArea[i].y - deleteArea[i].height; y < deleteArea[i].y; y++)
-                    if (Exception.IndexOutRange(x, y, groundData))
-                        maxRect[x, y] = 0;
 
         //제단에는 설치 불가능
         for (int i = 0; i < altarRect.width; i++)
@@ -280,9 +249,6 @@ public class Stage02_1 : StageData
             }
         }
         #endregion
-
-        ObjectManager.instance.Sign(new Vector2(66 + (outlineflipX ? 0 : -52), 26), false);
-        ObjectManager.instance.Sign(new Vector2(82 + (outlineflipX ? 0 : -52), 26), true);
 
     }
     #endregion

@@ -552,8 +552,6 @@ public class UIManager : MonoBehaviour
     #region[Update]
     void Update()
     {
-
-
         if (Input.GetKeyDown(KeyCode.Escape) && !goTitle)
         {
             if (GameManager.instance.InGame())

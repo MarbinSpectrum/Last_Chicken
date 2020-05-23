@@ -79,6 +79,7 @@ public class Player : CustomCollider
 
     enum moveDic { 경사아래로 = -1, 앞으로 = 0, 경사위로 = 1 };
     int flipX = 0;
+    float slipperyValue = 0.8f;
     bool runFlag = false;
     float playerMoveDirection; //플레이어 이동 방향
     float runSoundCycle = 0;
@@ -363,6 +364,8 @@ public class Player : CustomCollider
                     knockback = new Vector2(1500, 500);   //넉백수치
                     PlayerDamage(1, UnityEngine.Random.Range(0, 100) < 50 ? +1 : -1);
                     knockback = emp;
+                    StartCoroutine(GroundManager.instance.BreakIceProcess((int)transform.position.x, (int)transform.position.y - 2));
+
                 }
 
             if (groundFallTime != 0)
@@ -501,7 +504,25 @@ public class Player : CustomCollider
         else if (Input.GetKey(KeyCode.A))
             playerMoveDirection = -1;
         else
-            playerMoveDirection = 0;
+        {
+            Vector2Int pos = new Vector2Int(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y) - 1);
+            //밟은 땅의 종류에 따른 소리를 킴
+            int slipperyGround = (1 << (int)StageData.GroundLayer.Ice);
+
+            if ((1 << (int)StageData.instance.GetBlock(pos) & slipperyGround) != 0)
+            {
+                if (Mathf.Abs(playerMoveDirection) < 0.1f)
+                    playerMoveDirection = 0;
+                else if (playerMoveDirection > 0)
+                    playerMoveDirection -= Time.deltaTime * slipperyValue;
+                else if (playerMoveDirection < 0)
+                    playerMoveDirection += Time.deltaTime * slipperyValue;
+            }
+            else
+            {
+                playerMoveDirection = 0;
+            }
+        }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1056,8 +1077,9 @@ public class Player : CustomCollider
         PlayerFlipX(flipX);
         PlayerDamageTime();
 
+        bool GetRunKey = (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A));
         //애니메이션설정
-        if (runFlag)
+        if (runFlag && GetRunKey)
             animator.SetBool("Run", true);
         else
             animator.SetBool("Run", false);

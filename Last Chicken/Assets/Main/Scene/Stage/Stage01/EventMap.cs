@@ -96,7 +96,7 @@ public class EventMap : StageData
                     GroundManager.instance.eventMapMainObjectPos = new Vector2(i, j);
                 else if (GroundManager.instance.eventMapData.GetPixel(i, j) == new Color(0.2f, 0.2f, 0.2f))
                     GroundManager.instance.eventMapTreasurePos.Add(new Vector2(i, j));
-
+         
         for (int i = 0; i < GroundManager.instance.eventMapData.width; i++)
             for (int j = 0; j < GroundManager.instance.eventMapData.height; j++)
                 GroundManager.instance.eventMapRect[i, j] = GroundManager.instance.ColorToGroundData(GroundManager.instance.eventMapData.GetPixel(i, j));
