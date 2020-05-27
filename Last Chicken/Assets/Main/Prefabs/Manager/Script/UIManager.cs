@@ -188,6 +188,16 @@ public class UIManager : MonoBehaviour
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    [NonSerialized] public GameObject movingShopUI;               //상점 UI
+    [NonSerialized] public Text[] movingShopItemCost;             //상점아이템가격
+    [NonSerialized] public Text[] movingShopItemName;             //상점아이템이름
+    [NonSerialized] public Text[,] movingShopItemExplan;           //상점아이템설명
+    [NonSerialized] public Image[] movingShopItemImg;             //상점아이템이미지
+    [NonSerialized] public GameObject[] movingShopItemSoldOut;         //매진 이미지
+    [NonSerialized] public Button[] movingShopItemBuy;            //아이템 구매 버튼
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     [NonSerialized] public GameObject smithyUI;               //대장간 UI
     [NonSerialized] public Text smithyText;
     [NonSerialized] public GameObject smithyYes;               
@@ -454,6 +464,30 @@ public class UIManager : MonoBehaviour
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        movingShopUI = canvas.Find("MovingShopUI").gameObject;
+        movingShopItemCost = new Text[3];
+        movingShopItemName = new Text[3];
+        movingShopItemExplan = new Text[3, 4];
+        movingShopItemImg = new Image[3];
+        movingShopItemSoldOut = new GameObject[3];
+        movingShopItemBuy = new Button[3];
+        for (int i = 0; i < 3; i++)
+        {
+            int number = i;
+
+            Transform temp = movingShopUI.transform.Find("ShopMenu" + i);
+            movingShopItemCost[i] = temp.Find("Cost").GetComponent<Text>();
+            movingShopItemName[i] = temp.Find("Name").GetComponent<Text>();
+            for (int k = 0; k < 4; k++)
+                movingShopItemExplan[i, k] = temp.Find("Explain" + k).GetComponent<Text>();
+            movingShopItemImg[i] = temp.Find("Img").GetComponent<Image>();
+            movingShopItemSoldOut[i] = temp.Find("SoldOut").gameObject;
+            movingShopItemBuy[i] = temp.Find("Buy").GetComponent<Button>();
+            movingShopItemBuy[i].onClick.AddListener(() => { MovingShop.instance.BuyItem(number); });
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         smithyUI = canvas.Find("SmithyUI").gameObject;
         smithyYes = smithyUI.transform.Find("Yes").gameObject;
         smithyNo = smithyUI.transform.Find("No").gameObject;
@@ -583,6 +617,7 @@ public class UIManager : MonoBehaviour
             playerHp.SetActive(false);
             altarUI.SetActive(false);
             shopUI.SetActive(false);
+            movingShopUI.SetActive(false);
             smithyUI.SetActive(false);
             explainObject.SetActive(false);
             playerMoney.SetActive(false);
@@ -655,6 +690,15 @@ public class UIManager : MonoBehaviour
                 shopUI.SetActive(ShopScript.instance.thisUse && ShopScript.instance.gameObject.activeSelf);
                 for (int i = 0; i < ShopScript.instance.itmeBuyList.Count; i++)
                     shopItemSoldOut[i].SetActive(ShopScript.instance.itmeBuyList[i]);
+            }
+            #endregion
+
+            #region[상점 UI 조절]
+            if (MovingShop.instance)
+            {
+                movingShopUI.SetActive(MovingShop.instance.thisUse && MovingShop.instance.gameObject.activeSelf);
+                for (int i = 0; i < MovingShop.instance.itmeBuyList.Count; i++)
+                    movingShopItemSoldOut[i].SetActive(MovingShop.instance.itmeBuyList[i]);
             }
             #endregion
 

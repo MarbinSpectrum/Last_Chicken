@@ -27,7 +27,7 @@ public class MonsterManager : ObjectPool
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static string[] monsterName = new string[] { "Bat", "Rat", "Snake", "Mole"};
+    public static string[] monsterName = new string[] { "Bat", "Rat", "Snake", "Mole","MovingShop" };
 
     [System.Serializable]
     public class MonsterStats

@@ -81,7 +81,7 @@ public abstract class Monster : CustomCollider
     #endregion
 
     #region[OnEnable]
-    public void OnEnable()
+    public virtual void OnEnable()
     {
         UpdateStats();
         world = World.Instance;
@@ -182,7 +182,7 @@ public abstract class Monster : CustomCollider
     #endregion
 
     #region[이동처리]
-    public void MovingGround(float force)
+    public virtual void MovingGround(float force)
     {
         moveFlag = false;
 

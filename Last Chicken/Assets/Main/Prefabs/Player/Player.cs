@@ -802,6 +802,9 @@ public class Player : CustomCollider
             if (FountainScript.instance && FountainScript.instance.onArea)
                 return;
 
+            if (MovingShop.instance && MovingShop.instance.onArea)
+                return;
+
             if (Smithy.instance && Smithy.instance.onArea)
                 return;
 
