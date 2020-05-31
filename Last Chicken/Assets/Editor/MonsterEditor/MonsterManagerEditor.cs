@@ -181,6 +181,10 @@ public class MonsterManagerEditor : MyEditor
                 return "뱀";
             case "Mole":
                 return "두더지";
+            case "Penguin":
+                return "펭귄";
+            case "MovingShop":
+                return "이동상인";
         }
         return "";
     }

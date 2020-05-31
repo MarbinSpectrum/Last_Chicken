@@ -10,6 +10,9 @@ public class Stage02_1 : StageData
     public GroundLayer[,] mapRect;
     public FluidType[,] mapFluid;
     public BackGroundLayer[,] mapBackGround;
+
+    Vector2Int iglooPos;
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -23,7 +26,7 @@ public class Stage02_1 : StageData
 
         List<Texture2D> variation = new List<Texture2D>();
         Texture2D temp;
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 5; i++)
         {
             temp = Resources.Load("TerrainData/Stage02/Variation" + i) as Texture2D;
             variation.Add(temp);
@@ -41,6 +44,11 @@ public class Stage02_1 : StageData
         for (int i = 0; i < temp.width; i++)
             for (int j = 0; j < temp.height; j++)
                 mapFluid[i, j] = GroundManager.instance.ColorToFluidData(temp.GetPixel(i, j));
+
+        for (int i = 0; i < temp.width; i++)
+            for (int j = 0; j < temp.height; j++)
+                if (temp.GetPixel(i, j) == new Color(0, 0, 0))
+                    iglooPos = new Vector2Int(i, j);
     }
     #endregion
 
@@ -248,6 +256,11 @@ public class Stage02_1 : StageData
                 ObjectManager.instance.TreasureBox(pos + new Vector2Int(3, 2));
             }
         }
+        #endregion
+
+        #region[이글루]
+        if (iglooPos != new Vector2Int(0, 0))
+            ObjectManager.instance.Igloo(iglooPos);
         #endregion
 
     }

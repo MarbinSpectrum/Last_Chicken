@@ -140,6 +140,16 @@ public class SceneController : MonoBehaviour
                 break;
             #endregion
 
+            #region[IglooMap]
+            case "IglooMap":
+                if (stageBackGround)
+                    stageBackGround.sprite = StageManager.instance.Igloo_BackGround;
+                GameSceneSet();
+                UIManager.instance.showStageNameText.text = StageManager.instance.Igloo_Name;
+                SoundManager.instance.Stage2();
+                break;
+            #endregion
+
             ////////////////////////////// 이벤트맵 ///////////////////////////////////////////
 
             #region[Test]
@@ -276,6 +286,7 @@ public class SceneController : MonoBehaviour
                 case "Stage0102":
                 case "Stage0103":
                 case "Stage0201":
+                case "IglooMap":
                     Player.instance.canAttack = true;
                     Player.instance.transform.position = new Vector3(World.Instance.WorldWidth / 2, World.Instance.WorldHeight + 30, Player.instance.transform.position.z);
                     GroundManager.instance.InitDigMask();

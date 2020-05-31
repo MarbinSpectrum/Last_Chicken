@@ -27,7 +27,7 @@ public class MonsterManager : ObjectPool
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static string[] monsterName = new string[] { "Bat", "Rat", "Snake", "Mole","MovingShop" };
+    public static string[] monsterName = new string[] { "Bat", "Rat", "Snake", "Mole", "Penguin", "MovingShop" };
 
     [System.Serializable]
     public class MonsterStats
@@ -49,12 +49,10 @@ public class MonsterManager : ObjectPool
     public MonsterStats[] monsterData = new MonsterStats[monsterName.Length];
 
     GameObject bat;
-
     GameObject rat;
-
     GameObject snake;
-
     GameObject mole;
+    GameObject penguin;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -71,12 +69,10 @@ public class MonsterManager : ObjectPool
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             bat = Resources.Load("Objects/Monster/Bat") as GameObject;
-
             rat = Resources.Load("Objects/Monster/Rat") as GameObject;
-
             snake = Resources.Load("Objects/Monster/Snake") as GameObject;
-
             mole = Resources.Load("Objects/Monster/Mole") as GameObject;
+            penguin = Resources.Load("Objects/Monster/Penguin") as GameObject;
 
             for (int i = 0; i < 100; i++)
             {
@@ -84,6 +80,7 @@ public class MonsterManager : ObjectPool
                 Rat(new Vector2(-1000, -1000));
                 Snake(new Vector2(-1000, -1000));
                 Mole(new Vector2(-1000, -1000));
+                Penguin(new Vector2(-1000, -1000));
             }
 
             PoolOff();
@@ -140,6 +137,12 @@ public class MonsterManager : ObjectPool
                 case 3:
                     Mole(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
                     break;
+                case 4:
+                    Penguin(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
+                    break;
+                default:
+                    Debug.LogError("몬스터를 추가해주세요!!");
+                    break;
             }
         }
     }
@@ -164,8 +167,11 @@ public class MonsterManager : ObjectPool
             case "Stage0201":
                 monsterList = MonsterList(StageManager.instance.stage0201_Monsters);
                 break;
+            case "IglooMap":
+                monsterList = MonsterList(StageManager.instance.stage0201_Monsters);
+                break;
             default:
-                Debug.Log("몬스터 리스트를 설정해주세요!!");
+                Debug.LogError("몬스터 리스트를 설정해주세요!!");
                 monsterList = MonsterList(StageManager.instance.stage0101_Monsters);
                 break;
         }
@@ -367,6 +373,27 @@ public class MonsterManager : ObjectPool
         if (emp == null)
         {
             emp = Instantiate(mole);
+            emp.transform.name = name;
+            AddObject(emp);
+        }
+
+        emp.SetActive(true);
+        emp.transform.parent = transform;
+        emp.transform.position = new Vector3(vector3.x, vector3.y, emp.transform.position.z);
+        emp.transform.rotation = new Quaternion(0, 0, 0, 0);
+    }
+    #endregion
+
+    #region[펭귄]
+    public void Penguin(Vector3 vector3)
+    {
+        string name = monsterName[4];
+
+        GameObject emp = FindObject(name);
+
+        if (emp == null)
+        {
+            emp = Instantiate(penguin);
             emp.transform.name = name;
             AddObject(emp);
         }

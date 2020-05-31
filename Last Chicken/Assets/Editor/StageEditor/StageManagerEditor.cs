@@ -32,7 +32,8 @@ public class StageManagerEditor : MyEditor
         SetStage("스테이지 1-1", ref stageManager.stage0101_Name, ref stageManager.stage0101_BackGround, ref stageManager.stage0101_Monsters, ref stageManager.stage0101_ObjectValue, ref stageManager.stage0101_WoodBoxValue, ref stageManager.stage0101_TrapValue);
         SetStage("스테이지 1-2", ref stageManager.stage0102_Name, ref stageManager.stage0102_BackGround, ref stageManager.stage0102_Monsters, ref stageManager.stage0102_ObjectValue, ref stageManager.stage0102_WoodBoxValue, ref stageManager.stage0102_TrapValue);
         SetStage("스테이지 1-3", ref stageManager.stage0103_Name, ref stageManager.stage0103_BackGround, ref stageManager.stage0103_Monsters, ref stageManager.stage0103_ObjectValue, ref stageManager.stage0103_WoodBoxValue, ref stageManager.stage0103_TrapValue);
-        SetStage("스테이지 2_1", ref stageManager.stage0201_Name, ref stageManager.stage0201_BackGround, ref stageManager.stage0201_Monsters, ref stageManager.stage0201_ObjectValue, ref stageManager.stage0201_WoodBoxValue, ref stageManager.stage0201_TrapValue);
+        SetStage("스테이지 2-1", ref stageManager.stage0201_Name, ref stageManager.stage0201_BackGround, ref stageManager.stage0201_Monsters, ref stageManager.stage0201_ObjectValue, ref stageManager.stage0201_WoodBoxValue, ref stageManager.stage0201_TrapValue);
+        SetStage("이글루", ref stageManager.Igloo_Name, ref stageManager.Igloo_BackGround, ref stageManager.Igloo_Monsters, ref stageManager.Igloo_ObjectValue, ref stageManager.Igloo_WoodBoxValue, ref stageManager.Igloo_TrapValue);
         EditorGUILayout.EndScrollView();
         EditorGUILayout.EndVertical();
 
@@ -64,6 +65,13 @@ public class StageManagerEditor : MyEditor
             list.monsters = new bool[MonsterManager.monsterName.Length];
             for (int i = 0; i < temp.Count; i++)
                 list.monsters[i] = temp[i];
+
+            List<int> tempInt = new List<int>();
+            for (int i = 0; i < list.monsterValue.Length; i++)
+                tempInt.Add(list.monsterValue[i]);
+            list.monsterValue = new int[MonsterManager.monsterName.Length];
+            for (int i = 0; i < tempInt.Count; i++)
+                list.monsterValue[i] = tempInt[i];
         }
         else if (list.monsters.Length > MonsterManager.monsterName.Length)
         {
@@ -73,6 +81,13 @@ public class StageManagerEditor : MyEditor
             list.monsters = new bool[MonsterManager.monsterName.Length];
             for (int i = 0; i < MonsterManager.monsterName.Length; i++)
                 list.monsters[i] = temp[i];
+
+            List<int> tempInt = new List<int>();
+            for (int i = 0; i < list.monsterValue.Length; i++)
+                tempInt.Add(list.monsterValue[i]);
+            list.monsterValue = new int[MonsterManager.monsterName.Length];
+            for (int i = 0; i < MonsterManager.monsterName.Length; i++)
+                list.monsterValue[i] = tempInt[i];
         }
 
         GUI.color = new Color(217 / 255f, 240 / 255f, 247 / 255f);
