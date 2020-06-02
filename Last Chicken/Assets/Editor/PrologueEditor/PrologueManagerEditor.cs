@@ -26,7 +26,7 @@ public class PrologueManagerEditor : MyEditor
         EditorGUILayout.BeginVertical("box");
         sceneScroll = EditorGUILayout.BeginScrollView(sceneScroll, GUILayout.Width(275), GUILayout.Height(300));
         for (int i = 0; i < prolgueManager.prolgueDatas.Count; i++)
-            SetScene(i, (i + 1) + "번째 장면", ref prolgueManager.prolgueDatas[i].context, ref prolgueManager.prolgueDatas[i].sprite);
+            SetScene(i, (i + 1) + "번째 장면", ref prolgueManager.prolgueDatas[i].context, ref prolgueManager.prolgueDatas[i].context_Eng, ref prolgueManager.prolgueDatas[i].sprite);
 
         EditorGUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
@@ -55,7 +55,7 @@ public class PrologueManagerEditor : MyEditor
     #endregion
 
     #region[장면 설정]
-    void SetScene(int n, string name, ref string stageName, ref Sprite stageBackGround)
+    void SetScene(int n, string name, ref string context, ref string context_Eng, ref Sprite stageBackGround)
     {
         GUI.color = new Color(217 / 255f, 240 / 255f, 247 / 255f);
         EditorGUILayout.BeginVertical("helpbox", GUILayout.Width(220));
@@ -104,7 +104,10 @@ public class PrologueManagerEditor : MyEditor
         EditorGUILayout.BeginVertical();
         EditorGUILayout.LabelField("장면 텍스트", GUILayout.Width(150));
         GUI.color = Color.white;
-        stageName = EditorGUILayout.TextArea(stageName, "helpbox", GUILayout.Width(140));
+        context = EditorGUILayout.TextArea(context, "helpbox", GUILayout.Width(140));
+        EditorGUILayout.LabelField("장면 텍스트<영어>", GUILayout.Width(150));
+        context_Eng = EditorGUILayout.TextArea(context_Eng, "helpbox", GUILayout.Width(140));
+
         EditorGUILayout.EndVertical();
 
         EditorGUILayout.BeginVertical();

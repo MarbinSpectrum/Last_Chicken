@@ -28,12 +28,12 @@ public class StageManagerEditor : MyEditor
         GUI.color = Color.white;
         EditorGUILayout.BeginVertical("box");
         stageScroll = EditorGUILayout.BeginScrollView(stageScroll, GUILayout.Width(275), GUILayout.Height(300));
-        SetStage("튜 토 리 얼", ref stageManager.tutorial_Name, ref stageManager.tutorial_BackGround);
-        SetStage("스테이지 1-1", ref stageManager.stage0101_Name, ref stageManager.stage0101_BackGround, ref stageManager.stage0101_Monsters, ref stageManager.stage0101_ObjectValue, ref stageManager.stage0101_WoodBoxValue, ref stageManager.stage0101_TrapValue);
-        SetStage("스테이지 1-2", ref stageManager.stage0102_Name, ref stageManager.stage0102_BackGround, ref stageManager.stage0102_Monsters, ref stageManager.stage0102_ObjectValue, ref stageManager.stage0102_WoodBoxValue, ref stageManager.stage0102_TrapValue);
-        SetStage("스테이지 1-3", ref stageManager.stage0103_Name, ref stageManager.stage0103_BackGround, ref stageManager.stage0103_Monsters, ref stageManager.stage0103_ObjectValue, ref stageManager.stage0103_WoodBoxValue, ref stageManager.stage0103_TrapValue);
-        SetStage("스테이지 2-1", ref stageManager.stage0201_Name, ref stageManager.stage0201_BackGround, ref stageManager.stage0201_Monsters, ref stageManager.stage0201_ObjectValue, ref stageManager.stage0201_WoodBoxValue, ref stageManager.stage0201_TrapValue);
-        SetStage("이글루", ref stageManager.Igloo_Name, ref stageManager.Igloo_BackGround, ref stageManager.Igloo_Monsters, ref stageManager.Igloo_ObjectValue, ref stageManager.Igloo_WoodBoxValue, ref stageManager.Igloo_TrapValue);
+        SetStage("튜 토 리 얼", ref stageManager.tutorial_Name, ref stageManager.tutorial_Name_Eng, ref stageManager.tutorial_BackGround);
+        SetStage("스테이지 1-1", ref stageManager.stage0101_Name, ref stageManager.stage0101_Name_Eng, ref stageManager.stage0101_BackGround, ref stageManager.stage0101_Monsters, ref stageManager.stage0101_ObjectValue, ref stageManager.stage0101_WoodBoxValue, ref stageManager.stage0101_TrapValue);
+        SetStage("스테이지 1-2", ref stageManager.stage0102_Name, ref stageManager.stage0102_Name_Eng, ref stageManager.stage0102_BackGround, ref stageManager.stage0102_Monsters, ref stageManager.stage0102_ObjectValue, ref stageManager.stage0102_WoodBoxValue, ref stageManager.stage0102_TrapValue);
+        SetStage("스테이지 1-3", ref stageManager.stage0103_Name, ref stageManager.stage0103_Name_Eng, ref stageManager.stage0103_BackGround, ref stageManager.stage0103_Monsters, ref stageManager.stage0103_ObjectValue, ref stageManager.stage0103_WoodBoxValue, ref stageManager.stage0103_TrapValue);
+        SetStage("스테이지 2-1", ref stageManager.stage0201_Name, ref stageManager.stage0201_Name_Eng, ref stageManager.stage0201_BackGround, ref stageManager.stage0201_Monsters, ref stageManager.stage0201_ObjectValue, ref stageManager.stage0201_WoodBoxValue, ref stageManager.stage0201_TrapValue);
+        SetStage("이글루", ref stageManager.Igloo_Name, ref stageManager.Igloo_Name_Eng, ref stageManager.Igloo_BackGround, ref stageManager.Igloo_Monsters, ref stageManager.Igloo_ObjectValue, ref stageManager.Igloo_WoodBoxValue, ref stageManager.Igloo_TrapValue);
         EditorGUILayout.EndScrollView();
         EditorGUILayout.EndVertical();
 
@@ -55,7 +55,7 @@ public class StageManagerEditor : MyEditor
     #endregion
 
     #region[스테이지 설정]
-    void SetStage(string name, ref string stageName, ref Sprite stageBackGround, ref MonsterManager.SpawnMonster list, ref int objectValue, ref int woodBoxValue, ref int trapValue)
+    void SetStage(string name, ref string stageName, ref string stageName_Eng, ref Sprite stageBackGround, ref MonsterManager.SpawnMonster list, ref int objectValue, ref int woodBoxValue, ref int trapValue)
     {
         if(list.monsters.Length < MonsterManager.monsterName.Length)
         {
@@ -126,7 +126,10 @@ public class StageManagerEditor : MyEditor
         EditorGUILayout.BeginVertical();
         EditorGUILayout.LabelField("스테이지 이름", GUILayout.Width(100));
         GUI.color = Color.white;
-        stageName = EditorGUILayout.TextField("", stageName, "helpbox", GUILayout.Width(100));
+        stageName = EditorGUILayout.TextArea(stageName, "helpbox", GUILayout.Width(100));
+        EditorGUILayout.LabelField("Stage Name", GUILayout.Width(100));
+        GUI.color = Color.white;
+        stageName_Eng = EditorGUILayout.TextArea(stageName_Eng, "helpbox", GUILayout.Width(100));
         EditorGUILayout.EndVertical();
 
         EditorGUILayout.BeginVertical();
@@ -208,7 +211,7 @@ public class StageManagerEditor : MyEditor
         EditorGUILayout.EndVertical();
     }
 
-    void SetStage(string name, ref string stageName, ref Sprite stageBackGround)
+    void SetStage(string name, ref string stageName, ref string stageName_Eng, ref Sprite stageBackGround)
     {
         GUI.color = new Color(217 / 255f, 240 / 255f, 247 / 255f);
         EditorGUILayout.BeginVertical("helpbox", GUILayout.Width(220));
@@ -246,7 +249,10 @@ public class StageManagerEditor : MyEditor
         EditorGUILayout.BeginVertical();
         EditorGUILayout.LabelField("스테이지 이름", GUILayout.Width(100));
         GUI.color = Color.white;
-        stageName = EditorGUILayout.TextField("", stageName, "helpbox", GUILayout.Width(100));
+        stageName = EditorGUILayout.TextArea(stageName, "helpbox", GUILayout.Width(100));
+        EditorGUILayout.LabelField("Stage Name", GUILayout.Width(100));
+        GUI.color = Color.white;
+        stageName_Eng = EditorGUILayout.TextArea(stageName_Eng, "helpbox", GUILayout.Width(100));
         EditorGUILayout.EndVertical();
 
         EditorGUILayout.BeginVertical();

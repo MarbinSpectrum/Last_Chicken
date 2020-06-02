@@ -8,6 +8,7 @@ public class ProlgueManager : MonoBehaviour
 {
 
     TextMeshProUGUI prolgueText;
+    TextMeshProUGUI prolgueText_Eng;
     Image prolgueImg;
     Animator prolgueAnimator;
 
@@ -19,6 +20,8 @@ public class ProlgueManager : MonoBehaviour
         public Sprite sprite;
         [TextArea]
         public string context;
+        [TextArea]
+        public string context_Eng;
     }
 
     [Header("프롤로그에 사용할 대사 및 이미지")]
@@ -41,6 +44,7 @@ public class ProlgueManager : MonoBehaviour
         prolgueImg = canvas.Find("PrologueImg").GetComponent<Image>();
         prolgueAnimator = canvas.Find("PrologueImg").GetComponent<Animator>();
         prolgueText = canvas.Find("PrologueText").GetComponent<TextMeshProUGUI>();
+        prolgueText_Eng = canvas.Find("PrologueText_English").GetComponent<TextMeshProUGUI>();
     }
     #endregion
 
@@ -88,20 +92,42 @@ public class ProlgueManager : MonoBehaviour
         if (prolgueDatas[n].sprite)
             prolgueImg.sprite = prolgueDatas[n].sprite;
         prolgueAnimator.Rebind();
-        if (prolgueDatas[n].context != null)
+        if (GameManager.instance.playData.language == PlayData.Language.한국어)
         {
-            for (int i = 0; i < prolgueDatas[n].context.Length; i++)
+            if (prolgueDatas[n].context != null)
             {
-                prolgueString += prolgueDatas[n].context[i];
-                string tempString = prolgueString;
-                tempString += "<color=#00000000>";
-                for (int j = i + 1; j < prolgueDatas[n].context.Length; j++)
-                    tempString += prolgueDatas[n].context[j];
-                tempString += "</color>";
-                prolgueText.text = tempString;
-                if (!prolgueOut)
-                    SoundManager.instance.BtnClick();
-                yield return new WaitForSeconds(0.1f);
+                for (int i = 0; i < prolgueDatas[n].context.Length; i++)
+                {
+                    prolgueString += prolgueDatas[n].context[i];
+                    string tempString = prolgueString;
+                    tempString += "<color=#00000000>";
+                    for (int j = i + 1; j < prolgueDatas[n].context.Length; j++)
+                        tempString += prolgueDatas[n].context[j];
+                    tempString += "</color>";
+                    prolgueText.text = tempString;
+                    if (!prolgueOut)
+                        SoundManager.instance.BtnClick();
+                    yield return new WaitForSeconds(0.1f);
+                }
+            }
+        }
+        else
+        {
+            if (prolgueDatas[n].context_Eng != null)
+            {
+                for (int i = 0; i < prolgueDatas[n].context_Eng.Length; i++)
+                {
+                    prolgueString += prolgueDatas[n].context_Eng[i];
+                    string tempString = prolgueString;
+                    tempString += "<color=#00000000>";
+                    for (int j = i + 1; j < prolgueDatas[n].context_Eng.Length; j++)
+                        tempString += prolgueDatas[n].context_Eng[j];
+                    tempString += "</color>";
+                    prolgueText_Eng.text = tempString;
+                    if (!prolgueOut)
+                        SoundManager.instance.BtnClick();
+                    yield return new WaitForSeconds(0.1f);
+                }
             }
         }
 

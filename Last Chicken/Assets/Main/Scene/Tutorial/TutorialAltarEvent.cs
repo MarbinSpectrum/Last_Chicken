@@ -17,6 +17,7 @@ public class TutorialAltarEvent : CustomCollider
     GameObject chickenMessage;
     bool[] messageFlag = new bool[2];
     string[] message = new string[] { "마지막 남은 닭", "그 닭을 지키면서 지하에 있는 나의 신전으로 와라." };
+    string[] message_eng = new string[] { "The Last Chicken", "Protect the chicken and come to \n my temple in the basement." };
     GameObject uiMouse;
     GameObject followGetItem;
     GameObject followPlayerY;
@@ -34,6 +35,8 @@ public class TutorialAltarEvent : CustomCollider
 
     bool digFlag = false;
 
+    public List<GameObject> languageData = new List<GameObject>();
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -48,7 +51,7 @@ public class TutorialAltarEvent : CustomCollider
         wallObject = transform.Find("Wall").gameObject;
         uiMouse = transform.Find("UIMouse").gameObject;
         followChicken = transform.Find("FollowChicken").gameObject;
-        chickenMessage = transform.Find("ChickenMessage").Find("Text").gameObject;
+        chickenMessage = transform.Find("ChickenMessage").Find("Text_" + GameManager.instance.playData.language.ToString()).gameObject;
         followGetItem = transform.Find("FollowUI").gameObject;
         followPlayerY = transform.Find("FollowPlayerY").gameObject;
     }
@@ -57,6 +60,9 @@ public class TutorialAltarEvent : CustomCollider
     #region[Update]
     public void Update()
     {
+        for (int i = 0; i < languageData.Count; i++)
+            if (languageData[i])
+                languageData[i].SetActive(languageData[i].transform.name.Contains(GameManager.instance.playData.language.ToString()));
         TutorialTrigger();
     }
     #endregion
@@ -136,14 +142,20 @@ public class TutorialAltarEvent : CustomCollider
             {
                 messageFlag[0] = true;
                 chickenMessage.SetActive(true);
-                chickenMessage.GetComponent<Text>().text = message[0];
+                if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                    chickenMessage.GetComponent<Text>().text = message[0];
+                else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    chickenMessage.GetComponent<Text>().text = message_eng[0];
             }
 
             if (chickenDownTime > 9 && !messageFlag[1])
             {
                 messageFlag[1] = true;
                 chickenMessage.SetActive(true);
-                chickenMessage.GetComponent<Text>().text = message[1];
+                if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                    chickenMessage.GetComponent<Text>().text = message[1];
+                else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    chickenMessage.GetComponent<Text>().text = message_eng[1];
             }
 
             if (chickenDownTime > 14)

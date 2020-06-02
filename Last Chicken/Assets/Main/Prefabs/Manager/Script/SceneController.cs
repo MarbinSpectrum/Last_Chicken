@@ -95,7 +95,10 @@ public class SceneController : MonoBehaviour
                 if (stageBackGround)
                     stageBackGround.sprite = StageManager.instance.tutorial_BackGround;
                 GameSceneSet();
-                UIManager.instance.showStageNameText.text = StageManager.instance.tutorial_Name;
+                if(GameManager.instance.playData.language == PlayData.Language.한국어)
+                    UIManager.instance.showStageNameText.text = StageManager.instance.tutorial_Name;
+                else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    UIManager.instance.showStageNameText.text = StageManager.instance.tutorial_Name_Eng;
                 SoundManager.instance.Tutorial();
                 break;
             #endregion
@@ -105,7 +108,10 @@ public class SceneController : MonoBehaviour
                 if (stageBackGround)
                     stageBackGround.sprite = StageManager.instance.stage0101_BackGround;
                 GameSceneSet();
-                UIManager.instance.showStageNameText.text = StageManager.instance.stage0101_Name;
+                if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                    UIManager.instance.showStageNameText.text = StageManager.instance.stage0101_Name;
+                else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    UIManager.instance.showStageNameText.text = StageManager.instance.stage0101_Name_Eng;
                 SoundManager.instance.Stage1();
                 break;
             #endregion
@@ -115,7 +121,10 @@ public class SceneController : MonoBehaviour
                 if (stageBackGround)
                     stageBackGround.sprite = StageManager.instance.stage0102_BackGround;
                 GameSceneSet();
-                UIManager.instance.showStageNameText.text = StageManager.instance.stage0102_Name;
+                if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                    UIManager.instance.showStageNameText.text = StageManager.instance.stage0102_Name;
+                else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    UIManager.instance.showStageNameText.text = StageManager.instance.stage0102_Name_Eng;
                 SoundManager.instance.Stage1();
                 break;
             #endregion
@@ -125,7 +134,10 @@ public class SceneController : MonoBehaviour
                 if (stageBackGround)
                     stageBackGround.sprite = StageManager.instance.stage0103_BackGround;
                 GameSceneSet();
-                UIManager.instance.showStageNameText.text = StageManager.instance.stage0103_Name;
+                if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                    UIManager.instance.showStageNameText.text = StageManager.instance.stage0103_Name;
+                else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    UIManager.instance.showStageNameText.text = StageManager.instance.stage0103_Name_Eng;
                 SoundManager.instance.Stage1();
                 break;
             #endregion
@@ -135,7 +147,10 @@ public class SceneController : MonoBehaviour
                 if (stageBackGround)
                     stageBackGround.sprite = StageManager.instance.stage0201_BackGround;
                 GameSceneSet();
-                UIManager.instance.showStageNameText.text = StageManager.instance.stage0201_Name;
+                if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                    UIManager.instance.showStageNameText.text = StageManager.instance.stage0201_Name;
+                else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    UIManager.instance.showStageNameText.text = StageManager.instance.stage0201_Name_Eng;
                 SoundManager.instance.Stage2();
                 break;
             #endregion
@@ -145,7 +160,10 @@ public class SceneController : MonoBehaviour
                 if (stageBackGround)
                     stageBackGround.sprite = StageManager.instance.Igloo_BackGround;
                 GameSceneSet();
-                UIManager.instance.showStageNameText.text = StageManager.instance.Igloo_Name;
+                if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                    UIManager.instance.showStageNameText.text = StageManager.instance.Igloo_Name;
+                else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    UIManager.instance.showStageNameText.text = StageManager.instance.Igloo_Name_Eng;
                 SoundManager.instance.Stage2();
                 break;
             #endregion

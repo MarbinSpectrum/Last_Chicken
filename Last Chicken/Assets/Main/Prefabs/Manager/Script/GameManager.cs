@@ -122,6 +122,7 @@ public class GameManager : TerrainGenerator
         float bgmVolume = playData.BGM_Volume;
         bool fullScreen = playData.fullScreen;
         bool firstGame = playData.firstGame;
+        PlayData.Language language = playData.language;
         playData = new PlayData();
         playData.ScreenWidth = screenWidth;
         playData.ScreenHeight = screenHeight;
@@ -129,6 +130,7 @@ public class GameManager : TerrainGenerator
         playData.BGM_Volume = bgmVolume;
         playData.fullScreen = fullScreen;
         playData.firstGame = firstGame;
+        playData.language = language;
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -5,12 +5,15 @@ using UnityEngine.UI;
 [System.Serializable]
 public class PlayData
 {
+    public enum Language { English, 한국어 };
+
     public float SE_Volume;         //SE 크기
     public float BGM_Volume;        //BGM 크기
     public int ScreenWidth;         //화면 너비
     public int ScreenHeight;        //화면 높이
     public bool fullScreen;         //전체화면 여부
     public bool firstGame;          //처음게임을 실행했는가?
+    public Language language;
 
     ////////////////////////////////////////////////////////////////////////////
 
@@ -59,11 +62,12 @@ public class PlayData
         ScreenHeight = 900;
         fullScreen = false;
         firstGame = true;
+        language = Language.한국어;
 
         ///////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////
-        
+
         stageName = "Stage0101";
 
         ///////////////////////////////////////////////////////////////////

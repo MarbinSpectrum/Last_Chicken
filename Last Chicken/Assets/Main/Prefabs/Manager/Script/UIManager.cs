@@ -224,6 +224,16 @@ public class UIManager : MonoBehaviour
     Slider seSlider;
     Slider bgmSlider;
 
+    GameObject languageObject;
+
+    [NonSerialized]
+    public string[] languageOption = new string[]
+    {
+            PlayData.Language.English.ToString(),
+            PlayData.Language.한국어.ToString()
+    };
+    Dropdown languageDropdown;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     [NonSerialized] public bool goTitle = false;
@@ -232,6 +242,8 @@ public class UIManager : MonoBehaviour
 
     //UI 레이캐스트
     [NonSerialized] public GraphicRaycaster graphicRaycaster;
+
+    public List<GameObject> languageData = new List<GameObject>();
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -539,6 +551,9 @@ public class UIManager : MonoBehaviour
 
         graphicRaycaster = canvas.GetComponent<GraphicRaycaster>();
 
+        languageObject = settingMenu.transform.Find("Language").gameObject;
+        languageDropdown = languageObject.transform.Find("Dropdown").GetComponent<Dropdown>();
+
     }
     #endregion
 
@@ -577,6 +592,24 @@ public class UIManager : MonoBehaviour
             Screen.SetResolution(GameManager.instance.playData.ScreenWidth, GameManager.instance.playData.ScreenHeight, GameManager.instance.playData.fullScreen);
             SoundManager.instance.SelectMenu();
         });
+
+        List<Dropdown.OptionData> languageOptionDatas = new List<Dropdown.OptionData>();
+        for (int i = 0; i < languageOption.GetLength(0); i++)
+            languageOptionDatas.Add(new Dropdown.OptionData(languageOption[i]));
+        languageDropdown.AddOptions(languageOptionDatas);
+        select = 0;
+        for (int i = 0; i < languageOption.GetLength(0); i++)
+            if (languageOption[i].Equals(GameManager.instance.playData.language.ToString()))
+            {
+                select = i;
+                break;
+            }
+        languageDropdown.value = select;
+        languageDropdown.onValueChanged.AddListener((data) =>
+        {
+            GameManager.instance.playData.language = (PlayData.Language)(languageDropdown.value);
+            SoundManager.instance.SelectMenu();
+        });
         #endregion
 
         SetUIMoney();
@@ -586,6 +619,10 @@ public class UIManager : MonoBehaviour
     #region[Update]
     void Update()
     {
+        for(int i = 0; i < languageData.Count; i++)
+            if (languageData[i])
+                languageData[i].SetActive(languageData[i].transform.name.Contains(GameManager.instance.playData.language.ToString()));
+
         if (Input.GetKeyDown(KeyCode.Escape) && !goTitle)
         {
             if (GameManager.instance.InGame())
@@ -611,6 +648,7 @@ public class UIManager : MonoBehaviour
 
         if (!GameManager.instance.InGame())
         {
+            languageObject.SetActive(true);
             showStageName.SetActive(false);
             showChickenPos.SetActive(false);
             showTimer.SetActive(false);
@@ -625,6 +663,8 @@ public class UIManager : MonoBehaviour
         }
         else
         {
+            languageObject.SetActive(false);
+
             #region[제단 UI 조절]
             if (AltarScript.instance)
                 altarUI.SetActive(AltarScript.instance.thisUse);
