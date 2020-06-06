@@ -173,16 +173,19 @@ public class ItemManager : ObjectPool
     {
         public Sprite itemImg;
         public string itemName;
+        public string itemName_Eng;
         public float value0;
         public float value1;
         public ItemLevel itemLevel;
         public string itemExplain;
+        public string itemExplain_Eng;
         public int cost;
         public bool spawnObject;
         public bool spawnShop;
         public bool spawnTreasureBox;
         public bool activeItem;
         public string[] shopItemExplain = new string[4];
+        public string[] shopItemExplain_Eng = new string[4];
     }
 
     public static int FindData(string s)

@@ -47,7 +47,9 @@ public class ItemEditor : MyEditor
                 ItemManager.ItemStats emp = new ItemManager.ItemStats();
                 emp.itemImg = itemManager.itemData[i].itemImg;
                 emp.itemName = itemManager.itemData[i].itemName;
+                emp.itemName_Eng = itemManager.itemData[i].itemName_Eng;
                 emp.itemExplain = itemManager.itemData[i].itemExplain;
+                emp.itemExplain_Eng = itemManager.itemData[i].itemExplain_Eng;
                 emp.cost = itemManager.itemData[i].cost;
                 emp.value0 = itemManager.itemData[i].value0;
                 emp.value1 = itemManager.itemData[i].value1;
@@ -58,6 +60,8 @@ public class ItemEditor : MyEditor
                 emp.activeItem = itemManager.itemData[i].activeItem;
                 for(int k = 0; k < 4; k++)
                     emp.shopItemExplain[k] = itemManager.itemData[i].shopItemExplain[k];
+                for (int k = 0; k < 4; k++)
+                    emp.shopItemExplain_Eng[k] = itemManager.itemData[i].shopItemExplain_Eng[k];
                 temp.Add(emp);
             }
 
@@ -69,7 +73,9 @@ public class ItemEditor : MyEditor
             {
                 itemManager.itemData[i].itemImg = temp[i].itemImg;
                 itemManager.itemData[i].itemName = temp[i].itemName;
+                itemManager.itemData[i].itemName_Eng = temp[i].itemName_Eng;
                 itemManager.itemData[i].itemExplain = temp[i].itemExplain;
+                itemManager.itemData[i].itemExplain_Eng = temp[i].itemExplain_Eng;
                 itemManager.itemData[i].cost = temp[i].cost;
                 itemManager.itemData[i].value0 = temp[i].value0;
                 itemManager.itemData[i].value1 = temp[i].value1;
@@ -80,6 +86,8 @@ public class ItemEditor : MyEditor
                 itemManager.itemData[i].activeItem = temp[i].activeItem;
                 for (int k = 0; k < 4; k++)
                     temp[i].shopItemExplain[k] = itemManager.itemData[i].shopItemExplain[k];
+                for (int k = 0; k < 4; k++)
+                    temp[i].shopItemExplain_Eng[k] = itemManager.itemData[i].shopItemExplain_Eng[k];
             }
         }
         else if (itemManager.itemData.Length > ItemManager.itemName.Length)
@@ -90,7 +98,9 @@ public class ItemEditor : MyEditor
                 ItemManager.ItemStats emp = new ItemManager.ItemStats();
                 emp.itemImg = itemManager.itemData[i].itemImg;
                 emp.itemName = itemManager.itemData[i].itemName;
+                emp.itemName_Eng = itemManager.itemData[i].itemName_Eng;
                 emp.itemExplain = itemManager.itemData[i].itemExplain;
+                emp.itemExplain_Eng = itemManager.itemData[i].itemExplain_Eng;
                 emp.cost = itemManager.itemData[i].cost;
                 emp.value0 = itemManager.itemData[i].value0;
                 emp.value1 = itemManager.itemData[i].value1;
@@ -101,6 +111,8 @@ public class ItemEditor : MyEditor
                 emp.activeItem = itemManager.itemData[i].activeItem;
                 for (int k = 0; k < 4; k++)
                     emp.shopItemExplain[k] = itemManager.itemData[i].shopItemExplain[k];
+                for (int k = 0; k < 4; k++)
+                    emp.shopItemExplain_Eng[k] = itemManager.itemData[i].shopItemExplain_Eng[k];
                 temp.Add(emp);
             }
 
@@ -112,7 +124,9 @@ public class ItemEditor : MyEditor
             {
                 itemManager.itemData[i].itemImg = temp[i].itemImg;
                 itemManager.itemData[i].itemName = temp[i].itemName;
+                itemManager.itemData[i].itemName_Eng = temp[i].itemName_Eng;
                 itemManager.itemData[i].itemExplain = temp[i].itemExplain;
+                itemManager.itemData[i].itemExplain_Eng = temp[i].itemExplain_Eng;
                 itemManager.itemData[i].cost = temp[i].cost;
                 itemManager.itemData[i].value0 = temp[i].value0;
                 itemManager.itemData[i].value1 = temp[i].value1;
@@ -123,6 +137,8 @@ public class ItemEditor : MyEditor
                 itemManager.itemData[i].activeItem = temp[i].activeItem;
                 for (int k = 0; k < 4; k++)
                     temp[i].shopItemExplain[k] = itemManager.itemData[i].shopItemExplain[k];
+                for (int k = 0; k < 4; k++)
+                    temp[i].shopItemExplain_Eng[k] = itemManager.itemData[i].shopItemExplain_Eng[k];
             }
         }
         #endregion
@@ -131,7 +147,7 @@ public class ItemEditor : MyEditor
 
         GUI.color = Color.white;
 
-        EditorGUILayout.BeginVertical("box", GUILayout.Width(275));
+        EditorGUILayout.BeginVertical("box", GUILayout.Width(600));
         EditorGUILayout.BeginHorizontal();
 
 
@@ -173,11 +189,11 @@ public class ItemEditor : MyEditor
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         EditorGUILayout.BeginVertical("box");
-        stageScroll = EditorGUILayout.BeginScrollView(stageScroll, GUILayout.Width(275), GUILayout.Height(300));
+        stageScroll = EditorGUILayout.BeginScrollView(stageScroll, GUILayout.Width(600), GUILayout.Height(600));
 
         for (int i = 0; i < ItemManager.itemName.Length; i++)
         {
-            EditorGUILayout.BeginVertical("helpbox", GUILayout.Width(250));
+            EditorGUILayout.BeginVertical("helpbox", GUILayout.Width(575));
             ItemData(ItemManager.itemName[i], ref itemManager.itemData[ItemManager.FindData(ItemManager.itemName[i])], getName(ItemManager.itemName[i]));
             EditorGUILayout.EndVertical();
         }
@@ -224,15 +240,20 @@ public class ItemEditor : MyEditor
 
         EditorGUILayout.BeginHorizontal();
         Vector2 size = new Vector2(2f, 2f);
-        EditorGUILayout.LabelField(emp, nameStyle, GUILayout.Width(240 - 30 * size.x), GUILayout.Height(30));
+        EditorGUILayout.LabelField(emp, nameStyle, GUILayout.Width(560 - 30 * size.x), GUILayout.Height(30));
         data.itemImg = (Sprite)EditorGUILayout.ObjectField(data.itemImg, typeof(Sprite), false, GUILayout.Width(30 * size.x), GUILayout.Height(30 * size.y));
         EditorGUILayout.EndHorizontal();
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("아이템 이름", dataStyle, GUILayout.Width(150));
+        EditorGUILayout.LabelField("아이템 이름", dataStyle, GUILayout.Width(470));
         data.itemName = EditorGUILayout.TextField(data.itemName, GUILayout.Width(90));
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Item Name", dataStyle, GUILayout.Width(470));
+        data.itemName_Eng = EditorGUILayout.TextField(data.itemName_Eng, GUILayout.Width(90));
         EditorGUILayout.EndHorizontal();
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -250,7 +271,7 @@ public class ItemEditor : MyEditor
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        EditorGUILayout.LabelField("활성화슬롯위치", dataStyle, GUILayout.Width(150));
+        EditorGUILayout.LabelField("활성화슬롯위치", dataStyle, GUILayout.Width(470));
         EditorGUILayout.BeginVertical("helpbox");
         if (ItemManager.CheckActiveItem(itemName))
             EditorGUILayout.LabelField("액티브 아이템입니다.", dataStyle, GUILayout.Width(230));
@@ -449,14 +470,24 @@ public class ItemEditor : MyEditor
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         EditorGUILayout.LabelField("아이템 설명", dataStyle);
-        data.itemExplain = EditorGUILayout.TextArea(data.itemExplain, GUILayout.Width(250), GUILayout.Height(80));
-
+        data.itemExplain = EditorGUILayout.TextArea(data.itemExplain, GUILayout.Width(560), GUILayout.Height(80));
+        EditorGUILayout.LabelField("itemExplain", dataStyle);
+        data.itemExplain_Eng = EditorGUILayout.TextArea(data.itemExplain_Eng, GUILayout.Width(560), GUILayout.Height(80));
         if (data.spawnShop)
         {
             EditorGUILayout.LabelField("아이템 설명(상점)", dataStyle);
             for (int i = 0; i < 3; i++)
-                data.shopItemExplain[i] = EditorGUILayout.TextField(data.shopItemExplain[i], GUILayout.Width(147), GUILayout.Height(20));
-            data.shopItemExplain[3] = EditorGUILayout.TextArea(data.shopItemExplain[3], GUILayout.Width(250), GUILayout.Height(80));
+                data.shopItemExplain[i] = EditorGUILayout.TextField(data.shopItemExplain[i], GUILayout.Width(560), GUILayout.Height(20));
+            EditorGUILayout.LabelField("itemExplain(Shop)", dataStyle);
+            for (int i = 0; i < 3; i++)
+                data.shopItemExplain_Eng[i] = EditorGUILayout.TextField(data.shopItemExplain_Eng[i], GUILayout.Width(560), GUILayout.Height(20));
+            string sTemp;
+            if (ItemManager.CheckActiveItem(itemName))
+                sTemp = "<color=#ff0000ff>Active</color>";
+            else
+                sTemp = "<color=#00ff00ff>Passive</color>";
+            data.shopItemExplain[3] = sTemp;
+            data.shopItemExplain_Eng[3] = sTemp;
         }
     }
     #endregion
@@ -535,6 +566,191 @@ public class ItemEditor : MyEditor
 
         EditorGUILayout.LabelField(name, guiStyle, GUILayout.Width(50));
         var result = EditorGUILayout.Toggle(input);
+
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.EndVertical();
+
+        return result;
+    }
+    #endregion
+
+    #region[EnumField]
+    public override Enum EnumField(string name, Enum input, GUIStyle guiStyle = null)
+    {
+        guiStyle = guiStyle != null ? guiStyle : GUI.skin.label;
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField(name, guiStyle, GUILayout.Width(470));
+
+        var result = EditorGUILayout.EnumPopup(input, GUILayout.Width(90));
+        EditorGUILayout.EndHorizontal();
+        return result;
+    }
+
+    public override Enum EnumField(Enum input, GUIStyle guiStyle = null)
+    {
+        guiStyle = guiStyle != null ? guiStyle : GUI.skin.label;
+        EditorGUILayout.BeginHorizontal();
+
+        var result = EditorGUILayout.EnumPopup(input, GUILayout.Width(90));
+        EditorGUILayout.EndHorizontal();
+        return result;
+    }
+
+    public override Enum EnumField(Texture2D texture2D, Enum input, GUIStyle guiStyle = null)
+    {
+        guiStyle = guiStyle != null ? guiStyle : GUI.skin.label;
+        if (texture2D == null)
+            return EnumField(input, guiStyle);
+
+        EditorGUILayout.BeginHorizontal();
+        GUI.DrawTexture(new Rect(0, 0, 30, 30), texture2D);
+        var result = EditorGUILayout.EnumPopup(input, GUILayout.Width(90));
+        EditorGUILayout.EndHorizontal();
+        return result;
+    }
+
+    public override Enum EnumField(string name, Texture2D texture2D, Enum input, GUIStyle guiStyle = null)
+    {
+        guiStyle = guiStyle != null ? guiStyle : GUI.skin.label;
+        if (texture2D == null)
+            return EnumField(name, input, guiStyle);
+
+        EditorGUILayout.BeginVertical();
+        EditorGUILayout.BeginHorizontal("helpbox", GUILayout.Width(100));
+
+        GUILayout.Button("", GUI.skin.label, GUILayout.Width(50), GUILayout.Height(100));
+        Rect lastRect = GUILayoutUtility.GetLastRect();
+        GUI.DrawTexture(lastRect, texture2D);
+
+        EditorGUILayout.BeginVertical();
+        EditorGUI.indentLevel++;
+        EditorGUILayout.LabelField(name, guiStyle, GUILayout.Width(150));
+        var result = EditorGUILayout.EnumPopup(input, "helpbox", GUILayout.Width(90));
+        EditorGUI.indentLevel--;
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.EndVertical();
+
+        return result;
+    }
+    #endregion
+
+    #region[IntField]
+    public override int IntField(string name, int input, GUIStyle guiStyle = null)
+    {
+        guiStyle = guiStyle != null ? guiStyle : GUI.skin.label;
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField(name, guiStyle, GUILayout.Width(470));
+
+        var result = EditorGUILayout.IntField(input, GUILayout.Width(90));
+        EditorGUILayout.EndHorizontal();
+        return result;
+    }
+
+    public override int IntField(int input, GUIStyle style = null)
+    {
+        EditorGUILayout.BeginHorizontal();
+
+        var result = EditorGUILayout.IntField(input, GUILayout.Width(90));
+        EditorGUILayout.EndHorizontal();
+        return result;
+    }
+
+    public override int IntField(Texture2D texture2D, int input, GUIStyle guiStyle = null)
+    {
+        guiStyle = guiStyle != null ? guiStyle : GUI.skin.label;
+        if (texture2D == null)
+            return IntField(input, guiStyle);
+
+        EditorGUILayout.BeginHorizontal();
+        GUI.DrawTexture(new Rect(0, 0, 30, 30), texture2D);
+        var result = EditorGUILayout.IntField(input, GUILayout.Width(90));
+        EditorGUILayout.EndHorizontal();
+        return result;
+    }
+
+    public override int IntField(string name, Texture2D texture2D, int input, GUIStyle guiStyle = null)
+    {
+        guiStyle = guiStyle != null ? guiStyle : GUI.skin.label;
+        if (texture2D == null)
+            return IntField(name, input, guiStyle);
+
+        EditorGUILayout.BeginVertical();
+        EditorGUILayout.BeginHorizontal("helpbox", GUILayout.Width(80));
+
+        GUILayout.Button("", GUI.skin.label, GUILayout.Width(50), GUILayout.Height(50));
+        Rect lastRect = GUILayoutUtility.GetLastRect();
+        GUI.DrawTexture(lastRect, texture2D);
+
+        EditorGUILayout.BeginVertical();
+        EditorGUI.indentLevel++;
+        EditorGUILayout.LabelField(name, guiStyle, GUILayout.Width(150));
+        var result = EditorGUILayout.IntField(input, "helpbox", GUILayout.Width(90));
+        EditorGUI.indentLevel--;
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.EndVertical();
+
+        return result;
+    }
+    #endregion
+
+    #region[FloatFiled]
+    public override float FloatField(string name, float input, GUIStyle guiStyle = null)
+    {
+        guiStyle = guiStyle != null ? guiStyle : GUI.skin.label;
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField(name, guiStyle, GUILayout.Width(470));
+
+        var result = EditorGUILayout.FloatField(input, GUILayout.Width(90));
+        EditorGUILayout.EndHorizontal();
+        return result;
+    }
+
+    public override float FloatField(float input, GUIStyle guiStyle = null)
+    {
+        guiStyle = guiStyle != null ? guiStyle : GUI.skin.label;
+        EditorGUILayout.BeginHorizontal();
+
+        var result = EditorGUILayout.FloatField(input, GUILayout.Width(90));
+        EditorGUILayout.EndHorizontal();
+        return result;
+    }
+
+    public override float FloatField(Texture2D texture2D, float input, GUIStyle guiStyle = null)
+    {
+        guiStyle = guiStyle != null ? guiStyle : GUI.skin.label;
+        if (texture2D == null)
+            return FloatField(input, guiStyle);
+
+        EditorGUILayout.BeginHorizontal();
+        GUI.DrawTexture(new Rect(0, 0, 30, 30), texture2D);
+        var result = EditorGUILayout.FloatField(input, GUILayout.Width(90));
+        EditorGUILayout.EndHorizontal();
+        return result;
+    }
+
+    public override float FloatField(string name, Texture2D texture2D, float input, GUIStyle guiStyle = null)
+    {
+        guiStyle = guiStyle != null ? guiStyle : GUI.skin.label;
+        if (texture2D == null)
+            return FloatField(name, input, guiStyle);
+
+        EditorGUILayout.BeginVertical();
+        EditorGUILayout.BeginHorizontal("helpbox", GUILayout.Width(80));
+
+        GUILayout.Button("", GUI.skin.label, GUILayout.Width(50), GUILayout.Height(50));
+        Rect lastRect = GUILayoutUtility.GetLastRect();
+        GUI.DrawTexture(lastRect, texture2D);
+
+        EditorGUILayout.BeginVertical();
+        EditorGUI.indentLevel++;
+        EditorGUILayout.LabelField(name, guiStyle, GUILayout.Width(150));
+        var result = EditorGUILayout.FloatField(input, "helpbox", GUILayout.Width(90));
+        EditorGUI.indentLevel--;
+        EditorGUILayout.EndVertical();
 
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.EndVertical();

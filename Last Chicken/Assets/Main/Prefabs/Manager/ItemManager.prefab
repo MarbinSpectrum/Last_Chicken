@@ -51,12 +51,17 @@ MonoBehaviour:
   - itemImg: {fileID: -7319223827379462415, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uBC29\uC6B8"
+    itemName_Eng: Bell
     value0: 5
     value1: 0
     itemLevel: 0
     itemExplain: "\uC0AC\uC6A9\uC2DC \uB2ED\uC774 \uD50C\uB808\uC774\uC5B4 \uBC29\uD5A5\uC73C\uB85C
       \uC774\uB3D9\uD569\uB2C8\uB2E4.\n<size=30><color=#3BEAAC>                                                          
       -\uCFE8\uD0C0\uC784 : 5 \uCD08</color></size>"
+    itemExplain_Eng: 'The chicken following the player
+
+      <size=30><color=#3BEAAC>                                                          
+      -CollTime : 5 </color></size>'
     cost: 4000
     spawnObject: 1
     spawnShop: 1
@@ -67,14 +72,22 @@ MonoBehaviour:
     - "\uC774\uB3D9\uD569\uB2C8\uB2E4."
     - 
     - <color=#ff0000ff>Active</color>
+    shopItemExplain_Eng:
+    - The chicken following
+    - ' the player'
+    - 
+    - <color=#ff0000ff>Active</color>
   - itemImg: {fileID: -5940822720616900610, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uAE43\uD138\uC2E0\uBC1C"
+    itemName_Eng: Wing Shoes
     value0: 0
     value1: 0
     itemLevel: 3
     itemExplain: "\uB192\uC740 \uACF3\uC5D0\uC11C \uB5A8\uC5B4\uC838\uB3C4 \uB300\uBBF8\uC9C0\uB97C
       \n\uC785\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4."
+    itemExplain_Eng: "Even if player fall from a high place, \nplayer doesn\u2019t
+      receive damage"
     cost: 0
     spawnObject: 0
     spawnShop: 0
@@ -85,12 +98,19 @@ MonoBehaviour:
     - 
     - 
     - 
+    shopItemExplain_Eng:
+    - 
+    - 
+    - 
+    - 
   - itemImg: {fileID: 21300000, guid: 3cf36eaa5bb235e41aff47ddffa877f2, type: 3}
     itemName: "\uAC00\uBCBC\uC6B4\uACE1\uAD2D\uC774"
+    itemName_Eng: "\uAC00\uBCBC\uC6B4\uACE1\uAD2D\uC774"
     value0: 120
     value1: 0
     itemLevel: 1
     itemExplain: "\uCC44\uAD11\uC18D\uB3C4 20% \uC0C1\uC2B9"
+    itemExplain_Eng: "\uCC44\uAD11\uC18D\uB3C4 20% \uC0C1\uC2B9"
     cost: 8000
     spawnObject: 0
     spawnShop: 0
@@ -101,14 +121,21 @@ MonoBehaviour:
     - 
     - 
     - 
+    shopItemExplain_Eng:
+    - 
+    - 
+    - 
+    - 
   - itemImg: {fileID: 7350294751972509274, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uC751\uAE09\uCC98\uCE58\uD0A4\uD2B8"
+    itemName_Eng: First-Aid Kit
     value0: 0
     value1: 0
     itemLevel: 0
     itemExplain: "\uC989\uC0AC\uD560 \uB370\uBBF8\uC9C0\uB97C \uBC1B\uC744\uC2DC
       \uD55C\uBC88 \uC0B4\uB824\uC90D\uB2C8\uB2E4."
+    itemExplain_Eng: The player got one more life
     cost: 2500
     spawnObject: 1
     spawnShop: 1
@@ -119,13 +146,20 @@ MonoBehaviour:
     - "\uB531 \uD55C\uBC88 \uC0B4\uB824\uC90D\uB2C8\uB2E4. "
     - 
     - <color=#00ff00ff>Passive</color>
+    shopItemExplain_Eng:
+    - 'The player got '
+    - one more life
+    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: 3106559140910016383, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uD683\uBD88"
+    itemName_Eng: Torch
     value0: 0
     value1: 0
     itemLevel: 0
     itemExplain: "\uC5B4\uB450\uC6B4 \uACF3\uC744 \uBC1D\uD600\uC8FC\uB294 \uD683\uBD88"
+    itemExplain_Eng: It makes brighter around it
     cost: 1000
     spawnObject: 0
     spawnShop: 0
@@ -136,14 +170,22 @@ MonoBehaviour:
     - 
     - 
     - <color=#00ff00ff>Passive</color>
+    shopItemExplain_Eng:
+    - 
+    - 
+    - 
+    - 
   - itemImg: {fileID: 7937556763755152812, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uB124\uC78E\uD074\uB85C\uBC84"
+    itemName_Eng: Lucky clover
     value0: 0
     value1: 0
     itemLevel: 3
     itemExplain: "\uAC16\uACE0 \uC788\uC73C\uBA74 \uC88B\uC740 \uC77C\uC774 \uC77C\uC5B4\uB09C\uB2E4\uACE0\uD55C\uB2E4.\n(\uB79C\uB364\uD55C
       \uD655\uB960\uB85C \uAD11\uBB3C\uC774 \uD558\uB098 \uB354 \uB4DC\uB78D\uB428)"
+    itemExplain_Eng: "clovers bring good luck to player \n(You can acquire more minerals
+      with less probability)"
     cost: 0
     spawnObject: 0
     spawnShop: 0
@@ -154,13 +196,20 @@ MonoBehaviour:
     - 
     - 
     - 
+    shopItemExplain_Eng:
+    - 
+    - 
+    - 
+    - 
   - itemImg: {fileID: 2964034252929805917, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uCF5C\uB77C"
+    itemName_Eng: 'Coke '
     value0: 1
     value1: 0
     itemLevel: 0
     itemExplain: "\uC0AC\uC6A9\uC2DC \uCCB4\uB825\uC744 1\uB9CC\uD07C \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    itemExplain_Eng: Cool! (+1 heart)
     cost: 1000
     spawnObject: 1
     spawnShop: 1
@@ -171,13 +220,20 @@ MonoBehaviour:
     - "\uCCB4\uB825 1 \uD68C\uBCF5"
     - 
     - <color=#ff0000ff>Active</color>
+    shopItemExplain_Eng:
+    - Cool!
+    - (+1 heart)
+    - 
+    - <color=#ff0000ff>Active</color>
   - itemImg: {fileID: -1085531528030470992, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uB9E5\uC8FC"
+    itemName_Eng: 'Beer '
     value0: 0.5
     value1: 0
     itemLevel: 1
     itemExplain: "\uC0AC\uC6A9\uC2DC \uCCB4\uB825\uC744 2\uB9CC\uD07C \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    itemExplain_Eng: cOoL! (+2 heart)
     cost: 5000
     spawnObject: 1
     spawnShop: 1
@@ -188,13 +244,20 @@ MonoBehaviour:
     - "\uCCB4\uB825 2 \uD68C\uBCF5"
     - 
     - <color=#ff0000ff>Active</color>
+    shopItemExplain_Eng:
+    - cOoL!
+    - (+2 heart)
+    - 
+    - <color=#ff0000ff>Active</color>
   - itemImg: {fileID: 5127810894942316752, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uBAAC\uC2A4\uD130\uD0D0\uC9C0\uAE30"
+    itemName_Eng: Monster detector
     value0: 0
     value1: 0
     itemLevel: 0
     itemExplain: "\uBAAC\uC2A4\uD130\uC758 \uC704\uCE58\uB97C \uC54C \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    itemExplain_Eng: You can know the location of the monster.
     cost: 2500
     spawnObject: 1
     spawnShop: 1
@@ -205,14 +268,21 @@ MonoBehaviour:
     - 
     - 
     - <color=#00ff00ff>Passive</color>
+    shopItemExplain_Eng:
+    - You can know the location
+    - ' of the monster.'
+    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: 6828611306581335411, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uB7EC\uC2DC\uC548\uB8F0\uB81B"
+    itemName_Eng: Russian roulette
     value0: 1
     value1: 20
     itemLevel: 1
     itemExplain: "\uC0AC\uC6A9\uC2DC 50%\uD655\uB960\uB85C \uD50C\uB808\uC774\uC5B4\uC758
       \uCCB4\uB825\uC774 \uBAA8\uB450 \n\uD68C\uBCF5\uB418\uAC70\uB098 1 \uC783\uC2B5\uB2C8\uB2E4."
+    itemExplain_Eng: "Player's heart will filled with 50% chance or lost by 1.\r"
     cost: 2500
     spawnObject: 0
     spawnShop: 1
@@ -223,14 +293,21 @@ MonoBehaviour:
     - "\uBAA8\uB450  \uD68C\uBCF5\uB418\uAC70\uB098"
     - "1 \uC783\uC2B5\uB2C8\uB2E4."
     - <color=#ff0000ff>Active</color>
+    shopItemExplain_Eng:
+    - Player's heart will filled
+    - with 50% chance
+    - 'or  lost by 1. '
+    - <color=#ff0000ff>Active</color>
   - itemImg: {fileID: -3147309375951365641, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uAD11\uC0B0\uD5EC\uBA67"
+    itemName_Eng: Mine helmet
     value0: 0
     value1: 0
     itemLevel: 3
     itemExplain: "\uC8FC\uC704\uB97C \uBC1D\uD600\uC8FC\uACE0 \uBA38\uB9AC\uB97C
       \uBCF4\uD638\uD569\uB2C8\uB2E4."
+    itemExplain_Eng: "It makes brighter around it, and protect player's head\r"
     cost: 15000
     spawnObject: 0
     spawnShop: 0
@@ -241,12 +318,19 @@ MonoBehaviour:
     - "\uBA38\uB9AC\uB97C \uBCF4\uD638\uD569\uB2C8\uB2E4."
     - 
     - <color=#00ff00ff>Passive</color>
+    shopItemExplain_Eng:
+    - 
+    - 
+    - 
+    - 
   - itemImg: {fileID: 21300000, guid: 84b9d2378dc2a4f41bf48df10714217e, type: 3}
     itemName: "\uBB34\uAC70\uC6B4\uACE1\uAD2D\uC774"
+    itemName_Eng: "\uBB34\uAC70\uC6B4\uACE1\uAD2D\uC774"
     value0: 150
     value1: 0
     itemLevel: 1
     itemExplain: "\uACF5\uACA9\uB825 50% \uC0C1\uC2B9"
+    itemExplain_Eng: "\uACF5\uACA9\uB825 50% \uC0C1\uC2B9"
     cost: 8000
     spawnObject: 0
     spawnShop: 0
@@ -257,13 +341,21 @@ MonoBehaviour:
     - 
     - 
     - 
+    shopItemExplain_Eng:
+    - 
+    - 
+    - 
+    - 
   - itemImg: {fileID: 21300000, guid: 3b4c21e7744b21346a2f504b67da8f02, type: 3}
     itemName: "\uACE0\uAE09\uACE1\uAD2D\uC774"
+    itemName_Eng: "\uACE0\uAE09\uACE1\uAD2D\uC774"
     value0: 120
     value1: 120
     itemLevel: 2
     itemExplain: "\uCC44\uAD11\uC18D\uB3C4 20% \uC0C1\uC2B9\n\uACF5\uACA9\uB825 20%
       \uC0C1\uC2B9"
+    itemExplain_Eng: "\uCC44\uAD11\uC18D\uB3C4 20% \uC0C1\uC2B9\n\uACF5\uACA9\uB825
+      20% \uC0C1\uC2B9"
     cost: 16000
     spawnObject: 0
     spawnShop: 0
@@ -274,14 +366,25 @@ MonoBehaviour:
     - 
     - 
     - 
+    shopItemExplain_Eng:
+    - 
+    - 
+    - 
+    - 
   - itemImg: {fileID: 3213798535129448584, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uD3ED\uD0C4"
+    itemName_Eng: 'Bomb '
     value0: 100
     value1: 5
     itemLevel: 0
     itemExplain: "\uAD11\uC0B0\uC5D0\uC11C \uAD6C\uBA4D\uC744 \uB6AB\uAE30\uC704\uD55C
-      \uD3ED\uD0C4\uC785\uB2C8\uB2E4."
+      \uD3ED\uD0C4\uC785\uB2C8\uB2E4.\n<size=30><color=#3BEAAC>                                                          
+      -\uCFE8\uD0C0\uC784 : 5 \uCD08</color></size>"
+    itemExplain_Eng: 'BOOM!
+
+      <size=30><color=#3BEAAC>                                                          
+      -Cooltime : 5 </color></size>'
     cost: 3500
     spawnObject: 1
     spawnShop: 1
@@ -291,17 +394,26 @@ MonoBehaviour:
     - "\uAD11\uC0B0\uC5D0\uC11C \uAD6C\uBA4D\uC744 \uB6AB\uAE30\uC704\uD55C"
     - "\uD3ED\uD0C4\uC785\uB2C8\uB2E4."
     - 
-    - "<color=#ff0000ff>Active</color>\n<size=30><color=#3BEAAC>                                                          
-      -\uCFE8\uD0C0\uC784 : 5 \uCD08</color></size>"
+    - <color=#ff0000ff>Active</color>
+    shopItemExplain_Eng:
+    - BOOM!
+    - 
+    - 
+    - <color=#ff0000ff>Active</color>
   - itemImg: {fileID: 5467324578614741987, guid: c59dac0c2b4d80f4aa7b58328ff973f7,
       type: 3}
     itemName: "\uB2E4\uC774\uB108\uB9C8\uC774\uD2B8"
+    itemName_Eng: 
     value0: 200
     value1: 5
     itemLevel: 1
     itemExplain: "\uAD11\uC0B0\uC5D0\uC11C \uAD6C\uBA4D\uC744 \uB6AB\uAE30\uC704\uD55C
       \uD3ED\uD0C4\uC785\uB2C8\uB2E4.\n<size=30><color=#3BEAAC>                                                          
       -\uCFE8\uD0C0\uC784 : 5 \uCD08</color></size>"
+    itemExplain_Eng: 'B O O M ! !
+
+      <size=30><color=#3BEAAC>                                                          
+      -Cooltime : 5 </color></size>'
     cost: 7000
     spawnObject: 0
     spawnShop: 1
@@ -312,12 +424,20 @@ MonoBehaviour:
     - "\uD3ED\uD0C4\uC785\uB2C8\uB2E4."
     - 
     - <color=#ff0000ff>Active</color>
+    shopItemExplain_Eng:
+    - B O O M ! !
+    - 
+    - 
+    - <color=#ff0000ff>Active</color>
   - itemImg: {fileID: 21300000, guid: 3cf36eaa5bb235e41aff47ddffa877f2, type: 3}
     itemName: "\uD3B8\uB9AC\uD55C \uAC00\uBCBC\uC6B4 \uACE1\uAD2D\uC774"
+    itemName_Eng: "\uD3B8\uB9AC\uD55C \uAC00\uBCBC\uC6B4 \uACE1\uAD2D\uC774"
     value0: 150
     value1: 0
     itemLevel: 2
     itemExplain: "\uAC00\uBCBC\uC6B4 \uACE1\uAD2D\uC774\uAC00 \uD3B8\uB9AC\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n(\uBCF4\uC870\uC2AC\uB86F\uC5D0\uC11C\uB3C4
+      \uD6A8\uACFC\uBC1C\uB3D9)"
+    itemExplain_Eng: "\uAC00\uBCBC\uC6B4 \uACE1\uAD2D\uC774\uAC00 \uD3B8\uB9AC\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n(\uBCF4\uC870\uC2AC\uB86F\uC5D0\uC11C\uB3C4
       \uD6A8\uACFC\uBC1C\uB3D9)"
     cost: 0
     spawnObject: 0
@@ -325,16 +445,24 @@ MonoBehaviour:
     spawnTreasureBox: 0
     activeItem: 0
     shopItemExplain:
+    - 
+    - 
+    - 
+    - 
+    shopItemExplain_Eng:
     - 
     - 
     - 
     - 
   - itemImg: {fileID: 21300000, guid: 84b9d2378dc2a4f41bf48df10714217e, type: 3}
     itemName: "\uD3B8\uB9AC\uD55C \uBB34\uAC70\uC6B4 \uACE1\uAD2D\uC774"
+    itemName_Eng: "\uD3B8\uB9AC\uD55C \uBB34\uAC70\uC6B4 \uACE1\uAD2D\uC774"
     value0: 150
     value1: 0
     itemLevel: 2
     itemExplain: "\uBB34\uAC70\uC6B4 \uACE1\uAD2D\uC774\uAC00 \uD3B8\uB9AC\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n(\uBCF4\uC870\uC2AC\uB86F\uC5D0\uC11C\uB3C4
+      \uD6A8\uACFC\uBC1C\uB3D9)"
+    itemExplain_Eng: "\uBB34\uAC70\uC6B4 \uACE1\uAD2D\uC774\uAC00 \uD3B8\uB9AC\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n(\uBCF4\uC870\uC2AC\uB86F\uC5D0\uC11C\uB3C4
       \uD6A8\uACFC\uBC1C\uB3D9)"
     cost: 0
     spawnObject: 0
@@ -342,16 +470,24 @@ MonoBehaviour:
     spawnTreasureBox: 0
     activeItem: 0
     shopItemExplain:
+    - 
+    - 
+    - 
+    - 
+    shopItemExplain_Eng:
     - 
     - 
     - 
     - 
   - itemImg: {fileID: 21300000, guid: 3b4c21e7744b21346a2f504b67da8f02, type: 3}
     itemName: "\uD3B8\uB9AC\uD55C \uACE0\uAE09\uACE1\uAD2D\uC774"
+    itemName_Eng: "\uD3B8\uB9AC\uD55C \uACE0\uAE09\uACE1\uAD2D\uC774"
     value0: 150
     value1: 150
     itemLevel: 3
     itemExplain: "\uACE0\uAE09 \uACE1\uAD2D\uC774\uAC00 \uD3B8\uB9AC\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n(\uBCF4\uC870\uC2AC\uB86F\uC5D0\uC11C\uB3C4
+      \uD6A8\uACFC\uBC1C\uB3D9)"
+    itemExplain_Eng: "\uACE0\uAE09 \uACE1\uAD2D\uC774\uAC00 \uD3B8\uB9AC\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n(\uBCF4\uC870\uC2AC\uB86F\uC5D0\uC11C\uB3C4
       \uD6A8\uACFC\uBC1C\uB3D9)"
     cost: 0
     spawnObject: 0
@@ -359,6 +495,11 @@ MonoBehaviour:
     spawnTreasureBox: 0
     activeItem: 0
     shopItemExplain:
+    - 
+    - 
+    - 
+    - 
+    shopItemExplain_Eng:
     - 
     - 
     - 
@@ -366,11 +507,13 @@ MonoBehaviour:
   - itemImg: {fileID: -4768684599799397655, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uAD11\uBB3C\uAC00\uBC29"
+    itemName_Eng: Comfortable bag
     value0: 0
     value1: 0
     itemLevel: 0
     itemExplain: "\uAD11\uBB3C\uC774 \uC790\uB3D9\uC73C\uB85C \uAC00\uBC29\uC73C\uB85C
       \uB4E4\uC5B4\uAC11\uB2C8\uB2E4."
+    itemExplain_Eng: Minerals automatically enter Player's bag
     cost: 3500
     spawnObject: 1
     spawnShop: 1
@@ -381,14 +524,21 @@ MonoBehaviour:
     - "\uB4E4\uC5B4\uAC11\uB2C8\uB2E4."
     - 
     - <color=#00ff00ff>Passive</color>
+    shopItemExplain_Eng:
+    - Minerals automatically
+    - ' enter Player''s bag'
+    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: -4768684599799397655, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uD3B8\uB9AC\uD55C \uAD11\uBB3C\uAC00\uBC29"
+    itemName_Eng: Comfortable bag
     value0: 0
     value1: 0
     itemLevel: 2
     itemExplain: "\uAD11\uBB3C\uAC00\uBC29\uC774 \uD3B8\uB9AC\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n(\uBA54\uC778\uC2AC\uB86F\uC5D0\uC11C\uB3C4
       \uD6A8\uACFC\uAC00\uBC1C\uB3D9\uB429\uB2C8\uB2E4.)"
+    itemExplain_Eng: Minerals automatically enter Player's bag
     cost: 0
     spawnObject: 0
     spawnShop: 0
@@ -399,14 +549,21 @@ MonoBehaviour:
     - 
     - 
     - 
+    shopItemExplain_Eng:
+    - 
+    - 
+    - 
+    - 
   - itemImg: {fileID: -1154901020958969117, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uC0C1\uC810\uD560\uC778\uCFE0\uD3F0"
+    itemName_Eng: Discount coupon
     value0: 30
     value1: 0
     itemLevel: 1
     itemExplain: "\uC0C1\uC810\uC758 \uBB3C\uAC74\uC744 30% \uC2F8\uAC8C \uAD6C\uC785\uD560
       \uC218 \uC788\uC2B5\uB2C8\uB2E4.\n(\uBB3C\uAC74\uC744 \uC0AC\uBA74 \uC18C\uBE44\uB429\uB2C8\uB2E4.)"
+    itemExplain_Eng: 30% off at the shop ( disposable )
     cost: 1000
     spawnObject: 1
     spawnShop: 1
@@ -417,14 +574,21 @@ MonoBehaviour:
     - 
     - 
     - <color=#00ff00ff>Passive</color>
+    shopItemExplain_Eng:
+    - 30% off at the shop
+    - ( disposable )
+    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: -1154901020958969117, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uC0C1\uC810\uD68C\uC6D0\uC99D"
+    itemName_Eng: Membership card
     value0: 30
     value1: 0
     itemLevel: 2
     itemExplain: "\uBCF4\uC720\uC2DC \uC0C1\uC810\uC758 \uBB3C\uAC74\uC744 30% \uC2F8\uAC8C
       \uAD6C\uC785\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    itemExplain_Eng: 30% off at the shop
     cost: 10000
     spawnObject: 0
     spawnShop: 1
@@ -435,14 +599,21 @@ MonoBehaviour:
     - "\uBB3C\uAC74\uB4E4\uC774 30% \uD560\uC778\uB428"
     - 
     - <color=#00ff00ff>Passive</color>
+    shopItemExplain_Eng:
+    - 30% off at the shop
+    - 
+    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: -1154901020958969117, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uC0C1\uC810VIP\uD68C\uC6D0\uC99D"
+    itemName_Eng: VIP card
     value0: 30
     value1: 0
     itemLevel: 3
     itemExplain: "\uC0AC\uC6A9\uD558\uBA74 \uC601\uAD6C\uC801\uC73C\uB85C \uBB3C\uAC74\uC744
       30% \uC800\uB834\uD558\uAC8C \n\uAD6C\uC785\uD560\uC218\uC788\uC2B5\uB2C8\uB2E4."
+    itemExplain_Eng: 30% off forever at the shop if you use
     cost: 0
     spawnObject: 0
     spawnShop: 0
@@ -453,14 +624,21 @@ MonoBehaviour:
     - 
     - 
     - 
+    shopItemExplain_Eng:
+    - 
+    - 
+    - 
+    - 
   - itemImg: {fileID: 5254172282774408731, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uC624\uB798\uB41C \uBCF4\uB530\uB9AC"
+    itemName_Eng: Old bundle
     value0: 500
     value1: 900
     itemLevel: 1
     itemExplain: "\uC0AC\uC6A9\uC2DC (500 ~ 900) \uC0AC\uC774\uC758 \uAE08\uD654\uB97C
       \n\uB79C\uB364\uD558\uAC8C \uC5BB\uC2B5\uB2C8\uB2E4."
+    itemExplain_Eng: Money will given randomly. ( 500 ~ 900 )
     cost: 0
     spawnObject: 1
     spawnShop: 0
@@ -471,14 +649,21 @@ MonoBehaviour:
     - 
     - 
     - 
+    shopItemExplain_Eng:
+    - 
+    - 
+    - 
+    - 
   - itemImg: {fileID: -2508396360270527412, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uB79C\uB364 \uB2E4\uC774\uC2A4"
+    itemName_Eng: Random dice
     value0: 50
     value1: 300
     itemLevel: 1
     itemExplain: "\uC0AC\uC6A9\uD560\uB54C\uB9C8\uB2E4 \uC0C1\uC810 \uC544\uC774\uD15C\uC758
       \uAC00\uACA9\uC774 \uBB34\uC791\uC704\uB85C \uBCC0\uD569\uB2C8\uB2E4."
+    itemExplain_Eng: Shop product prices change randomly
     cost: 0
     spawnObject: 0
     spawnShop: 0
@@ -489,13 +674,20 @@ MonoBehaviour:
     - 
     - 
     - 
+    shopItemExplain_Eng:
+    - 
+    - 
+    - 
+    - 
   - itemImg: {fileID: 743105807723266493, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uBCF4\uBB3C\uD0D0\uC9C0\uAE30"
+    itemName_Eng: Treasure detector
     value0: 0
     value1: 0
     itemLevel: 2
     itemExplain: "\uBCF4\uBB3C\uC758 \uC704\uCE58\uAC00 \uB098\uD0C0\uB0A9\uB2C8\uB2E4!!"
+    itemExplain_Eng: You can know the location of the Treasure
     cost: 7500
     spawnObject: 0
     spawnShop: 1
@@ -506,13 +698,20 @@ MonoBehaviour:
     - 
     - 
     - <color=#00ff00ff>Passive</color>
+    shopItemExplain_Eng:
+    - You can know the location
+    - ' of the Treasure'
+    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: -59980677053996228, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uD568\uC815\uD0D0\uC9C0\uAE30"
+    itemName_Eng: Trap detector
     value0: 0
     value1: 0
     itemLevel: 0
     itemExplain: "\uD568\uC815\uC758 \uC704\uCE58\uAC00 \uD45C\uC2DC\uB429\uB2C8\uB2E4."
+    itemExplain_Eng: You can know the location of the trap
     cost: 2500
     spawnObject: 1
     spawnShop: 1
@@ -523,14 +722,22 @@ MonoBehaviour:
     - 
     - 
     - <color=#00ff00ff>Passive</color>
+    shopItemExplain_Eng:
+    - You can know the location
+    - ' of the trap'
+    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: 3700716698973616315, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uBB34\uC9C0\uAC1C \uBCF4\uB530\uB9AC"
+    itemName_Eng: Rainbow bundle
     value0: 0
     value1: 0
     itemLevel: 2
     itemExplain: "\uC0C1\uC810\uC5D0 \uB4F1\uC7A5\uD558\uB294 \uBB34\uC791\uC704
       \uC544\uC774\uD15C\uC774 \uB4E4\uC5B4\uC788\uC2B5\uB2C8\uB2E4."
+    itemExplain_Eng: "Shop product will given randomly\r\nI don't know either what
+      will given\r"
     cost: 5000
     spawnObject: 0
     spawnShop: 1
@@ -541,13 +748,20 @@ MonoBehaviour:
     - 
     - 
     - <color=#ff0000ff>Active</color>
+    shopItemExplain_Eng:
+    - I don't know either what will given.
+    - 
+    - 
+    - <color=#ff0000ff>Active</color>
   - itemImg: {fileID: 21300000, guid: 12e37735202c44644bcf58d32d675b82, type: 3}
     itemName: "\uC4F0\uB808\uAE30"
+    itemName_Eng: 'Garbage '
     value0: 0
     value1: 0
     itemLevel: 0
     itemExplain: "\uADF8\uB0E5 \uC4F0\uB808\uAE30. <color=#ff0000>F </color>\uD0A4\uB85C
       \uBC84\uB9AC\uC790"
+    itemExplain_Eng: Ugh, Throw it away with press <color=#ff0000>F </color>key
     cost: 0
     spawnObject: 0
     spawnShop: 0
@@ -558,20 +772,35 @@ MonoBehaviour:
     - 
     - 
     - 
+    shopItemExplain_Eng:
+    - 
+    - 
+    - 
+    - 
   - itemImg: {fileID: 21300000, guid: 4619287047caac246ace94542ce2c537, type: 3}
     itemName: "\uB300\uC7A5\uC7A5\uC774\uB9DD\uCE58"
+    itemName_Eng: Hammer
     value0: 100
     value1: 50
     itemLevel: 1
     itemExplain: "\uACF5\uACA9\uB825\uC774 100% \uC99D\uAC00\uD558\uACE0\n\uCC44\uAD11\uC18D\uB3C4\uAC00
       50% \uAC10\uC18C\uD569\uB2C8\uB2E4.\n<size=30><color=#3BEAAC>         -\uB300\uC7A5\uC7A5\uC774\uC758
       \uC2E0\uC774 \uC88B\uC544\uD569\uB2C8\uB2E4.</color></size>"
+    itemExplain_Eng: 'Damage increased by 100% and decreases speed by 50%
+
+      <size=30><color=#3BEAAC>        
+      -A god of blacksmith bless you.</color></size>'
     cost: 0
     spawnObject: 1
     spawnShop: 0
     spawnTreasureBox: 0
     activeItem: 0
     shopItemExplain:
+    - 
+    - 
+    - 
+    - 
+    shopItemExplain_Eng:
     - 
     - 
     - 

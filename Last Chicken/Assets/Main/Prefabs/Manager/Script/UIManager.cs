@@ -751,14 +751,20 @@ public class UIManager : MonoBehaviour
                     smithyNo.SetActive(false);
                     smithyYes.SetActive(false);
                     smithyOk.SetActive(true);
-                    smithyText.text = "더 이상 곡괭이를 강화할 수 없어 보인다.";
+                    if(GameManager.instance.playData.language == PlayData.Language.한국어)
+                        smithyText.text = "더 이상 곡괭이를 강화할 수 없어 보인다.";
+                    else if (GameManager.instance.playData.language == PlayData.Language.English)
+                        smithyText.text = "It seems that the pickaxe can no longer be reinforced.";
                 }
                 else if (ItemManager.instance.HasItemCheck("Hammer"))
                 {
                     smithyNo.SetActive(true);
                     smithyYes.SetActive(true);
                     smithyOk.SetActive(false);
-                    smithyText.text = "대장장이의 신께 망치를 바치면 곡괭이가 더 강해질 것 같다.\n망치를 바칠까?";
+                    if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                        smithyText.text = "대장장이의 신께 망치를 바치면 곡괭이가 더 강해질 것 같다.\n망치를 바칠까?";
+                    else if (GameManager.instance.playData.language == PlayData.Language.English)
+                        smithyText.text = "The pickaxe is likely to be stronger if a hammer is offered to the blacksmith's god.";
                 }
                 else
                 {
@@ -767,17 +773,40 @@ public class UIManager : MonoBehaviour
                     smithyOk.SetActive(false);
                     if (Player.instance.pickLevel >= 4)
                         return;
-                    smithyText.text = "대장장이의 신께 <color=#FFD600>" + Smithy.reinforceCost[Player.instance.pickLevel] + "</color> 만큼의 제물을 바치면 곡괭이가 더 강해질 것 같다.\n제물을 바칠까?";
+                    if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                        smithyText.text = "대장장이의 신께 <color=#FFD600>" + Smithy.reinforceCost[Player.instance.pickLevel] + "</color> 만큼의 제물을 바치면 곡괭이가 더 강해질 것 같다.\n제물을 바칠까?";
+                    else if (GameManager.instance.playData.language == PlayData.Language.English)
+                        smithyText.text = "A sacrifice of as much as <color=#FFD600>" + Smithy.reinforceCost[Player.instance.pickLevel] + "</color> to the smith's god is likely to make the pickaxe stronger.";
                 }
 
                 if(Player.instance.pickLevel == 0)
-                    smithyText.text += "\n<color=#886688ff><size=40>곡괭이가 좀 더 튼튼해집니다.(공격력 상승)</size></color>";
+                {
+                    if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                        smithyText.text += "\n<color=#886688ff><size=40>곡괭이가 좀 더 튼튼해집니다.(공격력 상승)</size></color>";
+                    else if (GameManager.instance.playData.language == PlayData.Language.English)
+                        smithyText.text += "\n<color=#886688ff><size=40>Pickaxes become stronger. (Attack increased)</size></color>";
+                }
                 else if (Player.instance.pickLevel == 1)
-                    smithyText.text += "\n<color=#446688ff><size=40>곡괭이의 손잡이를 다듬습니다.(공격속도 상승)</size></color>";
+                {
+                    if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                        smithyText.text += "\n<color=#446688ff><size=40>곡괭이의 손잡이를 다듬습니다.(공격속도 상승)</size></color>";
+                    else if (GameManager.instance.playData.language == PlayData.Language.English)
+                        smithyText.text += "\n<color=#446688ff><size=40>Trim the handle of the pickaxe (increase attack speed).</size></color>";
+                }
                 else if (Player.instance.pickLevel == 2)
-                    smithyText.text += "\n<color=#446644ff><size=40>곡괭이의 전체적인 밸런스를 조절합니다.(공격력 상승, 공격속도 상승)</size></color>";
+                {
+                    if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                        smithyText.text += "\n<color=#446644ff><size=40>곡괭이의 전체적인 밸런스를 조절합니다.(공격력 상승, 공격속도 상승)</size></color>";
+                    else if (GameManager.instance.playData.language == PlayData.Language.English)
+                        smithyText.text += "\n<color=#446644ff><size=40>Adjust the overall balance of the pickaxe (increase attack force, increase attack speed)</size></color>";
+                }
                 else if (Player.instance.pickLevel == 3)
-                    smithyText.text += "\n<color=#886600ff><size=40>곡괭이의 전체적인 질을 올립니다.(공격력 상승, 공격속도 상승)</size></color>";
+                {
+                    if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                        smithyText.text += "\n<color=#886600ff><size=40>곡괭이의 전체적인 질을 올립니다.(공격력 상승, 공격속도 상승)</size></color>";
+                    else if (GameManager.instance.playData.language == PlayData.Language.English)
+                        smithyText.text += "\n<color=#886600ff><size=40>Increases the overall quality of the pickaxe.(Increases attack force, increases attack speed.)</size></color>";
+                }
             }
             #endregion
 
@@ -1218,7 +1247,11 @@ public class UIManager : MonoBehaviour
     #region[플레이어 아이템 설명표시]
     public void ExplainPlayerItem(string name)
     {
-        string temp = "<" + ItemManager.instance.itemData[ItemManager.FindData(name)].itemName + ">\n" + ItemManager.instance.itemData[ItemManager.FindData(name)].itemExplain;
+        string temp = "";
+        if (GameManager.instance.playData.language == PlayData.Language.한국어)
+            temp = "<" + ItemManager.instance.itemData[ItemManager.FindData(name)].itemName + ">\n" + ItemManager.instance.itemData[ItemManager.FindData(name)].itemExplain;
+        else if (GameManager.instance.playData.language == PlayData.Language.English)
+            temp = "<" + ItemManager.instance.itemData[ItemManager.FindData(name)].itemName_Eng + ">\n" + ItemManager.instance.itemData[ItemManager.FindData(name)].itemExplain_Eng;
         //if (name.Equals("RandomDice"))
         //{
         //    int value = GameManager.instance.playData.randomDice;

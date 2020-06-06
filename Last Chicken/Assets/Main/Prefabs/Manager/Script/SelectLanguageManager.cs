@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class SelectLanguageManager : MonoBehaviour
 {
     bool flag = false;
-    public void Start()
+    public void Awake()
     {
         if(GameManager.instance.playData.firstGame == false)
             SceneManager.LoadScene("Prologue");

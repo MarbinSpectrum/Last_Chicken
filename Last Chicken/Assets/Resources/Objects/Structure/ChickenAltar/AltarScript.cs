@@ -15,6 +15,8 @@ public class AltarScript : AreaScript
     Animator altarAnimator;
     GameObject uiMouse;
 
+    public List<GameObject> languageData = new List<GameObject>();
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -39,6 +41,11 @@ public class AltarScript : AreaScript
     public override void Update()
     {
         base.Update();
+
+        for (int i = 0; i < languageData.Count; i++)
+            if (languageData[i])
+                languageData[i].SetActive(languageData[i].transform.name.Contains(GameManager.instance.playData.language.ToString()));
+
         onArea = IsAtPlayer(bodyCollider);
         int outWidth = GroundManager.instance.altarRect.GetLength(0);
         int outHeight = Mathf.FloorToInt(GroundManager.instance.altarRect.GetLength(1) * 0.7f);

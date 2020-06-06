@@ -1,6 +1,7 @@
 ﻿using Custom;
 using TerrainEngine2D;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class FountainScript : AreaScript
 {
@@ -12,6 +13,8 @@ public class FountainScript : AreaScript
     [System.NonSerialized] public bool onArea;
     Animator fountainAnimator;
     GameObject uiMouse;
+
+    public List<GameObject> languageData = new List<GameObject>();
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,6 +39,11 @@ public class FountainScript : AreaScript
     public override void Update()
     {
         base.Update();
+
+        for (int i = 0; i < languageData.Count; i++)
+            if (languageData[i])
+                languageData[i].SetActive(languageData[i].transform.name.Contains(GameManager.instance.playData.language.ToString()));
+
         onArea = IsAtPlayer(bodyCollider);
         int outWidth = GroundManager.instance.altarRect.GetLength(0);
         int outHeight = Mathf.FloorToInt(GroundManager.instance.altarRect.GetLength(1) * 0.7f);

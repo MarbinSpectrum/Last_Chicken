@@ -17,6 +17,8 @@ public class ShopScript : AreaScript
     [System.NonSerialized] public int randomDice;
     GameObject uiMouse;
 
+    public List<GameObject> languageData = new List<GameObject>();
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -34,6 +36,9 @@ public class ShopScript : AreaScript
     #region[Update]
     public override void Update()
     {
+        for (int i = 0; i < languageData.Count; i++)
+            if (languageData[i])
+                languageData[i].SetActive(languageData[i].transform.name.Contains(GameManager.instance.playData.language.ToString()));
         onArea = IsAtPlayer(bodyCollider);
         UseArea();
         UpdateShopData();
@@ -83,19 +88,32 @@ public class ShopScript : AreaScript
         for (int i = 0; i < 3; i++)
         {
             UIManager.instance.shopItemCost[i].text = GetItemValue(ItemManager.itemName[itmeList[i]]) + "$";
-            UIManager.instance.shopItemName[i].text = ItemManager.instance.itemData[itmeList[i]].itemName;
+            if(GameManager.instance.playData.language == PlayData.Language.한국어)
+                UIManager.instance.shopItemName[i].text = ItemManager.instance.itemData[itmeList[i]].itemName;
+            else if (GameManager.instance.playData.language == PlayData.Language.English)
+                UIManager.instance.shopItemName[i].text = ItemManager.instance.itemData[itmeList[i]].itemName_Eng;
             UIManager.instance.shopItemImg[i].sprite = ItemManager.instance.itemData[itmeList[i]].itemImg;
             if (itmeBuyList[i])
             {
                 UIManager.instance.shopItemImg[i].color = Color.black;
                 for (int k = 0; k < 4; k++)
                     UIManager.instance.shopItemExplan[i, k].text = "";
-                UIManager.instance.shopItemExplan[i, 1].text = "[매진]";
+
+                if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                    UIManager.instance.shopItemExplan[i, 1].text = "[매진]";
+                else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    UIManager.instance.shopItemExplan[i, 1].text = "[Sold Out]";
             }
             else
             {
+
                 for(int k = 0; k < 4; k++)
-                    UIManager.instance.shopItemExplan[i,k].text = ItemManager.instance.itemData[itmeList[i]].shopItemExplain[k];
+                {
+                    if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                        UIManager.instance.shopItemExplan[i, k].text = ItemManager.instance.itemData[itmeList[i]].shopItemExplain[k];
+                    else if (GameManager.instance.playData.language == PlayData.Language.English)
+                        UIManager.instance.shopItemExplan[i, k].text = ItemManager.instance.itemData[itmeList[i]].shopItemExplain_Eng[k];
+                }
                 UIManager.instance.shopItemImg[i].color = Color.white;
             }
         }
