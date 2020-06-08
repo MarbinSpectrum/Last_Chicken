@@ -98,6 +98,8 @@ public class StageData : TerrainGenerator
             groundlist.Add(p.ToString());
         groundString = groundlist.ToArray();
         #endregion
+
+
     }
     #endregion
 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    protected List<GameObject> objectPool = new List<GameObject>();
+    [HideInInspector] public List<GameObject> objectPool = new List<GameObject>();
 
     #region[오브풀링에 오브젝트 추가]
     public void AddObject(GameObject emp, string name)

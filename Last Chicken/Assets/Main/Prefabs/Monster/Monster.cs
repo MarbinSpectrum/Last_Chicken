@@ -45,7 +45,7 @@ public abstract class Monster : CustomCollider
     private float stunTime= 0.5f;   //경직시간
     private float isStunTime;
 
-    private float gravity = 8;
+    protected float gravity = 8;
 
 
     protected Vector2 knockback = new Vector2(750, 2000);   //넉백수치
@@ -119,7 +119,7 @@ public abstract class Monster : CustomCollider
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     #region[지상판정]
-    void GroundedCheck()
+    public virtual void GroundedCheck()
     {
         if (monsterType == MonsterType.Fly || monsterType == MonsterType.Dig)
         {
@@ -145,7 +145,7 @@ public abstract class Monster : CustomCollider
     #endregion
 
     #region[데미지]
-    public void Damage(int n)
+    public virtual void Damage(int n)
     {
         damage = true;
         isStunTime = stunTime;

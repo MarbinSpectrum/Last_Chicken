@@ -13,7 +13,7 @@ namespace TerrainEngine2D
         //Permanent: Will permanently follow the object until Follow Object is disabled
         //Focus: Will follow an object until the user uses Horizontal/Veritcal movement or right clicks
         public enum Followtype { None, Permanent, Focus }
-
+        public bool edgeCheck;
         private World world;
         private Camera mainCamera;
         private Camera lightingCamera;
@@ -88,6 +88,7 @@ namespace TerrainEngine2D
         {
             base.Awake();
             time = 0;
+            edgeCheck = true;
         }
 
         private void Start()
@@ -186,15 +187,24 @@ namespace TerrainEngine2D
                     minY = mainCamera.orthographicSize;
                     maxY = world.WorldHeight - mainCamera.orthographicSize;
 
-                    newPosition = new Vector3(objectToFollow.position.x + objectCameraOffset.x, objectToFollow.position.y + objectCameraOffset.y, newPosition.z);
+                    if (!edgeCheck)
+                    {
+                        minX = -20000;
+                        maxX = 20000;
+                        minY = -20000;
+                        maxY = 20000;
+
+                    }
+                        newPosition = new Vector3(objectToFollow.position.x + objectCameraOffset.x, objectToFollow.position.y + objectCameraOffset.y, newPosition.z);
 
                     newPosition = Vector3.Lerp(transform.position, newPosition, movementSpeed * Time.unscaledDeltaTime);
-                    //Ensure camera doesn't move outside the set boundaries
-                    newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
-                    newPosition.y = Mathf.Clamp(newPosition.y, minY, maxY);
-                    transform.position = newPosition;
 
-                    return;
+                        //Ensure camera doesn't move outside the set boundaries
+                        newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
+                        newPosition.y = Mathf.Clamp(newPosition.y, minY, maxY);
+                        transform.position = newPosition;
+
+                        return;
                 case Followtype.Focus:
                     if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
                         followType = Followtype.None;

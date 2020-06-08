@@ -6,7 +6,8 @@ using TerrainEngine2D;
 public class CustomFluidChunk : FluidChunk
 {
     public bool surface;
-
+    public static bool fluidAct = true;
+    public MeshRenderer meshRenderer;
     public override void Awake()
     {
         base.Awake();
@@ -20,6 +21,7 @@ public class CustomFluidChunk : FluidChunk
     public override void LateUpdate()
     {
         base.LateUpdate();
+        meshRenderer.enabled = fluidAct;
     }
 
     public override void BuildChunk()

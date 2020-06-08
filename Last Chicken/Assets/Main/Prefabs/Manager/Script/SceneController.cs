@@ -75,7 +75,22 @@ public class SceneController : MonoBehaviour
             ObjectManager.instance.PoolOff();
             MonsterManager.instance.PoolOff();
             ItemManager.instance.PoolOff();
+            CaveManager.instance.PoolOff();
         }
+        World world = World.Instance;
+        if(world)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                Color layerColor = world.GetBlockLayer(i).Material.color;
+                world.GetBlockLayer(i).Material.color = new Color(layerColor.r, layerColor.g, layerColor.b, 1);
+            }
+        }
+        CaveManager.inCave = false;
+        ItemManager.instance.fieldObject.Clear();
+        ItemManager.instance.caveObject.Clear();
+        CustomFluidChunk.fluidAct = true;
+        Chunk.actChunk = true;
 
         GameSceneSet(false);
 

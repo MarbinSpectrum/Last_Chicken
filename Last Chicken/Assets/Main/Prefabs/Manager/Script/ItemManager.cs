@@ -211,6 +211,9 @@ public class ItemManager : ObjectPool
 
     public List<int> ReSpawnItemList = new List<int>();
 
+    [HideInInspector] public List<GameObject> fieldObject = new List<GameObject>();
+    [HideInInspector] public List<GameObject> caveObject = new List<GameObject>();
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -280,6 +283,11 @@ public class ItemManager : ObjectPool
         emp.SetActive(true);
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
+        if (CaveManager.inCave)
+            caveObject.Add(emp);
+        else
+            fieldObject.Add(emp);
+
     }
     #endregion
 
@@ -456,6 +464,18 @@ public class ItemManager : ObjectPool
             }
     }
     #endregion
+
+    public void FieldObjectAct(bool act)
+    {
+        for (int i = 0; i < fieldObject.Count; i++)
+            fieldObject[i].SetActive(act);
+    }
+
+    public void CaveObjectAct(bool act)
+    {
+        for (int i = 0; i < caveObject.Count; i++)
+            caveObject[i].SetActive(act);
+    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

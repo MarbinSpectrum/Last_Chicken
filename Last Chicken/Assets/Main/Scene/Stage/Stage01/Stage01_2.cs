@@ -178,9 +178,10 @@ public class Stage01_2 : StageData
     {
         //설치 가능한 지점을 설정
         maxRect = new int[world.WorldWidth, world.WorldHeight];
-        for (int i = 0; i < world.WorldWidth; i++)
-            for (int j = 0; j < world.WorldHeight; j++)
-                maxRect[i, j] = 1;
+        for (int i = 30; i < world.WorldWidth - 30; i++)
+            for (int j = 60; j < world.WorldHeight - 60; j++)
+                if (groundData[i, j] == GroundLayer.Dirt)
+                    maxRect[i, j] = 1;
 
         //삭제된 지점은 설치 불가능
         for (int i = 0; i < deleteArea.Count; i++)
@@ -196,32 +197,42 @@ public class Stage01_2 : StageData
                     if (Exception.IndexOutRange(x, y, groundData))
                         maxRect[x, y] = 0;
 
-
-        //제단에는 설치 불가능
-        for (int i = 0; i < altarRect.width; i++)
-            for (int j = 0; j < altarRect.height; j++)
-                if (Exception.IndexOutRange(altarRect.x + i, altarRect.y - altarRect.height + j, maxRect))
-                    maxRect[altarRect.x + i, altarRect.y - altarRect.height + j] = 0;
-        if (altarRect.width > 0)
+        //cave 지점은 설치 불가능
+        for (int i = 0; i < CaveManager.instance.objectPool.Count; i++)
         {
-            for (int i = 0; i < world.WorldWidth; i++)
-                for (int j = 0; j < world.WorldHeight; j++)
-                    if (Vector2.Distance(new Vector2(i, j), new Vector2(altarRect.x + altarRect.width / 2f, altarRect.y - altarRect.height / 2f)) < 50)
-                        maxRect[i, j] = 0;
+            Vector3 pos = new Vector3(CaveManager.instance.objectPool[i].transform.position.x, CaveManager.instance.objectPool[i].transform.position.y, 60);
+            for (int x = (int)pos.x - (int)pos.z; x < pos.x + pos.z; x++)
+                for (int y = (int)pos.y - (int)pos.z; y < (int)pos.y + (int)pos.z; y++)
+                    if (Exception.IndexOutRange(x, y, maxRect))
+                        maxRect[x, y] = 0;
         }
 
-        //분수에는 설치 불가능
-        for (int i = 0; i < fountainRect.width; i++)
-            for (int j = 0; j < fountainRect.height; j++)
-                if (Exception.IndexOutRange(fountainRect.x + i, fountainRect.y - fountainRect.height + j, maxRect))
-                    maxRect[fountainRect.x + i, fountainRect.y - fountainRect.height + j] = 0;
-        if (fountainRect.width > 0)
-        {
-            for (int i = 0; i < world.WorldWidth; i++)
-                for (int j = 0; j < world.WorldHeight; j++)
-                    if (Vector2.Distance(new Vector2(i, j), new Vector2(fountainRect.x + fountainRect.width / 2f, fountainRect.y - fountainRect.height / 2f)) < 50)
-                        maxRect[i, j] = 0;
-        }
+
+        ////제단에는 설치 불가능
+        //for (int i = 0; i < altarRect.width; i++)
+        //    for (int j = 0; j < altarRect.height; j++)
+        //        if (Exception.IndexOutRange(altarRect.x + i, altarRect.y - altarRect.height + j, maxRect))
+        //            maxRect[altarRect.x + i, altarRect.y - altarRect.height + j] = 0;
+        //if (altarRect.width > 0)
+        //{
+        //    for (int i = 0; i < world.WorldWidth; i++)
+        //        for (int j = 0; j < world.WorldHeight; j++)
+        //            if (Vector2.Distance(new Vector2(i, j), new Vector2(altarRect.x + altarRect.width / 2f, altarRect.y - altarRect.height / 2f)) < 50)
+        //                maxRect[i, j] = 0;
+        //}
+
+        ////분수에는 설치 불가능
+        //for (int i = 0; i < fountainRect.width; i++)
+        //    for (int j = 0; j < fountainRect.height; j++)
+        //        if (Exception.IndexOutRange(fountainRect.x + i, fountainRect.y - fountainRect.height + j, maxRect))
+        //            maxRect[fountainRect.x + i, fountainRect.y - fountainRect.height + j] = 0;
+        //if (fountainRect.width > 0)
+        //{
+        //    for (int i = 0; i < world.WorldWidth; i++)
+        //        for (int j = 0; j < world.WorldHeight; j++)
+        //            if (Vector2.Distance(new Vector2(i, j), new Vector2(fountainRect.x + fountainRect.width / 2f, fountainRect.y - fountainRect.height / 2f)) < 50)
+        //                maxRect[i, j] = 0;
+        //}
 
 
         //해당 위치에서 만들수있는 가장 큰 정사각형을 구해줌
@@ -488,6 +499,8 @@ public class Stage01_2 : StageData
         }
         #endregion
 
+        SetCave();
+
         ObjectManager.instance.Sign(new Vector2(66 + (outlineflipX ? 0 : -52), 26), false);
         ObjectManager.instance.Sign(new Vector2(82 + (outlineflipX ? 0 : -52), 26), true);
 
@@ -597,6 +610,74 @@ public class Stage01_2 : StageData
                     }
                 }
             }
+    }
+    #endregion
+
+    #region[동굴생성]
+    public void SetCave()
+    {
+        List<Vector2Int> v = new List<Vector2Int>();
+        Vector2 cavePos;
+
+        CheckArea();
+        v.Clear();
+        for (int i = 0; i < world.WorldWidth; i++)
+            for (int j = 0; j < world.WorldHeight; j++)
+                if (CanAddArea(i, j, 4, 5))
+                    v.Add(new Vector2Int(i, j - 2));
+
+        if (v.Count > 0 && Random.Range(0, 100) > 50)
+        {
+            cavePos = v[Random.Range(0, v.Count)];
+            CaveManager.instance.ShopCave(cavePos, cavePos.x < world.WorldWidth / 2 ? 0 : 1);
+
+            if (Random.Range(0, 100) > 50)
+                for (int i = (int)(cavePos.x - 3); i < (int)(cavePos.x + 3); i++)
+                    for (int j = (int)(cavePos.y - 2); j < (int)(cavePos.y + 2); j++)
+                        if (Exception.IndexOutRange(i, j, groundData))
+                            groundData[i, j] = (GroundLayer)(-1);
+
+        }
+
+        CheckArea();
+        v.Clear();
+        v = new List<Vector2Int>();
+        for (int i = 0; i < world.WorldWidth; i++)
+            for (int j = 0; j < world.WorldHeight; j++)
+                if (CanAddArea(i, j, 4, 5))
+                    v.Add(new Vector2Int(i, j - 2));
+
+        if (v.Count > 0 && Random.Range(0, 100) > 50)
+        {
+            cavePos = v[Random.Range(0, v.Count)];
+            CaveManager.instance.FountainCave(cavePos, cavePos.x < world.WorldWidth / 2 ? 0 : 1);
+
+            if (Random.Range(0, 100) > 50)
+                for (int i = (int)(cavePos.x - 3); i < (int)(cavePos.x + 3); i++)
+                    for (int j = (int)(cavePos.y - 2); j < (int)(cavePos.y + 2); j++)
+                        if (Exception.IndexOutRange(i, j, groundData))
+                            groundData[i, j] = (GroundLayer)(-1);
+        }
+
+        CheckArea();
+        v.Clear();
+        v = new List<Vector2Int>();
+        for (int i = 0; i < world.WorldWidth; i++)
+            for (int j = 0; j < world.WorldHeight; j++)
+                if (CanAddArea(i, j, 4, 5))
+                    v.Add(new Vector2Int(i, j - 2));
+
+        if (v.Count > 0 && Random.Range(0, 100) > 50)
+        {
+            cavePos = v[Random.Range(0, v.Count)];
+            CaveManager.instance.SmithyCave(cavePos, cavePos.x < world.WorldWidth / 2 ? 0 : 1);
+
+            if (Random.Range(0, 100) > 50)
+                for (int i = (int)(cavePos.x - 3); i < (int)(cavePos.x + 3); i++)
+                    for (int j = (int)(cavePos.y - 2); j < (int)(cavePos.y + 2); j++)
+                        if (Exception.IndexOutRange(i, j, groundData))
+                            groundData[i, j] = (GroundLayer)(-1);
+        }
     }
     #endregion
 

@@ -92,7 +92,7 @@ public class Player : CustomCollider
     [System.NonSerialized] public float groundFallTime = 0;
     bool hasFeatherShoes;
     [System.NonSerialized] public bool notFallDamage = false;
-    bool grounded;
+    [System.NonSerialized] public bool grounded;
     float groundedTime = 0;
     [System.NonSerialized] public bool inFluid;
     bool[] effectFluid = new bool[5];
@@ -916,7 +916,7 @@ public class Player : CustomCollider
     #region[플레이어 데미지 처리]
     public void PlayerDamage(float n, int dic = 1) // n : 데미지 값  // dic : 날아가는 방향 (1 : 오른쪽 , -1 : 왼쪽)
     {
-        //데미지를 받은 중에는 데미지를 다시 못 받게 처리
+        //무적처리
         if (invincibility)
             return;
 

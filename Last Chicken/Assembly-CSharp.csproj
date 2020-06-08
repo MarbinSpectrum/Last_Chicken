@@ -118,6 +118,7 @@
     <Compile Include="Assets\Main\Prefabs\Chicken\Animation\Head\ChickenHead.cs" />
     <Compile Include="Assets\Main\Prefabs\Chicken\Chicken.cs" />
     <Compile Include="Assets\Main\Prefabs\Manager\Script\BuffManager.cs" />
+    <Compile Include="Assets\Main\Prefabs\Manager\Script\CaveManager.cs" />
     <Compile Include="Assets\Main\Prefabs\Manager\Script\CheatUI.cs" />
     <Compile Include="Assets\Main\Prefabs\Manager\Script\EffectManager.cs" />
     <Compile Include="Assets\Main\Prefabs\Manager\Script\GameManager.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="Assets\Main\Prefabs\Player\Animation\Jump\LandingCheck.cs" />
     <Compile Include="Assets\Main\Prefabs\Player\Animation\Run\RuningCheck.cs" />
     <Compile Include="Assets\Main\Prefabs\Player\Player.cs" />
+    <Compile Include="Assets\Main\Scene\Demo.cs" />
     <Compile Include="Assets\Main\Scene\Stage\Stage01\AltarMap01.cs" />
     <Compile Include="Assets\Main\Scene\Stage\Stage01\EventMap.cs" />
     <Compile Include="Assets\Main\Scene\Stage\Stage01\FountainMap01.cs" />
@@ -187,6 +189,7 @@
     <Compile Include="Assets\Resources\Objects\Structure\ChickenAltar\AltarScript.cs" />
     <Compile Include="Assets\Resources\Objects\Structure\ChickenFountain\FountainScript.cs" />
     <Compile Include="Assets\Resources\Objects\Structure\Igloo\IglooObject.cs" />
+    <Compile Include="Assets\Resources\Objects\Structure\ObjectCave.cs" />
     <Compile Include="Assets\Resources\Objects\Structure\Shop\ShopScript.cs" />
     <Compile Include="Assets\Resources\Objects\Structure\Smithy\Smithy.cs" />
     <Compile Include="Assets\Resources\Objects\Structure\StructureObject.cs" />

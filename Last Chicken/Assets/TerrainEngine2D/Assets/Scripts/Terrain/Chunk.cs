@@ -11,6 +11,9 @@ namespace TerrainEngine2D
     /// </summary>
     public class Chunk : MonoBehaviour
     {
+        public static bool actChunk;
+        PolygonCollider2D collider2D;
+
         //Reference to the world
         private World world;
         [SerializeField]
@@ -71,7 +74,7 @@ namespace TerrainEngine2D
         {
             colliderGenerator = GetComponent<ColliderGenerator>();
             meshRenderer = GetComponent<MeshRenderer>();
-
+            collider2D = GetComponent<PolygonCollider2D>();
             gameObject.layer = LayerMask.NameToLayer("Terrain");
         }
 
@@ -127,6 +130,7 @@ namespace TerrainEngine2D
                 BuildChunk();
                 update = false;
             }
+            collider2D.enabled = actChunk;
         }
 
         private void FixedUpdate()

@@ -144,6 +144,24 @@ public class AltarScript : AreaScript
             PlayerIn(false);
         }
     }
+
+    public override void PlayerIn(bool b)
+    {
+        if (act)
+            return;
+        if (b)
+        {
+            SoundManager.instance.Altar(true);
+            StageBackGround.instance.FadeOut();
+            areaLight.SetActive(true);
+        }
+        else
+        {
+            SoundManager.instance.StopBGM_Sound(true);
+            StageBackGround.instance.Fadein();
+            areaLight.SetActive(false);
+        }
+    }
     #endregion
 
     #region[제단의 버프 설정]
