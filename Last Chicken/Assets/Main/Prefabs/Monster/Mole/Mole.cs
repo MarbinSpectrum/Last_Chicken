@@ -9,11 +9,13 @@ public class Mole : Monster
 
     float isPatrolTime = 3;
     float digGroundTime = 0;
+    float digSoundTime = 0;
 
     MoveDic patrolDic = 0;
     public enum MoveDic { 오른쪽, 왼쪽, 위, 아래, 오른쪽_위, 오른쪽_아래, 왼쪽_위, 왼쪽_아래,정지 };
     bool digFlag = false;
     int digC = 0;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     #region[Awake]
@@ -92,6 +94,9 @@ public class Mole : Monster
         #region[상태변환]
         if (monsterType == MonsterType.Dig && StageData.instance.GetBlock(nowPos.x, nowPos.y) == (StageData.GroundLayer)(-1))
         {
+            if(Vector2.Distance(nowPos, Player.instance.transform.position) < 8)
+                SoundManager.instance.AttackDirt();
+            EffectManager.instance.DigGround(nowPos + new Vector2Int(0,2), StageData.GroundLayer.Dirt);
             monsterType = MonsterType.Ground;
             boxCollider2D.isTrigger = false;
             digFlag = false;
@@ -145,13 +150,25 @@ public class Mole : Monster
                 digGroundTime = 0;
                 transform.position += new Vector3(0, -0.1f, 0);
                 if (digC > 25)
+                {
+                    EffectManager.instance.DigGround(nowPos + new Vector2Int(0, 2), StageData.GroundLayer.Dirt);
                     monsterType = MonsterType.Dig;
+                }
             }
         }
         #endregion
 
         if (monsterType == MonsterType.Dig)
         {
+            digSoundTime += Time.deltaTime;
+            if (Vector2.Distance(nowPos, Player.instance.transform.position) < 8)
+                if(digSoundTime > 1)
+                {
+                    SoundManager.instance.AttackDirt();
+                    digSoundTime = 0;
+                }
+
+
             if (Vector2.Distance(nowPos, Player.instance.transform.position) < AstarRange && AreaList != null)
             {
                 float speedValue = (AstarRange - Vector2.Distance(nowPos, Player.instance.transform.position)) / AstarRange;

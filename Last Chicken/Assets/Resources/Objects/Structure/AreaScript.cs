@@ -19,6 +19,7 @@ public abstract class AreaScript : CustomCollider
     [System.NonSerialized] public RectInt outRect;
 
     [System.NonSerialized] public bool used;
+    [System.NonSerialized] public bool usedEnd;
     [System.NonSerialized] public BoxCollider2D bodyCollider;
     [System.NonSerialized] protected bool act = false;
 
@@ -79,6 +80,11 @@ public abstract class AreaScript : CustomCollider
         Effect(onPlayer);
     }
     #endregion
+
+    public virtual void Init()
+    {
+        
+    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

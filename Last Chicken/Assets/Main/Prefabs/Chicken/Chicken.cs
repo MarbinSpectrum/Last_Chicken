@@ -28,6 +28,8 @@ public class Chicken : CustomCollider
     public enum Pattern { 왼쪽으로, 왼쪽점프, 대기, 제자리점프, 오른쪽으로, 오른쪽점프 };
     public Pattern pattenType = Pattern.대기;
     [System.NonSerialized] public float patternTime = 3;
+    [System.NonSerialized] public float orderTime = 0;
+    [System.NonSerialized] public Vector2 orderPos;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -119,14 +121,42 @@ public class Chicken : CustomCollider
     #region[닭 패턴]
     void ChickenPattern()
     {
-        patternTime -= Time.deltaTime;
-        //우는 동안은 패턴이 안변함
-        if (patternTime < 0 && CryingCheck.aniTime == 0)
+        if (orderTime > 0)
         {
-            patternTime = 3;
-            jumpFlag = false;
+            orderTime -= Time.deltaTime;
+            if (Mathf.Abs(orderPos.x - Chicken.instance.transform.position.x) < 1)
+            {
+                if (UnityEngine.Random.Range(0, 100) > 50)
+                    pattenType = Pattern.대기;
+                else
+                   pattenType = Pattern.제자리점프;
+            }
+            else if (orderPos.x > transform.position.x)
+            {
+                if (orderPos.y > transform.position.y)
+                    pattenType = Pattern.오른쪽점프;
+                else
+                    pattenType = Pattern.오른쪽으로;
+            }
+            else if (orderPos.x < transform.position.x)
+            {
+                if (orderPos.y > transform.position.y)
+                    pattenType = Pattern.왼쪽점프;
+                else
+                    pattenType = Chicken.Pattern.왼쪽으로;
+            }
+        }
+        else
+        {
+            patternTime -= Time.deltaTime;
+            //우는 동안은 패턴이 안변함
+            if (patternTime < 0 && CryingCheck.aniTime == 0)
+            {
+                patternTime = 3;
+                jumpFlag = false;
 
-            pattenType = (Pattern)Random.Range(0, 6);
+                pattenType = (Pattern)Random.Range(0, 6);
+            }
         }
 
         switch (pattenType)

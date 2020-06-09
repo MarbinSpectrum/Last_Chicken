@@ -22,7 +22,9 @@ public class BuffManager : MonoBehaviour
         public Color buffColor;
         public float buffGlow;
         public string buffName;
+        public string buffName_Eng;
         public string buffExplain;
+        public string buffExplain_Eng;
         public int value = 0;
         public bool Overlap;
         public float time = 0;

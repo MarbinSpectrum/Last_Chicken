@@ -793,6 +793,9 @@ public class Player : CustomCollider
 
         if (Input.GetMouseButtonDown(1))
         {
+            if (CaveManager.inCave)
+                return;
+
             if (ShopScript.instance && ShopScript.instance.onArea)
                 return;
 
@@ -823,29 +826,10 @@ public class Player : CustomCollider
             else if (ItemManager.instance.CanUseActiveItem("Bell"))
             {
                 ItemManager.instance.UseItem("Bell");
-                Chicken.instance.patternTime = 3;
+                Chicken.instance.orderPos = transform.position;
+                Chicken.instance.orderTime = 4;
                 SoundManager.instance.PlayerBell();
-                if (Mathf.Abs(transform.position.x - Chicken.instance.transform.position.x) < 1)
-                {
-                    if (UnityEngine.Random.Range(0, 100) > 50)
-                        Chicken.instance.pattenType = Chicken.Pattern.대기;
-                    else
-                        Chicken.instance.pattenType = Chicken.Pattern.제자리점프;
-                }
-                else if (transform.position.x > Chicken.instance.transform.position.x)
-                {
-                    if (transform.position.y > Chicken.instance.transform.position.y)
-                        Chicken.instance.pattenType = Chicken.Pattern.오른쪽점프;
-                    else
-                        Chicken.instance.pattenType = Chicken.Pattern.오른쪽으로;
-                }
-                else if (transform.position.x < Chicken.instance.transform.position.x)
-                {
-                    if (transform.position.y > Chicken.instance.transform.position.y)
-                        Chicken.instance.pattenType = Chicken.Pattern.왼쪽점프;
-                    else
-                        Chicken.instance.pattenType = Chicken.Pattern.왼쪽으로;
-                }
+               
             }
         }
     }
@@ -934,6 +918,10 @@ public class Player : CustomCollider
 
         //컨트롤 잠금
         canControl = false;
+
+        //상점사용 중지
+        if (ShopScript.instance)
+            ShopScript.instance.thisUse = false;
 
         //플레이어 체력감소
         if (shield > 0)

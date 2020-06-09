@@ -11,6 +11,7 @@ public class FountainScript : AreaScript
  
     [System.NonSerialized] public bool thisUse = false;
     [System.NonSerialized] public bool onArea;
+
     Animator fountainAnimator;
     GameObject uiMouse;
 
@@ -55,6 +56,7 @@ public class FountainScript : AreaScript
         UseArea();
         ActFountain();
         fountainAnimator.SetBool("used", used);
+        fountainAnimator.SetBool("usedEnd", usedEnd);
         if (act)
             areaLight.SetActive(false);
     }
@@ -63,10 +65,18 @@ public class FountainScript : AreaScript
     #region[OnEnable]
     void OnEnable()
     {
+
+    }
+    #endregion
+
+    #region[Init]
+    public override void Init()
+    {
         used = false;
         thisUse = false;
         act = false;
         onPlayer = false;
+        usedEnd = false;
     }
     #endregion
 
@@ -109,9 +119,10 @@ public class FountainScript : AreaScript
             EffectManager.instance.HearthEffect();
 
             PlayerIn(false);
-
             act = true;
         }
+        if (fountainAnimator.GetCurrentAnimatorStateInfo(0).IsName("FountainUsed") && fountainAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.95f && !usedEnd)
+            usedEnd = true;
     }
     #endregion
 

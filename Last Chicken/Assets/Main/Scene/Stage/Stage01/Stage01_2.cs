@@ -87,13 +87,13 @@ public class Stage01_2 : StageData
         //노이즈값으로 지형을 설정
         for (int x = 0; x < world.WorldWidth; x++)
             for (int y = 0; y < world.WorldHeight; y++)
-                if (PerlinNoise(x, y, 15, 15, 1) <= 8)
+                if (PerlinNoise(x, y, 15, 15, 1) <= 7)
                     groundData[x, y] = GroundLayer.Dirt;
 
         //절차적인 맵디자인을 위해 부분적으로 공간을 만듬
         for (int x = 0; x < world.WorldWidth; x++)
             for (int y = 0; y < world.WorldHeight; y++)
-                if (Random.Range(0, 100) > 80)
+                if (Random.Range(0, 100) > 50)
                     groundData[x, y] = (GroundLayer)(-1);
 
         //광산지형으로 설정된 지형만큼 지형을 덮음
@@ -619,64 +619,50 @@ public class Stage01_2 : StageData
         List<Vector2Int> v = new List<Vector2Int>();
         Vector2 cavePos;
 
-        CheckArea();
-        v.Clear();
-        for (int i = 0; i < world.WorldWidth; i++)
-            for (int j = 0; j < world.WorldHeight; j++)
-                if (CanAddArea(i, j, 4, 5))
-                    v.Add(new Vector2Int(i, j - 2));
+        int[] A = new int[] { 1, 2, 3, 4 };
 
-        if (v.Count > 0 && Random.Range(0, 100) > 50)
+        for (int i = 0; i < 100; i++)
         {
-            cavePos = v[Random.Range(0, v.Count)];
-            CaveManager.instance.ShopCave(cavePos, cavePos.x < world.WorldWidth / 2 ? 0 : 1);
-
-            if (Random.Range(0, 100) > 50)
-                for (int i = (int)(cavePos.x - 3); i < (int)(cavePos.x + 3); i++)
-                    for (int j = (int)(cavePos.y - 2); j < (int)(cavePos.y + 2); j++)
-                        if (Exception.IndexOutRange(i, j, groundData))
-                            groundData[i, j] = (GroundLayer)(-1);
-
+            int a = Random.Range(0, 4);
+            int b = Random.Range(0, 4);
+            int temp = A[a];
+            A[a] = A[b];
+            A[b] = temp;
         }
 
-        CheckArea();
-        v.Clear();
-        v = new List<Vector2Int>();
-        for (int i = 0; i < world.WorldWidth; i++)
-            for (int j = 0; j < world.WorldHeight; j++)
-                if (CanAddArea(i, j, 4, 5))
-                    v.Add(new Vector2Int(i, j - 2));
-
-        if (v.Count > 0 && Random.Range(0, 100) > 50)
+        for (int k = 0; k < 3; k++)
         {
-            cavePos = v[Random.Range(0, v.Count)];
-            CaveManager.instance.FountainCave(cavePos, cavePos.x < world.WorldWidth / 2 ? 0 : 1);
+            CheckArea();
+            v.Clear();
+            for (int i = 0; i < world.WorldWidth; i++)
+                for (int j = 0; j < world.WorldHeight; j++)
+                    if (CanAddArea(i, j, 4, 5))
+                        v.Add(new Vector2Int(i, j - 2));
+            if (v.Count > 0)
+            {
+                cavePos = v[Random.Range(0, v.Count)];
+                switch (A[k])
+                {
 
-            if (Random.Range(0, 100) > 50)
-                for (int i = (int)(cavePos.x - 3); i < (int)(cavePos.x + 3); i++)
-                    for (int j = (int)(cavePos.y - 2); j < (int)(cavePos.y + 2); j++)
-                        if (Exception.IndexOutRange(i, j, groundData))
-                            groundData[i, j] = (GroundLayer)(-1);
-        }
-
-        CheckArea();
-        v.Clear();
-        v = new List<Vector2Int>();
-        for (int i = 0; i < world.WorldWidth; i++)
-            for (int j = 0; j < world.WorldHeight; j++)
-                if (CanAddArea(i, j, 4, 5))
-                    v.Add(new Vector2Int(i, j - 2));
-
-        if (v.Count > 0 && Random.Range(0, 100) > 50)
-        {
-            cavePos = v[Random.Range(0, v.Count)];
-            CaveManager.instance.SmithyCave(cavePos, cavePos.x < world.WorldWidth / 2 ? 0 : 1);
-
-            if (Random.Range(0, 100) > 50)
-                for (int i = (int)(cavePos.x - 3); i < (int)(cavePos.x + 3); i++)
-                    for (int j = (int)(cavePos.y - 2); j < (int)(cavePos.y + 2); j++)
-                        if (Exception.IndexOutRange(i, j, groundData))
-                            groundData[i, j] = (GroundLayer)(-1);
+                    case 1:
+                        CaveManager.instance.ShopCave(cavePos, cavePos.x < world.WorldWidth / 2 ? 0 : 1);
+                        break;
+                    case 2:
+                        CaveManager.instance.FountainCave(cavePos, cavePos.x < world.WorldWidth / 2 ? 0 : 1);
+                        break;
+                    case 3:
+                        CaveManager.instance.SmithyCave(cavePos, cavePos.x < world.WorldWidth / 2 ? 0 : 1);
+                        break;
+                    case 4:
+                        CaveManager.instance.AltarCave(cavePos, cavePos.x < world.WorldWidth / 2 ? 0 : 1);
+                        break;
+                }
+                if (Random.Range(0, 100) > 50)
+                    for (int i = (int)(cavePos.x - 3); i < (int)(cavePos.x + 3); i++)
+                        for (int j = (int)(cavePos.y - 2); j < (int)(cavePos.y + 2); j++)
+                            if (Exception.IndexOutRange(i, j, groundData))
+                                groundData[i, j] = (GroundLayer)(-1);
+            }
         }
     }
     #endregion

@@ -30,6 +30,7 @@ public class ShopScript : AreaScript
         bodyCollider = GetComponent<BoxCollider2D>();
 
         uiMouse = transform.Find("UIMouse").gameObject;
+        Init();
     }
     #endregion
 
@@ -47,6 +48,13 @@ public class ShopScript : AreaScript
 
     #region[OnEnable]
     void OnEnable()
+    {
+
+    }
+    #endregion
+
+    #region[Init]
+    public override void Init()
     {
         SetShopItem();
         used = false;

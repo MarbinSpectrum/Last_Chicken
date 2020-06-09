@@ -57,6 +57,7 @@ public class AltarScript : AreaScript
         UseArea();
         ActAltar();
         altarAnimator.SetBool("used", used);
+        altarAnimator.SetBool("usedEnd", usedEnd);
         if (act)
             areaLight.SetActive(false);
     }
@@ -65,16 +66,22 @@ public class AltarScript : AreaScript
     #region[OnEnable]
     void OnEnable()
     {
+
+    }
+    #endregion
+
+    #region[Init]
+    public override void Init()
+    {
         SetBuff();
         used = false;
+        usedEnd = false;
         thisUse = false;
         act = false;
         onPlayer = false;
         SetAltarBackImg();
     }
     #endregion
-
-
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -117,6 +124,9 @@ public class AltarScript : AreaScript
 
             act = true;
         }
+
+        if (altarAnimator.GetCurrentAnimatorStateInfo(0).IsName("AltarUsed") && altarAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.95f && !usedEnd)
+            usedEnd = true;
     }
     #endregion
 
@@ -198,62 +208,63 @@ public class AltarScript : AreaScript
         if (!World.Instance)
             return;
 
-        bool[,] useBlock = new bool[world.WorldWidth, world.WorldHeight];
+        //bool[,] useBlock = new bool[world.WorldWidth, world.WorldHeight];
 
-        for (int x = 0; x < world.WorldWidth; x++)
-            for (int y = 0; y < world.WorldHeight; y++)
-                useBlock[x, y] = (StageData.instance.backGroundData[x, y] == StageData.BackGroundLayer.DarkAltarBackGround);
+        //for (int x = 0; x < world.WorldWidth; x++)
+        //    for (int y = 0; y < world.WorldHeight; y++)
+        //        if(StageData.instance.backGroundData != null)
+        //            useBlock[x, y] = (StageData.instance.backGroundData[x, y] == StageData.BackGroundLayer.DarkAltarBackGround);
 
 
-        for (int x = 0; x < world.WorldWidth; x++)
-            for (int y = 0; y < world.WorldHeight; y++)
-                if(useBlock[x, y])
-                {
-                    if(Random.Range(0,100) > 98)
-                    {
-                        int r = Random.Range(0, 8);
-                        bool check = true;
-                        switch (r)
-                        {
-                            case 0:
-                            case 1:
-                            case 4:
-                            case 5:
-                                for (int i = 0; i < 4; i++)
-                                    if (!Exception.IndexOutRange(x + i % 2, y - i / 2, useBlock) || !useBlock[x + i % 2, y - i / 2])
-                                        check = false;
-                                if (!check)
-                                    break;
-                                for (int i = 0; i < 4; i++)
-                                    useBlock[x + i % 2, y - i / 2] = false;
-                                ObjectManager.instance.AltarBackgroundImgs(new Vector2(x, y), r);
-                                break;
-                            case 2:
-                            case 3:
-                            case 6:
-                                for (int i = 0; i < 6; i++)
-                                    if (!Exception.IndexOutRange(x + i % 3, y - i / 3, useBlock) || !useBlock[x + i % 3, y - i / 3])
-                                        check = false;
-                                if (!check)
-                                    break;
-                                for (int i = 0; i < 6; i++)
-                                    useBlock[x + i % 3, y - i / 3] = false;
-                                ObjectManager.instance.AltarBackgroundImgs(new Vector2(x, y), r);
-                                break;
-                            case 7:
-                                for (int i = 0; i < 70; i++)
-                                    if (!Exception.IndexOutRange(x + i % 10, y - i / 10, useBlock) || !useBlock[x + i % 10, y - i / 10])
-                                        check = false;
-                                if (!check)
-                                    break;
-                                for (int i = 0; i < 70; i++)
-                                    useBlock[x + i % 10, y - i / 10] = false;
-                                ObjectManager.instance.AltarBackgroundImgs(new Vector2(x, y), r);
-                                break;
-                        }
+        //for (int x = 0; x < world.WorldWidth; x++)
+        //    for (int y = 0; y < world.WorldHeight; y++)
+        //        if(useBlock[x, y])
+        //        {
+        //            if(Random.Range(0,100) > 98)
+        //            {
+        //                int r = Random.Range(0, 8);
+        //                bool check = true;
+        //                switch (r)
+        //                {
+        //                    case 0:
+        //                    case 1:
+        //                    case 4:
+        //                    case 5:
+        //                        for (int i = 0; i < 4; i++)
+        //                            if (!Exception.IndexOutRange(x + i % 2, y - i / 2, useBlock) || !useBlock[x + i % 2, y - i / 2])
+        //                                check = false;
+        //                        if (!check)
+        //                            break;
+        //                        for (int i = 0; i < 4; i++)
+        //                            useBlock[x + i % 2, y - i / 2] = false;
+        //                        ObjectManager.instance.AltarBackgroundImgs(new Vector2(x, y), r);
+        //                        break;
+        //                    case 2:
+        //                    case 3:
+        //                    case 6:
+        //                        for (int i = 0; i < 6; i++)
+        //                            if (!Exception.IndexOutRange(x + i % 3, y - i / 3, useBlock) || !useBlock[x + i % 3, y - i / 3])
+        //                                check = false;
+        //                        if (!check)
+        //                            break;
+        //                        for (int i = 0; i < 6; i++)
+        //                            useBlock[x + i % 3, y - i / 3] = false;
+        //                        ObjectManager.instance.AltarBackgroundImgs(new Vector2(x, y), r);
+        //                        break;
+        //                    case 7:
+        //                        for (int i = 0; i < 70; i++)
+        //                            if (!Exception.IndexOutRange(x + i % 10, y - i / 10, useBlock) || !useBlock[x + i % 10, y - i / 10])
+        //                                check = false;
+        //                        if (!check)
+        //                            break;
+        //                        for (int i = 0; i < 70; i++)
+        //                            useBlock[x + i % 10, y - i / 10] = false;
+        //                        ObjectManager.instance.AltarBackgroundImgs(new Vector2(x, y), r);
+        //                        break;
+        //                }
 
-                    }
-                }
+        //            }
+        //        }
 
         AltarBackGroundImg.ChangeImgs(false);
     }

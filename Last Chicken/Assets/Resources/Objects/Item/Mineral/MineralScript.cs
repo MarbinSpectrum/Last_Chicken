@@ -145,7 +145,7 @@ public class MineralScript : ItemScript
                     GameManager.instance.playerMoney += GroundManager.instance.cobaltValue;
                     break;
             }
-
+            transform.position = new Vector3(-1000, -1000, transform.position.z);
             gameObject.SetActive(false);      
         }
     }

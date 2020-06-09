@@ -38,6 +38,7 @@ public class CaveManager : ObjectPool
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector3.x, vector3.y, emp.transform.position.z);
         emp.transform.rotation = new Quaternion(0, 0, 0, 0);
+        emp.GetComponent<ObjectCave>().ObjectInit();
     }
     #endregion
 
@@ -59,6 +60,7 @@ public class CaveManager : ObjectPool
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector3.x, vector3.y, emp.transform.position.z);
         emp.transform.rotation = new Quaternion(0, 0, 0, 0);
+        emp.GetComponent<ObjectCave>().ObjectInit();
     }
     #endregion
 
@@ -80,6 +82,7 @@ public class CaveManager : ObjectPool
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector3.x, vector3.y, emp.transform.position.z);
         emp.transform.rotation = new Quaternion(0, 0, 0, 0);
+        emp.GetComponent<ObjectCave>().ObjectInit();
     }
     #endregion
 
@@ -101,13 +104,14 @@ public class CaveManager : ObjectPool
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector3.x, vector3.y, emp.transform.position.z);
         emp.transform.rotation = new Quaternion(0, 0, 0, 0);
+        emp.GetComponent<ObjectCave>().ObjectInit();
     }
     #endregion
 
     public void CaveEnter(GameObject temp)
     {
         for (int i = 0; i < objectPool.Count; i++)
-            if (objectPool[i].transform.position != new Vector3(-1000, -1000, 0))
+            if (objectPool[i].transform.position.x != -1000)
                 objectPool[i].SetActive(false);
         temp.SetActive(true);
     }
@@ -115,7 +119,7 @@ public class CaveManager : ObjectPool
     public void CaveExit()
     {
         for (int i = 0; i < objectPool.Count; i++)
-            if (objectPool[i].transform.position != new Vector3(-1000, -1000, 0))
+            if (objectPool[i].transform.position.x != -1000)
                 objectPool[i].SetActive(true);
     }
 
@@ -127,7 +131,8 @@ public class CaveManager : ObjectPool
             if (objectPool[i])
             {
                 objectPool[i].SetActive(false);
-                objectPool[i].transform.position = new Vector3(-1000, -1000, 0);
+                objectPool[i].transform.position = new Vector3(-1000, -1000, objectPool[i].transform.position.z);
+                objectPool[i].GetComponent<ObjectCave>().ObjectInit();
             }
     }
     #endregion

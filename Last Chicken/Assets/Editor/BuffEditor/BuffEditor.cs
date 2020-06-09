@@ -45,7 +45,9 @@ public class BuffEditor : MyEditor
                 emp.buffColor = buffManager.buffData[i].buffColor;
                 emp.buffGlow = buffManager.buffData[i].buffGlow;
                 emp.buffName = buffManager.buffData[i].buffName;
+                emp.buffName_Eng = buffManager.buffData[i].buffName_Eng;
                 emp.buffExplain = buffManager.buffData[i].buffExplain;
+                emp.buffExplain_Eng = buffManager.buffData[i].buffExplain_Eng;
                 emp.value = buffManager.buffData[i].value;
                 emp.Overlap = buffManager.buffData[i].Overlap;
                 emp.time = buffManager.buffData[i].time;
@@ -63,7 +65,9 @@ public class BuffEditor : MyEditor
                 buffManager.buffData[i].buffColor = temp[i].buffColor;
                 buffManager.buffData[i].buffGlow = temp[i].buffGlow;
                 buffManager.buffData[i].buffName = temp[i].buffName;
+                buffManager.buffData[i].buffName_Eng = temp[i].buffName_Eng;
                 buffManager.buffData[i].buffExplain = temp[i].buffExplain;
+                buffManager.buffData[i].buffExplain_Eng = temp[i].buffExplain_Eng;
                 buffManager.buffData[i].value = temp[i].value;
                 buffManager.buffData[i].Overlap = temp[i].Overlap;
                 buffManager.buffData[i].time = temp[i].time;
@@ -80,7 +84,9 @@ public class BuffEditor : MyEditor
                 emp.buffColor = buffManager.buffData[i].buffColor;
                 emp.buffGlow = buffManager.buffData[i].buffGlow;
                 emp.buffName = buffManager.buffData[i].buffName;
+                emp.buffName_Eng = buffManager.buffData[i].buffName_Eng;
                 emp.buffExplain = buffManager.buffData[i].buffExplain;
+                emp.buffExplain_Eng = buffManager.buffData[i].buffExplain_Eng;
                 emp.value = buffManager.buffData[i].value;
                 emp.Overlap = buffManager.buffData[i].Overlap;
                 emp.time = buffManager.buffData[i].time;
@@ -98,7 +104,9 @@ public class BuffEditor : MyEditor
                 buffManager.buffData[i].buffColor = temp[i].buffColor;
                 buffManager.buffData[i].buffGlow = temp[i].buffGlow;
                 buffManager.buffData[i].buffName = temp[i].buffName;
+                buffManager.buffData[i].buffName_Eng = temp[i].buffName_Eng;
                 buffManager.buffData[i].buffExplain = temp[i].buffExplain;
+                buffManager.buffData[i].buffExplain_Eng = temp[i].buffExplain_Eng;
                 buffManager.buffData[i].value = temp[i].value;
                 buffManager.buffData[i].Overlap = temp[i].Overlap;
                 buffManager.buffData[i].time = temp[i].time;
@@ -168,8 +176,15 @@ public class BuffEditor : MyEditor
         data.buffName = EditorGUILayout.TextField(data.buffName);
         EditorGUILayout.EndHorizontal();
 
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Buff Name", dataStyle, GUILayout.Width(150));
+        data.buffName_Eng = EditorGUILayout.TextField(data.buffName_Eng);
+        EditorGUILayout.EndHorizontal();
+
         EditorGUILayout.LabelField("버프 설명", dataStyle);
         data.buffExplain = EditorGUILayout.TextArea(data.buffExplain, GUILayout.Width(180), GUILayout.Height(50));
+        EditorGUILayout.LabelField("Buff Explain", dataStyle);
+        data.buffExplain_Eng = EditorGUILayout.TextArea(data.buffExplain_Eng, GUILayout.Width(180), GUILayout.Height(50));
 
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("버프 컬러", dataStyle, GUILayout.Width(150));

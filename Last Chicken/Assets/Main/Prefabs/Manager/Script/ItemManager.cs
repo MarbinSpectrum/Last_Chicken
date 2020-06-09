@@ -213,6 +213,7 @@ public class ItemManager : ObjectPool
 
     [HideInInspector] public List<GameObject> fieldObject = new List<GameObject>();
     [HideInInspector] public List<GameObject> caveObject = new List<GameObject>();
+    [HideInInspector] public List<GameObject> mineralObject = new List<GameObject>();
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -502,8 +503,16 @@ public class ItemManager : ObjectPool
         emp.GetComponent<Rigidbody2D>().AddForce(Force);
         if (Force != Vector2.zero)
             emp.GetComponent<Rigidbody2D>().angularVelocity = Random.value * 360;
+        mineralObject.Add(emp);
     }
     #endregion
+
+    public void MineralObjectAct(bool act)
+    {
+        for (int i = 0; i < mineralObject.Count; i++)
+            if (mineralObject[i].transform.position.x != -1000)
+                mineralObject[i].SetActive(act);
+    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

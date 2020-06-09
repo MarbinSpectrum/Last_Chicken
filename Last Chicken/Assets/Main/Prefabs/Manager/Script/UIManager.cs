@@ -429,8 +429,20 @@ public class UIManager : MonoBehaviour
             //마우스가 들어갔을때 이벤트
             EventTrigger.Entry pointerEnter = new EventTrigger.Entry();
             pointerEnter.eventID = EventTriggerType.PointerEnter;
-            pointerEnter.callback.AddListener((data) => { buffName.text = BuffManager.instance.buffData[AltarScript.instance.buffList[number]].buffName; });
-            pointerEnter.callback.AddListener((data) => { buffText.text = BuffManager.instance.buffData[AltarScript.instance.buffList[number]].buffExplain; });
+            pointerEnter.callback.AddListener((data) => 
+            { 
+                if(GameManager.instance.playData.language == PlayData.Language.한국어)
+                    buffName.text = BuffManager.instance.buffData[AltarScript.instance.buffList[number]].buffName;
+                else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    buffName.text = BuffManager.instance.buffData[AltarScript.instance.buffList[number]].buffName_Eng;
+            });
+            pointerEnter.callback.AddListener((data) =>
+            {
+                if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                    buffText.text = BuffManager.instance.buffData[AltarScript.instance.buffList[number]].buffExplain;
+                else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    buffText.text = BuffManager.instance.buffData[AltarScript.instance.buffList[number]].buffExplain_Eng;
+            });
             pointerEnter.callback.AddListener((data) => { caseImage[number].color = Color.white; });
             caseEvent[i].triggers.Add(pointerEnter);
 
@@ -670,7 +682,10 @@ public class UIManager : MonoBehaviour
                 altarUI.SetActive(AltarScript.instance.thisUse);
             if (!altarUI.activeSelf)
             {
-                buffText.text = "닭의 신이 축복을 내립니다.\n축복을 선택해주세요.";
+                if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                    buffText.text = "닭의 신이 축복을 내립니다.\n축복을 선택해주세요.";
+                else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    buffText.text = "The god of chicken blesses you.\nPlease select a blessing.";
                 for (int i = 0; i < 3; i++)
                     for (int k = 0; k < 2; k++)
                     {

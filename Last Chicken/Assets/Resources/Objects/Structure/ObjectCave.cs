@@ -8,6 +8,7 @@ public class ObjectCave : CustomCollider
 {
     public BoxCollider2D check;
     public GameObject uiMouse;
+  //  public GameObject light;
     public GameObject targetObject;
     public Image fade;
     public Transform target;
@@ -15,23 +16,43 @@ public class ObjectCave : CustomCollider
     bool act = false;
     bool fadeAct = false;
     public float minX,maxX;
+    public AreaScript areaScript;
 
-
+    #region[Update]
     void Update()
     {
         PlayerCheck();
         Language();
         updateFade();
         FollowPlayer();
+        //light.SetActive(!act && TreasureBoxScirpt.useTreasureBoxRadar);
     }
+    #endregion
 
+    #region[OnEnable]
+    private void OnEnable()
+    {
+    
+    }
+    #endregion
+
+    #region[ObjectInit]
+    public void ObjectInit()
+    {
+        areaScript.Init();
+    }
+    #endregion
+
+    #region[언어]
     void Language()
     {
         for (int i = 0; i < languageData.Count; i++)
             if (languageData[i])
                 languageData[i].SetActive(languageData[i].transform.name.Contains(GameManager.instance.playData.language.ToString()));
     }
+    #endregion
 
+    #region[updateFade]
     void updateFade()
     {
         if(fadeAct)
@@ -45,7 +66,9 @@ public class ObjectCave : CustomCollider
             fade.color = new Color(0, 0, 0, Mathf.Max(0, fade.color.a));
         }
     }
+    #endregion
 
+    #region[FollowPlayer]
     void FollowPlayer()
     {
         if (act)
@@ -60,7 +83,9 @@ public class ObjectCave : CustomCollider
                 target.position = new Vector3(Player.instance.transform.position.x, target.position.y, target.position.z);
         }
     }
+    #endregion
 
+    #region[PlayerCheck]
     void PlayerCheck()
     {
         if (GameManager.instance.gamePause || !Player.instance)
@@ -70,7 +95,7 @@ public class ObjectCave : CustomCollider
 
         if (playerIn && Player.instance.canControl)
         {
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetKeyDown(KeyCode.W))
             {
                 act = !act;
                 fadeAct = true;
@@ -80,10 +105,16 @@ public class ObjectCave : CustomCollider
             }
         }
     }
+    #endregion
 
+    #region[ObjectSetting]
     private IEnumerator ObjectSetting(bool act)
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
+        CameraController.Instance.SetOffset(act ? 13 : 0);
+        CameraController.Instance.objectToFollow = act ? target : Player.instance.transform;
+        CameraController.Instance.edgeCheck = !act;
+        yield return new WaitForSeconds(1f);
         CaveManager.inCave = act;
         if (act && !Player.instance.getChicken)
             Chicken.instance.gameObject.SetActive(false);
@@ -95,7 +126,6 @@ public class ObjectCave : CustomCollider
             GroundManager.instance.digMask = 0;
             CaveManager.instance.CaveEnter(gameObject);
             SoundManager.instance.StopBGM_Sound();
-
         }
         else
         {
@@ -108,12 +138,13 @@ public class ObjectCave : CustomCollider
         fadeAct = false;
         Player.instance.invincibility = false;
         Player.instance.canControl = true;
-        CameraController.Instance.SetOffset(act ? 13 : 0);
+
         targetObject.SetActive(act);
         ObjectManager.instance.gameObject.SetActive(!act);
         MonsterManager.instance.gameObject.SetActive(!act);
         ItemManager.instance.CaveObjectAct(act);
         ItemManager.instance.FieldObjectAct(!act);
+        ItemManager.instance.MineralObjectAct(!act);
 
         World world = World.Instance;
         world.SetLighting(!act);
@@ -122,16 +153,16 @@ public class ObjectCave : CustomCollider
             Color layerColor = world.GetBlockLayer(i).Material.color;
             world.GetBlockLayer(i).Material.color = new Color(layerColor.r, layerColor.g, layerColor.b, act ? 0 : 1);
         }
-        CameraController.Instance.objectToFollow = act ? target : Player.instance.transform;
-        CameraController.Instance.edgeCheck = !act;
         CustomFluidChunk.fluidAct = !act;
         Chunk.actChunk = !act;
 
 
-        if (!act)
-        {
-            yield return new WaitForSeconds(0.2f);
-           gameObject.SetActive(false);
-        }
+        //if (!act)
+        //{
+        //    yield return new WaitForSeconds(0.2f);
+        //   gameObject.SetActive(false);
+        //}
     }
+    #endregion
+
 }

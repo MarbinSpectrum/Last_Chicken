@@ -43,13 +43,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3efe80739ccbdc94cbd7c360890ed816, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectPool: []
   monsterData:
   - Hp: 6
     Speed: 6
     AttackPower: 0.5
     JumpPower: {x: 0, y: 0}
-  - Hp: 12
-    Speed: 3
+  - Hp: 9
+    Speed: 2.5
     AttackPower: 0.5
     JumpPower: {x: 0, y: 0}
   - Hp: 7

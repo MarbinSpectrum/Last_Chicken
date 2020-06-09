@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f6c3b0f7fd236c41836c8cfba34702f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectPool: []
   normalRate: 35
   rareRate: 15
   specialRate: 6
@@ -136,7 +137,7 @@ MonoBehaviour:
     itemExplain: "\uC989\uC0AC\uD560 \uB370\uBBF8\uC9C0\uB97C \uBC1B\uC744\uC2DC
       \uD55C\uBC88 \uC0B4\uB824\uC90D\uB2C8\uB2E4."
     itemExplain_Eng: The player got one more life
-    cost: 2500
+    cost: 1200
     spawnObject: 1
     spawnShop: 1
     spawnTreasureBox: 0
@@ -210,7 +211,7 @@ MonoBehaviour:
     itemLevel: 0
     itemExplain: "\uC0AC\uC6A9\uC2DC \uCCB4\uB825\uC744 1\uB9CC\uD07C \uD68C\uBCF5\uD569\uB2C8\uB2E4."
     itemExplain_Eng: Cool! (+1 heart)
-    cost: 1000
+    cost: 500
     spawnObject: 1
     spawnShop: 1
     spawnTreasureBox: 0
@@ -234,7 +235,7 @@ MonoBehaviour:
     itemLevel: 1
     itemExplain: "\uC0AC\uC6A9\uC2DC \uCCB4\uB825\uC744 2\uB9CC\uD07C \uD68C\uBCF5\uD569\uB2C8\uB2E4."
     itemExplain_Eng: cOoL! (+2 heart)
-    cost: 5000
+    cost: 2500
     spawnObject: 1
     spawnShop: 1
     spawnTreasureBox: 0
@@ -258,7 +259,7 @@ MonoBehaviour:
     itemLevel: 0
     itemExplain: "\uBAAC\uC2A4\uD130\uC758 \uC704\uCE58\uB97C \uC54C \uC218 \uC788\uC2B5\uB2C8\uB2E4."
     itemExplain_Eng: You can know the location of the monster.
-    cost: 2500
+    cost: 1000
     spawnObject: 1
     spawnShop: 1
     spawnTreasureBox: 0
@@ -283,7 +284,7 @@ MonoBehaviour:
     itemExplain: "\uC0AC\uC6A9\uC2DC 50%\uD655\uB960\uB85C \uD50C\uB808\uC774\uC5B4\uC758
       \uCCB4\uB825\uC774 \uBAA8\uB450 \n\uD68C\uBCF5\uB418\uAC70\uB098 1 \uC783\uC2B5\uB2C8\uB2E4."
     itemExplain_Eng: "Player's heart will filled with 50% chance or lost by 1.\r"
-    cost: 2500
+    cost: 500
     spawnObject: 0
     spawnShop: 1
     spawnTreasureBox: 0
@@ -385,7 +386,7 @@ MonoBehaviour:
 
       <size=30><color=#3BEAAC>                                                          
       -Cooltime : 5 </color></size>'
-    cost: 3500
+    cost: 2000
     spawnObject: 1
     spawnShop: 1
     spawnTreasureBox: 0
@@ -403,7 +404,7 @@ MonoBehaviour:
   - itemImg: {fileID: 5467324578614741987, guid: c59dac0c2b4d80f4aa7b58328ff973f7,
       type: 3}
     itemName: "\uB2E4\uC774\uB108\uB9C8\uC774\uD2B8"
-    itemName_Eng: 
+    itemName_Eng: Dynamite
     value0: 200
     value1: 5
     itemLevel: 1
@@ -414,7 +415,7 @@ MonoBehaviour:
 
       <size=30><color=#3BEAAC>                                                          
       -Cooltime : 5 </color></size>'
-    cost: 7000
+    cost: 4000
     spawnObject: 0
     spawnShop: 1
     spawnTreasureBox: 0
@@ -514,7 +515,7 @@ MonoBehaviour:
     itemExplain: "\uAD11\uBB3C\uC774 \uC790\uB3D9\uC73C\uB85C \uAC00\uBC29\uC73C\uB85C
       \uB4E4\uC5B4\uAC11\uB2C8\uB2E4."
     itemExplain_Eng: Minerals automatically enter Player's bag
-    cost: 3500
+    cost: 750
     spawnObject: 1
     spawnShop: 1
     spawnTreasureBox: 0
@@ -564,7 +565,7 @@ MonoBehaviour:
     itemExplain: "\uC0C1\uC810\uC758 \uBB3C\uAC74\uC744 30% \uC2F8\uAC8C \uAD6C\uC785\uD560
       \uC218 \uC788\uC2B5\uB2C8\uB2E4.\n(\uBB3C\uAC74\uC744 \uC0AC\uBA74 \uC18C\uBE44\uB429\uB2C8\uB2E4.)"
     itemExplain_Eng: 30% off at the shop ( disposable )
-    cost: 1000
+    cost: 100
     spawnObject: 1
     spawnShop: 1
     spawnTreasureBox: 0
@@ -589,7 +590,7 @@ MonoBehaviour:
     itemExplain: "\uBCF4\uC720\uC2DC \uC0C1\uC810\uC758 \uBB3C\uAC74\uC744 30% \uC2F8\uAC8C
       \uAD6C\uC785\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
     itemExplain_Eng: 30% off at the shop
-    cost: 10000
+    cost: 5000
     spawnObject: 0
     spawnShop: 1
     spawnTreasureBox: 0
@@ -688,7 +689,7 @@ MonoBehaviour:
     itemLevel: 2
     itemExplain: "\uBCF4\uBB3C\uC758 \uC704\uCE58\uAC00 \uB098\uD0C0\uB0A9\uB2C8\uB2E4!!"
     itemExplain_Eng: You can know the location of the Treasure
-    cost: 7500
+    cost: 1500
     spawnObject: 0
     spawnShop: 1
     spawnTreasureBox: 0
@@ -712,7 +713,7 @@ MonoBehaviour:
     itemLevel: 0
     itemExplain: "\uD568\uC815\uC758 \uC704\uCE58\uAC00 \uD45C\uC2DC\uB429\uB2C8\uB2E4."
     itemExplain_Eng: You can know the location of the trap
-    cost: 2500
+    cost: 1200
     spawnObject: 1
     spawnShop: 1
     spawnTreasureBox: 0
@@ -738,7 +739,7 @@ MonoBehaviour:
       \uC544\uC774\uD15C\uC774 \uB4E4\uC5B4\uC788\uC2B5\uB2C8\uB2E4."
     itemExplain_Eng: "Shop product will given randomly\r\nI don't know either what
       will given\r"
-    cost: 5000
+    cost: 1000
     spawnObject: 0
     spawnShop: 1
     spawnTreasureBox: 1
@@ -806,3 +807,6 @@ MonoBehaviour:
     - 
     - 
   ReSpawnItemList: 
+  fieldObject: []
+  caveObject: []
+  mineralObject: []
