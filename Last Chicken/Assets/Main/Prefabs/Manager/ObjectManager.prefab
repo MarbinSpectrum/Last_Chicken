@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 881542516c16b0e4092be44572bfad0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectPool: []
   obejctData:
   - Hp: 6
     ObjectType: 0
@@ -54,7 +55,7 @@ MonoBehaviour:
     DamageSound: 2
   - Hp: 15
     ObjectType: 1
-    SpecialType: 0
+    SpecialType: 4
     DamageSound: 3
   - Hp: 10
     ObjectType: 0

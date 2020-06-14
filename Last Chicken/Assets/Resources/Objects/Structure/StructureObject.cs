@@ -6,7 +6,7 @@ public class StructureObject : CustomCollider
 {
     public enum ObjectType { 부술수있음 , 부술수없음};
     [HideInInspector] public ObjectType objectType;
-    public enum SpecialType { 없음, 깔리면데미지, 닿으면데미지,아이템드랍 };
+    public enum SpecialType { 없음, 깔리면데미지, 닿으면데미지,아이템드랍,치이면몬스터죽음 };
     protected SpecialType specialType;
 
     public enum DamageSound { 없음, 나무, 돌 , 철 };
@@ -21,6 +21,7 @@ public class StructureObject : CustomCollider
     protected int maxHp;
     protected int nowHp;
     protected float time = 0;
+    float cool = 0;
 
     bool updateFlag = false;
 
@@ -66,6 +67,7 @@ public class StructureObject : CustomCollider
     {
         nowHp = maxHp;
         time = 0;
+        cool = 1000;
         updateFlag = false;
         body.SetActive(true);
         piece.SetActive(false);
@@ -116,6 +118,8 @@ public class StructureObject : CustomCollider
             DownDamage();
         else if (specialType == SpecialType.닿으면데미지)
             EnterDamage();
+        else if (specialType == SpecialType.치이면몬스터죽음)
+            HitMonsterDamage();
     }
 
     public virtual void DownDamage()
@@ -145,6 +149,54 @@ public class StructureObject : CustomCollider
             if (targets[i].transform.tag.Equals("Player"))
                 Player.instance.PlayerDamage(0.5f);
     }
+
+    public virtual void HitMonsterDamage()
+    {
+        Vector2 digPos;
+        Vector2 newSize;
+        RaycastHit2D[] targets;
+        if (Vector2.Distance(rigidbody2D.velocity, Vector2.zero) > 3)
+        {
+            digPos = (Vector2)transform.position + new Vector2(bodyCollider.offset.x * transform.localScale.x, bodyCollider.offset.y * transform.localScale.y - 1f);
+            newSize = new Vector2(Mathf.Abs(bodyCollider.size.x * transform.localScale.x) * 0.9f, Mathf.Abs(bodyCollider.size.y * transform.localScale.y));
+            targets = Physics2D.BoxCastAll(digPos, newSize, 0, Vector2.zero, 0, 1 << LayerMask.NameToLayer("Body"));
+            for (int i = 0; i < targets.Length; i++)
+            {
+                if (targets[i].transform.tag.Equals("Monster"))
+                {
+                    Monster monster = targets[i].transform.GetComponent<Monster>();
+                    if (monster)
+                        monster.Damage(10);
+                }
+            }
+            if (cool >= 0.25f)
+            {
+                digPos = (Vector2)transform.position + new Vector2(bodyCollider.offset.x * transform.localScale.x, bodyCollider.offset.y * transform.localScale.y - 1f);
+                newSize = new Vector2(Mathf.Abs(bodyCollider.size.x * transform.localScale.x) * 0.9f, Mathf.Abs(bodyCollider.size.y * transform.localScale.y));
+                targets = Physics2D.BoxCastAll(digPos, newSize, 0, Vector2.zero, 0, 1 << LayerMask.NameToLayer("Body"));
+                for (int i = 0; i < targets.Length; i++)
+                {
+                    if (targets[i].transform.name == "MineCart")
+                        continue;
+                    if (targets[i].transform.tag.Equals("Object"))
+                    {
+                        StructureObject structureObject = targets[i].transform.GetComponent<StructureObject>();
+                        if (structureObject)
+                        {
+                            structureObject.BreakObject(30);
+                            if (structureObject.objectType == StructureObject.ObjectType.부술수있음)
+                            {
+                                bool dicX = structureObject.transform.position.x < transform.position.x ? true : false;
+                                EffectManager.instance.Attack(structureObject.transform.position, dicX, Random.Range(0, 3));
+                            }
+                        }
+                    }
+                }
+                cool = 0;
+            }
+        }
+        cool += Time.deltaTime;
+    }
     #endregion
 
     #region[오브젝트 피격처리]
@@ -157,8 +209,9 @@ public class StructureObject : CustomCollider
         else if (objectType == ObjectType.부술수없음)
         {
             SoundManager.instance.AttackIron();
-
             Vector3 knockback = new Vector3(300, 0, 0);
+            if (Mathf.Abs(rigidbody2D.velocity.x) > 1.5f)
+                knockback *= 4;
             float dicX = transform.position.x < Player.instance.transform.position.x ? -1 : +1;
             rigidbody2D.AddForce(new Vector2(dicX * knockback.x, knockback.y), ForceMode2D.Force);
         }

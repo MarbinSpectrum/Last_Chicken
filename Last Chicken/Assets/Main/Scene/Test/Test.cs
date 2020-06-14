@@ -17,9 +17,12 @@ public class Test : StageData
         SetFluidOutline();
         GenerateBackGround();
         GenerateGround();
-
-        for (int x = 0; x < world.WorldWidth; x++)
-            ObjectManager.instance.WoodBox(new Vector2(x, 30));
+        ObjectManager.instance.MineCart(new Vector2(30, 30));
+        ObjectManager.instance.WoodBox(new Vector2(50, 30));
+        ObjectManager.instance.WoodBox(new Vector2(100, 30));
+        ObjectManager.instance.WoodBox(new Vector2(150, 30));
+        //for (int x = 0; x < world.WorldWidth; x++)
+        //    ObjectManager.instance.WoodBox(new Vector2(x, 30));
         GroundManager.instance.Init(world);
     }
     #endregion

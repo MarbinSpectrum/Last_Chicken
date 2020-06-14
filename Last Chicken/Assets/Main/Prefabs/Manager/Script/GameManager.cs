@@ -392,9 +392,18 @@ public class GameManager : TerrainGenerator
 
         SoundManager.instance.StopBGM_Sound();
 
+        string stageName = SceneController.instance.nowScene;
+        if(stageName.Equals("IglooMap"))
+            stageName = "Stage0201";
+        else
+        {
+            stageName = stageName.Substring(0, stageName.Length - 2);
+            stageName += "01";
+        }
         ClearData();
-
-        if(gameOverTime < 0)
+        playData.stageName = stageName;
+        File.WriteAllText(Application.dataPath + "/Resources/PlayData.json", JsonUtility.ToJson(playData, true));
+        if (gameOverTime < 0)
         {
             gameOver = false;
             gameOverTime = 2;
