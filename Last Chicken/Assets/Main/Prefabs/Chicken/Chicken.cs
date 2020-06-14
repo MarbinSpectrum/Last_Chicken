@@ -124,7 +124,7 @@ public class Chicken : CustomCollider
         if (orderTime > 0)
         {
             orderTime -= Time.deltaTime;
-            if (Mathf.Abs(orderPos.x - Chicken.instance.transform.position.x) < 1)
+            if (Mathf.Abs(orderPos.x - transform.position.x) < 1)
             {
                 if (UnityEngine.Random.Range(0, 100) > 50)
                     pattenType = Pattern.대기;

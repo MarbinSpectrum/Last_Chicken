@@ -660,6 +660,15 @@ public class UIManager : MonoBehaviour
 
         if (!GameManager.instance.InGame())
         {
+            int select = 0;
+            for (int i = 0; i < languageOption.GetLength(0); i++)
+                if (languageOption[i].Equals(GameManager.instance.playData.language.ToString()))
+                {
+                    select = i;
+                    break;
+                }
+            languageDropdown.value = select;
+
             languageObject.SetActive(true);
             showStageName.SetActive(false);
             showChickenPos.SetActive(false);

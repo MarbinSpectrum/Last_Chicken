@@ -121,6 +121,8 @@ public class TutorialAltarEvent : CustomCollider
                     altarFlag = true;
                     SoundManager.instance.Altar(true);
                     Chicken.instance.gameObject.SetActive(true);
+                    Chicken.instance.orderPos = Chicken.instance.transform.position;
+                    Chicken.instance.orderTime = 0;
                     chickenRigid = Chicken.instance.GetComponent<Rigidbody2D>();
                     uiMouse.SetActive(false);
                 }
