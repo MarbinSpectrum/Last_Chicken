@@ -30,6 +30,10 @@ public class ObjectManagerEditor : MyEditor
     public Texture2D stalagmite4;
     public Texture2D stalagmite5;
 
+    public Texture2D signImg;
+    public Texture2D landMineImg;
+    public Texture2D wormImg;
+
     Vector2 stageScroll;
     Rect lastRect;
 
@@ -220,6 +224,10 @@ public class ObjectManagerEditor : MyEditor
                 return "석순6";
             case "Sign":
                 return "표지판";
+            case "LandMine":
+                return "지뢰";
+            case "Worm":
+                return "지렁이";
         }
         return s;
     }
@@ -262,6 +270,12 @@ public class ObjectManagerEditor : MyEditor
                 return stalagmite4;
             case "Stalagmite5":
                 return stalagmite5;
+            case "Sign":
+                return signImg;
+            case "LandMine":
+                return landMineImg ;
+            case "Worm":
+                return wormImg;
         }
         return null;
     }

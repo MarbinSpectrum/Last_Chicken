@@ -28,7 +28,8 @@ public class ObjectManager : ObjectPool
         "Stalagmite4",
         "Stalagmite5",
         "Sign",
-        "LandMine"
+        "LandMine",
+        "Worm"
     };
 
     [System.Serializable]
@@ -97,6 +98,8 @@ public class ObjectManager : ObjectPool
 
     GameObject sign;
 
+    GameObject worm;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     GameObject altar;
@@ -164,6 +167,7 @@ public class ObjectManager : ObjectPool
                 woodBoard[i] = Resources.Load("Objects/Structure/Stage01/WoodBoard" + i) as GameObject;
             shovel = Resources.Load("Objects/Structure/Stage01/Shovel") as GameObject;
             sign = Resources.Load("Objects/Structure/Sign") as GameObject;
+            worm = Resources.Load("Objects/Structure/Stage01/Worm") as GameObject;
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -531,6 +535,28 @@ public class ObjectManager : ObjectPool
         if (emp == null)
         {
             emp = Instantiate(sign);
+            emp.transform.name = name;
+            AddObject(emp);
+        }
+
+        emp.SetActive(true);
+        emp.transform.localRotation = Quaternion.identity;
+        emp.transform.parent = transform;
+        emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
+        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
+    }
+    #endregion
+
+    #region[표지판]
+    public void Worm(Vector2 vector2, bool flipX = false)
+    {
+        string name = objectName[19];
+
+        GameObject emp = FindObject(name);
+
+        if (emp == null)
+        {
+            emp = Instantiate(worm);
             emp.transform.name = name;
             AddObject(emp);
         }

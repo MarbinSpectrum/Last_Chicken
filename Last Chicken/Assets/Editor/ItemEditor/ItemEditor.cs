@@ -85,9 +85,9 @@ public class ItemEditor : MyEditor
                 itemManager.itemData[i].spawnShop = temp[i].spawnShop;
                 itemManager.itemData[i].activeItem = temp[i].activeItem;
                 for (int k = 0; k < 4; k++)
-                    temp[i].shopItemExplain[k] = itemManager.itemData[i].shopItemExplain[k];
+                    itemManager.itemData[i].shopItemExplain[k]  = temp[i].shopItemExplain[k];
                 for (int k = 0; k < 4; k++)
-                    temp[i].shopItemExplain_Eng[k] = itemManager.itemData[i].shopItemExplain_Eng[k];
+                   itemManager.itemData[i].shopItemExplain_Eng[k] = temp[i].shopItemExplain_Eng[k];
             }
         }
         else if (itemManager.itemData.Length > ItemManager.itemName.Length)
@@ -136,9 +136,9 @@ public class ItemEditor : MyEditor
                 itemManager.itemData[i].spawnShop = temp[i].spawnShop;
                 itemManager.itemData[i].activeItem = temp[i].activeItem;
                 for (int k = 0; k < 4; k++)
-                    temp[i].shopItemExplain[k] = itemManager.itemData[i].shopItemExplain[k];
+                    itemManager.itemData[i].shopItemExplain[k] = temp[i].shopItemExplain[k];
                 for (int k = 0; k < 4; k++)
-                    temp[i].shopItemExplain_Eng[k] = itemManager.itemData[i].shopItemExplain_Eng[k];
+                    itemManager.itemData[i].shopItemExplain_Eng[k] = temp[i].shopItemExplain_Eng[k];
             }
         }
         #endregion

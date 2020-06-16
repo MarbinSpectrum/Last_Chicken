@@ -500,6 +500,25 @@ public class Stage01_1 : StageData
             }
             #endregion
 
+            #region[지렁이 배치]
+            addX = 10;
+            for (int j = 0; j < 15; j++)
+            {
+                Vector2 objectPos = new Vector2(mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height + 1);
+                if (Random.Range(0, 100) <= StageManager.instance.stage0101_ObjectValue ||
+                    !Exception.IndexOutRange(mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height - 1, groundData) ||
+                    (Exception.IndexOutRange(mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height - 1, groundData) &&
+                    groundData[mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height - 1] == (GroundLayer)(-1)))
+                {
+                    addX += Random.Range(5, 8);
+                    continue;
+                }
+                ObjectManager.instance.Worm(objectPos);
+
+                addX += Random.Range(5, 8);
+            }
+            #endregion
+
             #region[나무상자 배치]
             addX = 10;
             for (int j = 0; j < 15; j++)

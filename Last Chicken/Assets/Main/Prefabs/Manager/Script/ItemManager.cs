@@ -39,7 +39,7 @@ public class ItemManager : ObjectPool
         "RainbowPocket",
         "Garbage",
         "Hammer",
-        "Spike"
+        "Crampons"
     };
 
     #region[액티브 아이템 여부검사]

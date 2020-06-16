@@ -230,7 +230,7 @@ MonoBehaviour:
       type: 3}
     itemName: "\uB9E5\uC8FC"
     itemName_Eng: 'Beer '
-    value0: 0.5
+    value0: 2
     value1: 0
     itemLevel: 1
     itemExplain: "\uC0AC\uC6A9\uC2DC \uCCB4\uB825\uC744 2\uB9CC\uD07C \uD68C\uBCF5\uD569\uB2C8\uB2E4."
@@ -806,6 +806,30 @@ MonoBehaviour:
     - 
     - 
     - 
+  - itemImg: {fileID: -4493952588341042727, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uC544\uC774\uC820"
+    itemName_Eng: Crampons
+    value0: 0
+    value1: 0
+    itemLevel: 0
+    itemExplain: "\uBE59\uD310\uAE38\uC5D0\uC11C \uBBF8\uB044\uB7EC\uC9C0\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4."
+    itemExplain_Eng: It doesn't slip on icy roads.
+    cost: 500
+    spawnObject: 0
+    spawnShop: 0
+    spawnTreasureBox: 0
+    activeItem: 0
+    shopItemExplain:
+    - "\uBE59\uD310\uAE38\uC5D0\uC11C \uBBF8\uB044\uB7EC\uC9C0\uC9C0"
+    - "\uC54A\uC2B5\uB2C8\uB2E4."
+    - 
+    - <color=#00ff00ff>Passive</color>
+    shopItemExplain_Eng:
+    - It doesn't slip
+    - on icy roads.
+    - 
+    - <color=#00ff00ff>Passive</color>
   ReSpawnItemList: 
   fieldObject: []
   caveObject: []

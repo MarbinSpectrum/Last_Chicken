@@ -99,6 +99,7 @@ public class Player : CustomCollider
     Color[] lastFluidColor = new Color[5];
 
     [System.NonSerialized] public float bubbleTime;
+    bool slip = true;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -509,7 +510,7 @@ public class Player : CustomCollider
             //밟은 땅의 종류에 따른 소리를 킴
             int slipperyGround = (1 << (int)StageData.GroundLayer.Ice);
 
-            if ((1 << (int)StageData.instance.GetBlock(pos) & slipperyGround) != 0)
+            if (slip && (1 << (int)StageData.instance.GetBlock(pos) & slipperyGround) != 0)
             {
                 if (Mathf.Abs(playerMoveDirection) < 0.1f)
                     playerMoveDirection = 0;
@@ -788,6 +789,8 @@ public class Player : CustomCollider
 
         attackSpeed *= maxAttackSpeed / 100f;
         attackPower = Mathf.FloorToInt((float)(attackPower) * (maxAttackPower / 100f));
+
+        slip = !ItemManager.instance.CanUsePassiveItem("Crampons");
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

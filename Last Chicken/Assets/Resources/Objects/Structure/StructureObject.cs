@@ -6,10 +6,10 @@ public class StructureObject : CustomCollider
 {
     public enum ObjectType { 부술수있음 , 부술수없음};
     [HideInInspector] public ObjectType objectType;
-    public enum SpecialType { 없음, 깔리면데미지, 닿으면데미지,아이템드랍,치이면몬스터죽음 };
+    public enum SpecialType { 없음, 깔리면데미지, 닿으면데미지, 아이템드랍, 치이면몬스터죽음, 움직임 };
     protected SpecialType specialType;
 
-    public enum DamageSound { 없음, 나무, 돌 , 철 };
+    public enum DamageSound { 없음, 나무, 돌 , 철 ,생물};
     protected DamageSound damageSound;
 
     protected GameObject body;
@@ -22,6 +22,7 @@ public class StructureObject : CustomCollider
     protected int nowHp;
     protected float time = 0;
     float cool = 0;
+    int moveDicX = 0;
 
     bool updateFlag = false;
 
@@ -120,6 +121,8 @@ public class StructureObject : CustomCollider
             EnterDamage();
         else if (specialType == SpecialType.치이면몬스터죽음)
             HitMonsterDamage();
+        else if (specialType == SpecialType.움직임)
+            ObjectMove();
     }
 
     public virtual void DownDamage()
@@ -197,6 +200,25 @@ public class StructureObject : CustomCollider
         }
         cool += Time.deltaTime;
     }
+
+    public virtual void ObjectMove()
+    {
+        if (cool > 3)
+        {
+            moveDicX = Random.Range(0, 100) < 50 ? 1 : -1;
+            cool = 0;
+        }
+        bool flag = true;
+        for (int i = 1; i <= 3; i++)
+            if (StageData.instance.GetBlock(new Vector2Int((int)transform.position.x, (int)transform.position.y) + new Vector2Int((int)Mathf.Sign(moveDicX), -i)) != (StageData.GroundLayer)(-1))
+                flag = false;
+        if (flag)
+            cool = 100;
+
+        rigidbody2D.velocity = new Vector2(moveDicX, rigidbody2D.velocity.y);
+
+        cool += Time.deltaTime;
+    }
     #endregion
 
     #region[오브젝트 피격처리]
@@ -222,6 +244,8 @@ public class StructureObject : CustomCollider
             SoundManager.instance.AttackStone();
         else if (damageSound == DamageSound.철)
             SoundManager.instance.AttackIron();
+        else if (damageSound == DamageSound.생물)
+            SoundManager.instance.MonsterDamage();
     }
 
     public virtual void ObjectBreak(int n)

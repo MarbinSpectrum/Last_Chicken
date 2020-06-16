@@ -8,7 +8,7 @@ public class ObjectCave : CustomCollider
 {
     public BoxCollider2D check;
     public GameObject uiMouse;
-  //  public GameObject light;
+    public GameObject foothold;
     public GameObject targetObject;
     public Image fade;
     public Transform target;
@@ -104,6 +104,8 @@ public class ObjectCave : CustomCollider
                 StartCoroutine(ObjectSetting(act));
             }
         }
+
+        foothold.SetActive(!targetObject.activeSelf);
     }
     #endregion
 
