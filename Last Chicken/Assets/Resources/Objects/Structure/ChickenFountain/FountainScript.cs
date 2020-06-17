@@ -92,7 +92,7 @@ public class FountainScript : AreaScript
             return;
         if (!used && IsAtPlayer(bodyCollider))
         {
-            if (Input.GetMouseButtonDown(1))
+            if (/*Input.GetMouseButtonDown(1) || */ Input.GetKeyDown(KeyCode.W))
             {
                 Player.instance.canControl = false;
                 Player.instance.pray = true;

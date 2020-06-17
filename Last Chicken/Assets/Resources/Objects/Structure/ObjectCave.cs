@@ -92,7 +92,6 @@ public class ObjectCave : CustomCollider
             return;
         bool playerIn = IsAtPlayer(check) && Player.instance.grounded;
         uiMouse.SetActive(playerIn);
-
         if (playerIn && Player.instance.canControl)
         {
             if (Input.GetKeyDown(KeyCode.W))

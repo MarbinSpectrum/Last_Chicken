@@ -114,7 +114,7 @@ public class TutorialAltarEvent : CustomCollider
             if (IsAtPlayer(altarCollider))
             {
                 uiMouse.SetActive(true);
-                if (Input.GetMouseButtonDown(1))
+                if (/*Input.GetMouseButtonDown(1) || */Input.GetKeyDown(KeyCode.W))
                 {
                     Player.instance.canControl = false;
                     Player.instance.pray = true;

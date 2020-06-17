@@ -82,14 +82,15 @@ public class BuffManager : MonoBehaviour
     public void AddBuff(int buffIndex)
     {
         if(buffData[buffIndex].Overlap)
+        {
             nowBuffList[buffName[buffIndex]].hasNum++;
-        else
-            nowBuffList[buffName[buffIndex]].hasNum = 1;
-
-        if (buffData[buffIndex].Overlap)
             nowBuffList[buffName[buffIndex]].time += buffData[buffIndex].time;
+        }
         else
+        {
+            nowBuffList[buffName[buffIndex]].hasNum = 1;
             nowBuffList[buffName[buffIndex]].time = buffData[buffIndex].time;
+        }
 
         if (buffName[buffIndex].Equals("Shield"))
             Player.instance.shieldFlag = false;

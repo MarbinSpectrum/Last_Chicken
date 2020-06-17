@@ -11,6 +11,7 @@ public class MonsterManagerEditor : MyEditor
     public Texture2D batImg;
     public Texture2D ratImg;
     public Texture2D snakeImg;
+    public Texture2D moleImg;
 
     Vector2 stageScroll;
     Rect lastRect;
@@ -183,6 +184,8 @@ public class MonsterManagerEditor : MyEditor
                 return "두더지";
             case "Penguin":
                 return "펭귄";
+            case "WhiteBear":
+                return "흰곰";
             case "MovingShop":
                 return "이동상인";
         }
@@ -199,6 +202,8 @@ public class MonsterManagerEditor : MyEditor
                 return ratImg;
             case "Snake":
                 return snakeImg;
+            case "Mole":
+                return moleImg;
         }
         return null;
     }

@@ -71,26 +71,36 @@ public class SceneController : MonoBehaviour
 
         if (!startScene)
         {
+            EffectManager.instance.gameObject.SetActive(true);
+            ObjectManager.instance.gameObject.SetActive(true);
+            MonsterManager.instance.gameObject.SetActive(true);
+            ItemManager.instance.gameObject.SetActive(true);
+            CaveManager.instance.gameObject.SetActive(true);
+
             EffectManager.instance.PoolOff();
             ObjectManager.instance.PoolOff();
             MonsterManager.instance.PoolOff();
             ItemManager.instance.PoolOff();
             CaveManager.instance.PoolOff();
         }
+
         World world = World.Instance;
-        if(world)
+        if (world)
         {
+            world.SetLighting(true);
             for (int i = 0; i < 2; i++)
             {
                 Color layerColor = world.GetBlockLayer(i).Material.color;
                 world.GetBlockLayer(i).Material.color = new Color(layerColor.r, layerColor.g, layerColor.b, 1);
             }
         }
+        CustomFluidChunk.fluidAct = true;
+        Chunk.actChunk = true;
+
         CaveManager.inCave = false;
         ItemManager.instance.fieldObject.Clear();
         ItemManager.instance.caveObject.Clear();
-        CustomFluidChunk.fluidAct = true;
-        Chunk.actChunk = true;
+        BuffManager.instance.BuffRemove();
 
         GameSceneSet(false);
 

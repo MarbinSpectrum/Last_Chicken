@@ -75,7 +75,7 @@ public class ShopScript : AreaScript
             return;
         if (!used && IsAtPlayer(bodyCollider))
         {
-            if (Input.GetMouseButtonDown(1))
+            if (/*Input.GetMouseButtonDown(1) || */Input.GetKeyDown(KeyCode.W))
             {
                 Player.instance.canControl = thisUse;
                 thisUse = !thisUse;
@@ -136,7 +136,13 @@ public class ShopScript : AreaScript
         for (int i = 0; i < 3; i++)
         {
             int itemIndex = 0;
-            do { itemIndex = ItemManager.instance.GetRandomItemAtShop(); } while (itmeList.Contains(itemIndex));
+
+            for(int j =0; j < 1000; j++)
+            { 
+                itemIndex = ItemManager.instance.GetRandomItemAtShop();
+                if (!itmeList.Contains(itemIndex))
+                    break;
+            } 
 
             itmeList.Add(itemIndex);
             itmeBuyList.Add(false);

@@ -178,8 +178,8 @@ public class Stage01_2 : StageData
     {
         //설치 가능한 지점을 설정
         maxRect = new int[world.WorldWidth, world.WorldHeight];
-        for (int i = 30; i < world.WorldWidth - 30; i++)
-            for (int j = 60; j < world.WorldHeight - 60; j++)
+        for (int i = 15; i < world.WorldWidth - 15; i++)
+            for (int j = 30; j < world.WorldHeight - 30; j++)
                 if (groundData[i, j] == GroundLayer.Dirt)
                     maxRect[i, j] = 1;
 
@@ -312,20 +312,20 @@ public class Stage01_2 : StageData
         deleteArea.Add(new RectInt((world.WorldWidth - 20) / 2, world.WorldHeight, 20, HorizontalPathSize.y + startMineAreaY));
 
         //광산로와 광산로를 이어주기 위해서 중간에 지우는 지점으로 설정
-        RectInt deleteRoad;
-        for (int i = 0; i < mineRoadArea.Count - 1; i++)
-        {
-            int minX = Mathf.Max(mineRoadArea[i].x, mineRoadArea[i + 1].x);
-            int maxX = Mathf.Min(mineRoadArea[i].x + mineRoadArea[i].width, mineRoadArea[i + 1].x + mineRoadArea[i + 1].width);
-            deleteRoad = new RectInt(Random.Range(minX, maxX - verticalPathWidth), mineRoadArea[i].y + 5, verticalPathWidth, Mathf.Abs(mineRoadArea[i].y - mineRoadArea[i + 1].y) + 5);
-            //시작지점에 중간 지우는 지점이 있으면 곤란하니 제거
-            while (i == 0 && deleteRoad.x - 10 <= world.WorldWidth / 2 && world.WorldWidth / 2 <= deleteRoad.x + 30)
-                deleteRoad = new RectInt(Random.Range(minX, maxX - verticalPathWidth), mineRoadArea[i].y + 5, verticalPathWidth, Mathf.Abs(mineRoadArea[i].y - mineRoadArea[i + 1].y) + 5);
-            deleteArea.Add(deleteRoad);
+        //RectInt deleteRoad;
+        //for (int i = 0; i < mineRoadArea.Count - 1; i++)
+        //{
+        //    int minX = Mathf.Max(mineRoadArea[i].x, mineRoadArea[i + 1].x);
+        //    int maxX = Mathf.Min(mineRoadArea[i].x + mineRoadArea[i].width, mineRoadArea[i + 1].x + mineRoadArea[i + 1].width);
+        //    deleteRoad = new RectInt(Random.Range(minX, maxX - verticalPathWidth), mineRoadArea[i].y + 5, verticalPathWidth, Mathf.Abs(mineRoadArea[i].y - mineRoadArea[i + 1].y) + 5);
+        //    //시작지점에 중간 지우는 지점이 있으면 곤란하니 제거
+        //    while (i == 0 && deleteRoad.x - 10 <= world.WorldWidth / 2 && world.WorldWidth / 2 <= deleteRoad.x + 30)
+        //        deleteRoad = new RectInt(Random.Range(minX, maxX - verticalPathWidth), mineRoadArea[i].y + 5, verticalPathWidth, Mathf.Abs(mineRoadArea[i].y - mineRoadArea[i + 1].y) + 5);
+        //    deleteArea.Add(deleteRoad);
 
-            //새로경로에 추가
-            verticalArea.Add(deleteRoad);
-        }
+        //    //새로경로에 추가
+        //    verticalArea.Add(deleteRoad);
+        //}
     }
     #endregion
 
@@ -655,7 +655,7 @@ public class Stage01_2 : StageData
             v.Clear();
             for (int i = 0; i < world.WorldWidth; i++)
                 for (int j = 0; j < world.WorldHeight; j++)
-                    if (CanAddArea(i, j, 4, 5))
+                    if (CanAddArea(i, j, 6, 6))
                         v.Add(new Vector2Int(i, j - 2));
             if (v.Count > 0)
             {
@@ -676,11 +676,11 @@ public class Stage01_2 : StageData
                         CaveManager.instance.AltarCave(cavePos, cavePos.x < world.WorldWidth / 2 ? 0 : 1);
                         break;
                 }
-                if (Random.Range(0, 100) > 50)
-                    for (int i = (int)(cavePos.x - 3); i < (int)(cavePos.x + 3); i++)
-                        for (int j = (int)(cavePos.y - 2); j < (int)(cavePos.y + 2); j++)
-                            if (Exception.IndexOutRange(i, j, groundData))
-                                groundData[i, j] = (GroundLayer)(-1);
+                //if (Random.Range(0, 100) > 50)
+                for (int i = (int)(cavePos.x - 3); i < (int)(cavePos.x + 3); i++)
+                    for (int j = (int)(cavePos.y - 2); j < (int)(cavePos.y + 2); j++)
+                        if (Exception.IndexOutRange(i, j, groundData))
+                            groundData[i, j] = (GroundLayer)(-1);
             }
         }
     }

@@ -73,8 +73,9 @@ public class Player : CustomCollider
     [System.NonSerialized] public bool invincibility = true;
     [System.NonSerialized] public bool invincibilityFlag = false;
 
-    [System.NonSerialized] public int stunTime = -1;         
-    float canControllTime = 1.5f;  //스턴시간
+    [System.NonSerialized] public float stunTime = -1;
+    int damagaAlphaTime = 0;
+    float canControllTime = 0.7f;  //스턴시간
     int noDamageTime = 4;     //무적시간
 
     enum moveDic { 경사아래로 = -1, 앞으로 = 0, 경사위로 = 1 };
@@ -233,7 +234,6 @@ public class Player : CustomCollider
         //조작가능상태이거나 멈춰있으면
         if (!canControl || stop)
             return;
-
         //플레이어 조작에 따른 행동
         PlayerUseItem();
         PlayerAttack();
@@ -958,7 +958,8 @@ public class Player : CustomCollider
         InitHang();
 
         //스턴시간 및 데미지받은 상태로 처리
-        stunTime = (int)(canControllTime / Time.deltaTime);
+        stunTime = canControllTime;
+        damagaAlphaTime = 0;
         damage = true; //데미지 받은 상태로 설정
 
         //소리출력
@@ -1126,17 +1127,18 @@ public class Player : CustomCollider
             invincibility = false;
         }
 
-        stunTime -= 1;
-        if (stunTime * Time.deltaTime < -noDamageTime)
+        stunTime -= Time.deltaTime;
+        if (stunTime < -noDamageTime)
             damage = false;
 
-        if (stunTime == 0)
+        if (!canControl && stunTime < 0 && damage)
             canControl = true;
 
         ///////////////////////////////////////////////////////////////////////////////////////////
 
+        damagaAlphaTime++;
         //깜빡이는 효과 처리
-        if (Mathf.Abs(stunTime) % 45 < 20 && damage)
+        if (Mathf.Abs(damagaAlphaTime) % 90 < 45 && damage)
             spriteRenderer.enabled = false;
         else
             spriteRenderer.enabled = true;

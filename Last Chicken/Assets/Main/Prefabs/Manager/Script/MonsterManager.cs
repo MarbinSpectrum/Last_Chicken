@@ -27,7 +27,7 @@ public class MonsterManager : ObjectPool
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static string[] monsterName = new string[] { "Bat", "Rat", "Snake", "Mole", "Penguin", "MovingShop" };
+    public static string[] monsterName = new string[] { "Bat", "Rat", "Snake", "Mole", "Penguin", "WhiteBear", "MovingShop" };
 
     [System.Serializable]
     public class MonsterStats
@@ -53,6 +53,7 @@ public class MonsterManager : ObjectPool
     GameObject snake;
     GameObject mole;
     GameObject penguin;
+    GameObject whiteBear;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -73,6 +74,7 @@ public class MonsterManager : ObjectPool
             snake = Resources.Load("Objects/Monster/Snake") as GameObject;
             mole = Resources.Load("Objects/Monster/Mole") as GameObject;
             penguin = Resources.Load("Objects/Monster/Penguin") as GameObject;
+            whiteBear = Resources.Load("Objects/Monster/WhiteBear") as GameObject;
 
             for (int i = 0; i < 100; i++)
             {
@@ -81,6 +83,7 @@ public class MonsterManager : ObjectPool
                 Snake(new Vector2(-1000, -1000));
                 Mole(new Vector2(-1000, -1000));
                 Penguin(new Vector2(-1000, -1000));
+                WhiteBear(new Vector2(-1000, -1000));
             }
 
             PoolOff();
@@ -139,6 +142,9 @@ public class MonsterManager : ObjectPool
                     break;
                 case 4:
                     Penguin(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
+                    break;
+                case 5:
+                    WhiteBear(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
                     break;
                 default:
                     Debug.LogError("몬스터를 추가해주세요!!");
@@ -394,6 +400,27 @@ public class MonsterManager : ObjectPool
         if (emp == null)
         {
             emp = Instantiate(penguin);
+            emp.transform.name = name;
+            AddObject(emp);
+        }
+
+        emp.SetActive(true);
+        emp.transform.parent = transform;
+        emp.transform.position = new Vector3(vector3.x, vector3.y, emp.transform.position.z);
+        emp.transform.rotation = new Quaternion(0, 0, 0, 0);
+    }
+    #endregion
+
+    #region[흰곰]
+    public void WhiteBear(Vector3 vector3)
+    {
+        string name = monsterName[5];
+
+        GameObject emp = FindObject(name);
+
+        if (emp == null)
+        {
+            emp = Instantiate(whiteBear);
             emp.transform.name = name;
             AddObject(emp);
         }

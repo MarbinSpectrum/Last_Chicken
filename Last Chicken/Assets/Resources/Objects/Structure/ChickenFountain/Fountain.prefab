@@ -2430,9 +2430,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8418732488744581239}
   - component: {fileID: 3748738253265138339}
-  - component: {fileID: 4289387387915541149}
+  - component: {fileID: 3523369703536596832}
   m_Layer: 31
-  m_Name: UIMouse_English
+  m_Name: Pray_English
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2446,7 +2446,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5268336068700253180}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.1499939, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2168426026395969089}
@@ -2491,7 +2491,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e526ac10fc7794e41b1efa13bb25db38, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 43ac7fda815fb3e499787bfaf4eaaa0f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2502,7 +2502,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &4289387387915541149
+--- !u!95 &3523369703536596832
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -2512,7 +2512,7 @@ Animator:
   m_GameObject: {fileID: 5268336068700253180}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 94dbfbfdcf65f314b92b1b0c35103007, type: 2}
+  m_Controller: {fileID: 9100000, guid: bbc0e057c3374b548a23cb84583507c1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -7681,9 +7681,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4831689031411596372}
   - component: {fileID: 5002843273371212013}
-  - component: {fileID: 6863631492746039578}
+  - component: {fileID: 4451762711016505967}
   m_Layer: 31
-  m_Name: "UIMouse_\uD55C\uAD6D\uC5B4"
+  m_Name: "Pray_\uD55C\uAD6D\uC5B4"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7697,7 +7697,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6165932547622567230}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2168426026395969089}
@@ -7742,7 +7742,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 09efe1b062d76e8488121ea0197fe751, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d374d4236e02142449548e9380f7a2f0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -7753,7 +7753,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &6863631492746039578
+--- !u!95 &4451762711016505967
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -7763,7 +7763,7 @@ Animator:
   m_GameObject: {fileID: 6165932547622567230}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cb8afc60f6c91924da40656e90d403b8, type: 2}
+  m_Controller: {fileID: 9100000, guid: 65c52781f5e448243b4d86ac52981093, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

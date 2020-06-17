@@ -58,7 +58,9 @@ public class ItemEditor : MyEditor
                 emp.spawnTreasureBox = itemManager.itemData[i].spawnTreasureBox;
                 emp.spawnShop = itemManager.itemData[i].spawnShop;
                 emp.activeItem = itemManager.itemData[i].activeItem;
-                for(int k = 0; k < 4; k++)
+                emp.stage01 = itemManager.itemData[i].stage01;
+                emp.stage02 = itemManager.itemData[i].stage02;
+                for (int k = 0; k < 4; k++)
                     emp.shopItemExplain[k] = itemManager.itemData[i].shopItemExplain[k];
                 for (int k = 0; k < 4; k++)
                     emp.shopItemExplain_Eng[k] = itemManager.itemData[i].shopItemExplain_Eng[k];
@@ -84,6 +86,8 @@ public class ItemEditor : MyEditor
                 itemManager.itemData[i].spawnTreasureBox = temp[i].spawnTreasureBox;
                 itemManager.itemData[i].spawnShop = temp[i].spawnShop;
                 itemManager.itemData[i].activeItem = temp[i].activeItem;
+                itemManager.itemData[i].stage01 = temp[i].stage01;
+                itemManager.itemData[i].stage02 = temp[i].stage02;
                 for (int k = 0; k < 4; k++)
                     itemManager.itemData[i].shopItemExplain[k]  = temp[i].shopItemExplain[k];
                 for (int k = 0; k < 4; k++)
@@ -109,6 +113,8 @@ public class ItemEditor : MyEditor
                 emp.spawnTreasureBox = itemManager.itemData[i].spawnTreasureBox;
                 emp.spawnShop = itemManager.itemData[i].spawnShop;
                 emp.activeItem = itemManager.itemData[i].activeItem;
+                emp.stage01 = itemManager.itemData[i].stage01;
+                emp.stage02 = itemManager.itemData[i].stage02;
                 for (int k = 0; k < 4; k++)
                     emp.shopItemExplain[k] = itemManager.itemData[i].shopItemExplain[k];
                 for (int k = 0; k < 4; k++)
@@ -135,6 +141,8 @@ public class ItemEditor : MyEditor
                 itemManager.itemData[i].spawnTreasureBox = temp[i].spawnTreasureBox;
                 itemManager.itemData[i].spawnShop = temp[i].spawnShop;
                 itemManager.itemData[i].activeItem = temp[i].activeItem;
+                itemManager.itemData[i].stage01 = temp[i].stage01;
+                itemManager.itemData[i].stage02 = temp[i].stage02;
                 for (int k = 0; k < 4; k++)
                     itemManager.itemData[i].shopItemExplain[k] = temp[i].shopItemExplain[k];
                 for (int k = 0; k < 4; k++)
@@ -463,6 +471,14 @@ public class ItemEditor : MyEditor
 
         EditorGUILayout.BeginHorizontal();
         data.spawnTreasureBox = ToggleField("보물상자", data.spawnTreasureBox, dataStyle);
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.EndVertical();
+        EditorGUILayout.BeginVertical("helpbox");
+
+        EditorGUILayout.BeginHorizontal();
+        data.stage01 = ToggleField("Stage 1", data.stage01, dataStyle);
+        data.stage02 = ToggleField("Stage 2", data.stage02, dataStyle);
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.EndVertical();

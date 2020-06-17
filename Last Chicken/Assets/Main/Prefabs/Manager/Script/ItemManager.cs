@@ -42,6 +42,24 @@ public class ItemManager : ObjectPool
         "Crampons"
     };
 
+    #region[스테이지 아이템 여부검사]
+    public bool StageItemCheck(string itemName)
+    {
+        int itemIndex = FindData(itemName);
+        return StageItemCheck(itemIndex);
+    }
+
+    public bool StageItemCheck(int itemIndex)
+    {
+        string nowScene = SceneController.instance.nowScene;
+        if (itemData[itemIndex].stage01 && nowScene.Substring(0, nowScene.Length - 2).Equals("Stage01"))
+            return true;
+        if (itemData[itemIndex].stage02 && (nowScene.Substring(0, nowScene.Length - 2).Equals("Stage02") || nowScene.Equals("IglooMap")))
+            return true;
+        return false;
+    }
+    #endregion
+
     #region[액티브 아이템 여부검사]
     public static bool CheckActiveItem(string itemName)
     {
@@ -184,6 +202,8 @@ public class ItemManager : ObjectPool
         public bool spawnObject;
         public bool spawnShop;
         public bool spawnTreasureBox;
+        public bool stage01;
+        public bool stage02;
         public bool activeItem;
         public string[] shopItemExplain = new string[4];
         public string[] shopItemExplain_Eng = new string[4];
@@ -306,7 +326,8 @@ public class ItemManager : ObjectPool
                 if (itemData[i].itemLevel == ItemLevel.일반 && itemData[i].spawnObject &&
                     !nowItemList[itemName[i]].used && 
                     !HasItemCheck(itemName[i]) &&
-                    (!CheckReSpawnItem(itemName[i]) ? !ReSpawnItemList.Contains(i) : true))
+                    (!CheckReSpawnItem(itemName[i]) ? !ReSpawnItemList.Contains(i) : true) &&
+                     StageItemCheck(i))
                     itemList.Add(i);
         }
         else if (randomValue < normalRate + rareRate)
@@ -315,7 +336,8 @@ public class ItemManager : ObjectPool
                 if (itemData[i].itemLevel == ItemLevel.희귀 && itemData[i].spawnObject &&
                     !nowItemList[itemName[i]].used && 
                     !HasItemCheck(itemName[i]) &&
-                    (!CheckReSpawnItem(itemName[i]) ? !ReSpawnItemList.Contains(i) : true))
+                    (!CheckReSpawnItem(itemName[i]) ? !ReSpawnItemList.Contains(i) : true) &&
+                     StageItemCheck(i))
                     itemList.Add(i);
         }
         else if (randomValue < normalRate + rareRate + specialRate)
@@ -324,7 +346,8 @@ public class ItemManager : ObjectPool
                 if (itemData[i].itemLevel == ItemLevel.특급 && itemData[i].spawnObject &&
                     !nowItemList[itemName[i]].used &&
                     !HasItemCheck(itemName[i]) &&
-                    (!CheckReSpawnItem(itemName[i]) ? !ReSpawnItemList.Contains(i) : true))
+                    (!CheckReSpawnItem(itemName[i]) ? !ReSpawnItemList.Contains(i) : true) &&
+                     StageItemCheck(i))
                     itemList.Add(i);
         }
         else if (randomValue < normalRate + rareRate + specialRate + legendRate)
@@ -333,7 +356,8 @@ public class ItemManager : ObjectPool
                 if (itemData[i].itemLevel == ItemLevel.전설 && itemData[i].spawnObject &&
                     !nowItemList[itemName[i]].used && 
                     !HasItemCheck(itemName[i]) &&
-                    (!CheckReSpawnItem(itemName[i]) ? !ReSpawnItemList.Contains(i) : true))
+                    (!CheckReSpawnItem(itemName[i]) ? !ReSpawnItemList.Contains(i) : true) &&
+                     StageItemCheck(i))
                     itemList.Add(i);
         }
 
@@ -378,14 +402,16 @@ public class ItemManager : ObjectPool
         {
             for (int i = 0; i < itemName.Length; i++)
                 if (itemData[i].itemLevel == ItemLevel.특급 && itemData[i].spawnTreasureBox &&
-                    !nowItemList[itemName[i]].used && !HasItemCheck(itemName[i]))
+                    !nowItemList[itemName[i]].used && !HasItemCheck(itemName[i]) &&
+                     StageItemCheck(i))
                     itemList.Add(i);
         }
         else
         {
             for (int i = 0; i < itemName.Length; i++)
                 if (itemData[i].itemLevel == ItemLevel.전설 && itemData[i].spawnTreasureBox &&
-                    !nowItemList[itemName[i]].used && !HasItemCheck(itemName[i]))
+                    !nowItemList[itemName[i]].used && !HasItemCheck(itemName[i]) &&
+                     StageItemCheck(i))
                     itemList.Add(i);
         }
 
@@ -414,28 +440,32 @@ public class ItemManager : ObjectPool
         {
             for (int i = 0; i < itemName.Length; i++)
                 if (itemData[i].itemLevel == ItemLevel.일반 && itemData[i].spawnShop &&
-                    !nowItemList[itemName[i]].used && !HasItemCheck(itemName[i]))
+                    !nowItemList[itemName[i]].used && !HasItemCheck(itemName[i]) &&
+                     StageItemCheck(i))
                     itemList.Add(i);
         }
         else if (randomValue < normalRate + rareRate)
         {
             for (int i = 0; i < itemName.Length; i++)
                 if (itemData[i].itemLevel == ItemLevel.희귀 && itemData[i].spawnShop &&
-                    !nowItemList[itemName[i]].used && !HasItemCheck(itemName[i]))
+                    !nowItemList[itemName[i]].used && !HasItemCheck(itemName[i]) &&
+                     StageItemCheck(i))
                     itemList.Add(i);
         }
         else if (randomValue < normalRate + rareRate + specialRate)
         {
             for (int i = 0; i < itemName.Length; i++)
                 if (itemData[i].itemLevel == ItemLevel.특급 && itemData[i].spawnShop &&
-                    !nowItemList[itemName[i]].used && !HasItemCheck(itemName[i]))
+                    !nowItemList[itemName[i]].used && !HasItemCheck(itemName[i]) &&
+                     StageItemCheck(i))
                     itemList.Add(i);
         }
         else if (randomValue < normalRate + rareRate + specialRate + legendRate)
         {
             for (int i = 0; i < itemName.Length; i++)
                 if (itemData[i].itemLevel == ItemLevel.전설 && itemData[i].spawnShop &&
-                    !nowItemList[itemName[i]].used && !HasItemCheck(itemName[i]))
+                    !nowItemList[itemName[i]].used && !HasItemCheck(itemName[i]) &&
+                     StageItemCheck(i))
                     itemList.Add(i);
         }
 

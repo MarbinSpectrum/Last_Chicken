@@ -23,6 +23,7 @@ public abstract class Monster : CustomCollider
     protected Vector2Int targetPos; //타겟위치
     protected int range = 25;   //탐색범위
     protected int AstarRange = 20;
+    protected bool iceFlag = false;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -42,8 +43,8 @@ public abstract class Monster : CustomCollider
     protected float attackPower;   //공격력
 
     protected bool damage; //데미지 
-    private float stunTime= 0.5f;   //경직시간
-    private float isStunTime;
+    protected float stunTime = 0.5f;   //경직시간
+    protected float isStunTime;
 
     protected float gravity = 8;
 
@@ -104,6 +105,8 @@ public abstract class Monster : CustomCollider
         targetPos = new Vector2Int(Mathf.FloorToInt(Player.instance.transform.position.x) + offset.x, Mathf.FloorToInt(Player.instance.transform.position.y) + offset.y);
 
         light.SetActive(useMonsterRadar);
+
+        iceFlag = (StageData.instance.GetBlock(nowPos + new Vector2Int(0, -2)) == StageData.GroundLayer.Ice);
     }
     #endregion
 
@@ -175,7 +178,7 @@ public abstract class Monster : CustomCollider
             EffectManager.instance.Vibration(EffectManager.instance.monsterDeadVibration.num, EffectManager.instance.monsterDeadVibration.power);
             SoundManager.instance.MonsterDead();
             transform.position = new Vector3(-1000,-1000,transform.position.z);
-            MonsterManager.instance.ReSwpawn(world, 20);
+            MonsterManager.instance.ReSwpawn(world, 25);
             gameObject.SetActive(false);
         }
     }

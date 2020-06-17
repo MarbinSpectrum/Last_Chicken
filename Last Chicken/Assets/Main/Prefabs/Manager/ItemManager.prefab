@@ -67,6 +67,8 @@ MonoBehaviour:
     spawnObject: 1
     spawnShop: 1
     spawnTreasureBox: 0
+    stage01: 1
+    stage02: 0
     activeItem: 0
     shopItemExplain:
     - "\uC0AC\uC6A9\uC2DC \uB2ED\uC774 \uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C"
@@ -93,6 +95,8 @@ MonoBehaviour:
     spawnObject: 0
     spawnShop: 0
     spawnTreasureBox: 1
+    stage01: 1
+    stage02: 1
     activeItem: 0
     shopItemExplain:
     - 
@@ -116,17 +120,19 @@ MonoBehaviour:
     spawnObject: 0
     spawnShop: 0
     spawnTreasureBox: 0
+    stage01: 0
+    stage02: 0
     activeItem: 0
     shopItemExplain:
     - 
     - 
     - 
-    - 
+    - <color=#00ff00ff>Passive</color>
     shopItemExplain_Eng:
     - 
     - 
     - 
-    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: 7350294751972509274, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uC751\uAE09\uCC98\uCE58\uD0A4\uD2B8"
@@ -141,6 +147,8 @@ MonoBehaviour:
     spawnObject: 1
     spawnShop: 1
     spawnTreasureBox: 0
+    stage01: 1
+    stage02: 0
     activeItem: 0
     shopItemExplain:
     - "\uC989\uC0AC\uD560 \uB370\uBBF8\uC9C0\uBC1B\uC544\uB3C4 "
@@ -165,6 +173,8 @@ MonoBehaviour:
     spawnObject: 0
     spawnShop: 0
     spawnTreasureBox: 0
+    stage01: 0
+    stage02: 0
     activeItem: 0
     shopItemExplain:
     - "\uC880\uB354 \uC2DC\uC57C\uAC00 \uB113\uC5B4\uC9D1\uB2C8\uB2E4."
@@ -191,6 +201,8 @@ MonoBehaviour:
     spawnObject: 0
     spawnShop: 0
     spawnTreasureBox: 0
+    stage01: 0
+    stage02: 0
     activeItem: 0
     shopItemExplain:
     - 
@@ -215,6 +227,8 @@ MonoBehaviour:
     spawnObject: 1
     spawnShop: 1
     spawnTreasureBox: 0
+    stage01: 1
+    stage02: 1
     activeItem: 0
     shopItemExplain:
     - "\uC2DC\uC6D0\uD55C \uCF5C\uB77C\uC785\uB2C8\uB2E4."
@@ -239,6 +253,8 @@ MonoBehaviour:
     spawnObject: 1
     spawnShop: 1
     spawnTreasureBox: 0
+    stage01: 1
+    stage02: 1
     activeItem: 0
     shopItemExplain:
     - "\uC2DC\uC6D0\uD55C \uB9E5\uC8FC\uC785\uB2C8\uB2E4."
@@ -263,6 +279,8 @@ MonoBehaviour:
     spawnObject: 1
     spawnShop: 1
     spawnTreasureBox: 0
+    stage01: 1
+    stage02: 1
     activeItem: 0
     shopItemExplain:
     - "\uBAAC\uC2A4\uD130\uC758 \uC704\uCE58\uB97C \uD0D0\uC9C0"
@@ -288,6 +306,8 @@ MonoBehaviour:
     spawnObject: 0
     spawnShop: 1
     spawnTreasureBox: 0
+    stage01: 0
+    stage02: 1
     activeItem: 0
     shopItemExplain:
     - "50%\uD655\uB960\uB85C \uCCB4\uB825\uC774"
@@ -313,6 +333,8 @@ MonoBehaviour:
     spawnObject: 0
     spawnShop: 0
     spawnTreasureBox: 0
+    stage01: 0
+    stage02: 0
     activeItem: 0
     shopItemExplain:
     - "\uC8FC\uC704\uB97C \uBC1D\uD600\uC8FC\uACE0"
@@ -336,6 +358,8 @@ MonoBehaviour:
     spawnObject: 0
     spawnShop: 0
     spawnTreasureBox: 0
+    stage01: 0
+    stage02: 0
     activeItem: 0
     shopItemExplain:
     - 
@@ -361,6 +385,8 @@ MonoBehaviour:
     spawnObject: 0
     spawnShop: 0
     spawnTreasureBox: 0
+    stage01: 0
+    stage02: 0
     activeItem: 0
     shopItemExplain:
     - 
@@ -390,6 +416,8 @@ MonoBehaviour:
     spawnObject: 1
     spawnShop: 1
     spawnTreasureBox: 0
+    stage01: 1
+    stage02: 1
     activeItem: 0
     shopItemExplain:
     - "\uAD11\uC0B0\uC5D0\uC11C \uAD6C\uBA4D\uC744 \uB6AB\uAE30\uC704\uD55C"
@@ -419,6 +447,8 @@ MonoBehaviour:
     spawnObject: 0
     spawnShop: 1
     spawnTreasureBox: 0
+    stage01: 0
+    stage02: 1
     activeItem: 0
     shopItemExplain:
     - "\uAD11\uC0B0\uC5D0\uC11C \uAD6C\uBA4D\uC744 \uB6AB\uAE30\uC704\uD55C"
@@ -444,6 +474,8 @@ MonoBehaviour:
     spawnObject: 0
     spawnShop: 0
     spawnTreasureBox: 0
+    stage01: 0
+    stage02: 0
     activeItem: 0
     shopItemExplain:
     - 
@@ -469,6 +501,8 @@ MonoBehaviour:
     spawnObject: 0
     spawnShop: 0
     spawnTreasureBox: 0
+    stage01: 0
+    stage02: 0
     activeItem: 0
     shopItemExplain:
     - 
@@ -494,6 +528,8 @@ MonoBehaviour:
     spawnObject: 0
     spawnShop: 0
     spawnTreasureBox: 0
+    stage01: 0
+    stage02: 0
     activeItem: 0
     shopItemExplain:
     - 
@@ -519,6 +555,8 @@ MonoBehaviour:
     spawnObject: 1
     spawnShop: 1
     spawnTreasureBox: 0
+    stage01: 1
+    stage02: 1
     activeItem: 0
     shopItemExplain:
     - "\uAD11\uBB3C\uC774 \uC790\uB3D9\uC73C\uB85C \uAC00\uBC29\uC73C\uB85C"
@@ -544,6 +582,8 @@ MonoBehaviour:
     spawnObject: 0
     spawnShop: 0
     spawnTreasureBox: 0
+    stage01: 0
+    stage02: 0
     activeItem: 0
     shopItemExplain:
     - 
@@ -569,6 +609,8 @@ MonoBehaviour:
     spawnObject: 1
     spawnShop: 1
     spawnTreasureBox: 0
+    stage01: 1
+    stage02: 1
     activeItem: 0
     shopItemExplain:
     - "30% \uD560\uC778\uCFE0\uD3F0"
@@ -594,6 +636,8 @@ MonoBehaviour:
     spawnObject: 0
     spawnShop: 1
     spawnTreasureBox: 0
+    stage01: 1
+    stage02: 1
     activeItem: 0
     shopItemExplain:
     - "\uC0C1\uC810 VIP \uD68C\uC6D0\uC99D"
@@ -619,6 +663,8 @@ MonoBehaviour:
     spawnObject: 0
     spawnShop: 0
     spawnTreasureBox: 1
+    stage01: 0
+    stage02: 0
     activeItem: 0
     shopItemExplain:
     - 
@@ -644,6 +690,8 @@ MonoBehaviour:
     spawnObject: 1
     spawnShop: 0
     spawnTreasureBox: 0
+    stage01: 1
+    stage02: 1
     activeItem: 0
     shopItemExplain:
     - 
@@ -669,6 +717,8 @@ MonoBehaviour:
     spawnObject: 0
     spawnShop: 0
     spawnTreasureBox: 0
+    stage01: 0
+    stage02: 0
     activeItem: 0
     shopItemExplain:
     - 
@@ -693,6 +743,8 @@ MonoBehaviour:
     spawnObject: 0
     spawnShop: 1
     spawnTreasureBox: 0
+    stage01: 1
+    stage02: 1
     activeItem: 0
     shopItemExplain:
     - "\uBCF4\uBB3C\uC758 \uC704\uCE58\uB97C \uD45C\uC2DC\uD569\uB2C8\uB2E4"
@@ -717,6 +769,8 @@ MonoBehaviour:
     spawnObject: 1
     spawnShop: 1
     spawnTreasureBox: 0
+    stage01: 1
+    stage02: 1
     activeItem: 0
     shopItemExplain:
     - "\uD568\uC815\uC758 \uC704\uCE58\uB97C \uD45C\uC2DC\uD569\uB2C8\uB2E4."
@@ -743,6 +797,8 @@ MonoBehaviour:
     spawnObject: 0
     spawnShop: 1
     spawnTreasureBox: 1
+    stage01: 1
+    stage02: 1
     activeItem: 0
     shopItemExplain:
     - "\uC800\uB3C4 \uBB50\uAC00 \uB098\uC62C\uC9C0?"
@@ -767,6 +823,8 @@ MonoBehaviour:
     spawnObject: 0
     spawnShop: 0
     spawnTreasureBox: 0
+    stage01: 0
+    stage02: 0
     activeItem: 0
     shopItemExplain:
     - 
@@ -795,6 +853,8 @@ MonoBehaviour:
     spawnObject: 1
     spawnShop: 0
     spawnTreasureBox: 0
+    stage01: 1
+    stage02: 1
     activeItem: 0
     shopItemExplain:
     - 
@@ -816,9 +876,11 @@ MonoBehaviour:
     itemExplain: "\uBE59\uD310\uAE38\uC5D0\uC11C \uBBF8\uB044\uB7EC\uC9C0\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4."
     itemExplain_Eng: It doesn't slip on icy roads.
     cost: 500
-    spawnObject: 0
-    spawnShop: 0
+    spawnObject: 1
+    spawnShop: 1
     spawnTreasureBox: 0
+    stage01: 0
+    stage02: 1
     activeItem: 0
     shopItemExplain:
     - "\uBE59\uD310\uAE38\uC5D0\uC11C \uBBF8\uB044\uB7EC\uC9C0\uC9C0"

@@ -194,29 +194,6 @@ public class Stage02_Igloo : StageData
     #region[오브젝트 설치]
     void SetObject()
     {
-        #region[지뢰설치]
-        List<Vector2> minePos = new List<Vector2>();
-
-        for (int x = 0; x < world.WorldWidth; x++)
-            for (int y = 50; y < world.WorldHeight - 20; y++)
-                if (groundData[x, y] == GroundLayer.Dirt && Random.Range(0, 100) > 98)
-                {
-                    bool flag = true;
-                    for (int k = 0; k < minePos.Count; k++)
-                    {
-                        if (Vector2.Distance(minePos[k], new Vector2(x, y)) < 5)
-                        {
-                            flag = false;
-                            break;
-                        }
-                    }
-                    if (flag)
-                    {
-                        minePos.Add(new Vector2(x, y));
-                        ObjectManager.instance.LandMine(new Vector2(x, y));
-                    }
-                }
-        #endregion
 
         #region[보물배치]
         if (Random.Range(0, 100) > 80)

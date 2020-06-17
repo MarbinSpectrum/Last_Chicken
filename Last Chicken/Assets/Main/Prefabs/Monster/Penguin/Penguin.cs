@@ -53,8 +53,6 @@ public class Penguin : Monster
     #region[이동처리]
     public void Move()
     {
-
-        bool iceFlag = (StageData.instance.GetBlock(nowPos + new Vector2Int(0, -2)) == StageData.GroundLayer.Ice);
         float newSpeed = speed * (iceFlag ? 3 : 1);
         if (Vector2.Distance(nowPos, targetPos) < range &&
             Exception.IndexOutRange(nowPos, GroundManager.instance.linkArea) &&
