@@ -87,7 +87,8 @@ public class SceneController : MonoBehaviour
         World world = World.Instance;
         if (world)
         {
-            world.SetLighting(true);
+            if (!nowScene.Equals("Tutorial"))
+                world.SetLighting(true);
             for (int i = 0; i < 2; i++)
             {
                 Color layerColor = world.GetBlockLayer(i).Material.color;

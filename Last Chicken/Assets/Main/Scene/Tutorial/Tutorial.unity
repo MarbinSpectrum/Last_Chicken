@@ -2708,7 +2708,32 @@ PrefabInstance:
     - target: {fileID: 7127884904541851366, guid: d3057654538c06c4a9ee7f5aa7e038b1,
         type: 3}
       propertyPath: obejctData.Array.size
-      value: 18
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127884904541851366, guid: d3057654538c06c4a9ee7f5aa7e038b1,
+        type: 3}
+      propertyPath: obejctData.Array.data[18].Hp
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127884904541851366, guid: d3057654538c06c4a9ee7f5aa7e038b1,
+        type: 3}
+      propertyPath: obejctData.Array.data[18].DamageSound
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127884904541851366, guid: d3057654538c06c4a9ee7f5aa7e038b1,
+        type: 3}
+      propertyPath: obejctData.Array.data[19].Hp
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127884904541851366, guid: d3057654538c06c4a9ee7f5aa7e038b1,
+        type: 3}
+      propertyPath: obejctData.Array.data[19].SpecialType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7127884904541851366, guid: d3057654538c06c4a9ee7f5aa7e038b1,
+        type: 3}
+      propertyPath: obejctData.Array.data[19].DamageSound
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7289591910536760907, guid: d3057654538c06c4a9ee7f5aa7e038b1,
         type: 3}
