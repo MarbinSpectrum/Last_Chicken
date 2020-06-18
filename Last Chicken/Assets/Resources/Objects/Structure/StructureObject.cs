@@ -266,11 +266,18 @@ public class StructureObject : CustomCollider
 
             body.SetActive(false);
             piece.SetActive(true);
+            StartCoroutine(ObjectUnAct(2));
         }
         else
         {
             StartCoroutine(Vibration(10));
         }
+    }
+
+    public IEnumerator ObjectUnAct(float time)
+    {
+        yield return new WaitForSeconds(time);
+        transform.position = new Vector3(10000, 10000, transform.position.z);
     }
 
     public IEnumerator Vibration(int n,float power = 0.05f)
