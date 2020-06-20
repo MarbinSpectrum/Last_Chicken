@@ -826,6 +826,13 @@ public class Player : CustomCollider
                 dic = dic.normalized;
                 ObjectManager.instance.Boom(transform.position + new Vector3(0,1,0),dic*3000);
             }
+            else if (ItemManager.instance.CanUseActiveItem("Splash_Pick"))
+            {
+                ItemManager.instance.UseItem("Splash_Pick");
+                Vector2 dic = MouseManager.instance.mousePos - (Vector2)transform.position;
+                dic = dic.normalized;
+                ObjectManager.instance.SplashAxe(transform.position + new Vector3(0, 1, 0), dic * 3000);
+            }
             else if (ItemManager.instance.CanUseActiveItem("Bell"))
             {
                 ItemManager.instance.UseItem("Bell");

@@ -7,7 +7,7 @@ public class IglooObject : CustomCollider
     public BoxCollider2D check;
     void Update()
     {
-        if(IsAtPlayer(check) && Player.instance.nowHp > 0)
+        if(IsAtPlayer(check) && Input.GetKeyDown(KeyCode.W) && Player.instance.nowHp > 0)
         {
             SceneController.instance.MoveScene("IglooMap");
             Player.instance.canControl = false;

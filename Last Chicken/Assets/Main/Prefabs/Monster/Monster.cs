@@ -24,6 +24,8 @@ public abstract class Monster : CustomCollider
     protected int range = 25;   //탐색범위
     protected int AstarRange = 20;
     protected bool iceFlag = false;
+    protected float iceVelocity;
+    protected float slipperyValue = 0.8f;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -107,6 +109,7 @@ public abstract class Monster : CustomCollider
         light.SetActive(useMonsterRadar);
 
         iceFlag = (StageData.instance.GetBlock(nowPos + new Vector2Int(0, -2)) == StageData.GroundLayer.Ice);
+
     }
     #endregion
 
@@ -189,6 +192,17 @@ public abstract class Monster : CustomCollider
     {
         moveFlag = false;
 
+        if(force == 0)
+        {
+            if (Mathf.Abs(iceVelocity) < 0.1f)
+                iceVelocity = 0;
+            else if (iceVelocity > 0)
+                iceVelocity -= Time.deltaTime * slipperyValue;
+            else if (iceVelocity < 0)
+                iceVelocity += Time.deltaTime * slipperyValue;
+            force += iceVelocity;
+        }
+
         if (force != 0)
         {
             #region[경사아래로 이동]
@@ -223,7 +237,11 @@ public abstract class Monster : CustomCollider
 
             #region[이동방향설정]
             if (moveFlag)
+            {
                 moveDic = force > 0 ? 1 : force < 0 ? -1 : moveDic;
+                if(iceFlag)
+                    iceVelocity = force;
+            }
             #endregion
         }
 

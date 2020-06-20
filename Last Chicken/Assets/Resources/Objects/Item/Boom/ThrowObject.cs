@@ -8,7 +8,6 @@ public class ThrowObject : CustomCollider
     BoxCollider2D damageCollider;
 
     public int damage;
-
     float cool = 0;
 
     #region[Awake]
@@ -25,7 +24,7 @@ public class ThrowObject : CustomCollider
         if(Vector2.Distance(rigidbody2D.velocity,Vector2.zero) > 5)
         {
             AttackMonster(damage);
-            if(cool >= 0.25f)
+            if (cool >= 0.25f)
             {
                 AttackObject(damage);
                 cool = 0;

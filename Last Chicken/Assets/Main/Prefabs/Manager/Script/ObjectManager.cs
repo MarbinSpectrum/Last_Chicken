@@ -73,6 +73,7 @@ public class ObjectManager : ObjectPool
     GameObject torch;
     GameObject boom;
     GameObject dynamite;
+    GameObject splashPickaxe;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -153,7 +154,7 @@ public class ObjectManager : ObjectPool
             torch = Resources.Load("Objects/Item/Torch") as GameObject;
             boom = Resources.Load("Objects/Item/Boom/Boom") as GameObject;
             dynamite = Resources.Load("Objects/Item/Boom/Dynamite") as GameObject;
-
+            splashPickaxe = Resources.Load("Objects/Item/Pickaxe") as GameObject;
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             mineWoodBoard = Resources.Load("Objects/Structure/Stage01/MineRoadWoodBoard") as GameObject;
@@ -309,7 +310,7 @@ public class ObjectManager : ObjectPool
     }
     #endregion
 
-    #region[폭탄]
+    #region[다이너마이트]
     public void Dynamite(Vector2 vector2 ,bool flipX = false)
     {
         string name = "Dynamite";
@@ -330,6 +331,35 @@ public class ObjectManager : ObjectPool
     }
     #endregion
 
+    #region[투척용곡괭이]
+    public void SplashAxe(Vector2 vector2, bool flipX = false)
+    {
+        SplashAxe(vector2, Vector2.zero, flipX);
+    }
+
+    public void SplashAxe(Vector2 vector2, Vector2 Force, bool flipX = false)
+    {
+        string name = "SplashAxe";
+
+        GameObject emp = FindObject(name);
+
+        if (emp == null)
+        {
+            emp = Instantiate(splashPickaxe);
+            emp.transform.name = name;
+            AddObject(emp);
+        }
+        emp.SetActive(true);
+        emp.transform.localRotation = Quaternion.identity;
+        emp.transform.parent = transform;
+        emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
+        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1);
+
+        emp.GetComponent<Rigidbody2D>().AddForce(Force);
+        if (Force != Vector2.zero)
+            emp.GetComponent<Rigidbody2D>().angularVelocity = 1800;
+    }
+    #endregion
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

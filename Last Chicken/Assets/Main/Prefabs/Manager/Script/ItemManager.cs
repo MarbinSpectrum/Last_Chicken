@@ -11,7 +11,7 @@ public class ItemManager : ObjectPool
     {
         "Bell",
         "Feather_Shoes",
-        "Light_Pick",
+        "Splash_Pick",
         "Medkit",
         "Torch",
         "FourLeafClover" ,
@@ -70,6 +70,9 @@ public class ItemManager : ObjectPool
             case "Bell":
                 activeItem = true;
                 break;
+            case "Splash_Pick":
+                activeItem = true;
+                break;
             case "Coke":
                 activeItem = true;
                 break;
@@ -112,7 +115,6 @@ public class ItemManager : ObjectPool
     #region[쿨타임 아이템 여부검사]
     public static bool CheckCoolTimeItem(string itemName)
     {
-
         bool activeItem = false;
         switch (itemName)
         {
@@ -125,6 +127,12 @@ public class ItemManager : ObjectPool
             case "Dynamite":
                 activeItem = true;
                 break;
+            case "Splash_Pick":
+                activeItem = true;
+                break;
+            //default:
+            //    Debug.Log(itemName + "는 쿨타임여부검사를 실시안하고있다.");
+            //    break;
         }
         return activeItem;
     }
@@ -560,8 +568,12 @@ public class ItemManager : ObjectPool
                     return GameManager.instance.itemCool[0] >= itemData[FindData("BoomItem")].value1;
                 case "Dynamite":
                     return GameManager.instance.itemCool[0] >= itemData[FindData("Dynamite")].value1;
+                case "Splash_Pick":
+                    return GameManager.instance.itemCool[0] >= itemData[FindData("Splash_Pick")].value1;
+                default:
+                    Debug.Log("쿨타임된여부를 검사를안하고있다.");
+                    return false;
             }
-            return true;
         }
         return false;
     }
@@ -616,6 +628,9 @@ public class ItemManager : ObjectPool
             {
                 switch (name)
                 {
+                    case "SaleCoupon":
+                        GameManager.instance.itemSlot[i] = "";
+                        break;
                     case "Bell":
                         GameManager.instance.itemCool[0] = 0;
                         break;
@@ -624,6 +639,12 @@ public class ItemManager : ObjectPool
                         break;
                     case "Dynamite":
                         GameManager.instance.itemCool[0] = 0;
+                        break;
+                    case "Splash_Pick":
+                        GameManager.instance.itemCool[0] = 0;
+                        break;
+                    default:
+                        Debug.Log("아이템쿨타임을지정안했다.");
                         break;
                 }
                 break;

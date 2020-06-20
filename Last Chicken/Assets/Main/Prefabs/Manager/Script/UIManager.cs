@@ -1158,6 +1158,12 @@ public class UIManager : MonoBehaviour
                     case "Dynamite":
                         cool = ItemManager.instance.itemData[ItemManager.FindData("Dynamite")].value1;
                         break;
+                    case "Splash_Pick":
+                        cool = ItemManager.instance.itemData[ItemManager.FindData("Splash_Pick")].value1;
+                        break;
+                    default:
+                        Debug.Log("쿨타임을 표시안하고있다");
+                        break;
                 }
                 cool = (GameManager.instance.itemCool[i] > cool ? cool : GameManager.instance.itemCool[i]) / cool;
 
