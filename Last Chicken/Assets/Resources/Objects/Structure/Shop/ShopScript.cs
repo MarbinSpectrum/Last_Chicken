@@ -170,7 +170,7 @@ public class ShopScript : AreaScript
         GameManager.instance.playerMoney -= cost;
 
         if(ItemManager.instance.HasItemCheck("SaleCoupon"))
-            ItemManager.instance.UseItem("SaleCoupon");
+            ItemManager.instance.CostItem("SaleCoupon");
 
         itmeBuyList[itemNum] = true;
 

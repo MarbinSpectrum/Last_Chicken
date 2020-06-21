@@ -97,14 +97,18 @@ public class StalagmiteScript : TrapScript
     #region[낙하 데미지]
     public override void DownDamage()
     {
-        if (fallTime > 1)
+        if (rigidbody2D.velocity.y > -0.1f || fallTime > 1)
             return;
         Vector2 digPos = (Vector2)transform.position + new Vector2(bodyCollider.offset.x * transform.localScale.x, bodyCollider.offset.y * transform.localScale.y - 1f);
         Vector2 newSize = new Vector2(Mathf.Abs(bodyCollider.size.x * transform.localScale.x) * 0.9f, Mathf.Abs(bodyCollider.size.y * transform.localScale.y));
         RaycastHit2D[] targets = Physics2D.BoxCastAll(digPos, newSize, 0, Vector2.zero, 0, 1 << LayerMask.NameToLayer("Body"));
         for (int i = 0; i < targets.Length; i++)
             if (targets[i].transform.tag.Equals("Player"))
-                Player.instance.PlayerDamage(damage);
+            {
+                ObjectBreak(nowHp);
+                if (!ItemManager.instance.HasItemCheck("Mine_Helmet"))
+                    Player.instance.PlayerDamage(damage);
+            }
     }
     #endregion
 }

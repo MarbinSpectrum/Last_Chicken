@@ -102,6 +102,10 @@ public class Player : CustomCollider
     [System.NonSerialized] public float bubbleTime;
     bool slip = true;
 
+    bool highJump = true;
+
+    [System.NonSerialized] public bool bat_Hate_Light;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -129,6 +133,8 @@ public class Player : CustomCollider
     [System.NonSerialized] public List<BlockLightSource> mineHelmetLighSourceList = new List<BlockLightSource>();
     [System.NonSerialized] public BlockLightSource playerBlockLightSource;
     Vector2 frontPos = Vector2.zero;
+
+    [System.NonSerialized] public GameObject playerUmbrella;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -171,6 +177,7 @@ public class Player : CustomCollider
         mineHelmetLight = transform.Find("Light").Find("MineHelmet").gameObject;
         for (int i = 0; i < mineHelmetLight.transform.childCount; i++)
             mineHelmetLighSourceList.Add(mineHelmetLight.transform.GetChild(i).GetChild(0).GetComponent<BlockLightSource>());
+        playerUmbrella = transform.Find("Umbrella").gameObject;
 
         nowHp = GameManager.instance.playData.playerNowHp;
         maxHp = GameManager.instance.playData.playerMaxHp;
@@ -244,7 +251,7 @@ public class Player : CustomCollider
     }
     #endregion
 
-    #region[플레이어 낙하 및 낙하]
+    #region[플레이어 낙하 및 수중낙하]
     void PlayerFall()
     {
         //아래에 지형이 있는지 검사
@@ -356,6 +363,8 @@ public class Player : CustomCollider
                 //낙하시간을 0으로 바꿈
                 fallTime = 0;
 
+                //우산을 사용중이면 우산을 취소함
+                playerUmbrella.SetActive(false);
             }
 
             if (!notFallDamage && !hasFeatherShoes && !SceneController.instance.CheckEventMap())
@@ -394,6 +403,12 @@ public class Player : CustomCollider
             rigidbody2D.gravityScale = gravity;
             if (inFluid)
                 rigidbody2D.gravityScale /= 1.5f;
+            //우산때문에 매우 천천히 떨어짐
+            if (playerUmbrella.activeSelf)
+            {
+                groundFallTime = 0;
+                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, Mathf.Max(-2, rigidbody2D.velocity.y));
+            }
         }
         if (grounded)
             groundedTime += Time.deltaTime;
@@ -635,7 +650,11 @@ public class Player : CustomCollider
                 rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0);
                 //위로 점프하도록 물리적으로 위로 밀어줌
                 if(!downFlag)
-                    rigidbody2D.AddForce(new Vector2(0, jumpPower));
+                {
+                    float newjumpPower = jumpPower;
+                    newjumpPower *= highJump ? (100 + ItemManager.instance.itemData[ItemManager.FindData("Light_Feather")].value0) / 100f : 1;
+                    rigidbody2D.AddForce(new Vector2(0, newjumpPower));
+                }
 
                 //점프를 누른상태로 처리
                 pressJump = true;
@@ -772,18 +791,14 @@ public class Player : CustomCollider
 
         hasFeatherShoes = ItemManager.instance.CanUsePassiveItem("Feather_Shoes");
 
-        bool lightFlag = (ItemManager.instance.CanUsePassiveItem("Torch") || ItemManager.instance.CanUsePassiveItem("Mine_Helmet"));
-        if (torchLight.activeSelf != lightFlag)
-            torchLight.SetActive(lightFlag);
-        if (mineHelmetLight.activeSelf != ItemManager.instance.CanUsePassiveItem("Mine_Helmet"))
-            mineHelmetLight.SetActive(ItemManager.instance.CanUsePassiveItem("Mine_Helmet"));
+        bat_Hate_Light = (ItemManager.instance.CanUsePassiveItem("Torch") || ItemManager.instance.CanUsePassiveItem("Mine_Helmet"));
 
         float maxAttackSpeed = 100;
         float maxAttackPower = 100;
 
         if (ItemManager.instance.CanUsePassiveItem("Hammer"))
         {
-            maxAttackSpeed -=ItemManager.instance.itemData[ItemManager.FindData("Hammer")].value1;
+            maxAttackSpeed -= ItemManager.instance.itemData[ItemManager.FindData("Hammer")].value1;
             maxAttackPower += ItemManager.instance.itemData[ItemManager.FindData("Hammer")].value0;
         }
 
@@ -791,6 +806,8 @@ public class Player : CustomCollider
         attackPower = Mathf.FloorToInt((float)(attackPower) * (maxAttackPower / 100f));
 
         slip = !ItemManager.instance.CanUsePassiveItem("Crampons");
+
+        highJump = ItemManager.instance.CanUsePassiveItem("Light_Feather");
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -838,8 +855,12 @@ public class Player : CustomCollider
                 ItemManager.instance.UseItem("Bell");
                 Chicken.instance.orderPos = transform.position;
                 Chicken.instance.orderTime = 4;
-                SoundManager.instance.PlayerBell();
-               
+                SoundManager.instance.PlayerBell();          
+            }
+            else if (ItemManager.instance.CanUseActiveItem("Umbrella") && !grounded)
+            {
+                ItemManager.instance.UseItem("Umbrella");
+                playerUmbrella.SetActive(true);
             }
         }
     }
@@ -928,6 +949,8 @@ public class Player : CustomCollider
 
         //컨트롤 잠금
         canControl = false;
+
+        playerUmbrella.SetActive(false);
 
         //상점사용 중지
         if (ShopScript.instance)

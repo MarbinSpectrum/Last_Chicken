@@ -80,11 +80,10 @@ public class Bat : Monster
 
         batStop = false;
 
-
-
         if (Exception.IndexOutRange(nowPos, GroundManager.instance.linkArea) &&
             GroundManager.instance.linkArea[nowPos.x, nowPos.y] &&
-            Vector2.Distance(nowPos, Player.instance.transform.position) < AstarRange)
+            Vector2.Distance(nowPos, Player.instance.transform.position) < AstarRange && 
+            !Player.instance.bat_Hate_Light)
         {
             if(AreaList != null)
             {
@@ -140,6 +139,48 @@ public class Bat : Monster
             else
             {
                 patrolTime -= Time.deltaTime;
+
+                #region[횃불이나 헬멧착용시 박쥐가 플레이어를 피해가게함]
+                if (Player.instance.bat_Hate_Light)
+                {
+                    switch (patrolDic)
+                    {
+                        case MoveDic.오른쪽:
+                            if (transform.position.x < Player.instance.transform.position.x)
+                                patrolDic = MoveDic.왼쪽;
+                            break;
+                        case MoveDic.왼쪽:
+                            if (transform.position.x > Player.instance.transform.position.x)
+                                patrolDic = MoveDic.오른쪽;
+                            break;
+                        case MoveDic.위:
+                            if (transform.position.y < Player.instance.transform.position.y)
+                                patrolDic = MoveDic.아래;
+                            break;
+                        case MoveDic.아래:
+                            if (transform.position.y > Player.instance.transform.position.y)
+                                patrolDic = MoveDic.위;
+                            break;
+                        case MoveDic.오른쪽_위:
+                            if (transform.position.x < Player.instance.transform.position.x && transform.position.y < Player.instance.transform.position.y)
+                                patrolDic = MoveDic.왼쪽_아래;
+                            break;
+                        case MoveDic.오른쪽_아래:
+                            if (transform.position.x < Player.instance.transform.position.x && transform.position.y > Player.instance.transform.position.y)
+                                patrolDic = MoveDic.왼쪽_위;
+                            break;
+                        case MoveDic.왼쪽_위:
+                            if (transform.position.x > Player.instance.transform.position.x && transform.position.y < Player.instance.transform.position.y)
+                                patrolDic = MoveDic.오른쪽_아래;
+                            break;
+                        case MoveDic.왼쪽_아래:
+                            if (transform.position.x > Player.instance.transform.position.x && transform.position.y > Player.instance.transform.position.y)
+                                patrolDic = MoveDic.오른쪽_위;
+                            break;
+                    }
+                }
+                #endregion
+
                 switch (patrolDic)
                 {
                     case MoveDic.오른쪽:

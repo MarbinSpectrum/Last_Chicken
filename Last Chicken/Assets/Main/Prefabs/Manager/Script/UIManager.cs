@@ -1161,6 +1161,9 @@ public class UIManager : MonoBehaviour
                     case "Splash_Pick":
                         cool = ItemManager.instance.itemData[ItemManager.FindData("Splash_Pick")].value1;
                         break;
+                    case "Umbrella":
+                        cool = ItemManager.instance.itemData[ItemManager.FindData("Umbrella")].value1;
+                        break;
                     default:
                         Debug.Log("쿨타임을 표시안하고있다");
                         break;

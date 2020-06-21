@@ -343,8 +343,8 @@ public class ItemEditor : MyEditor
                 temp = (int)(temp);
                 data.value1 = temp;
                 break;
-            case "Heavy_Pick":
-                temp = FloatField("공격력 증가수치(%)", data.value0, dataStyle);
+            case "Light_Feather":
+                temp = FloatField("점프력 증가수치(%)", data.value0, dataStyle);
                 temp = temp < 0 ? 0 : temp;
                 temp = (int)(temp);
                 data.value0 = temp;
@@ -370,6 +370,11 @@ public class ItemEditor : MyEditor
                 temp = FloatField("회복수치", data.value1, dataStyle);
                 temp = temp < 0 ? 0 : temp;
                 temp = (((int)(temp * 10) / 5) * 5) / 10f;
+                data.value1 = temp;
+                break;
+            case "Umbrella":
+                temp = FloatField("쿨타임", data.value1, dataStyle);
+                temp = temp < 0 ? 0 : temp;
                 data.value1 = temp;
                 break;
             case "Splash_Pick":
@@ -523,6 +528,8 @@ public class ItemEditor : MyEditor
                 return "깃털신발";
             case "Splash_Pick":
                 return "투척용곡괭이";
+            case "Umbrella":
+                return "우산";
             case "Medkit":
                 return "구급킷";
             case "Torch":
@@ -539,8 +546,8 @@ public class ItemEditor : MyEditor
                 return "러시안룰렛";
             case "Mine_Helmet":
                 return "광산헬멧";
-            case "Heavy_Pick":
-                return "무거운곡괭이";
+            case "Light_Feather":
+                return "가벼운깃털";
             case "Advanced_Pick":
                 return "고급곡괭이";
             case "Dynamite":

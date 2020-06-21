@@ -20,7 +20,7 @@ public class ItemManager : ObjectPool
         "Monster_Radar",
         "Russian_Roulette",
         "Mine_Helmet",
-        "Heavy_Pick" ,
+        "Light_Feather" ,
         "Advanced_Pick",
         "BoomItem",
         "Dynamite",
@@ -39,7 +39,8 @@ public class ItemManager : ObjectPool
         "RainbowPocket",
         "Garbage",
         "Hammer",
-        "Crampons"
+        "Crampons",
+        "Umbrella"
     };
 
     #region[스테이지 아이템 여부검사]
@@ -71,6 +72,9 @@ public class ItemManager : ObjectPool
                 activeItem = true;
                 break;
             case "Splash_Pick":
+                activeItem = true;
+                break;
+            case "Umbrella":
                 activeItem = true;
                 break;
             case "Coke":
@@ -130,9 +134,12 @@ public class ItemManager : ObjectPool
             case "Splash_Pick":
                 activeItem = true;
                 break;
-            //default:
-            //    Debug.Log(itemName + "는 쿨타임여부검사를 실시안하고있다.");
-            //    break;
+            case "Umbrella":
+                activeItem = true;
+                break;
+                //default:
+                //    Debug.Log(itemName + "는 쿨타임여부검사를 실시안하고있다.");
+                //    break;
         }
         return activeItem;
     }
@@ -570,6 +577,8 @@ public class ItemManager : ObjectPool
                     return GameManager.instance.itemCool[0] >= itemData[FindData("Dynamite")].value1;
                 case "Splash_Pick":
                     return GameManager.instance.itemCool[0] >= itemData[FindData("Splash_Pick")].value1;
+                case "Umbrella":
+                    return GameManager.instance.itemCool[0] >= itemData[FindData("Umbrella")].value1;
                 default:
                     Debug.Log("쿨타임된여부를 검사를안하고있다.");
                     return false;
@@ -628,9 +637,6 @@ public class ItemManager : ObjectPool
             {
                 switch (name)
                 {
-                    case "SaleCoupon":
-                        GameManager.instance.itemSlot[i] = "";
-                        break;
                     case "Bell":
                         GameManager.instance.itemCool[0] = 0;
                         break;
@@ -641,6 +647,9 @@ public class ItemManager : ObjectPool
                         GameManager.instance.itemCool[0] = 0;
                         break;
                     case "Splash_Pick":
+                        GameManager.instance.itemCool[0] = 0;
+                        break;
+                    case "Umbrella":
                         GameManager.instance.itemCool[0] = 0;
                         break;
                     default:

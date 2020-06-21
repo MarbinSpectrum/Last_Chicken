@@ -114,8 +114,12 @@ MonoBehaviour:
     value0: 10
     value1: 1.5
     itemLevel: 1
-    itemExplain: "\uB358\uC9C0\uAE30 \uC88B\uC544\uBCF4\uC774\uB294 \uACE1\uAD2D\uC774\uB2E4."
-    itemExplain_Eng: It's a pickaxe that looks good to throw.
+    itemExplain: "\uB358\uC9C0\uAE30 \uC88B\uC544\uBCF4\uC774\uB294 \uACE1\uAD2D\uC774\uB2E4.\n<size=30><color=#3BEAAC>                                                          
+      -\uCFE8\uD0C0\uC784 : 1.5 \uCD08</color></size>"
+    itemExplain_Eng: 'It''s a pickaxe that looks good to throw.
+
+      <size=30><color=#3BEAAC>                                                          
+      -Cooltime : 1.5 </color></size>'
     cost: 8000
     spawnObject: 1
     spawnShop: 1
@@ -166,26 +170,26 @@ MonoBehaviour:
     itemName_Eng: Torch
     value0: 0
     value1: 0
-    itemLevel: 0
-    itemExplain: "\uC5B4\uB450\uC6B4 \uACF3\uC744 \uBC1D\uD600\uC8FC\uB294 \uD683\uBD88"
-    itemExplain_Eng: It makes brighter around it
+    itemLevel: 1
+    itemExplain: "\uBC15\uC950\uAC00 \uD683\uBD88\uC744 \uC2EB\uC5B4\uD569\uB2C8\uB2E4."
+    itemExplain_Eng: Bats hate torches.
     cost: 1000
-    spawnObject: 0
-    spawnShop: 0
+    spawnObject: 1
+    spawnShop: 1
     spawnTreasureBox: 0
-    stage01: 0
+    stage01: 1
     stage02: 0
     activeItem: 0
     shopItemExplain:
-    - "\uC880\uB354 \uC2DC\uC57C\uAC00 \uB113\uC5B4\uC9D1\uB2C8\uB2E4."
+    - "\uBC15\uC950\uAC00 \uD683\uBD88\uC744 \uC2EB\uC5B4\uD569\uB2C8\uB2E4."
     - 
     - 
     - <color=#00ff00ff>Passive</color>
     shopItemExplain_Eng:
+    - Bats hate torches.
     - 
     - 
-    - 
-    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: 7937556763755152812, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uB124\uC78E\uD074\uB85C\uBC84"
@@ -325,52 +329,53 @@ MonoBehaviour:
     itemName_Eng: Mine helmet
     value0: 0
     value1: 0
-    itemLevel: 3
-    itemExplain: "\uC8FC\uC704\uB97C \uBC1D\uD600\uC8FC\uACE0 \uBA38\uB9AC\uB97C
+    itemLevel: 2
+    itemExplain: "\uBC15\uC950\uB97C \uCAD2\uC544\uB0B4\uACE0 \uBA38\uB9AC\uB97C
       \uBCF4\uD638\uD569\uB2C8\uB2E4."
-    itemExplain_Eng: "It makes brighter around it, and protect player's head\r"
-    cost: 15000
+    itemExplain_Eng: They drive away bats and protect their heads.
+    cost: 3500
     spawnObject: 0
-    spawnShop: 0
-    spawnTreasureBox: 0
-    stage01: 0
+    spawnShop: 1
+    spawnTreasureBox: 1
+    stage01: 1
     stage02: 0
     activeItem: 0
     shopItemExplain:
-    - "\uC8FC\uC704\uB97C \uBC1D\uD600\uC8FC\uACE0"
+    - "\uBC15\uC950\uB97C \uCAD2\uC544\uB0B4\uACE0"
     - "\uBA38\uB9AC\uB97C \uBCF4\uD638\uD569\uB2C8\uB2E4."
     - 
     - <color=#00ff00ff>Passive</color>
     shopItemExplain_Eng:
+    - 'They drive away bats '
+    - and protect their heads.
     - 
-    - 
-    - 
-    - 
-  - itemImg: {fileID: 21300000, guid: 84b9d2378dc2a4f41bf48df10714217e, type: 3}
-    itemName: "\uBB34\uAC70\uC6B4\uACE1\uAD2D\uC774"
-    itemName_Eng: "\uBB34\uAC70\uC6B4\uACE1\uAD2D\uC774"
-    value0: 150
+    - <color=#00ff00ff>Passive</color>
+  - itemImg: {fileID: -8311005278137815111, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uAC00\uBCBC\uC6B4\uAE43\uD138"
+    itemName_Eng: Light Feather
+    value0: 20
     value1: 0
-    itemLevel: 1
-    itemExplain: "\uACF5\uACA9\uB825 50% \uC0C1\uC2B9"
-    itemExplain_Eng: "\uACF5\uACA9\uB825 50% \uC0C1\uC2B9"
-    cost: 8000
-    spawnObject: 0
-    spawnShop: 0
+    itemLevel: 0
+    itemExplain: "\uC810\uD504\uB825\uC774 \uC870\uAE08 \uC0C1\uC2B9\uD569\uB2C8\uB2E4."
+    itemExplain_Eng: The jump is slightly increased.
+    cost: 500
+    spawnObject: 1
+    spawnShop: 1
     spawnTreasureBox: 0
-    stage01: 0
-    stage02: 0
+    stage01: 1
+    stage02: 1
     activeItem: 0
     shopItemExplain:
+    - "\uC810\uD504\uB825\uC774 \uC870\uAE08 \uC0C1\uC2B9\uD569\uB2C8\uB2E4."
     - 
     - 
-    - 
-    - 
+    - <color=#00ff00ff>Passive</color>
     shopItemExplain_Eng:
+    - The jump is slightly increased.
     - 
     - 
-    - 
-    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: 21300000, guid: 3b4c21e7744b21346a2f504b67da8f02, type: 3}
     itemName: "\uACE0\uAE09\uACE1\uAD2D\uC774"
     itemName_Eng: "\uACE0\uAE09\uACE1\uAD2D\uC774"
@@ -892,6 +897,36 @@ MonoBehaviour:
     - on icy roads.
     - 
     - <color=#00ff00ff>Passive</color>
+  - itemImg: {fileID: 1080923338209447774, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uC6B0\uC0B0"
+    itemName_Eng: Umbrella
+    value0: 0
+    value1: 10
+    itemLevel: 0
+    itemExplain: "\uC0AC\uC6A9\uC2DC \uCC9C\uCC9C\uD788 \uB5A8\uC5B4\uC9D1\uB2C8\uB2E4.\n<size=30><color=#3BEAAC>                                                          
+      -\uCFE8\uD0C0\uC784 : 10 \uCD08</color></size>"
+    itemExplain_Eng: 'It falls off slowly when you use it.
+
+      <size=30><color=#3BEAAC>                                                          
+      -Cooltime : 10 </color></size>'
+    cost: 1000
+    spawnObject: 1
+    spawnShop: 1
+    spawnTreasureBox: 0
+    stage01: 1
+    stage02: 1
+    activeItem: 0
+    shopItemExplain:
+    - "\uC0AC\uC6A9\uC2DC \uCC9C\uCC9C\uD788 \uB5A8\uC5B4\uC9D1\uB2C8\uB2E4."
+    - 
+    - 
+    - <color=#ff0000ff>Active</color>
+    shopItemExplain_Eng:
+    - It falls off slowly
+    - when you use it.
+    - 
+    - <color=#ff0000ff>Active</color>
   ReSpawnItemList: 
   fieldObject: []
   caveObject: []
