@@ -281,6 +281,7 @@
     <None Include="Assets\TerrainEngine2D\Assets\Graphics\Shaders\UI-Default.shader" />
     <None Include="Assets\TerrainEngine2D\Assets\Graphics\Shaders\Lighting\FastBlur.shader" />
     <None Include="Assets\Main\Graphic\PostProcessing\Editor Resources\Monitors\VectorscopeCompute.compute" />
+    <None Include="Assets\Main\Graphic\Materials\Shader\Shield.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\Main\Graphic\PostProcessing\Resources\Shaders\ColorGrading.cginc" />
     <None Include="Assets\Main\Graphic\PostProcessing\Editor Resources\Monitors\HistogramRender.shader" />
@@ -338,6 +339,9 @@
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.2D.PixelPerfect.Editor">
+      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.2D.PixelPerfect.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Shaders">
       <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
     </Reference>
@@ -386,6 +390,9 @@
     <Reference Include="Unity.2D.Tilemap.Editor">
       <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.2D.PixelPerfect">
+      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.2D.PixelPerfect.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
       <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
     </Reference>
@@ -397,12 +404,6 @@
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.PixelPerfect.Editor">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.2D.PixelPerfect.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.PixelPerfect">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.2D.PixelPerfect.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Program Files/Unity/2019.3.7f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
