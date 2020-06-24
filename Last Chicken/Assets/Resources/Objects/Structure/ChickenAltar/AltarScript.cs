@@ -66,7 +66,7 @@ public class AltarScript : AreaScript
     #region[OnEnable]
     void OnEnable()
     {
-
+        instance = this;
     }
     #endregion
 

@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FluidSurfaceMesh
-  m_Shader: {fileID: 4800000, guid: 708a440fc8f5cbc4d9b94198d1553b38, type: 3}
+  m_Shader: {fileID: 4800000, guid: cb34605017c528d4abb72d1169d5aa02, type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA _ALPHABLEND_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -84,6 +84,8 @@ Material:
     - _OcclusionStrength: 1
     - _OutlineSize: 1.61
     - _Parallax: 0.02
+    - _RepeatSize: 8
+    - _SimulationSpeed: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 5

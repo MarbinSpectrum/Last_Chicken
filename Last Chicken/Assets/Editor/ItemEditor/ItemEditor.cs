@@ -548,12 +548,12 @@ public class ItemEditor : MyEditor
                 return "광산헬멧";
             case "Light_Feather":
                 return "가벼운깃털";
-            case "Advanced_Pick":
-                return "고급곡괭이";
+            case "Rope":
+                return "밧줄";
             case "Dynamite":
                 return "다이너마이트";
-            case "Smart_Light_Pick":
-                return "편리한 가벼운 곡괭이";
+            case "Smart_Gloves":
+                return "찍찍이장갑";
             case "Smart_Heavy_Pick":
                 return "편리한 무거운 곡괭이";
             case "Smart_Advanced_Pick":
@@ -578,6 +578,8 @@ public class ItemEditor : MyEditor
                 return "함정 탐지기";
             case "RainbowPocket":
                 return "무지개 보따리";
+            case "BoomItem":
+                return "폭탄";
         }
         return s;
     }

@@ -47,7 +47,7 @@ public class Smithy : AreaScript
     #region[OnEnable]
     void OnEnable()
     {
-
+        instance = this;
     }
     #endregion
 

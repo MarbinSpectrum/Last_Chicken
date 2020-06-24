@@ -346,7 +346,7 @@ public class GameManager : TerrainGenerator
                         Player.instance.nowHp = Player.instance.maxHp;
                         Player.instance.canControl = true;
                         Player.instance.notDamage = false;
-                        Player.instance.stunTime = 80;
+                        Player.instance.stunTime = 0.7f;
                         Player.instance.animator.SetBool("Dead", false);
                         EffectManager.instance.HearthEffect();
                         EffectManager.instance.DamageEffect();

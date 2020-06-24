@@ -10,14 +10,6 @@ public class GroundManager : MonoBehaviour
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    Material fluidSurface;
-    float changeTime = 0;
-    int surfaceImageNum = 0;
-    Texture2D []surfaceTex = new Texture2D[8];
-
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     public int dirtHp = 0;
     public Sprite dirtMineral;
     public int dirtValue;
@@ -129,12 +121,6 @@ public class GroundManager : MonoBehaviour
         {
             instance = this;
 
-            fluidSurface = Resources.Load("TerrainData/FluidSurface/FluidSurfaceMesh") as Material;
-
-            for (int i = 0; i < surfaceTex.Length; i++)
-                surfaceTex[i] = Resources.Load("TerrainData/FluidSurface/FluidSurface" + i) as Texture2D;
-
-
             Texture2D temp;
 
             temp = Resources.Load("Objects/Item/Mineral/Dirt") as Texture2D;
@@ -214,7 +200,7 @@ public class GroundManager : MonoBehaviour
     #region[Update]
     private void Update()
     {
-        SurfaceFluid();
+
     }
     #endregion
 
@@ -242,28 +228,6 @@ public class GroundManager : MonoBehaviour
         }
     }
 
-    #endregion
-
-    #region[SurfaceFluid]
-    public void SurfaceFluid()
-    {
-        if(!GameManager.instance.InGame())
-        {
-            changeTime = 0;
-            surfaceImageNum = 0;
-        }
-        else
-        {
-            if (changeTime > 0.1f)
-            {
-                changeTime = 0;
-                surfaceImageNum++;
-            }
-            changeTime += Time.deltaTime;
-            if (fluidSurface)
-                fluidSurface.SetTexture("_MainTex", surfaceTex[surfaceImageNum % surfaceTex.Length]);
-        }
-    }
     #endregion
 
     #region[초기설정]

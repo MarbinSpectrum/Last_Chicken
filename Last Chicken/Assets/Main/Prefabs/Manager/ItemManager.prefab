@@ -44,10 +44,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPool: []
-  normalRate: 35
-  rareRate: 15
+  normalRate: 30
+  rareRate: 10
   specialRate: 6
-  legendRate: 2
+  legendRate: 3
   itemData:
   - itemImg: {fileID: -7319223827379462415, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
@@ -63,7 +63,7 @@ MonoBehaviour:
 
       <size=30><color=#3BEAAC>                                                          
       -CollTime : 5 </color></size>'
-    cost: 4000
+    cost: 1000
     spawnObject: 1
     spawnShop: 1
     spawnTreasureBox: 0
@@ -120,7 +120,7 @@ MonoBehaviour:
 
       <size=30><color=#3BEAAC>                                                          
       -Cooltime : 1.5 </color></size>'
-    cost: 8000
+    cost: 2000
     spawnObject: 1
     spawnShop: 1
     spawnTreasureBox: 0
@@ -143,7 +143,7 @@ MonoBehaviour:
     itemName_Eng: First-Aid Kit
     value0: 0
     value1: 0
-    itemLevel: 0
+    itemLevel: 2
     itemExplain: "\uC989\uC0AC\uD560 \uB370\uBBF8\uC9C0\uB97C \uBC1B\uC744\uC2DC
       \uD55C\uBC88 \uC0B4\uB824\uC90D\uB2C8\uB2E4."
     itemExplain_Eng: The player got one more life
@@ -330,7 +330,7 @@ MonoBehaviour:
     value0: 0
     value1: 0
     itemLevel: 2
-    itemExplain: "\uBC15\uC950\uB97C \uCAD2\uC544\uB0B4\uACE0 \uBA38\uB9AC\uB97C
+    itemExplain: "\uBC15\uC950\uB97C \uCAD3\uC544\uB0B4\uACE0 \uBA38\uB9AC\uB97C
       \uBCF4\uD638\uD569\uB2C8\uB2E4."
     itemExplain_Eng: They drive away bats and protect their heads.
     cost: 3500
@@ -376,33 +376,32 @@ MonoBehaviour:
     - 
     - 
     - <color=#00ff00ff>Passive</color>
-  - itemImg: {fileID: 21300000, guid: 3b4c21e7744b21346a2f504b67da8f02, type: 3}
-    itemName: "\uACE0\uAE09\uACE1\uAD2D\uC774"
-    itemName_Eng: "\uACE0\uAE09\uACE1\uAD2D\uC774"
+  - itemImg: {fileID: 8590184218418809176, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uBC27\uC904"
+    itemName_Eng: Rope
     value0: 120
     value1: 120
-    itemLevel: 2
-    itemExplain: "\uCC44\uAD11\uC18D\uB3C4 20% \uC0C1\uC2B9\n\uACF5\uACA9\uB825 20%
-      \uC0C1\uC2B9"
-    itemExplain_Eng: "\uCC44\uAD11\uC18D\uB3C4 20% \uC0C1\uC2B9\n\uACF5\uACA9\uB825
-      20% \uC0C1\uC2B9"
-    cost: 16000
-    spawnObject: 0
-    spawnShop: 0
+    itemLevel: 1
+    itemExplain: "\uACBD\uC9C1\uC2DC \uB2ED\uC774 \uB0A0\uC544\uAC00\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4."
+    itemExplain_Eng: When stun, the chicken won't fly away.
+    cost: 1500
+    spawnObject: 1
+    spawnShop: 1
     spawnTreasureBox: 0
-    stage01: 0
-    stage02: 0
+    stage01: 1
+    stage02: 1
     activeItem: 0
     shopItemExplain:
+    - "\uACBD\uC9C1\uC2DC \uB2ED\uC774"
+    - "\uB0A0\uC544\uAC00\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4."
     - 
-    - 
-    - 
-    - 
+    - <color=#00ff00ff>Passive</color>
     shopItemExplain_Eng:
+    - When stun, the chicken
+    - won't fly away.
     - 
-    - 
-    - 
-    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: 3213798535129448584, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uD3ED\uD0C4"
@@ -465,33 +464,32 @@ MonoBehaviour:
     - 
     - 
     - <color=#ff0000ff>Active</color>
-  - itemImg: {fileID: 21300000, guid: 3cf36eaa5bb235e41aff47ddffa877f2, type: 3}
-    itemName: "\uD3B8\uB9AC\uD55C \uAC00\uBCBC\uC6B4 \uACE1\uAD2D\uC774"
-    itemName_Eng: "\uD3B8\uB9AC\uD55C \uAC00\uBCBC\uC6B4 \uACE1\uAD2D\uC774"
+  - itemImg: {fileID: -6749608253521637768, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uCC0D\uCC0D\uC774\uC7A5\uAC11"
+    itemName_Eng: Smart Gloves
     value0: 150
     value1: 0
-    itemLevel: 2
-    itemExplain: "\uAC00\uBCBC\uC6B4 \uACE1\uAD2D\uC774\uAC00 \uD3B8\uB9AC\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n(\uBCF4\uC870\uC2AC\uB86F\uC5D0\uC11C\uB3C4
-      \uD6A8\uACFC\uBC1C\uB3D9)"
-    itemExplain_Eng: "\uAC00\uBCBC\uC6B4 \uACE1\uAD2D\uC774\uAC00 \uD3B8\uB9AC\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n(\uBCF4\uC870\uC2AC\uB86F\uC5D0\uC11C\uB3C4
-      \uD6A8\uACFC\uBC1C\uB3D9)"
-    cost: 0
-    spawnObject: 0
-    spawnShop: 0
+    itemLevel: 0
+    itemExplain: "\uB2ED\uC744 \uC880 \uB354 \uC27D\uAC8C \uC7A1\uC744 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    itemExplain_Eng: You can catch chickens more easily.
+    cost: 750
+    spawnObject: 1
+    spawnShop: 1
     spawnTreasureBox: 0
-    stage01: 0
-    stage02: 0
+    stage01: 1
+    stage02: 1
     activeItem: 0
     shopItemExplain:
+    - "\uB2ED\uC744 \uC880 \uB354 \uC27D\uAC8C"
+    - "\uC7A1\uC744 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
     - 
-    - 
-    - 
-    - 
+    - <color=#00ff00ff>Passive</color>
     shopItemExplain_Eng:
+    - You can catch
+    - chickens more easily.
     - 
-    - 
-    - 
-    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: 21300000, guid: 84b9d2378dc2a4f41bf48df10714217e, type: 3}
     itemName: "\uD3B8\uB9AC\uD55C \uBB34\uAC70\uC6B4 \uACE1\uAD2D\uC774"
     itemName_Eng: "\uD3B8\uB9AC\uD55C \uBB34\uAC70\uC6B4 \uACE1\uAD2D\uC774"

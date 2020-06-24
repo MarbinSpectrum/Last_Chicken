@@ -105,6 +105,7 @@ public class Player : CustomCollider
     bool highJump = true;
 
     [System.NonSerialized] public bool bat_Hate_Light;
+    [System.NonSerialized] public bool chicken_Easy_Catch;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -122,6 +123,7 @@ public class Player : CustomCollider
     [System.NonSerialized] public bool attackFlag = false;
 
     [System.NonSerialized] public bool getChicken = true;
+    [System.NonSerialized] public LineRenderer getChickenCircle;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -178,6 +180,20 @@ public class Player : CustomCollider
         for (int i = 0; i < mineHelmetLight.transform.childCount; i++)
             mineHelmetLighSourceList.Add(mineHelmetLight.transform.GetChild(i).GetChild(0).GetComponent<BlockLightSource>());
         playerUmbrella = transform.Find("Umbrella").gameObject;
+
+        getChickenCircle = transform.Find("GetChickenCircle").GetComponent<LineRenderer>();
+        List<Vector3> createAngleList = new List<Vector3>();
+        for(int i = 0; i < 37; i++)
+        {
+            //if (i < 2 || i > 34)
+            //    continue;
+            Vector3 angleTemp = new Vector3(0, 4,-180);
+            angleTemp = Quaternion.Euler(0, 0, 10 * i) * angleTemp;
+            createAngleList.Add(angleTemp);
+        }
+        Vector3[] crateAngleArray = createAngleList.ToArray();
+        getChickenCircle.positionCount = createAngleList.Count;
+        getChickenCircle.SetPositions(crateAngleArray);
 
         nowHp = GameManager.instance.playData.playerNowHp;
         maxHp = GameManager.instance.playData.playerMaxHp;
@@ -765,7 +781,8 @@ public class Player : CustomCollider
     {
         //E키로 치킨이 범위안에 있으면 주움
         if (Input.GetKeyDown(KeyCode.E) && !getChicken)
-            if (IsAtChicken(bodyCollider))
+            if (IsAtChicken(bodyCollider) || 
+                (chicken_Easy_Catch && Vector2.Distance(new Vector2(transform.position.x, transform.position.y + 2), Chicken.instance.transform.position) < 4))
             {
                 Chicken.instance.transform.gameObject.SetActive(false);
                 Chicken.instance.jumpFlag = false;
@@ -777,6 +794,9 @@ public class Player : CustomCollider
         //치킨을 주운 상태면 플레이어 좌표로 치킨을 이동
         if (getChicken)
             Chicken.instance.transform.position = new Vector3(transform.position.x, transform.position.y + 2, Chicken.instance.transform.position.z);
+
+        getChickenCircle.gameObject.SetActive(chicken_Easy_Catch && !getChicken);
+        getChickenCircle.transform.localScale = new Vector3(transform.localScale.x, 1, 1);
     }
     #endregion
 
@@ -808,6 +828,8 @@ public class Player : CustomCollider
         slip = !ItemManager.instance.CanUsePassiveItem("Crampons");
 
         highJump = ItemManager.instance.CanUsePassiveItem("Light_Feather");
+
+        chicken_Easy_Catch = ItemManager.instance.CanUsePassiveItem("Smart_Gloves");
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -978,7 +1000,17 @@ public class Player : CustomCollider
             getChicken = false;
             //닭을 플레이어 반대방향으로 넉백
             Chicken.instance.transform.gameObject.SetActive(true);
-            Chicken.instance.ChickenJump(knockback.x * -dic,false);
+            if(!ItemManager.instance.CanUsePassiveItem("Rope"))
+                Chicken.instance.ChickenJump(knockback.x * -dic,false);
+            else
+            {
+                Chicken.instance.orderTime = 0;
+                Chicken.instance.chickenRope.gameObject.SetActive(true);
+                Chicken.instance.ChickenJump(0, false);
+                Chicken.instance.patternTime = 3;
+                Chicken.instance.pattenType = Chicken.Pattern.대기;
+            }
+
             Chicken.instance.cryTime = -5;
 
             EffectManager.instance.ChickenFeather(transform.position, UnityEngine.Random.Range(0, 100) < 50);
@@ -1023,6 +1055,7 @@ public class Player : CustomCollider
                         shieldFlag = true;
                     }
                     shiledBuff.SetActive(shield > 0);
+                    shiledBuff.transform.localScale = new Vector3(transform.localScale.x, 1, 1);
                     break;
                 case "Power":
                     attackPower = baseAttackPower + BuffManager.instance.nowBuffList[BuffManager.buffName[i]].hasNum * BuffManager.instance.buffData[i].value;
@@ -1056,19 +1089,17 @@ public class Player : CustomCollider
                 break;
             case 2:
                 attackPower += 3;
-                attackSpeed += 1;
+                attackSpeed += 0.25f;
                 break;
             case 3:
                 attackPower += 6;
-                attackSpeed += 2;
+                attackSpeed += 0.5f;
                 break;
             case 4:
                 attackPower += 9;
-                attackSpeed += 3;
+                attackSpeed += 1f;
                 break;
         }
-
-
     }
     #endregion
 
@@ -1162,7 +1193,10 @@ public class Player : CustomCollider
             damage = false;
 
         if (!canControl && stunTime < 0 && damage)
+        {
             canControl = true;
+            Chicken.instance.chickenRope.gameObject.SetActive(false);
+        }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
 

@@ -21,6 +21,7 @@ public class TutorialAltarEvent : CustomCollider
     GameObject uiMouse;
     GameObject followGetItem;
     GameObject followPlayerY;
+    SpriteRenderer white;
 
     Rigidbody2D chickenRigid;
 
@@ -54,6 +55,7 @@ public class TutorialAltarEvent : CustomCollider
         chickenMessage = transform.Find("ChickenMessage").Find("Text_" + GameManager.instance.playData.language.ToString()).gameObject;
         followGetItem = transform.Find("FollowUI").gameObject;
         followPlayerY = transform.Find("FollowPlayerY").gameObject;
+        white = transform.Find("White").GetComponent<SpriteRenderer>();
     }
     #endregion
 
@@ -158,6 +160,7 @@ public class TutorialAltarEvent : CustomCollider
                     chickenMessage.GetComponent<Text>().text = message[1];
                 else if (GameManager.instance.playData.language == PlayData.Language.English)
                     chickenMessage.GetComponent<Text>().text = message_eng[1];
+                white.color -= new Color(0, 0, 0, Time.deltaTime / 10f);
             }
 
             if (chickenDownTime > 14)
@@ -168,6 +171,11 @@ public class TutorialAltarEvent : CustomCollider
                 followChicken.transform.GetChild(0).gameObject.SetActive(true);
                 SoundManager.instance.StopBGM_Sound();
             }
+
+            if (chickenDownTime < 5)
+                white.color += new Color(0, 0, 0, Time.deltaTime / 5f);
+            else if (chickenDownTime > 10)
+                white.color -= new Color(0, 0, 0, Time.deltaTime / 4f);
         }
         #endregion
 

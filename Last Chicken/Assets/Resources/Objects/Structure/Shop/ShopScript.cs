@@ -49,7 +49,7 @@ public class ShopScript : AreaScript
     #region[OnEnable]
     void OnEnable()
     {
-
+        instance = this;
     }
     #endregion
 

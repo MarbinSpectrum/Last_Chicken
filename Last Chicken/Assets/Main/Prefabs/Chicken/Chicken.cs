@@ -65,6 +65,8 @@ public class Chicken : CustomCollider
     [System.NonSerialized] public GameObject deleteChickenImg;
     Animator deleteChickenAni;
 
+    [System.NonSerialized] public LineRenderer chickenRope;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -88,6 +90,8 @@ public class Chicken : CustomCollider
 
         deleteChickenImg = transform.Find("DeleteChicken").gameObject;
         deleteChickenAni = deleteChickenImg.GetComponent<Animator>();
+
+        chickenRope = transform.Find("Rope").GetComponent<LineRenderer>();
     }
     #endregion
 
@@ -158,7 +162,6 @@ public class Chicken : CustomCollider
                 pattenType = (Pattern)Random.Range(0, 6);
             }
         }
-
         switch (pattenType)
         {
             case Pattern.왼쪽으로:
@@ -351,6 +354,9 @@ public class Chicken : CustomCollider
         gravity = baseGravity;
 
         chickenLight.SetActive(BuffManager.instance.nowBuffList["Luminous"].hasBuff);
+
+        chickenRope.SetPosition(0, new Vector3(transform.position.x, transform.position.y, -35));
+        chickenRope.SetPosition(1, new Vector3(Player.instance.transform.position.x, Player.instance.transform.position.y + 2, -35));
     }
     #endregion
 

@@ -65,7 +65,7 @@ public class FountainScript : AreaScript
     #region[OnEnable]
     void OnEnable()
     {
-
+        instance = this;
     }
     #endregion
 

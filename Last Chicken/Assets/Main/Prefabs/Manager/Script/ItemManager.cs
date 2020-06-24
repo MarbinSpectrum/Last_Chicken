@@ -21,10 +21,10 @@ public class ItemManager : ObjectPool
         "Russian_Roulette",
         "Mine_Helmet",
         "Light_Feather" ,
-        "Advanced_Pick",
+        "Rope",
         "BoomItem",
         "Dynamite",
-        "Smart_Light_Pick",
+        "Smart_Gloves",
         "Smart_Heavy_Pick",
         "Smart_Advanced_Pick",
         "MineBag",
@@ -331,6 +331,7 @@ public class ItemManager : ObjectPool
     #region[오브젝트에서 랜덤하게 아이템 생성]
     public int GetRandomItemAtWoodBox()
     {
+        Random.InitState((int)Time.time * Random.Range(0, 100));
         float randomValue = Random.Range(0, 100);
 
         List<int> itemList = new List<int>();
@@ -375,7 +376,6 @@ public class ItemManager : ObjectPool
                      StageItemCheck(i))
                     itemList.Add(i);
         }
-
         if (itemList.Count > 0)
             return itemList[Random.Range(0, itemList.Count)];
 
@@ -409,6 +409,7 @@ public class ItemManager : ObjectPool
     #region[보물상자에서 랜덤하게 아이템 생성]
     public int GetRandomItemAtTreasureBox()
     {
+        Random.InitState((int)Time.time * Random.Range(0, 100));
         float randomValue = Random.Range(0, specialRate + legendRate);
 
         List<int> itemList = new List<int>();
@@ -447,6 +448,7 @@ public class ItemManager : ObjectPool
     #region[상점에서 랜덤하게 아이템 생성]
     public int GetRandomItemAtShop()
     {
+        Random.InitState((int)Time.time * Random.Range(0, 100));
         float randomValue = Random.Range(0, normalRate + rareRate + specialRate + legendRate);
 
         List<int> itemList = new List<int>();
