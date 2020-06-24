@@ -258,8 +258,10 @@ public class EffectManager : ObjectPool
             emp.transform.name = name;
             AddObject(emp);
         }
-        emp.GetComponent<Rigidbody2D>().AddForce(force);
         emp.SetActive(true);
+        Rigidbody2D rigidbody2d = emp.GetComponent<Rigidbody2D>();
+        rigidbody2d.velocity = Vector2.zero;
+        rigidbody2d.AddForce(force);
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
         emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1);

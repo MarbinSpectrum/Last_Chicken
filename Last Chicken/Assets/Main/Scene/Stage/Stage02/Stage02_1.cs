@@ -110,13 +110,35 @@ public class Stage02_1 : StageData
         groundData = new GroundLayer[world.WorldWidth, world.WorldHeight];
         fluidData = new FluidType[world.WorldWidth, world.WorldHeight];
 
-        for (int i = 0; i < mapRect.GetLength(0); i++)
-            for (int j = 0; j < mapRect.GetLength(1); j++)
-                groundData[i, j] = mapRect[i, j];
+        //기본 지형백지화
+        for (int x = 0; x < world.WorldWidth; x++)
+            for (int y = 0; y < world.WorldHeight; y++)
+                groundData[x, y] = (GroundLayer)(-1);
 
-        for (int i = 0; i < mapFluid.GetLength(0); i++)
-            for (int j = 0; j < mapFluid.GetLength(1); j++)
-                fluidData[i, j] = mapFluid[i, j];
+
+        for (int x = 0; x < world.WorldWidth; x++)
+            for (int y = 0; y < world.WorldHeight; y++)
+                if ((y <= world.WorldHeight - 15 && y >= world.WorldHeight - 20) || (y <= 20 && y >= 15))
+                    groundData[x, y] = GroundLayer.Dirt;
+
+        //노이즈값으로 지형을 설정
+        for (int x = 0; x < world.WorldWidth; x++)
+            for (int y = 0; y < world.WorldHeight; y++)
+                if (y < world.WorldHeight - 20 && y > 20)
+                    if (PerlinNoise(x, y, 30, 17, 1) <= 7)
+                    groundData[x, y] = GroundLayer.Dirt;
+
+        ProceduralGeneration(world, groundData, GroundLayer.Dirt);
+
+        //노이즈값으로 지형을 설정
+        for (int x = 0; x < world.WorldWidth; x++)
+            for (int y = 0; y < world.WorldHeight; y++)
+                if (y < world.WorldHeight - 20 && y > 20)
+                    if (groundData[x, y] == GroundLayer.Dirt)
+                        if (PerlinNoise(x, y, 15, 15, 1) <= 3)
+                            groundData[x, y] = GroundLayer.Stone;
+
+
     }
     #endregion
 

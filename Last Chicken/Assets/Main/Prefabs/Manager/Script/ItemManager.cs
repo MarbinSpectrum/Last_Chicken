@@ -25,7 +25,7 @@ public class ItemManager : ObjectPool
         "BoomItem",
         "Dynamite",
         "Smart_Gloves",
-        "Smart_Heavy_Pick",
+        "Charm",
         "Smart_Advanced_Pick",
         "MineBag",
         "Smart_MineBag",
@@ -410,14 +410,14 @@ public class ItemManager : ObjectPool
     public int GetRandomItemAtTreasureBox()
     {
         Random.InitState((int)Time.time * Random.Range(0, 100));
-        float randomValue = Random.Range(0, specialRate + legendRate);
 
         List<int> itemList = new List<int>();
+        float randomValue = Random.Range(0, 100);
 
-        if (randomValue < specialRate)
+        if(randomValue < 10)
         {
             for (int i = 0; i < itemName.Length; i++)
-                if (itemData[i].itemLevel == ItemLevel.특급 && itemData[i].spawnTreasureBox &&
+                if (itemData[i].spawnTreasureBox &&
                     !nowItemList[itemName[i]].used && !HasItemCheck(itemName[i]) &&
                      StageItemCheck(i))
                     itemList.Add(i);
@@ -425,8 +425,8 @@ public class ItemManager : ObjectPool
         else
         {
             for (int i = 0; i < itemName.Length; i++)
-                if (itemData[i].itemLevel == ItemLevel.전설 && itemData[i].spawnTreasureBox &&
-                    !nowItemList[itemName[i]].used && !HasItemCheck(itemName[i]) &&
+                if (itemData[i].spawnTreasureBox &&
+                    (!itemData[i].itemName.Equals("Garbage")) && !nowItemList[itemName[i]].used && !HasItemCheck(itemName[i]) &&
                      StageItemCheck(i))
                     itemList.Add(i);
         }

@@ -150,7 +150,7 @@ MonoBehaviour:
     cost: 1200
     spawnObject: 1
     spawnShop: 1
-    spawnTreasureBox: 0
+    spawnTreasureBox: 1
     stage01: 1
     stage02: 0
     activeItem: 0
@@ -450,7 +450,7 @@ MonoBehaviour:
     cost: 4000
     spawnObject: 0
     spawnShop: 1
-    spawnTreasureBox: 0
+    spawnTreasureBox: 1
     stage01: 0
     stage02: 1
     activeItem: 0
@@ -490,33 +490,32 @@ MonoBehaviour:
     - chickens more easily.
     - 
     - <color=#00ff00ff>Passive</color>
-  - itemImg: {fileID: 21300000, guid: 84b9d2378dc2a4f41bf48df10714217e, type: 3}
-    itemName: "\uD3B8\uB9AC\uD55C \uBB34\uAC70\uC6B4 \uACE1\uAD2D\uC774"
-    itemName_Eng: "\uD3B8\uB9AC\uD55C \uBB34\uAC70\uC6B4 \uACE1\uAD2D\uC774"
+  - itemImg: {fileID: -2755318035002780158, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uBD80\uC801"
+    itemName_Eng: Charm
     value0: 150
     value1: 0
     itemLevel: 2
-    itemExplain: "\uBB34\uAC70\uC6B4 \uACE1\uAD2D\uC774\uAC00 \uD3B8\uB9AC\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n(\uBCF4\uC870\uC2AC\uB86F\uC5D0\uC11C\uB3C4
-      \uD6A8\uACFC\uBC1C\uB3D9)"
-    itemExplain_Eng: "\uBB34\uAC70\uC6B4 \uACE1\uAD2D\uC774\uAC00 \uD3B8\uB9AC\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n(\uBCF4\uC870\uC2AC\uB86F\uC5D0\uC11C\uB3C4
-      \uD6A8\uACFC\uBC1C\uB3D9)"
-    cost: 0
+    itemExplain: "\uB2ED\uC774 \uC8FD\uC5B4\uB3C4 \uD55C \uBC88 \uC0B4\uB824\uC90D\uB2C8\uB2E4."
+    itemExplain_Eng: Even if the chicken dies, it will be saved once.
+    cost: 3000
     spawnObject: 0
-    spawnShop: 0
-    spawnTreasureBox: 0
-    stage01: 0
-    stage02: 0
+    spawnShop: 1
+    spawnTreasureBox: 1
+    stage01: 1
+    stage02: 1
     activeItem: 0
     shopItemExplain:
+    - "\uB2ED\uC774 \uC8FD\uC5B4\uB3C4 \uD55C \uBC88"
+    - "\uC0B4\uB824\uC90D\uB2C8\uB2E4."
     - 
-    - 
-    - 
-    - 
+    - <color=#00ff00ff>Passive</color>
     shopItemExplain_Eng:
+    - Even if the chicken dies,
+    - ' it will be saved once.'
     - 
-    - 
-    - 
-    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: 21300000, guid: 3b4c21e7744b21346a2f504b67da8f02, type: 3}
     itemName: "\uD3B8\uB9AC\uD55C \uACE0\uAE09\uACE1\uAD2D\uC774"
     itemName_Eng: "\uD3B8\uB9AC\uD55C \uACE0\uAE09\uACE1\uAD2D\uC774"
@@ -638,7 +637,7 @@ MonoBehaviour:
     cost: 5000
     spawnObject: 0
     spawnShop: 1
-    spawnTreasureBox: 0
+    spawnTreasureBox: 1
     stage01: 1
     stage02: 1
     activeItem: 0
@@ -745,7 +744,7 @@ MonoBehaviour:
     cost: 1500
     spawnObject: 0
     spawnShop: 1
-    spawnTreasureBox: 0
+    spawnTreasureBox: 1
     stage01: 1
     stage02: 1
     activeItem: 0
@@ -825,7 +824,7 @@ MonoBehaviour:
     cost: 0
     spawnObject: 0
     spawnShop: 0
-    spawnTreasureBox: 0
+    spawnTreasureBox: 1
     stage01: 0
     stage02: 0
     activeItem: 0

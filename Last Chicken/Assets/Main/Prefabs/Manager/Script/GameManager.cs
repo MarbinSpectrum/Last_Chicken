@@ -308,20 +308,69 @@ public class GameManager : TerrainGenerator
                     if (countDown < 0)
                     {
                         gameOverdelayTime += Time.deltaTime;
-                        if (gameOverdelayTime < 3)
+                        bool charmFlag = ItemManager.instance.HasItemCheck("Charm");
+                        if(!charmFlag)
                         {
-                            if (Chicken.instance)
-                                Chicken.instance.deleteChickenImg.SetActive(true);
-                            if (Player.instance)
-                                Player.instance.canControl = false;
-                            SoundManager.instance.StopBGM_Sound();
+                            if (gameOverdelayTime < 3)
+                            {
+                                if (Chicken.instance)
+                                {
+                                    Chicken.instance.deleteChickenAni.SetInteger("State", 0);
+                                    Chicken.instance.deleteChickenImg.SetActive(true);
+                                }
+                                if (Player.instance)
+                                    Player.instance.canControl = false;
+                                SoundManager.instance.StopBGM_Sound();
+                            }
+                            else
+                            {
+                                gameOverdelayTime = 0;
+                                SetGameOver();
+                                return;
+                            }
                         }
+
+                        #region[부적으로 닭 부활]
                         else
                         {
-                            gameOverdelayTime = 0;
-                            SetGameOver();
-                            return;
+                            if (gameOverdelayTime < 5)
+                            {
+                                if (Chicken.instance)
+                                {
+                                    Chicken.instance.spriteRenderer.enabled = false;
+                                    Chicken.instance.deleteChickenAni.SetInteger("State", 0);
+                                    Chicken.instance.deleteChickenImg.SetActive(true);
+                                }
+                                if (Player.instance)
+                                {
+                                    Player.instance.canControl = false;
+                                    Player.instance.invincibility = true;
+                                }
+                                SoundManager.instance.StopBGM_Sound();
+                            }
+                            else if (gameOverdelayTime < 8)
+                            {
+                                if (Chicken.instance)
+                                {       
+                                    Chicken.instance.gameObject.SetActive(true);
+                                    Chicken.instance.deleteChickenAni.SetInteger("State", 1);
+                                    Chicken.instance.transform.position = new Vector3(Player.instance.transform.position.x, Player.instance.transform.position.y + 2, Chicken.instance.transform.position.z);
+                                }
+                            }
+                            else
+                            {
+                                ItemManager.instance.CostItem("Charm");
+                                if (Player.instance)
+                                {
+                                    Player.instance.invincibility = false;
+                                    Player.instance.canControl = true;
+                                }
+                                SoundManager.instance.PlayBGM_Sound(true);
+                                gameOverdelayTime = 0;
+                                countDown = 5;
+                            }
                         }
+                        #endregion
                     }
                 }
             }

@@ -1,18 +1,18 @@
 {
-    "SE_Volume": 1.0,
+    "SE_Volume": 0.5,
     "BGM_Volume": 0.5,
     "ScreenWidth": 1600,
     "ScreenHeight": 900,
     "fullScreen": false,
-    "firstGame": false,
+    "firstGame": true,
     "language": 1,
-    "stageName": "Stage0103",
-    "playerNowHp": 2.5,
+    "stageName": "Demo",
+    "playerNowHp": 2.0,
     "playerMaxHp": 3.0,
     "itemSlot": [
-        "Splash_Pick",
-        "Medkit",
-        "Rope",
+        "Umbrella",
+        "Smart_Gloves",
+        "Light_Feather",
         "",
         "",
         ""
@@ -33,7 +33,7 @@
         false,
         false
     ],
-    "playerMoney": 7840,
+    "playerMoney": 1480,
     "shopVIP": false,
     "randomDice": 100,
     "pickLevel": 1,
@@ -53,10 +53,10 @@
     ],
     "playerBuffItemTime": [
         0.0,
-        0.0,
+        60.0,
         0.0,
         0.0,
         0.0
     ],
-    "seed": 4656
+    "seed": 770
 }

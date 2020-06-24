@@ -913,9 +913,17 @@ public class Player : CustomCollider
         }
         else if (name.Equals("RainbowPocket"))
         {
-            int data = ItemManager.instance.GetRandomItemAtShop();
-            if (data != -1)
+            Random.InitState((int)Time.time * Random.Range(0, 100));
+            float randomValue = Random.Range(0, 100);
+
+            int data = ItemManager.instance.GetRandomItemAtTreasureBox();
+            if (data != -1 && randomValue > 5)
                 ItemManager.instance.SpawnItem(transform.position, ItemManager.itemName[data]);
+            else
+            {
+                GameManager.instance.playerMoney += 3000;
+                SoundManager.instance.PlayerMoney();
+            }
         }
         else if (name.Equals("RandomDice"))
         {

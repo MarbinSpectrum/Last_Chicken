@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class Chicken : CustomCollider
 {
@@ -54,7 +55,7 @@ public class Chicken : CustomCollider
 
     Animator animator;
 
-    SpriteRenderer spriteRenderer;
+    [System.NonSerialized] public SpriteRenderer spriteRenderer;
 
     new Rigidbody2D rigidbody2D;
 
@@ -63,7 +64,7 @@ public class Chicken : CustomCollider
     GameObject chickenLight;
 
     [System.NonSerialized] public GameObject deleteChickenImg;
-    Animator deleteChickenAni;
+    [System.NonSerialized] public Animator deleteChickenAni;
 
     [System.NonSerialized] public LineRenderer chickenRope;
 
@@ -88,7 +89,7 @@ public class Chicken : CustomCollider
 
         chickenLight = transform.Find("Light").gameObject;
 
-        deleteChickenImg = transform.Find("DeleteChicken").gameObject;
+        deleteChickenImg = transform.Find("ChickenEvent").gameObject;
         deleteChickenAni = deleteChickenImg.GetComponent<Animator>();
 
         chickenRope = transform.Find("Rope").GetComponent<LineRenderer>();
@@ -341,6 +342,38 @@ public class Chicken : CustomCollider
             }
             gameObject.SetActive(false);
         }
+        else if (deleteChickenAni.GetCurrentAnimatorStateInfo(0).IsName("CreateChicken"))
+        {
+            List<GameObject> pool = new List<GameObject>();
+            for (int i = 0; i < EffectManager.instance.objectPool.Count; i++)
+                if (EffectManager.instance.objectPool[i].transform.name.Contains("LightFeather"))
+                    pool.Add(EffectManager.instance.objectPool[i]);
+
+            if (deleteChickenAni.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f)
+            {
+                spriteRenderer.enabled = true;
+                deleteChickenImg.SetActive(false);
+            }
+            else if (deleteChickenAni.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.5f)
+            {
+                for (int i = 0; i < pool.Count; i++)
+                    pool[i].SetActive(false);
+            }
+            else
+            {
+                for (int i = 0; i < pool.Count; i++)
+                {
+                    Vector3 dic = transform.position - pool[i].transform.position;
+                    dic = dic * Time.deltaTime * 15;
+                    if (Vector2.Distance(pool[i].transform.position + dic, transform.position) > 0.1f)
+                        pool[i].transform.position += dic;
+                    else
+                        pool[i].transform.position = transform.position;
+                }
+                spriteRenderer.enabled = false;
+            }
+        }
+
     }
     #endregion
 
