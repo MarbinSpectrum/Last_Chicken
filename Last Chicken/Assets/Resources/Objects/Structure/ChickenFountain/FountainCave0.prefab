@@ -464,7 +464,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.47, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1317694284070521218}
+  - {fileID: 7750719703073485919}
   - {fileID: 1317694284868145319}
   - {fileID: 1317694284562495621}
   - {fileID: 1317694282841932264}
@@ -1371,9 +1371,12 @@ MonoBehaviour:
   languageData:
   - {fileID: 5213049729215688532}
   - {fileID: 3138633614087008569}
+  playerBlockLightSource: {fileID: 6436081590802554080}
+  stageDoor: {fileID: 1317694284620827525}
+  stageFoothold: {fileID: 3686554879671106019}
   minX: 13
   maxX: 55
-  areaScript: {fileID: 1317694284070521951}
+  areaScript: {fileID: 4837948723333513075}
 --- !u!1 &1317694284868145318
 GameObject:
   m_ObjectHideFlags: 0
@@ -2962,13 +2965,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d758598e237951e42930bc50e6ab0071, type: 3}
---- !u!4 &1317694284070521218 stripped
+--- !u!4 &7750719703073485919 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8780178113029404156, guid: d758598e237951e42930bc50e6ab0071,
     type: 3}
   m_PrefabInstance: {fileID: 1317694284070519203}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1317694284070521951 stripped
+--- !u!114 &4837948723333513075 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5866707363109486288, guid: d758598e237951e42930bc50e6ab0071,
     type: 3}

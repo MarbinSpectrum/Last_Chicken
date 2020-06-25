@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TerrainEngine2D;
+using TerrainEngine2D.Lighting;
 
 public class ObjectCave : CustomCollider
 {
@@ -13,10 +14,13 @@ public class ObjectCave : CustomCollider
     public Image fade;
     public Transform target;
     public List<GameObject> languageData = new List<GameObject>();
-    bool act = false;
-    bool fadeAct = false;
+    public BlockLightSource playerBlockLightSource;
+    public SpriteRenderer stageDoor;
+    public SpriteRenderer stageFoothold;
     public float minX,maxX;
     public AreaScript areaScript;
+    bool act = false;
+    bool fadeAct = false;
 
     #region[Update]
     void Update()
@@ -25,6 +29,8 @@ public class ObjectCave : CustomCollider
         Language();
         updateFade();
         FollowPlayer();
+        StageLight();
+        StageSprite();
         //light.SetActive(!act && TreasureBoxScirpt.useTreasureBoxRadar);
     }
     #endregion
@@ -40,6 +46,31 @@ public class ObjectCave : CustomCollider
     public void ObjectInit()
     {
         areaScript.Init();
+    }
+    #endregion
+
+    #region[StageLight]
+    public void StageLight()
+    {
+        Color color = new Color(255 / 255f, 180 / 255f, 55 / 255f);
+        if (SceneController.instance.nowScene.Contains("Stage01"))
+            color = new Color(255 / 255f, 180 / 255f, 55 / 255f);
+        else if (SceneController.instance.nowScene.Contains("Stage02") || SceneController.instance.nowScene.Contains("Igloo"))
+            color = Color.white;//new Color(126 / 255f, 204 / 255f, 255 / 255f);
+        playerBlockLightSource.LightColor = color;
+    }
+    #endregion
+
+    #region[StageSprite]
+    public void StageSprite()
+    {
+        int stageNum = 0;
+        if (SceneController.instance.nowScene.Contains("Stage01"))
+            stageNum = 0;
+        else if (SceneController.instance.nowScene.Contains("Stage02") || SceneController.instance.nowScene.Contains("Igloo"))
+            stageNum = 1;
+        stageDoor.sprite = CaveManager.instance.stageDoor_Spr[stageNum];
+        stageFoothold.sprite = CaveManager.instance.stageDoorFoothold_Spr[stageNum];
     }
     #endregion
 

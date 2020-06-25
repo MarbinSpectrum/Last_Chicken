@@ -118,7 +118,7 @@ public class Stage01_1 : StageData
                     if (Exception.IndexOutRange(x, y, groundData))
                         groundData[x, y] = (GroundLayer)(-1);
 
-        ProceduralGeneration(world, groundData, GroundLayer.Dirt);
+        ProceduralGeneration(world,  groundData, GroundLayer.Dirt);
 
         //노이즈값으로 지형을 설정
         for (int x = 0; x < world.WorldWidth; x++)
@@ -126,7 +126,7 @@ public class Stage01_1 : StageData
                 if (PerlinNoise(x, y, 10, 15, 1) >= 8 && groundData[x, y] == GroundLayer.Dirt)
                     groundData[x, y] = GroundLayer.Stone;
 
-        ProceduralGeneration(world, groundData, GroundLayer.Stone);
+        ProceduralGeneration(world,  groundData, GroundLayer.Stone);
 
         FillArea(150);
         RemoveArea();

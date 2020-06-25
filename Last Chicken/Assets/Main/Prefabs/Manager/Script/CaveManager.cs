@@ -10,7 +10,11 @@ public class CaveManager : ObjectPool
     public GameObject[] smithyCave;
     public GameObject[] altarCave;
     public GameObject[] fountainCave;
+    public Sprite[] stageDoor_Spr = new Sprite[2];
+    public Sprite[] stageDoorFoothold_Spr = new Sprite[2];
+
     public static bool inCave;
+
 
     #region[Awake]
     public void Awake()

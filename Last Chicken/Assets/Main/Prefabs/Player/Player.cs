@@ -1118,7 +1118,7 @@ public class Player : CustomCollider
         if (SceneController.instance.nowScene.Contains("Stage01"))
             color = new Color(255 / 255f, 180 / 255f, 55 / 255f);
         else if (SceneController.instance.nowScene.Contains("Stage02") || SceneController.instance.nowScene.Contains("Igloo"))
-            color = new Color(126 / 255f, 204 / 255f, 255 / 255f);
+            color = Color.white;//new Color(126 / 255f, 204 / 255f, 255 / 255f);
         playerBlockLightSource.LightColor = color;
         for (int i = 0; i < mineHelmetLighSourceList.Count; i++)
             mineHelmetLighSourceList[i].LightColor = color;

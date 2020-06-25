@@ -11,7 +11,7 @@ public class Stage02_1 : StageData
     public FluidType[,] mapFluid;
     public BackGroundLayer[,] mapBackGround;
 
-    Vector2Int iglooPos;
+    bool outlineflipX;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -23,32 +23,6 @@ public class Stage02_1 : StageData
     public override void Awake()
     {
         base.Awake();
-
-        List<Texture2D> variation = new List<Texture2D>();
-        Texture2D temp;
-        for (int i = 0; i < 5; i++)
-        {
-            temp = Resources.Load("TerrainData/Stage02/Variation" + i) as Texture2D;
-            variation.Add(temp);
-        }
-        int r = Random.Range(0, variation.Count);
-        temp = variation[r];
-
-        mapRect = new GroundLayer[temp.width, temp.height];
-        mapFluid = new FluidType[temp.width, temp.height];
-
-        for (int i = 0; i < temp.width; i++)
-            for (int j = 0; j < temp.height; j++)
-                mapRect[i, j] = GroundManager.instance.ColorToGroundData(temp.GetPixel(i, j));
-
-        for (int i = 0; i < temp.width; i++)
-            for (int j = 0; j < temp.height; j++)
-                mapFluid[i, j] = GroundManager.instance.ColorToFluidData(temp.GetPixel(i, j));
-
-        for (int i = 0; i < temp.width; i++)
-            for (int j = 0; j < temp.height; j++)
-                if (temp.GetPixel(i, j) == new Color(0, 0, 0))
-                    iglooPos = new Vector2Int(i, j);
     }
     #endregion
 
@@ -115,13 +89,12 @@ public class Stage02_1 : StageData
             for (int y = 0; y < world.WorldHeight; y++)
                 groundData[x, y] = (GroundLayer)(-1);
 
-
+        //눈생성
         for (int x = 0; x < world.WorldWidth; x++)
             for (int y = 0; y < world.WorldHeight; y++)
                 if ((y <= world.WorldHeight - 15 && y >= world.WorldHeight - 20) || (y <= 20 && y >= 15))
                     groundData[x, y] = GroundLayer.Dirt;
 
-        //노이즈값으로 지형을 설정
         for (int x = 0; x < world.WorldWidth; x++)
             for (int y = 0; y < world.WorldHeight; y++)
                 if (y < world.WorldHeight - 20 && y > 20)
@@ -130,7 +103,7 @@ public class Stage02_1 : StageData
 
         ProceduralGeneration(world, groundData, GroundLayer.Dirt);
 
-        //노이즈값으로 지형을 설정
+        //돌생성
         for (int x = 0; x < world.WorldWidth; x++)
             for (int y = 0; y < world.WorldHeight; y++)
                 if (y < world.WorldHeight - 20 && y > 20)
@@ -138,7 +111,78 @@ public class Stage02_1 : StageData
                         if (PerlinNoise(x, y, 15, 15, 1) <= 3)
                             groundData[x, y] = GroundLayer.Stone;
 
+        //얼음생성
+        for (int y = 35; y < world.WorldHeight - 35; y += Random.Range(10, 15))
+        {
+            int x = Random.Range(0, world.WorldWidth);
+            int w = Random.Range(50, 100);
+            int h = Random.Range(3, 5);
+            for (int a = x - w/2; a < x + w/2; a++)
+                for (int b = y; b < y + h; b++)
+                    if (Exception.IndexOutRange(a, b, groundData))
+                        if (groundData[a, b] == (GroundLayer)(-1))
+                            groundData[a, b] = GroundLayer.Ice;
+        }
 
+        //돌생성
+        for (int x = 0; x < world.WorldWidth; x++)
+            for (int y = 0; y < world.WorldHeight; y++)
+                if (y < world.WorldHeight - 20 && y > 20)
+                    if (groundData[x, y] == (GroundLayer)(-1))
+                        if (PerlinNoise(x, y, 10, 20, 1.5f) <= 10)
+                            groundData[x, y] = GroundLayer.Ice;
+
+        ProceduralGeneration(world, groundData, GroundLayer.Ice,4);
+
+        FillArea(150);
+        RemoveArea();
+
+        GroundLayer[] Minerals = new GroundLayer[] { GroundLayer.Iron, GroundLayer.Silver, GroundLayer.Gold, GroundLayer.Mithril, GroundLayer.Diamond };
+
+        for (int n = 0; n < Minerals.Length; n++)
+        {
+            for (int x = 0; x < world.WorldWidth; x++)
+                for (int y = 0; y < world.WorldHeight; y++)
+                {
+                    if(n != 4)
+                    {
+                        if (Random.Range(0, 1500) <= 1498)
+                            continue;
+                    }
+                    else
+                    {
+                        if (Random.Range(0, 2000) <= 1998)
+                            continue;
+                    }
+
+                    if (groundData[x, y] == GroundLayer.Dirt)
+                        groundData[x, y] = Minerals[n];
+
+                    int randomType = Random.Range(0, 4);
+
+                    for (int i = 0; i < 36; i++)
+                    {
+                        int ax = x + i % 6;
+                        int ay = y + i / 6;
+                        if (Exception.IndexOutRange(ax, ay, groundData))
+                            if (groundData[ax, ay] == GroundLayer.Dirt && MineralType[randomType, i % 6, i / 6] == 1)
+                                groundData[ax, ay] = Minerals[n];
+                    }
+                }
+            // ProceduralGeneration(world, groundData, Minerals[n]);
+        }
+
+        outlineflipX = Random.Range(0, 100) > 50;
+
+        for (int y = 0; y < world.WorldHeight; y++)
+            for (int x = 0; x < world.WorldWidth; x++)
+            {
+                int fx = outlineflipX ? x : world.WorldWidth - x - 1;
+                if (GroundManager.instance.stage01OutlineRect[fx, y] == GroundLayer.UnBreakable)
+                    groundData[x, y] = GroundLayer.UnBreakable;
+                else if (GroundManager.instance.stage01OutlineRect[fx, y] == GroundLayer.Dirt)
+                    groundData[x, y] = (GroundLayer)(-1);
+            }
     }
     #endregion
 
@@ -149,36 +193,20 @@ public class Stage02_1 : StageData
     {
         //설치 가능한 지점을 설정
         maxRect = new int[world.WorldWidth, world.WorldHeight];
-        for (int i = 0; i < world.WorldWidth; i++)
-            for (int j = 0; j < world.WorldHeight; j++)
-                maxRect[i, j] = 1;
+        for (int i = 15; i < world.WorldWidth - 15; i++)
+            for (int j = 30; j < world.WorldHeight - 30; j++)
+                if (groundData[i, j] == GroundLayer.Dirt)
+                    maxRect[i, j] = 1;
 
-        //제단에는 설치 불가능
-        for (int i = 0; i < altarRect.width; i++)
-            for (int j = 0; j < altarRect.height; j++)
-                if (Exception.IndexOutRange(altarRect.x + i, altarRect.y - altarRect.height + j, maxRect))
-                    maxRect[altarRect.x + i, altarRect.y - altarRect.height + j] = 0;
-        if (altarRect.width > 0)
+        //cave 지점은 설치 불가능
+        for (int i = 0; i < CaveManager.instance.objectPool.Count; i++)
         {
-            for (int i = 0; i < world.WorldWidth; i++)
-                for (int j = 0; j < world.WorldHeight; j++)
-                    if (Vector2.Distance(new Vector2(i, j), new Vector2(altarRect.x + altarRect.width / 2f, altarRect.y - altarRect.height / 2f)) < 50)
-                        maxRect[i, j] = 0;
+            Vector3 pos = new Vector3(CaveManager.instance.objectPool[i].transform.position.x, CaveManager.instance.objectPool[i].transform.position.y, 60);
+            for (int x = (int)pos.x - (int)pos.z; x < pos.x + pos.z; x++)
+                for (int y = (int)pos.y - (int)pos.z; y < (int)pos.y + (int)pos.z; y++)
+                    if (Exception.IndexOutRange(x, y, maxRect))
+                        maxRect[x, y] = 0;
         }
-
-        //분수에는 설치 불가능
-        for (int i = 0; i < fountainRect.width; i++)
-            for (int j = 0; j < fountainRect.height; j++)
-                if (Exception.IndexOutRange(fountainRect.x + i, fountainRect.y - fountainRect.height + j, maxRect))
-                    maxRect[fountainRect.x + i, fountainRect.y - fountainRect.height + j] = 0;
-        if (fountainRect.width > 0)
-        {
-            for (int i = 0; i < world.WorldWidth; i++)
-                for (int j = 0; j < world.WorldHeight; j++)
-                    if (Vector2.Distance(new Vector2(i, j), new Vector2(fountainRect.x + fountainRect.width / 2f, fountainRect.y - fountainRect.height / 2f)) < 50)
-                        maxRect[i, j] = 0;
-        }
-
 
         //해당 위치에서 만들수있는 가장 큰 정사각형을 구해줌
         for (int i = 1; i < world.WorldWidth; i++)
@@ -224,7 +252,6 @@ public class Stage02_1 : StageData
     #region[오브젝트 설치]
     void SetObject()
     {
-
         #region[보물배치]
         if (Random.Range(0, 100) > 80)
         {
@@ -245,7 +272,7 @@ public class Stage02_1 : StageData
                     }
 
                     if (treasureFlag)
-                        treasureList.Add(new Vector2Int(x, world.WorldHeight - 1 - y));
+                        treasureList.Add(new Vector2Int(x, y));
 
                 }
             }
@@ -258,10 +285,172 @@ public class Stage02_1 : StageData
         #endregion
 
         #region[이글루]
-        if (iglooPos != new Vector2Int(0, 0))
-            ObjectManager.instance.Igloo(iglooPos);
+        if (Random.Range(0, 100) > 60)
+        {
+            List<Vector2Int> IglooList = new List<Vector2Int>();
+            for (int y = world.WorldHeight / 2; y < world.WorldHeight - 1; y++)
+            {
+                for (int x = 0; x < world.WorldWidth - 1; x++)
+                {
+                    bool treasureFlag = true;
+                    for (int i = 0; i < 15; i++)
+                        for (int j = 0; j < 10; j++)
+                        {
+                            int ax = x + i;
+                            int ay = y + j;
+                            if (Exception.IndexOutRange(ax, ay, groundData) && groundData[ax, ay] != GroundLayer.Dirt)
+                                treasureFlag = false;
+                            else if (!Exception.IndexOutRange(ax, ay, groundData))
+                                treasureFlag = false;
+                        }
+
+                    if (treasureFlag)
+                        IglooList.Add(new Vector2Int(x, y));
+
+                }
+            }
+            if (IglooList.Count > 0)
+            {
+                Vector2Int pos = IglooList[Random.Range(0, IglooList.Count)];
+                ObjectManager.instance.Igloo(pos + new Vector2Int(3, 2));
+            }
+        }
         #endregion
 
+        #region[상자배치]
+        List<Vector2Int> woodBoxpos = new List<Vector2Int>();
+        for (int n = 0; n < 75; n++)
+        {
+            if (Random.Range(0, 100) <= StageManager.instance.stage0201_WoodBoxValue)
+                continue;
+
+            List<Vector2Int> woodBoxList = new List<Vector2Int>();
+            for (int y = 40; y < world.WorldHeight - 40; y++)
+            {
+                for (int x = 10; x < world.WorldWidth - 10; x++)
+                {
+                    bool boxFlag = true;
+                    for (int i = 0; i < 2; i++)
+                        for (int j = 0; j < 2; j++)
+                        {
+                            int ax = x + i;
+                            int ay = y + j;
+                            if (Exception.IndexOutRange(ax, ay, groundData) && groundData[ax, ay] != (GroundLayer)(-1))
+                                boxFlag = false;
+                            else if (!Exception.IndexOutRange(ax, ay, groundData))
+                                boxFlag = false;
+                        }
+
+
+                    for(int i = 0; i < woodBoxpos.Count; i++)
+                        if (Vector2.Distance(new Vector2Int(x, y),woodBoxpos[i]) < 5)
+                            boxFlag = false;
+
+                    if (boxFlag)
+                        woodBoxList.Add(new Vector2Int(x, y));
+
+                }
+            }
+            if (woodBoxList.Count > 0)
+            {
+                Vector2Int pos = woodBoxList[Random.Range(0, woodBoxList.Count)];
+                woodBoxpos.Add(pos);
+                ObjectManager.instance.WoodBox(pos + new Vector2Int(1, 1));
+            }
+        }
+        #endregion
+
+        #region[고드름배치]
+        List<Vector2Int> falliciclePos = new List<Vector2Int>();
+        for (int n = 0; n < 25; n++)
+        {
+            if (Random.Range(0, 100) <= StageManager.instance.stage0201_TrapValue)
+                continue;
+
+            List<Vector2Int> fallicicleList = new List<Vector2Int>();
+            for (int y = 40; y < world.WorldHeight - 40; y++)
+            {
+                for (int x = 10; x < world.WorldWidth - 10; x++)
+                {
+                    bool fallicicleFlag = true;
+                    for (int i = -1; i <= 1; i++)
+                        for (int j = -1; j <= 0; j++)
+                        {
+                            int ax = x + i;
+                            int ay = y + j;
+
+                            if (j == 0 && Exception.IndexOutRange(ax, ay, groundData) && groundData[ax, ay] == (GroundLayer)(-1))
+                                fallicicleFlag = false;
+                            else if (j == -1 && Exception.IndexOutRange(ax, ay, groundData) && groundData[ax, ay] != (GroundLayer)(-1))
+                                fallicicleFlag = false;
+                            else if (!Exception.IndexOutRange(ax, ay, groundData))
+                                fallicicleFlag = false;
+                        }
+
+
+                    for (int i = 0; i < falliciclePos.Count; i++)
+                        if (Vector2.Distance(new Vector2Int(x, y), falliciclePos[i]) < 5)
+                            fallicicleFlag = false;
+
+                    if (fallicicleFlag)
+                        fallicicleList.Add(new Vector2Int(x,y));
+
+                }
+            }
+            if (fallicicleList.Count > 0)
+            {
+                Vector2Int pos = fallicicleList[Random.Range(0, fallicicleList.Count)];
+                falliciclePos.Add(pos);
+                ObjectManager.instance.Icicle(pos + new Vector2(0, -1f), Random.Range(0, 3));
+            }
+        }
+
+        List<Vector2Int> bottomIciclePos = new List<Vector2Int>();
+        for (int n = 0; n < 25; n++)
+        {
+            if (Random.Range(0, 100) <= StageManager.instance.stage0201_TrapValue)
+                continue;
+
+            List<Vector2Int> bottomIcicleList = new List<Vector2Int>();
+            for (int y = 40; y < world.WorldHeight - 40; y++)
+            {
+                for (int x = 10; x < world.WorldWidth - 10; x++)
+                {
+                    bool bottomIcicleFlag = true;
+                    for (int i = -1; i <= 1; i++)
+                        for (int j = -1; j <= 0; j++)
+                        {
+                            int ax = x + i;
+                            int ay = y + j;
+
+                            if (j == -1 && Exception.IndexOutRange(ax, ay, groundData) && groundData[ax, ay] == (GroundLayer)(-1))
+                                bottomIcicleFlag = false;
+                            else if (j == 0 && Exception.IndexOutRange(ax, ay, groundData) && groundData[ax, ay] != (GroundLayer)(-1))
+                                bottomIcicleFlag = false;
+                            else if (!Exception.IndexOutRange(ax, ay, groundData))
+                                bottomIcicleFlag = false;
+                        }
+
+
+                    for (int i = 0; i < bottomIciclePos.Count; i++)
+                        if (Vector2.Distance(new Vector2Int(x, y), bottomIciclePos[i]) < 5)
+                            bottomIcicleFlag = false;
+
+                    if (bottomIcicleFlag)
+                        bottomIcicleList.Add(new Vector2Int(x, y));
+
+                }
+            }
+            if (bottomIcicleList.Count > 0)
+            {
+                Vector2Int pos = bottomIcicleList[Random.Range(0, bottomIcicleList.Count)];
+                bottomIciclePos.Add(pos);
+                ObjectManager.instance.Icicle(pos + new Vector2(0, 1f), Random.Range(3, 6));
+            }
+        }
+        #endregion
+
+        SetCave();
     }
     #endregion
 
@@ -366,6 +555,60 @@ public class Stage02_1 : StageData
                     }
                 }
             }
+    }
+    #endregion
+
+    #region[동굴생성]
+    public void SetCave()
+    {
+        List<Vector2Int> v = new List<Vector2Int>();
+        Vector2 cavePos;
+
+        int[] A = new int[] { 1, 2, 3, 4 };
+
+        for (int i = 0; i < 100; i++)
+        {
+            int a = Random.Range(0, 4);
+            int b = Random.Range(0, 4);
+            int temp = A[a];
+            A[a] = A[b];
+            A[b] = temp;
+        }
+
+        for (int k = 0; k < 3; k++)
+        {
+            CheckArea();
+            v.Clear();
+            for (int i = 0; i < world.WorldWidth; i++)
+                for (int j = 0; j < world.WorldHeight; j++)
+                    if (CanAddArea(i, j, 6, 6))
+                        v.Add(new Vector2Int(i, j - 2));
+            if (v.Count > 0)
+            {
+                cavePos = v[Random.Range(0, v.Count)];
+                switch (A[k])
+                {
+
+                    case 1:
+                        CaveManager.instance.ShopCave(cavePos, cavePos.x < world.WorldWidth / 2 ? 0 : 1);
+                        break;
+                    case 2:
+                        CaveManager.instance.FountainCave(cavePos, cavePos.x < world.WorldWidth / 2 ? 0 : 1);
+                        break;
+                    case 3:
+                        CaveManager.instance.SmithyCave(cavePos, cavePos.x < world.WorldWidth / 2 ? 0 : 1);
+                        break;
+                    case 4:
+                        CaveManager.instance.AltarCave(cavePos, cavePos.x < world.WorldWidth / 2 ? 0 : 1);
+                        break;
+                }
+                //if (Random.Range(0, 100) > 50)
+                for (int i = (int)(cavePos.x - 3); i < (int)(cavePos.x + 3); i++)
+                    for (int j = (int)(cavePos.y - 3); j < (int)(cavePos.y + 3); j++)
+                        if (Exception.IndexOutRange(i, j, groundData))
+                            groundData[i, j] = (GroundLayer)(-1);
+            }
+        }
     }
     #endregion
 

@@ -228,6 +228,18 @@ public class ObjectManagerEditor : MyEditor
                 return "지뢰";
             case "Worm":
                 return "지렁이";
+            case "Icicle0":
+                return "고드름1";
+            case "Icicle1":
+                return "고드름2";
+            case "Icicle2":
+                return "고드름3";
+            case "Icicle3":
+                return "고드름4";
+            case "Icicle4":
+                return "고드름5";
+            case "Icicle5":
+                return "고드름6";
         }
         return s;
     }

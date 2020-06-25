@@ -29,7 +29,13 @@ public class ObjectManager : ObjectPool
         "Stalagmite5",
         "Sign",
         "LandMine",
-        "Worm"
+        "Worm",
+        "Icicle0",
+        "Icicle1",
+        "Icicle2",
+        "Icicle3",
+        "Icicle4",
+        "Icicle5",
     };
 
     [System.Serializable]
@@ -100,6 +106,8 @@ public class ObjectManager : ObjectPool
     GameObject sign;
 
     GameObject worm;
+
+    GameObject[] icicle = new GameObject[6];
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -194,6 +202,9 @@ public class ObjectManager : ObjectPool
             for (int i = 0; i < stalagmite.Length; i++)
                 stalagmite[i] = Resources.Load("Objects/Trap/Stalagmite" + i) as GameObject;
             landMine = Resources.Load("Objects/Trap/LandMine") as GameObject;
+            for (int i = 0; i < icicle.Length; i++)
+                icicle[i] = Resources.Load("Objects/Trap/Icicle" + i) as GameObject;
+
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             shop = Resources.Load("Objects/Structure/Shop/Shop") as GameObject;
@@ -869,6 +880,36 @@ public class ObjectManager : ObjectPool
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
         emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
+    }
+    #endregion
+
+    #region[고드름]
+    public void Icicle(Vector2 vector2, int n, bool flipX = false)
+    {
+        if (!Exception.IndexOutRange(n, icicle))
+            return;
+
+        string name = "Icicle" + n;
+
+        GameObject emp = FindObject(name);
+
+        if (emp == null)
+        {
+            emp = Instantiate(icicle[n]);
+            emp.transform.name = name;
+            AddObject(emp);
+        }
+
+        emp.SetActive(true);
+        emp.transform.localRotation = Quaternion.identity;
+        emp.transform.parent = transform;
+        emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
+        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
+    }
+
+    public void Icicle(Vector2 vector2, bool flipX = false)
+    {
+        Icicle(vector2, Random.Range(0, icicle.Length), flipX);
     }
     #endregion
 
