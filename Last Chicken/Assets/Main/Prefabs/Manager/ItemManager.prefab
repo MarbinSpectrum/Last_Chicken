@@ -148,7 +148,7 @@ MonoBehaviour:
       \uD55C\uBC88 \uC0B4\uB824\uC90D\uB2C8\uB2E4."
     itemExplain_Eng: The player got one more life
     cost: 1200
-    spawnObject: 1
+    spawnObject: 0
     spawnShop: 1
     spawnTreasureBox: 1
     stage01: 1
@@ -170,7 +170,7 @@ MonoBehaviour:
     itemName_Eng: Torch
     value0: 0
     value1: 0
-    itemLevel: 1
+    itemLevel: 0
     itemExplain: "\uBC15\uC950\uAC00 \uD683\uBD88\uC744 \uC2EB\uC5B4\uD569\uB2C8\uB2E4."
     itemExplain_Eng: Bats hate torches.
     cost: 1000
@@ -812,7 +812,8 @@ MonoBehaviour:
     - 
     - 
     - <color=#ff0000ff>Active</color>
-  - itemImg: {fileID: 21300000, guid: 12e37735202c44644bcf58d32d675b82, type: 3}
+  - itemImg: {fileID: -1234243635536540817, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
     itemName: "\uC4F0\uB808\uAE30"
     itemName_Eng: 'Garbage '
     value0: 0
