@@ -403,6 +403,16 @@ public class ItemManager : ObjectPool
 
         if (itemNum != -1)
             SpawnItem(vector2, itemName[itemNum]);
+        else if(Random.Range(0,100) > 50)
+        {
+            int mineNum = Random.Range(3, 10);
+            for (int i = 0; i < mineNum; i++)
+            {
+                Vector2 Force = new Vector2(Random.Range(-0.5f, 0.5f), 1);
+                Force *= Force * 1600;
+                ItemManager.instance.SpawnMineral(vector2, Force, "Copper");
+            }
+        }
     }
     #endregion
 

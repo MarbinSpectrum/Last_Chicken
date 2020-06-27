@@ -87,7 +87,7 @@ public class SceneController : MonoBehaviour
         World world = World.Instance;
         if (world)
         {
-            if (!nowScene.Equals("Tutorial"))
+            if (!nowScene.Equals("Tutorial") && !nowScene.Contains("Stage02"))
                 world.SetLighting(true);
             for (int i = 0; i < 2; i++)
             {

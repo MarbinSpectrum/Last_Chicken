@@ -604,7 +604,7 @@ public class Stage02_1 : StageData
                 }
                 //if (Random.Range(0, 100) > 50)
                 for (int i = (int)(cavePos.x - 3); i < (int)(cavePos.x + 3); i++)
-                    for (int j = (int)(cavePos.y - 3); j < (int)(cavePos.y + 3); j++)
+                    for (int j = (int)(cavePos.y - 3); j < (int)(cavePos.y + 4); j++)
                         if (Exception.IndexOutRange(i, j, groundData))
                             groundData[i, j] = (GroundLayer)(-1);
             }

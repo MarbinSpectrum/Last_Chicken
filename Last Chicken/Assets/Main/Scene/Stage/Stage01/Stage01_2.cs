@@ -404,23 +404,23 @@ public class Stage01_2 : StageData
             #endregion
 
             #region[나무상자 배치]
-            addX = 10;
-            for (int j = 0; j < 15; j++)
-            {
-                if (i == 0)
-                    continue;
-                Vector2 objectPos = new Vector2(mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height);
-                if (Random.Range(0, 100) <= StageManager.instance.stage0102_WoodBoxValue ||
-                    !Exception.IndexOutRange(mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height - 1, groundData) ||
-                    (Exception.IndexOutRange(mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height - 1, groundData) &&
-                    groundData[mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height - 1] == (GroundLayer)(-1)))
-                {
-                    addX += Random.Range(10, 15);
-                    continue;
-                }
-                ObjectManager.instance.WoodBox(objectPos);
-                addX += Random.Range(10, 15);
-            }
+            //addX = 10;
+            //for (int j = 0; j < 15; j++)
+            //{
+            //    if (i == 0)
+            //        continue;
+            //    Vector2 objectPos = new Vector2(mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height);
+            //    if (Random.Range(0, 100) <= StageManager.instance.stage0102_WoodBoxValue ||
+            //        !Exception.IndexOutRange(mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height - 1, groundData) ||
+            //        (Exception.IndexOutRange(mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height - 1, groundData) &&
+            //        groundData[mineRoadArea[i].x + addX, mineRoadArea[i].y - mineRoadArea[i].height - 1] == (GroundLayer)(-1)))
+            //    {
+            //        addX += Random.Range(10, 15);
+            //        continue;
+            //    }
+            //    ObjectManager.instance.WoodBox(objectPos);
+            //    addX += Random.Range(10, 15);
+            //}
             #endregion
 
             #region[석순 배치]
@@ -459,6 +459,52 @@ public class Stage01_2 : StageData
                 }
             }
             #endregion
+        }
+        #endregion
+
+        #region[상자배치]
+        List<Vector2Int> woodBoxpos = new List<Vector2Int>();
+        for (int n = 0; n < 75; n++)
+        {
+            if (Random.Range(0, 100) <= StageManager.instance.stage0102_WoodBoxValue)
+                continue;
+
+            List<Vector2Int> woodBoxList = new List<Vector2Int>();
+            for (int y = 20; y < world.WorldHeight - 20; y++)
+            {
+                for (int x = 10; x < world.WorldWidth - 10; x++)
+                {
+                    bool boxFlag = true;
+                    for (int i = 0; i < 2; i++)
+                        for (int j = 0; j < 2; j++)
+                        {
+                            int ax = x + i;
+                            int ay = y + j;
+                            if (Exception.IndexOutRange(ax, ay, groundData) && groundData[ax, ay] != (GroundLayer)(-1))
+                                boxFlag = false;
+                            else if (!Exception.IndexOutRange(ax, ay, groundData))
+                                boxFlag = false;
+                        }
+
+                    for (int i = 0; i < mineRoadArea.Count; i++)
+                        if (Mathf.Abs(mineRoadArea[i].y - y) < 10)
+                            boxFlag = false;
+
+                    for (int i = 0; i < woodBoxpos.Count; i++)
+                        if (Vector2.Distance(new Vector2Int(x, y), woodBoxpos[i]) < 5)
+                            boxFlag = false;
+
+                    if (boxFlag)
+                        woodBoxList.Add(new Vector2Int(x, y));
+
+                }
+            }
+            if (woodBoxList.Count > 0)
+            {
+                Vector2Int pos = woodBoxList[Random.Range(0, woodBoxList.Count)];
+                woodBoxpos.Add(pos);
+                ObjectManager.instance.WoodBox(pos + new Vector2Int(1, 1));
+            }
         }
         #endregion
 
@@ -678,7 +724,7 @@ public class Stage01_2 : StageData
                 }
                 //if (Random.Range(0, 100) > 50)
                 for (int i = (int)(cavePos.x - 3); i < (int)(cavePos.x + 3); i++)
-                    for (int j = (int)(cavePos.y - 2); j < (int)(cavePos.y + 2); j++)
+                    for (int j = (int)(cavePos.y - 3); j < (int)(cavePos.y + 4); j++)
                         if (Exception.IndexOutRange(i, j, groundData))
                             groundData[i, j] = (GroundLayer)(-1);
             }
