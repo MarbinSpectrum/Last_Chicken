@@ -18,7 +18,8 @@ public class Lantern : MonoBehaviour
 
     void OnEnable()
     {
-        keyPoint = transform.position;
+        //keyPoint = transform.position;
+        delayTime = 0.1f;
         time = 0;
     }
 
@@ -40,6 +41,17 @@ public class Lantern : MonoBehaviour
                 delayTime = Random.Range(3, 8);
             }
             time += Time.deltaTime;
+        }
+        else
+        {
+            if (time == 0)
+            {
+                time = 1;
+                keyPoint = transform.position;
+                transform.position = nonActPos;
+            }
+            else
+                transform.position = keyPoint;
         }
     }
 

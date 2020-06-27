@@ -542,7 +542,7 @@ public class GameManager : TerrainGenerator
                 temp += stageNum.ToString();
                 temp += "0";
                 temp += stageSubNum.ToString();
-                if(stageNum >= 2)
+                if(stageNum >= 2 && stageSubNum >= 2)
                     playData.stageName = "Demo";
                 else
                     playData.stageName = "Stage" + temp;

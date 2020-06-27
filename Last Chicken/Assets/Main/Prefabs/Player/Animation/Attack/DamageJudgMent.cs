@@ -46,6 +46,8 @@ public class DamageJudgMent : MonoBehaviour
                             if ((GroundManager.instance.digMask & (int)Mathf.Pow(2, (int)StageData.instance.groundData[x, y])) != 0)
                             {
                                 SoundGroup[(int)StageData.instance.groundData[x, y]]++;
+                                //if (StageData.instance.groundData[x, y] != StageData.GroundLayer.Dirt)
+                                //    EffectManager.instance.PickAxeFire(new Vector3(x, y));
                                 GroundManager.instance.AttackTerrain(new Vector2Int(x, y), Player.instance.attackPower);
                             }
                
@@ -81,9 +83,9 @@ public class DamageJudgMent : MonoBehaviour
                     case StageData.GroundLayer.Gold:
                         SoundManager.instance.AttackGold(); break;
                     case StageData.GroundLayer.Mithril:
-                        SoundManager.instance.AttackMithril(); break;
+                        SoundManager.instance.AttackGold(); break;
                     case StageData.GroundLayer.Diamond:
-                        SoundManager.instance.AttackDiamond(); break;
+                        SoundManager.instance.AttackGold(); break;
                     case StageData.GroundLayer.Magnetite:
                         SoundManager.instance.AttackDiamond(); break;
                     case StageData.GroundLayer.Titanium:

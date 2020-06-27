@@ -7,6 +7,9 @@ public class ItemScript : CustomCollider
     protected new Rigidbody2D rigidbody2D;
     protected BoxCollider2D bodyCollider;
     protected SpriteRenderer spriteRenderer;
+    public GameObject specialGlow;
+    public GameObject legendGlow;
+
 
     //[HideInInspector]
     public int num;
@@ -51,14 +54,25 @@ public class ItemScript : CustomCollider
     #region[능력치 갱신]
     public virtual void UpdateStats()
     {
-        if(ItemManager.FindData(transform.name) == -1)
+        int itemNum = ItemManager.FindData(transform.name);
+        if (itemNum == -1)
             spriteRenderer.color = new Color(1, 1, 1, 0);
         else
             spriteRenderer.color = new Color(1, 1, 1, 1);
 
-        if (ItemManager.FindData(transform.name) != -1)
-            spriteRenderer.sprite = ItemManager.instance.itemData[ItemManager.FindData(transform.name)].itemImg;
+        if (itemNum != -1)
+            spriteRenderer.sprite = ItemManager.instance.itemData[itemNum].itemImg;
 
+        if (itemNum != -1)
+        {
+            specialGlow.SetActive(ItemManager.instance.itemData[itemNum].itemLevel == ItemManager.ItemLevel.특급);
+            legendGlow.SetActive(ItemManager.instance.itemData[itemNum].itemLevel == ItemManager.ItemLevel.전설);
+        }
+        else
+        {
+            specialGlow.SetActive(false);
+            legendGlow.SetActive(false);
+        }
         cool += Time.deltaTime;
     }
     #endregion

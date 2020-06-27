@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2387913429714136690}
   - component: {fileID: 2387913429714136693}
   - component: {fileID: 2387913429714136692}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: AltarImg2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +50,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 82cf56857a1af0e4f8bc6042eaec35f6, type: 2}
+  - {fileID: 2100000, guid: 3bed482a60ac2d0448f3b24a06706a74, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -98,5 +98,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 2387913429714136693}
   darkImg: {fileID: -2186049524173361632, guid: ec56afad6f4a99641a1d1b9a6ab9b1f9,
     type: 3}
+  darkMat: {fileID: 2100000, guid: 82cf56857a1af0e4f8bc6042eaec35f6, type: 2}
   lightImg: {fileID: -481428077926983306, guid: 9a912d715e14aac44b4226d45f106c8f,
     type: 3}
+  lightMat: {fileID: 2100000, guid: 3bed482a60ac2d0448f3b24a06706a74, type: 2}

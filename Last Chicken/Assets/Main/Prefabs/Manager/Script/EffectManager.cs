@@ -23,6 +23,8 @@ public class EffectManager : ObjectPool
     GameObject plopFluid;
     GameObject bubbleFluid;
 
+    GameObject pickAxeFire;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     GameObject explosion;
@@ -123,6 +125,8 @@ public class EffectManager : ObjectPool
 
             plopFluid = Resources.Load("Graphics/Effects/Ground/PlopFluid") as GameObject;
             bubbleFluid = Resources.Load("Graphics/Effects/Ground/BubbleFluid") as GameObject;
+
+            pickAxeFire = Resources.Load("Graphics/Effects/Ground/PickAxeFire") as GameObject;
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -505,6 +509,26 @@ public class EffectManager : ObjectPool
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
         emp.transform.localScale = size;
+    }
+    #endregion
+
+    #region[곡괭이 불똥]
+    public void PickAxeFire(Vector2 vector2)
+    {
+        string name = "PickAxeFire";
+
+        GameObject emp = FindObject(name);
+
+        if (emp == null)
+        {
+            emp = Instantiate(pickAxeFire);
+            emp.transform.name = name;
+            AddObject(emp);
+        }
+
+        emp.SetActive(true);
+        emp.transform.parent = transform;
+        emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
     }
     #endregion
 

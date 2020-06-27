@@ -154,7 +154,6 @@ namespace TerrainEngine2D
             time += Time.deltaTime;
             if (time > 0.1f && postProcessCamera && !postProcessCamera.enabled)
                 postProcessCamera.enabled = true;
-
             CameraOffset();
 
             bool isCursorHoveringUI = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();

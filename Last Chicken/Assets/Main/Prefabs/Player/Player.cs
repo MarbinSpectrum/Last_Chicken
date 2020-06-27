@@ -56,6 +56,8 @@ public class Player : CustomCollider
 
     GameObject shiledBuff;
 
+    GameObject effectObject;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -171,6 +173,8 @@ public class Player : CustomCollider
         shiledBuff = transform.Find("Shield").gameObject;
 
         dizzyStar = transform.Find("DizzyStars").gameObject;
+
+        effectObject = transform.Find("Effect").gameObject;
 
         playerBlockLightSource = transform.Find("Light").Find("PlayerLight").Find("BlockLight").GetComponent<BlockLightSource>();
         torchLight = transform.Find("Light").Find("TorchLight").gameObject;
@@ -541,7 +545,7 @@ public class Player : CustomCollider
             //밟은 땅의 종류에 따른 소리를 킴
             int slipperyGround = (1 << (int)StageData.GroundLayer.Ice);
 
-            if (slip && (1 << (int)StageData.instance.GetBlock(pos) & slipperyGround) != 0)
+            if (slip && (1 << (int)StageData.instance.GetBlock(pos) & slipperyGround) != 0 && !CaveManager.inCave)
             {
                 if (Mathf.Abs(playerMoveDirection) < 0.1f)
                     playerMoveDirection = 0;
@@ -1118,7 +1122,7 @@ public class Player : CustomCollider
         if (SceneController.instance.nowScene.Contains("Stage01"))
             color = new Color(255 / 255f, 180 / 255f, 55 / 255f);
         else if (SceneController.instance.nowScene.Contains("Stage02") || SceneController.instance.nowScene.Contains("Igloo"))
-            color = Color.white;//new Color(126 / 255f, 204 / 255f, 255 / 255f);
+            color = new Color(204 / 255f, 204 / 255f, 255 / 255f);
         playerBlockLightSource.LightColor = color;
         for (int i = 0; i < mineHelmetLighSourceList.Count; i++)
             mineHelmetLighSourceList[i].LightColor = color;
@@ -1138,6 +1142,12 @@ public class Player : CustomCollider
     {
         if (GameManager.instance.gamePause)
             return;
+
+        if(attackFlag)
+            effectObject.layer = LayerMask.NameToLayer("PostProcess");
+        else
+            effectObject.layer = LayerMask.NameToLayer("Default");
+
         PlayerFlipX(flipX);
         PlayerDamageTime();
 

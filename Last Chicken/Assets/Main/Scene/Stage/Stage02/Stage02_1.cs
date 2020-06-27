@@ -137,21 +137,21 @@ public class Stage02_1 : StageData
         FillArea(150);
         RemoveArea();
 
-        GroundLayer[] Minerals = new GroundLayer[] { GroundLayer.Iron, GroundLayer.Silver, GroundLayer.Gold, GroundLayer.Mithril, GroundLayer.Diamond };
+        GroundLayer[] Minerals = new GroundLayer[] { GroundLayer.Iron, GroundLayer.Silver, GroundLayer.Gold, GroundLayer.Mithril };
 
         for (int n = 0; n < Minerals.Length; n++)
         {
             for (int x = 0; x < world.WorldWidth; x++)
                 for (int y = 0; y < world.WorldHeight; y++)
                 {
-                    if(n != 4)
+                    if(n != 3)
                     {
                         if (Random.Range(0, 1500) <= 1498)
                             continue;
                     }
                     else
                     {
-                        if (Random.Range(0, 2000) <= 1998)
+                        if (Random.Range(0, 1700) <= 1698)
                             continue;
                     }
 
@@ -284,38 +284,38 @@ public class Stage02_1 : StageData
         }
         #endregion
 
-        #region[이글루]
-        if (Random.Range(0, 100) > 60)
-        {
-            List<Vector2Int> IglooList = new List<Vector2Int>();
-            for (int y = world.WorldHeight / 2; y < world.WorldHeight - 1; y++)
-            {
-                for (int x = 0; x < world.WorldWidth - 1; x++)
-                {
-                    bool treasureFlag = true;
-                    for (int i = 0; i < 15; i++)
-                        for (int j = 0; j < 10; j++)
-                        {
-                            int ax = x + i;
-                            int ay = y + j;
-                            if (Exception.IndexOutRange(ax, ay, groundData) && groundData[ax, ay] != GroundLayer.Dirt)
-                                treasureFlag = false;
-                            else if (!Exception.IndexOutRange(ax, ay, groundData))
-                                treasureFlag = false;
-                        }
+        //#region[이글루]
+        //if (Random.Range(0, 100) > 60)
+        //{
+        //    List<Vector2Int> IglooList = new List<Vector2Int>();
+        //    for (int y = world.WorldHeight / 2; y < world.WorldHeight - 1; y++)
+        //    {
+        //        for (int x = 0; x < world.WorldWidth - 1; x++)
+        //        {
+        //            bool treasureFlag = true;
+        //            for (int i = 0; i < 15; i++)
+        //                for (int j = 0; j < 10; j++)
+        //                {
+        //                    int ax = x + i;
+        //                    int ay = y + j;
+        //                    if (Exception.IndexOutRange(ax, ay, groundData) && groundData[ax, ay] != GroundLayer.Dirt)
+        //                        treasureFlag = false;
+        //                    else if (!Exception.IndexOutRange(ax, ay, groundData))
+        //                        treasureFlag = false;
+        //                }
 
-                    if (treasureFlag)
-                        IglooList.Add(new Vector2Int(x, y));
+        //            if (treasureFlag)
+        //                IglooList.Add(new Vector2Int(x, y));
 
-                }
-            }
-            if (IglooList.Count > 0)
-            {
-                Vector2Int pos = IglooList[Random.Range(0, IglooList.Count)];
-                ObjectManager.instance.Igloo(pos + new Vector2Int(3, 2));
-            }
-        }
-        #endregion
+        //        }
+        //    }
+        //    if (IglooList.Count > 0)
+        //    {
+        //        Vector2Int pos = IglooList[Random.Range(0, IglooList.Count)];
+        //        ObjectManager.instance.Igloo(pos + new Vector2Int(3, 2));
+        //    }
+        //}
+        //#endregion
 
         #region[상자배치]
         List<Vector2Int> woodBoxpos = new List<Vector2Int>();

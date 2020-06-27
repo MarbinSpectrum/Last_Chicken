@@ -1082,7 +1082,7 @@ public class UIManager : MonoBehaviour
                 string tempName = GameManager.instance.itemSlot[throwNum];
                 int tempNum = GameManager.instance.itemNum[throwNum];
 
-                ItemManager.instance.SpawnItem(Player.instance.transform.position, tempName, tempNum);
+                ItemManager.instance.SpawnItem(Player.instance.transform.position + new Vector3(0,1.5f,0), tempName, tempNum);
 
                 GameManager.instance.itemSlot[throwNum] = "";
                 GameManager.instance.itemNum[throwNum] = 0;

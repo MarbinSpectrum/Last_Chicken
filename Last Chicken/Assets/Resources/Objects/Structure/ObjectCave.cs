@@ -56,7 +56,7 @@ public class ObjectCave : CustomCollider
         if (SceneController.instance.nowScene.Contains("Stage01"))
             color = new Color(255 / 255f, 180 / 255f, 55 / 255f);
         else if (SceneController.instance.nowScene.Contains("Stage02") || SceneController.instance.nowScene.Contains("Igloo"))
-            color = Color.white;//new Color(126 / 255f, 204 / 255f, 255 / 255f);
+            color = new Color(204 / 255f, 204 / 255f, 255 / 255f);
         playerBlockLightSource.LightColor = color;
     }
     #endregion

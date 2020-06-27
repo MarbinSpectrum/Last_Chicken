@@ -47,7 +47,10 @@ MonoBehaviour:
   SecondaryFluidColor:
     serializedVersion: 2
     rgba: 3437473350
-  FluidTypes: []
+  FluidTypes:
+  - {fileID: 11400000, guid: 6e249c57c1a4ffb49961b795715aa6c2, type: 2}
+  - {fileID: 11400000, guid: deb9540c356a20143a1fbdf461c659e6, type: 2}
+  - {fileID: 11400000, guid: 42aac26e3d175cd47a802ed78888e1f0, type: 2}
   AllowSurfaceFilling: 1
   FluidMixingFactor: 0.1
   LightingDisabled: 0
@@ -60,7 +63,7 @@ MonoBehaviour:
   AmbientLightLayer: 1
   AmbientLightSpread: 18
   AmbientLightTransmission: 5
-  UseHeightMap: 0
+  UseHeightMap: 1
   PauseTime: 1
   TimeFactor: 100
   DaylightColor:
@@ -71,7 +74,7 @@ MonoBehaviour:
     rgba: 4282466625
   SunriseTime: 7
   SunsetTime: 19
-  DownRes: 2
+  DownRes: 5
   NumberBlurPasses: 3
   FallingBlocksDisabled: 1
   FallingBlockLayer: 0

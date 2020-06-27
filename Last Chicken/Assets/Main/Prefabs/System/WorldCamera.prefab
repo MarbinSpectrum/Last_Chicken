@@ -202,6 +202,7 @@ GameObject:
   - component: {fileID: 7080038400613201584}
   - component: {fileID: 7080038400613201591}
   - component: {fileID: 7080038400613201588}
+  - component: {fileID: 157292970371955047}
   m_Layer: 0
   m_Name: WorldCamera
   m_TagString: MainCamera
@@ -356,6 +357,19 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &157292970371955047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7080038400613201586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: f17adc26e65bbe8408f4aaa7e2bf3e00, type: 2}
 --- !u!1 &7080038400717716190
 GameObject:
   m_ObjectHideFlags: 0
