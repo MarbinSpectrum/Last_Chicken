@@ -674,8 +674,22 @@ public class EffectManager : ObjectPool
     #region[데미지 이펙트]
     public void DamageEffect()
     {
-        UIManager.instance.playerStateAni.SetTrigger("Act");
+        UIManager.instance.playerDamageStateAni.SetTrigger("Act");
     }
+    #endregion
+
+    #region[빙결 이펙트]
+    public void IceEffect(float t)
+    {
+        StartCoroutine(CoroutineIceEffect(t));
+    }
+
+    public IEnumerator CoroutineIceEffect(float t)
+    {
+        yield return new WaitForSeconds(t);
+        UIManager.instance.playerIceStateAni.SetTrigger("Act");
+    }
+
     #endregion
 
     #region[기포생성 이펙트]
