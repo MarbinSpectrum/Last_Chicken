@@ -401,7 +401,7 @@ public class UIManager : MonoBehaviour
         playerState = canvas.Find("PlayerState").gameObject;
         playerDamageStateAni = playerState.transform.Find("DamageState").GetComponent<Animator>();
         playerIceStateAni = playerState.transform.Find("IceState").GetComponent<Animator>();
-        playerIceStateAni.speed = 0.25f;
+        playerIceStateAni.speed = 0.1f;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

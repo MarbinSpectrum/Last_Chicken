@@ -38,25 +38,6 @@ public class Penguin : Monster
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    #region[공격처리]
-    public override void Attack()
-    {
-        if (Player.instance && Player.instance.damage)
-            return;
-
-        bool check = IsAtPlayer(boxCollider2D);
-        if (check)
-        {
-            int dic = transform.position.x < Player.instance.transform.position.x ? +1 : -1;
-            EffectManager.instance.IceEffect(0.5f);
-            Player.instance.PlayerDamage(attackPower, dic);
-        }
-    }
-
-    
-
-    #endregion
-
     #region[애니메이션]
     public void Ani()
     {

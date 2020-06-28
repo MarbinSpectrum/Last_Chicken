@@ -113,6 +113,8 @@ public class Player : CustomCollider
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    bool playerIce = false;
+
     bool hang;  //매달림 여부
     bool canHang;
     float hangDic = 0;  //매달린방향
@@ -231,6 +233,7 @@ public class Player : CustomCollider
     public void LateUpdate()
     {
         PlayerLightColor();
+        PlayerStateCheck();
         PlayerBuffCheck();
         PlayerReinforceCheck();
         PlayerAct();
@@ -268,6 +271,13 @@ public class Player : CustomCollider
         PlayerRun();
         PlayerJump();
         PlayerHang();
+    }
+    #endregion
+
+    #region[플레이어 상태 체크]
+    public void PlayerStateCheck()
+    {
+        playerIce = UIManager.instance.playerIceStateAni.GetCurrentAnimatorStateInfo(0).IsName("Stage");
     }
     #endregion
 
@@ -1056,6 +1066,7 @@ public class Player : CustomCollider
     #region[플레이어 버프 처리]
     void PlayerBuffCheck()
     {
+
         for(int i = 0; i < BuffManager.buffName.Length; i++)
         {
             switch(BuffManager.buffName[i])
@@ -1085,6 +1096,12 @@ public class Player : CustomCollider
         }
         jumpPower = baseJumpPower;
         gravity = baseGravity;
+
+        if (playerIce)
+        {
+            speed *= 0.75f;
+            attackSpeed *= 0.75f;
+        }
 
     }
     #endregion
@@ -1143,12 +1160,28 @@ public class Player : CustomCollider
         if (GameManager.instance.gamePause)
             return;
 
-        if(attackFlag)
+        //얼어서 플레이어가 파란색으로 보임
+        if (playerIce)
+            spriteRenderer.color = new Color(88 / 255f, 91/255f, 1);
+        else
+            spriteRenderer.color = new Color(1, 1, 1);
+
+        //얼어서 플레이어가 느려짐
+        if (playerIce)
+            animator.speed = 0.5f;
+        else
+            animator.speed = 1;
+
+        //공격중에는 effect레이어 수정
+        if (attackFlag)
             effectObject.layer = LayerMask.NameToLayer("PostProcess");
         else
             effectObject.layer = LayerMask.NameToLayer("Default");
 
+        //플레이어 방향설정
         PlayerFlipX(flipX);
+
+        //플레이어의 데미지 시간에 따른 애니메이션
         PlayerDamageTime();
 
         bool GetRunKey = (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A));
@@ -1193,7 +1226,7 @@ public class Player : CustomCollider
     }
     #endregion
 
-    #region[플레이어 데미지 시간]
+    #region[플레이어 데미지 시간에 따른 애니메이션]
     void PlayerDamageTime()
     {
         if (nowHp <= 0)

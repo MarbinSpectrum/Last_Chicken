@@ -29,6 +29,7 @@ ScriptsOnlyBuild:
     - FountainScript
     - GameManager
     - GroundManager
+    - IceMapSnow
     - IglooObject
     - ItemManager
     - ItemScript
@@ -155,15 +156,16 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateMachineNode
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
-    UnityEditor.UI.dll:
-    - UnityEditor.UI.ImageEditor
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.EventTrigger
@@ -593,6 +595,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 15878}
     - Class: 114
       Script: {instanceID: 15884}
+    - Class: 114
+      Script: {instanceID: 56528}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -5158,6 +5162,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 15826}
     - Class: 114
       Script: {instanceID: 15828}
+    - Class: 114
+      Script: {instanceID: 56528}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -6649,7 +6655,7 @@ ScriptsOnlyBuild:
     className: VerticalLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: 74e9738a7dd43d372fb570851e3bc467
+      Hash: 5e754b2dfe1fb5bb698c99e69726bb4b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: AltarBackGroundImg
@@ -7057,7 +7063,7 @@ ScriptsOnlyBuild:
     className: TextMeshPro
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 20f012c059f97d8a9abb40f1654c4c6e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: StageBackGround
@@ -7277,6 +7283,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: IceMapSnow
   platform: 5
   scenePathNames:
   - Assets/Main/Scene/FirstStart.unity
@@ -7302,4 +7314,4 @@ ScriptsOnlyBuild:
   - Assets/Main/Scene/Stage/Stage02/Stage0201.unity
   - Assets/Main/Scene/Stage/Stage02/IglooMap.unity
   - Assets/Main/Scene/Demo.unity
-  playerPath: "C:/Users/9507y/OneDrive/\uBC14\uD0D5 \uD654\uBA74/Game_Win/LastChicken.exe"
+  playerPath: C:/Users/Ymk/Desktop/Game_Win/LastChicken.exe
