@@ -59,6 +59,7 @@ namespace TerrainEngine2D.Lighting
         [SerializeField]
         [Tooltip("The material used to blend the lighting with the rest of the graphics")]
         private Material blendMaterial;
+
         [SerializeField]
         [Tooltip("The material used to add the overlay graphics to the rest of the graphics")]
         private Material overlayMaterial;
@@ -109,6 +110,7 @@ namespace TerrainEngine2D.Lighting
             //Render the lighting graphics
             LightCamera.targetTexture = lightRenderTexture;
             LightCamera.Render();
+
             Graphics.Blit(lightRenderTexture, tempRenderTexture);
 
             //Blur and down res the lighting graphic to smooth the texture edges
@@ -125,6 +127,8 @@ namespace TerrainEngine2D.Lighting
 
             //Add the lighting to the texture using a Multiplicative shader
             Graphics.Blit(tempRenderTexture, tempRenderTexture2, blendMaterial);
+
+            //////////////////////////////////////////////////////////////////////////////////////////
 
             //Render the overlay graphics
             OverlayCamera.targetTexture = overlayRenderTexture;

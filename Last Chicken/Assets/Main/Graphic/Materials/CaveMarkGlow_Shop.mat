@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: CaveMarkGlow_Shop
   m_Shader: {fileID: 4800000, guid: 46b2ebe7d0291a2498e51aa0d2fa351f, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA _ISOUTLINEENABLED_ON
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA PIXELSNAP_ON _ISOUTLINEENABLED_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -56,7 +56,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - PixelSnap: 0
+    - PixelSnap: 1
     - _AlphaCutOff: 0.047
     - _AlphaCutout: 0.15
     - _BumpScale: 1
