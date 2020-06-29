@@ -118,38 +118,59 @@ public class MonsterManager : ObjectPool
     #region[몬스터 생성]
     public void ReSwpawn(World world ,int dis = 20)
     {
-        List<Vector2Int> monsterPos = MonsterSpawnPos(world, dis);
-        if (monsterPos.Count == 0)
+        if (monsterList.Count <= 0)
+            return;
+        int r = monsterList[Random.Range(0, monsterList.Count)];
+
+        int size = 0;
+
+        switch (r)
+        {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                size = 0;
+                break;
+            case 5:
+                size = 2;
+                break;
+            default:
+                Debug.LogError("몬스터 크기검사를");
+                break;
+        }
+
+        List<Vector2Int> monsterPos = MonsterSpawnPos(world, dis, size);
+
+        if (monsterPos.Count <= 0)
             return;
         Vector2Int pos = monsterPos[Random.Range(0, monsterPos.Count)];
-        if (monsterList.Count > 0)
+
+        Vector2 offset = new Vector2(0, 1);
+        switch (r)
         {
-            int r = monsterList[Random.Range(0, monsterList.Count)];
-            Vector2 offset = new Vector2(0, 1);
-            switch (r)
-            {
-                case 0:
-                    Bat(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
-                    break;
-                case 1:
-                    Rat(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
-                    break;
-                case 2:
-                    Snake(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
-                    break;
-                case 3:
-                    Mole(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
-                    break;
-                case 4:
-                    Penguin(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
-                    break;
-                case 5:
-                    WhiteBear(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
-                    break;
-                default:
-                    Debug.LogError("몬스터를 추가해주세요!!");
-                    break;
-            }
+            case 0:
+                Bat(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
+                break;
+            case 1:
+                Rat(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
+                break;
+            case 2:
+                Snake(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
+                break;
+            case 3:
+                Mole(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
+                break;
+            case 4:
+                Penguin(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
+                break;
+            case 5:
+                WhiteBear(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
+                break;
+            default:
+                Debug.LogError("몬스터를 추가해주세요!!");
+                break;
         }
     }
     #endregion
@@ -172,6 +193,12 @@ public class MonsterManager : ObjectPool
                 break;
             case "Stage0201":
                 monsterList = MonsterList(StageManager.instance.stage0201_Monsters);
+                break;
+            case "Stage0202":
+                monsterList = MonsterList(StageManager.instance.stage0202_Monsters);
+                break;
+            case "Stage0203":
+                monsterList = MonsterList(StageManager.instance.stage0203_Monsters);
                 break;
             case "IglooMap":
                 monsterList = MonsterList(StageManager.instance.stage0201_Monsters);
@@ -223,7 +250,7 @@ public class MonsterManager : ObjectPool
     #endregion
 
     #region[몬스터 생성 위치 리스트]
-    List<Vector2Int> MonsterSpawnPos(World world,int dis)
+    List<Vector2Int> MonsterSpawnPos(World world,int dis,int size)
     {
         List<Vector2Int> emp = new List<Vector2Int>();
 
@@ -258,7 +285,6 @@ public class MonsterManager : ObjectPool
                         donSetPos[x, y] = true;
         }
 
-
         for (int x = 0; x < world.WorldWidth; x++)
             for (int y = 0; y < world.WorldHeight; y++)
                 if (Exception.IndexOutRange(x, y - 1, donSetPos))
@@ -267,8 +293,25 @@ public class MonsterManager : ObjectPool
 
         for (int x = 0; x < world.WorldWidth; x++)
             for (int y = 20; y < world.WorldHeight - 20; y++)
-                if (StageData.instance.GetBlock(x, y) == (StageData.GroundLayer)(-1) && !donSetPos[x,y])
+            {
+                bool canSet = true;
+                for(int a = x - size; a <= x + size; a++)
+                {
+                    for (int b = y - size; b <= y + size; b++)
+                    { 
+                        if (Exception.IndexOutRange(a, b, donSetPos))
+                        {
+                            if (StageData.instance.GetBlock(a, b) != (StageData.GroundLayer)(-1) && !donSetPos[a, b])
+                                canSet = false;
+                        }
+                        else
+                            canSet = false;
+                    }
+                }
+
+                if (canSet)
                     emp.Add(new Vector2Int(x, y));
+            }
 
         //for (int i = 0; i < GroundManager.instance.linkAreaList.Count; i++)
         //    if (Vector2.Distance(Player.instance.transform.position, GroundManager.instance.linkAreaList[i]) < 30)

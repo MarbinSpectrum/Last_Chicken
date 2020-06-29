@@ -181,6 +181,32 @@ public class SceneController : MonoBehaviour
                 break;
             #endregion
 
+            #region[Stage0202]
+            case "Stage0202":
+                if (stageBackGround)
+                    stageBackGround.sprite = StageManager.instance.stage0202_BackGround;
+                GameSceneSet();
+                if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                    UIManager.instance.showStageNameText.text = StageManager.instance.stage0202_Name;
+                else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    UIManager.instance.showStageNameText.text = StageManager.instance.stage0202_Name_Eng;
+                SoundManager.instance.Stage2();
+                break;
+            #endregion
+
+            #region[Stage0203]
+            case "Stage0203":
+                if (stageBackGround)
+                    stageBackGround.sprite = StageManager.instance.stage0203_BackGround;
+                GameSceneSet();
+                if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                    UIManager.instance.showStageNameText.text = StageManager.instance.stage0203_Name;
+                else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    UIManager.instance.showStageNameText.text = StageManager.instance.stage0203_Name_Eng;
+                SoundManager.instance.Stage2();
+                break;
+            #endregion
+
             #region[IglooMap]
             case "IglooMap":
                 if (stageBackGround)
@@ -205,54 +231,6 @@ public class SceneController : MonoBehaviour
                 break;
             #endregion
 
-            #region[ShopMap0101]
-            case "ShopMap0101":
-                if (stageBackGround)
-                    stageBackGround.sprite = StageManager.instance.stage0101_BackGround;
-                UIManager.instance.showStageNameText.text = "";
-                GameSceneSet();
-                SoundManager.instance.Stage1();
-                break;
-            #endregion
-
-            #region[ShopMap0102]
-            case "ShopMap0102":
-                if (stageBackGround)
-                    stageBackGround.sprite = StageManager.instance.stage0102_BackGround;
-                UIManager.instance.showStageNameText.text = "";
-                GameSceneSet();
-                SoundManager.instance.Stage1();
-                break;
-            #endregion
-
-            #region[ShopMap0103]
-            case "ShopMap0103":
-                if (stageBackGround)
-                    stageBackGround.sprite = StageManager.instance.stage0103_BackGround;
-                UIManager.instance.showStageNameText.text = "";
-                GameSceneSet();
-                SoundManager.instance.Stage1();
-                break;
-            #endregion
-
-            #region[EventMap]
-
-            case "SmithyMap0101":
-            case "SmithyMap0102":
-            case "SmithyMap0103":
-            case "AltarMap0101":
-            case "AltarMap0102":
-            case "AltarMap0103":
-            case "FountainMap0101":
-            case "FountainMap0102":
-            case "FountainMap0103":
-                if (stageBackGround)
-                    stageBackGround.sprite = null;
-                UIManager.instance.showStageNameText.text = "";
-                GameSceneSet();
-                SoundManager.instance.StopBGM_Sound();
-                break;
-            #endregion
         }
     }
 
@@ -330,13 +308,18 @@ public class SceneController : MonoBehaviour
                 case "Stage0102":
                 case "Stage0103":
                 case "Stage0201":
+                case "Stage0202":
+                case "Stage0203":
                 case "IglooMap":
                     Player.instance.canAttack = true;
                     Player.instance.transform.position = new Vector3(World.Instance.WorldWidth / 2, World.Instance.WorldHeight + 30, Player.instance.transform.position.z);
                     GroundManager.instance.InitDigMask();
                     GameManager.instance.playData.seed = Random.Range(0, 10000);
                     break;
-                #endregion
+                default:
+                    Debug.LogError("씬설정을 추가하자");
+                    break;
+                    #endregion
             }
         }
     }

@@ -46,6 +46,21 @@ public class StageManager : MonoBehaviour
     public int stage0201_WoodBoxValue;
     public int stage0201_TrapValue;
 
+    public Sprite stage0202_BackGround;
+    public string stage0202_Name;
+    public string stage0202_Name_Eng;
+    public MonsterManager.SpawnMonster stage0202_Monsters = new MonsterManager.SpawnMonster();
+    public int stage0202_ObjectValue;
+    public int stage0202_WoodBoxValue;
+    public int stage0202_TrapValue;
+
+    public Sprite stage0203_BackGround;
+    public string stage0203_Name;
+    public string stage0203_Name_Eng;
+    public MonsterManager.SpawnMonster stage0203_Monsters = new MonsterManager.SpawnMonster();
+    public int stage0203_ObjectValue;
+    public int stage0203_WoodBoxValue;
+    public int stage0203_TrapValue;
 
     public Sprite Igloo_BackGround;
     public string Igloo_Name;

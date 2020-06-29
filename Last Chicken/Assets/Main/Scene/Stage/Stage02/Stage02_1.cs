@@ -13,6 +13,8 @@ public class Stage02_1 : StageData
 
     bool outlineflipX;
 
+    public List<GameObject> iceMapObject = new List<GameObject>();
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -23,6 +25,14 @@ public class Stage02_1 : StageData
     public override void Awake()
     {
         base.Awake();
+    }
+    #endregion
+
+    #region[Update]
+    public void Update()
+    {
+        for (int i = 0; i < iceMapObject.Count; i++)
+            iceMapObject[i].SetActive(!CaveManager.inCave);
     }
     #endregion
 
@@ -167,18 +177,6 @@ public class Stage02_1 : StageData
                             groundData[x, y] = GroundLayer.Ice;
 
         ProceduralGeneration(world, groundData, GroundLayer.Ice, 4);
-
-        //넓은세로길생성
-        for (int i = 0; i < 2; i++)
-        {
-            int x = (i % 2 == 0) ? Random.Range(0, world.WorldWidth / 2 - 20) : Random.Range(world.WorldWidth / 2 + 20, world.WorldWidth);
-            int w = Random.Range(15, 20);
-            int h = Random.Range(100, 180);
-            for (int a = x - w / 2; a < x + w / 2; a++)
-                for (int b = world.WorldHeight - h; b < world.WorldHeight; b++)
-                    if (Exception.IndexOutRange(a, b, groundData))
-                        groundData[a, b] = (GroundLayer)(-1);
-        }
 
         ProceduralGeneration(world, groundData, GroundLayer.Dirt);
 

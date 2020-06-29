@@ -566,7 +566,7 @@ public class Stage01_1 : StageData
                 continue;
 
             List<Vector2Int> woodBoxList = new List<Vector2Int>();
-            for (int y = 20; y < world.WorldHeight - 20; y++)
+            for (int y = 20; y < world.WorldHeight; y++)
             {
                 for (int x = 10; x < world.WorldWidth - 10; x++)
                 {

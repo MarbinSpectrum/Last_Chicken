@@ -65,6 +65,11 @@ public class EffectManager : ObjectPool
     List<GameObject> dustList = new List<GameObject>();
     float dustCheckTime = 0;
 
+
+    GameObject snow;
+    List<GameObject> snowList = new List<GameObject>();
+    float snowCheckTime = 0;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     #region[진동 데이터]
@@ -142,6 +147,7 @@ public class EffectManager : ObjectPool
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             dust = Resources.Load("Graphics/Effects/Dust/Dust") as GameObject;
+            snow = Resources.Load("Graphics/Effects/Snow/Snow") as GameObject;
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -641,6 +647,33 @@ public class EffectManager : ObjectPool
     }
     #endregion
 
+    #region[눈]
+    public void Snow(Vector2 vector2, Vector2 size)
+    {
+        string name = "Snow";
+
+        GameObject emp = FindObject(name);
+
+        if (emp == null)
+        {
+            emp = Instantiate(snow);
+            snowList.Add(emp);
+            emp.transform.name = name;
+            AddObject(emp);
+        }
+        emp.SetActive(true);
+        emp.transform.parent = transform;
+        emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
+        emp.transform.localScale = new Vector3(size.x, size.y, 1);
+    }
+
+    public void Snow(Vector2 vector2)
+    {
+        float size = Random.Range(0.3f, 1f);
+        Snow(vector2, new Vector2(size, size));
+    }
+    #endregion
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     #region[진동이펙트]
@@ -719,28 +752,53 @@ public class EffectManager : ObjectPool
 
         dustCheckTime += Time.deltaTime;
 
-        if (dustCheckTime <= 1)
-            return;
-
-        dustCheckTime = 0;
-
-        for (int i = 0; i < dustList.Count; i++)
+        if (dustCheckTime > 1)
         {
-            Vector3 targetScreenPos = Camera.main.WorldToViewportPoint(dustList[i].transform.position);
+            dustCheckTime = 0;
 
-            Vector2 size = new Vector2(1.5f, 1.5f);
+            for (int i = 0; i < dustList.Count; i++)
+            {
+                Vector3 targetScreenPos = Camera.main.WorldToViewportPoint(dustList[i].transform.position);
 
-            bool flag =
-                !(
-                        targetScreenPos.x > (1 + size.x) / 2f ||
-                        targetScreenPos.x < (1 - size.x) / 2f ||
-                        targetScreenPos.y > (1 + size.y) / 2f ||
-                        targetScreenPos.y < (1 - size.x) / 2f
-                );
+                Vector2 size = new Vector2(1.5f, 1.5f);
 
-            if (dustList[i].activeSelf != flag)
-                dustList[i].SetActive(flag);
+                bool flag =
+                    !(
+                            targetScreenPos.x > (1 + size.x) / 2f ||
+                            targetScreenPos.x < (1 - size.x) / 2f ||
+                            targetScreenPos.y > (1 + size.y) / 2f ||
+                            targetScreenPos.y < (1 - size.x) / 2f
+                    );
+
+                if (dustList[i].activeSelf != flag)
+                    dustList[i].SetActive(flag);
+            }
         }
+
+        //snowCheckTime += Time.deltaTime;
+
+        //if (snowCheckTime > 1)
+        //{
+        //    snowCheckTime = 0;
+
+        //    for (int i = 0; i < snowList.Count; i++)
+        //    {
+        //        Vector3 targetScreenPos = Camera.main.WorldToViewportPoint(snowList[i].transform.position);
+
+        //        Vector2 size = new Vector2(1.5f, 1.5f);
+
+        //        bool flag =
+        //            !(
+        //                    targetScreenPos.x > (1 + size.x) / 2f ||
+        //                    targetScreenPos.x < (1 - size.x) / 2f ||
+        //                    targetScreenPos.y > (1 + size.y) / 2f ||
+        //                    targetScreenPos.y < (1 - size.x) / 2f
+        //            );
+
+        //        if (snowList[i].activeSelf != flag)
+        //            snowList[i].SetActive(flag);
+        //    }
+        //}
     }
     #endregion
 }

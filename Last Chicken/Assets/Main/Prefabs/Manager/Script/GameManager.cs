@@ -482,47 +482,8 @@ public class GameManager : TerrainGenerator
             case "Stage0102":
             case "Stage0103":
             case "Stage0201":
-            //    if (Player.instance.transform.position.y >= -5)
-            //        return;
-            //    size = SceneController.instance.nowScene.Length;
-            //    temp = "";
-            //    for (int i = 0; i < 4; i++)
-            //        temp += SceneController.instance.nowScene[size - 4 + i];
-
-            //    string nextArea = "";
-
-            //    if (ItemManager.instance.HasItemCheck("Hammer"))
-            //        nextArea = "SmithyMap";
-
-            //    if(nextArea.Equals(""))
-            //    {
-            //        int r = UnityEngine.Random.Range(0, 100);
-            //        if (0 <= r && r < 10)
-            //            nextArea = "SmithyMap";
-            //        else if (10 <= r && r < 35)
-            //            nextArea = "FountainMap";
-            //        else if (35 <= r && r < 60)
-            //            nextArea = "AltarMap";
-            //        else if (60 <= r && r < 100)
-            //            nextArea = "ShopMap";
-            //    }
-
-            //    playData.stageName = nextArea + temp;
-            //    SceneController.instance.MoveScene(playData.stageName);
-            //    SaveData();
-            //    break;
-            //case "ShopMap0101":
-            //case "SmithyMap0101":
-            //case "AltarMap0101":
-            //case "FountainMap0101":
-            //case "ShopMap0102":
-            //case "SmithyMap0102":
-            //case "AltarMap0102":
-            //case "FountainMap0102":
-            //case "ShopMap0103":
-            //case "SmithyMap0103":
-            //case "AltarMap0103":
-            //case "FountainMap0103":
+            case "Stage0202":
+            case "Stage0203":
                 if (Player.instance.transform.position.y >= -5)
                     return;
                 size = SceneController.instance.nowScene.Length;
@@ -542,7 +503,7 @@ public class GameManager : TerrainGenerator
                 temp += stageNum.ToString();
                 temp += "0";
                 temp += stageSubNum.ToString();
-                if(stageNum >= 2 && stageSubNum >= 2)
+                if(stageNum >= 3)
                     playData.stageName = "Demo";
                 else
                     playData.stageName = "Stage" + temp;

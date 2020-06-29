@@ -10,7 +10,9 @@ public class WhiteBear : Monster
     float isPatrolTime = 3;
     MoveDic patrolDic = 0;
     public enum MoveDic { 오른쪽, 왼쪽, 정지 };
-    BoxCollider2D headCollider;
+    BoxCollider2D attackCollider;
+    BoxCollider2D attackRangeCollider;
+    bool isAttack = false;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -18,7 +20,8 @@ public class WhiteBear : Monster
     public override void Awake()
     {
         UpdateStats();
-        headCollider = transform.Find("CheckList").Find("Head").GetComponent<BoxCollider2D>();
+        attackCollider = transform.Find("CheckList").Find("Attack").GetComponent<BoxCollider2D>();
+        attackRangeCollider = transform.Find("CheckList").Find("AttackRange").GetComponent<BoxCollider2D>();
         base.Awake();
     }
     #endregion
@@ -43,8 +46,10 @@ public class WhiteBear : Monster
     #region[애니메이션]
     public void Ani()
     {
-        //animator.SetBool("Damage", damage);
-        //animator.SetBool("Move", moveFlag);
+        animator.SetBool("Damage", damage);
+        animator.SetBool("Move", moveFlag);
+        isAttack = animator.GetCurrentAnimatorStateInfo(0).IsName("Attack");
+
         if (damage || moveDic == 0)
             return;
         transform.localScale = new Vector3(-moveDic * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
@@ -55,18 +60,31 @@ public class WhiteBear : Monster
     #region[이동처리]
     public void Move()
     {
+        if (isAttack)
+            return;
+
         float newSpeed = speed;
         if (Vector2.Distance(nowPos, targetPos) < range &&
             Exception.IndexOutRange(nowPos, GroundManager.instance.linkArea) &&
             GroundManager.instance.linkArea[nowPos.x, nowPos.y] &&
                 Mathf.Abs(nowPos.y - targetPos.y) <= 5)
         {
-            if (Mathf.Abs(nowPos.x - targetPos.x) < 0.15f)
+            if (Mathf.Abs(nowPos.x - targetPos.x) < 0.25f)
                 MovingGround(+0);
             else if (nowPos.x < targetPos.x)
-                MovingGround(+newSpeed);
+            {
+                if (CanMove(newSpeed))
+                    MovingGround(+newSpeed);
+                else
+                    MovingGround(+0);
+            }
             else if (nowPos.x > targetPos.x)
-                MovingGround(-newSpeed);
+            {
+                if (CanMove(-newSpeed))
+                    MovingGround(-newSpeed);
+                else
+                    MovingGround(+0);
+            }
         }
         else
         {
@@ -91,13 +109,13 @@ public class WhiteBear : Monster
                         if (CanFallBlock(newSpeed, 4) && CanMove(newSpeed))
                             MovingGround(+newSpeed);
                         else
-                            patrolDic = MoveDic.왼쪽;
+                            patrolDic = MoveDic.정지;
                         break;
                     case MoveDic.왼쪽:
                         if (CanFallBlock(-newSpeed, 4) && CanMove(-newSpeed))
                             MovingGround(-newSpeed);
                         else
-                            patrolDic = MoveDic.오른쪽;
+                            patrolDic = MoveDic.정지;
                         break;
                     case MoveDic.정지:
                         MovingGround(+0);
@@ -105,63 +123,6 @@ public class WhiteBear : Monster
                 }
 
             }
-        }
-    }
-    #endregion
-
-    #region[MovingGround]
-    public override void MovingGround(float force)
-    {
-        moveFlag = false;
-
-        if (force != 0)
-        {
-            #region[경사아래로 이동]
-            bool DownmoveCheck = IsAtTerrain(boxCollider2D, new Vector2(force, -Mathf.Abs(force)) * Time.deltaTime) ||
-                IsAtTerrain(headCollider, new Vector2(force, -Mathf.Abs(force)) * Time.deltaTime);
-
-            if (!DownmoveCheck && grounded && !moveFlag)
-            {
-                moveFlag = true;
-                transform.Translate(new Vector3(force, -Mathf.Abs(force), 0) * Time.deltaTime);
-            }
-            #endregion
-
-            #region[앞으로 이동]
-            bool nextMoveCheck = IsAtTerrain(boxCollider2D, new Vector2(force, 0) * Time.deltaTime) ||
-                IsAtTerrain(headCollider, new Vector2(force,0) * Time.deltaTime);
-
-            if (!nextMoveCheck && !moveFlag)
-            {
-                moveFlag = true;
-                transform.Translate(new Vector3(force, 0, 0) * Time.deltaTime);
-            }
-            #endregion
-
-            #region[경사위로 이동]
-            bool upMoveCheck = IsAtTerrain(boxCollider2D, new Vector2(force, Mathf.Abs(force)) * Time.deltaTime) ||
-                IsAtTerrain(headCollider, new Vector2(force, Mathf.Abs(force)) * Time.deltaTime);
-
-            if (!upMoveCheck && grounded && !moveFlag)
-            {
-                moveFlag = true;
-                transform.Translate(new Vector3(force, Mathf.Abs(force), 0) * Time.deltaTime);
-            }
-            #endregion
-
-            #region[이동방향설정]
-            if (moveFlag)
-                moveDic = force > 0 ? 1 : force < 0 ? -1 : moveDic;
-            #endregion
-        }
-
-        if (!moveFlag)
-        {
-            bool ObjectCheck = IsAtTerrainObject(boxCollider2D, new Vector2(-1, 0)) || IsAtTerrainObject(boxCollider2D, new Vector2(+1, 0)) ||
-                IsAtTerrainObject(headCollider, new Vector2(-1, 0)) || IsAtTerrainObject(headCollider, new Vector2(+1, 0));
-
-            if (ObjectCheck)
-                moveFlag = true;
         }
     }
     #endregion
@@ -186,10 +147,19 @@ public class WhiteBear : Monster
         if (Player.instance && Player.instance.damage)
             return;
 
-        bool check = IsAtPlayer(boxCollider2D);
+        bool check = IsAtPlayer(attackCollider);
+        bool attackRange = IsAtPlayer(attackRangeCollider);
+
+        if (attackRange && !isAttack)
+            animator.SetTrigger("Attack");
+
         if (check)
         {
-            int dic = transform.position.x < Player.instance.transform.position.x ? +2 : -2;
+            int dic = 1;
+            if(isAttack && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.35f)
+                dic = transform.position.x < Player.instance.transform.position.x ? +2 : -2;
+            else
+                dic = transform.position.x < Player.instance.transform.position.x ? +1 : -1;
             Player.instance.PlayerDamage(attackPower, dic);
         }
     }
