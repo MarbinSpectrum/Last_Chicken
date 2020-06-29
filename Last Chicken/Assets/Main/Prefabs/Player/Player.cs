@@ -55,6 +55,7 @@ public class Player : CustomCollider
     GameObject dizzyStar;
 
     GameObject shiledBuff;
+    SpriteRenderer shiledSprite;
 
     GameObject effectObject;
 
@@ -174,6 +175,7 @@ public class Player : CustomCollider
         chickenHeadSpriteRenderer = chickenHead.GetComponent<SpriteRenderer>();
 
         shiledBuff = transform.Find("Shield").gameObject;
+        shiledSprite = shiledBuff.transform.Find("Img").GetComponent<SpriteRenderer>();
 
         dizzyStar = transform.Find("DizzyStars").gameObject;
 
@@ -1099,6 +1101,7 @@ public class Player : CustomCollider
                         shieldFlag = true;
                     }
                     shiledBuff.SetActive(shield > 0);
+                    shiledSprite.color = new Color(1, 1, 1, shield * 0.3f);
                     shiledBuff.transform.localScale = new Vector3(transform.localScale.x, 1, 1);
                     break;
                 case "Power":
