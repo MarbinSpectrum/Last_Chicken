@@ -36,12 +36,32 @@ public class MineralScript : ItemScript
     #region[광물이동]
     public void MoveMineral()
     {
-        if(ItemManager.instance.HasItemCheck("MineBag"))
+        float mineSpeed = 10;
+
+        if (ItemManager.instance.HasItemCheck("MineBag_EX"))
+            mineSpeed = 30;
+        else if (ItemManager.instance.HasItemCheck("MineBag"))
+            mineSpeed = 10;
+
+        if (ItemManager.instance.HasItemCheck("MineBag") || ItemManager.instance.HasItemCheck("MineBag_EX"))
         {
             Vector2 dic = Player.instance.transform.position - transform.position;
             dic = dic.normalized;
-            dic *= 10;
+            dic *= mineSpeed;
             transform.position += (Vector3)(dic) * Time.deltaTime;
+        }
+
+        if (ItemManager.instance.HasItemCheck("MineBag_EX"))
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -180f);
+            rigidbody2D.gravityScale = 0;
+            bodyCollider.isTrigger = true;
+        }
+        else
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -36.1f);
+            rigidbody2D.gravityScale = 4;
+            bodyCollider.isTrigger = false;
         }
     }
 

@@ -53,11 +53,13 @@ public class Rat : Monster
     #region[이동처리]
     public void Move()
     {
+        if (!playerSeeck && Vector2.Distance(nowPos, targetPos) < range && Mathf.Abs(nowPos.y - targetPos.y) <= 5)
+            playerSeeck = true;
+        else if (playerSeeck && Vector2.Distance(nowPos, targetPos) >= range * 1.2f)
+            playerSeeck = false;
+
         float newSpeed = speed * (maxHp > hp ? 3 : 1);
-        if (Vector2.Distance(nowPos, targetPos) < range &&
-            Exception.IndexOutRange(nowPos, GroundManager.instance.linkArea) &&
-            GroundManager.instance.linkArea[nowPos.x, nowPos.y] &&
-                Mathf.Abs(nowPos.y - targetPos.y) <= 5)
+        if (playerSeeck)
         {
             if (Mathf.Abs(nowPos.x - targetPos.x) < 0.15f)
                 MovingGround(+0);

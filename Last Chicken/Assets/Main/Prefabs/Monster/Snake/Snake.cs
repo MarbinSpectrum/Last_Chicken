@@ -66,6 +66,11 @@ public class Snake : Monster
 
         attackTime += Time.deltaTime;
 
+        if (!playerSeeck && Vector2.Distance(nowPos, targetPos) < range && Mathf.Abs(nowPos.y - targetPos.y) <= 5)
+            playerSeeck = true;
+        else if (playerSeeck && Vector2.Distance(nowPos, targetPos) >= range * 1.2f)
+            playerSeeck = false;
+
         //공격을 이용한 이동
         if (attack)
         {
@@ -93,17 +98,9 @@ public class Snake : Monster
         //일반 이동
         else
         {
-            if (Vector2.Distance(nowPos, targetPos) < range &&
-                Exception.IndexOutRange(nowPos, GroundManager.instance.linkArea) &&
-                GroundManager.instance.linkArea[nowPos.x, nowPos.y] && 
-                Mathf.Abs(nowPos.y - targetPos.y) <= 5)
+            if (playerSeeck)
             {
-                //if (Mathf.Sign(Player.instance.transform.localScale.x) == Mathf.Sign(transform.localScale.x))
-                //{
-                //    MovingGround(+0);
-                //    attackTime = 1.5f;
-                //    return;
-                //}
+
 
                 if (attackTime > 2)
                 {

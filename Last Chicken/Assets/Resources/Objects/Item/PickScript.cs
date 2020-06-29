@@ -89,9 +89,9 @@ public class PickScript : ThrowUpdate
                     case StageData.GroundLayer.Gold:
                         SoundManager.instance.AttackGold(); break;
                     case StageData.GroundLayer.Mithril:
-                        SoundManager.instance.AttackMithril(); break;
+                        SoundManager.instance.AttackGold(); break;
                     case StageData.GroundLayer.Diamond:
-                        SoundManager.instance.AttackDiamond(); break;
+                        SoundManager.instance.AttackGold(); break;
                     case StageData.GroundLayer.Magnetite:
                         SoundManager.instance.AttackDiamond(); break;
                     case StageData.GroundLayer.Titanium:

@@ -27,6 +27,7 @@ ScriptsOnlyBuild:
     - FountainScript
     - GameManager
     - GroundManager
+    - IceHoleScript
     - IglooObject
     - ItemManager
     - ItemScript
@@ -591,7 +592,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 15886}
     - Class: 114
-      Script: {instanceID: 142822}
+      Script: {instanceID: 181736}
+    - Class: 114
+      Script: {instanceID: 328620}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -3280,7 +3283,7 @@ ScriptsOnlyBuild:
     className: TestResultRendererCallback
   - hash:
       serializedVersion: 2
-      Hash: ef23d30b4530cb300887efe210970b51
+      Hash: 907e6c18822b5f93ee5918aa53356375
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Rat
@@ -3424,7 +3427,7 @@ ScriptsOnlyBuild:
     className: EventMap
   - hash:
       serializedVersion: 2
-      Hash: ef23d30b4530cb300887efe210970b51
+      Hash: 907e6c18822b5f93ee5918aa53356375
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Bat
@@ -3538,7 +3541,7 @@ ScriptsOnlyBuild:
     className: AnimationPlayableAsset
   - hash:
       serializedVersion: 2
-      Hash: ef23d30b4530cb300887efe210970b51
+      Hash: 907e6c18822b5f93ee5918aa53356375
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Penguin
@@ -3724,7 +3727,7 @@ ScriptsOnlyBuild:
     className: FluidType
   - hash:
       serializedVersion: 2
-      Hash: c7688d252fc59bc2e7bdb50742ca8c1d
+      Hash: fdd33c4e0d737b9f63f9bdd08f76de7b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MovingShop
@@ -3880,7 +3883,7 @@ ScriptsOnlyBuild:
     className: QuitGame
   - hash:
       serializedVersion: 2
-      Hash: ef23d30b4530cb300887efe210970b51
+      Hash: 907e6c18822b5f93ee5918aa53356375
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: WhiteBear
@@ -4168,7 +4171,7 @@ ScriptsOnlyBuild:
     className: DebugUIHandlerFloatField
   - hash:
       serializedVersion: 2
-      Hash: ef23d30b4530cb300887efe210970b51
+      Hash: 907e6c18822b5f93ee5918aa53356375
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Snake
@@ -4312,7 +4315,7 @@ ScriptsOnlyBuild:
     className: CinemachineUniversalPixelPerfect
   - hash:
       serializedVersion: 2
-      Hash: ef23d30b4530cb300887efe210970b51
+      Hash: 907e6c18822b5f93ee5918aa53356375
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Mole
@@ -4658,6 +4661,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: cddbb4424cea8682bc994a0bce886af9
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: IceHoleScript
   platform: 5
   scenePathNames:
   - Assets/Main/Scene/FirstStart.unity
@@ -4673,4 +4682,4 @@ ScriptsOnlyBuild:
   - Assets/Main/Scene/Stage/Stage02/Stage0203.unity
   - Assets/Main/Scene/Stage/Stage02/IglooMap.unity
   - Assets/Main/Scene/Demo.unity
-  playerPath: C:/Users/Atents/Desktop/Game_Win/LastChicken.exe
+  playerPath: "C:/Users/9507y/OneDrive/\uBC14\uD0D5 \uD654\uBA74/Game_Win/LastChicken.exe"

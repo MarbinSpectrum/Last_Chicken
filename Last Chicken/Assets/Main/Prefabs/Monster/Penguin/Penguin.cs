@@ -54,13 +54,15 @@ public class Penguin : Monster
     #region[이동처리]
     public void Move()
     {
+        if (!playerSeeck && Vector2.Distance(nowPos, targetPos) < range && Mathf.Abs(nowPos.y - targetPos.y) <= 5)
+            playerSeeck = true;
+        else if (playerSeeck && Vector2.Distance(nowPos, targetPos) >= range * 1.2f)
+            playerSeeck = false;
+
         float newSpeed = speed * (iceFlag ? 3 : 1);
-        if (Vector2.Distance(nowPos, targetPos) < range &&
-            Exception.IndexOutRange(nowPos, GroundManager.instance.linkArea) &&
-            GroundManager.instance.linkArea[nowPos.x, nowPos.y] &&
-                Mathf.Abs(nowPos.y - targetPos.y) <= 5)
+        if (playerSeeck)
         {
-            if (Mathf.Abs(nowPos.x - targetPos.x) < 0.15f)
+            if (Mathf.Abs(nowPos.x - targetPos.x) < 2)
                 MovingGround(+0);
             else if (nowPos.x < targetPos.x)
                 MovingGround(+newSpeed);

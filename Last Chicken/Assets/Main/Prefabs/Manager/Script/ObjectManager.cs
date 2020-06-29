@@ -36,6 +36,7 @@ public class ObjectManager : ObjectPool
         "Icicle3",
         "Icicle4",
         "Icicle5",
+        "IceHole"
     };
 
     [System.Serializable]
@@ -108,6 +109,8 @@ public class ObjectManager : ObjectPool
     GameObject worm;
 
     GameObject[] icicle = new GameObject[6];
+
+    GameObject iceHole;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -204,6 +207,7 @@ public class ObjectManager : ObjectPool
             landMine = Resources.Load("Objects/Trap/LandMine") as GameObject;
             for (int i = 0; i < icicle.Length; i++)
                 icicle[i] = Resources.Load("Objects/Trap/Icicle" + i) as GameObject;
+            iceHole = Resources.Load("Objects/Trap/IceHole") as GameObject;
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -588,7 +592,7 @@ public class ObjectManager : ObjectPool
     }
     #endregion
 
-    #region[표지판]
+    #region[지렁이]
     public void Worm(Vector2 vector2, bool flipX = false)
     {
         string name = objectName[19];
@@ -598,6 +602,28 @@ public class ObjectManager : ObjectPool
         if (emp == null)
         {
             emp = Instantiate(worm);
+            emp.transform.name = name;
+            AddObject(emp);
+        }
+
+        emp.SetActive(true);
+        emp.transform.localRotation = Quaternion.identity;
+        emp.transform.parent = transform;
+        emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
+        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
+    }
+    #endregion
+
+    #region[냉기구멍]
+    public void IceHole(Vector2 vector2, bool flipX = false)
+    {
+        string name = "IceHole";
+
+        GameObject emp = FindObject(name);
+
+        if (emp == null)
+        {
+            emp = Instantiate(iceHole);
             emp.transform.name = name;
             AddObject(emp);
         }

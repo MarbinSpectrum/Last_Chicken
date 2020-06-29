@@ -186,6 +186,8 @@ public class MonsterManagerEditor : MyEditor
                 return "펭귄";
             case "WhiteBear":
                 return "흰곰";
+            case "IceBat":
+                return "얼음박쥐";
             case "MovingShop":
                 return "이동상인";
         }

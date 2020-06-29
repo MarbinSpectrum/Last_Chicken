@@ -178,7 +178,7 @@ MonoBehaviour:
     spawnShop: 1
     spawnTreasureBox: 0
     stage01: 1
-    stage02: 0
+    stage02: 1
     activeItem: 0
     shopItemExplain:
     - "\uBC15\uC950\uAC00 \uD683\uBD88\uC744 \uC2EB\uC5B4\uD569\uB2C8\uB2E4."
@@ -225,14 +225,14 @@ MonoBehaviour:
     value0: 1
     value1: 0
     itemLevel: 0
-    itemExplain: "\uC0AC\uC6A9\uC2DC \uCCB4\uB825\uC744 1\uB9CC\uD07C \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    itemExplain: "\uCCB4\uB825\uC744 1\uB9CC\uD07C \uD68C\uBCF5\uD569\uB2C8\uB2E4."
     itemExplain_Eng: Cool! (+1 heart)
     cost: 500
     spawnObject: 1
     spawnShop: 1
     spawnTreasureBox: 0
     stage01: 1
-    stage02: 1
+    stage02: 0
     activeItem: 0
     shopItemExplain:
     - "\uC2DC\uC6D0\uD55C \uCF5C\uB77C\uC785\uB2C8\uB2E4."
@@ -251,7 +251,7 @@ MonoBehaviour:
     value0: 2
     value1: 0
     itemLevel: 1
-    itemExplain: "\uC0AC\uC6A9\uC2DC \uCCB4\uB825\uC744 2\uB9CC\uD07C \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    itemExplain: "\uCCB4\uB825\uC744 2\uB9CC\uD07C \uD68C\uBCF5\uD569\uB2C8\uB2E4."
     itemExplain_Eng: cOoL! (+2 heart)
     cost: 900
     spawnObject: 1
@@ -338,7 +338,7 @@ MonoBehaviour:
     spawnShop: 1
     spawnTreasureBox: 1
     stage01: 1
-    stage02: 0
+    stage02: 1
     activeItem: 0
     shopItemExplain:
     - "\uBC15\uC950\uB97C \uCAD2\uC544\uB0B4\uACE0"
@@ -406,7 +406,7 @@ MonoBehaviour:
       type: 3}
     itemName: "\uD3ED\uD0C4"
     itemName_Eng: 'Bomb '
-    value0: 100
+    value0: 70
     value1: 5
     itemLevel: 0
     itemExplain: "\uAD11\uC0B0\uC5D0\uC11C \uAD6C\uBA4D\uC744 \uB6AB\uAE30\uC704\uD55C
@@ -516,33 +516,34 @@ MonoBehaviour:
     - ' it will be saved once.'
     - 
     - <color=#00ff00ff>Passive</color>
-  - itemImg: {fileID: 21300000, guid: 3b4c21e7744b21346a2f504b67da8f02, type: 3}
-    itemName: "\uD3B8\uB9AC\uD55C \uACE0\uAE09\uACE1\uAD2D\uC774"
-    itemName_Eng: "\uD3B8\uB9AC\uD55C \uACE0\uAE09\uACE1\uAD2D\uC774"
-    value0: 150
-    value1: 150
-    itemLevel: 3
-    itemExplain: "\uACE0\uAE09 \uACE1\uAD2D\uC774\uAC00 \uD3B8\uB9AC\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n(\uBCF4\uC870\uC2AC\uB86F\uC5D0\uC11C\uB3C4
-      \uD6A8\uACFC\uBC1C\uB3D9)"
-    itemExplain_Eng: "\uACE0\uAE09 \uACE1\uAD2D\uC774\uAC00 \uD3B8\uB9AC\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n(\uBCF4\uC870\uC2AC\uB86F\uC5D0\uC11C\uB3C4
-      \uD6A8\uACFC\uBC1C\uB3D9)"
-    cost: 0
-    spawnObject: 0
-    spawnShop: 0
+  - itemImg: {fileID: 21300000, guid: 7fcdc3c5a79c62c469add4ed1e8886a2, type: 3}
+    itemName: "\uCEE4\uD53C"
+    itemName_Eng: Coffee
+    value0: 1
+    value1: 60
+    itemLevel: 0
+    itemExplain: "\uCCB4\uB825\uC744 1\uB9CC\uD07C \uD68C\uBCF5\uD558\uACE0 1\uBD84\uB3D9\uC548
+      \uBAB8\uC744 \uB530\uB73B\uD558\uAC8C \uD574\uC90D\uB2C8\uB2E4."
+    itemExplain_Eng: 'Hot! (+1 heart)
+
+      Warm your body for 1 minute.'
+    cost: 500
+    spawnObject: 1
+    spawnShop: 1
     spawnTreasureBox: 0
     stage01: 0
-    stage02: 0
+    stage02: 1
     activeItem: 0
     shopItemExplain:
-    - 
-    - 
-    - 
-    - 
+    - "\uCCB4\uB825\uC744 1\uB9CC\uD07C \uD68C\uBCF5\uD558\uACE0"
+    - "1\uBD84\uB3D9\uC548 \uBAB8\uC744"
+    - "\uB530\uB73B\uD558\uAC8C \uD574\uC90D\uB2C8\uB2E4."
+    - <color=#00ff00ff>Passive</color>
     shopItemExplain_Eng:
+    - Hot! (+1 heart)
+    - Warm your body for 1 minute.
     - 
-    - 
-    - 
-    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: -4768684599799397655, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uAD11\uBB3C\uAC00\uBC29"
@@ -558,7 +559,7 @@ MonoBehaviour:
     spawnShop: 1
     spawnTreasureBox: 0
     stage01: 1
-    stage02: 1
+    stage02: 0
     activeItem: 0
     shopItemExplain:
     - "\uAD11\uBB3C\uC774 \uC790\uB3D9\uC73C\uB85C \uAC00\uBC29\uC73C\uB85C"
@@ -570,33 +571,35 @@ MonoBehaviour:
     - ' enter Player''s bag'
     - 
     - <color=#00ff00ff>Passive</color>
-  - itemImg: {fileID: -4768684599799397655, guid: 97d3c54966193f14c907520abfa4d08e,
-      type: 3}
-    itemName: "\uD3B8\uB9AC\uD55C \uAD11\uBB3C\uAC00\uBC29"
-    itemName_Eng: Comfortable bag
+  - itemImg: {fileID: 21300000, guid: 0c3389475a8b61d4dadbe7e0f2cf873f, type: 3}
+    itemName: "\uAD11\uBB3C\uAC00\uBC29 <color=#ff0000>EX</color>"
+    itemName_Eng: Comfortable bag <color=#ff0000>EX</color>
     value0: 0
     value1: 0
-    itemLevel: 2
-    itemExplain: "\uAD11\uBB3C\uAC00\uBC29\uC774 \uD3B8\uB9AC\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n(\uBA54\uC778\uC2AC\uB86F\uC5D0\uC11C\uB3C4
-      \uD6A8\uACFC\uAC00\uBC1C\uB3D9\uB429\uB2C8\uB2E4.)"
-    itemExplain_Eng: Minerals automatically enter Player's bag
-    cost: 0
-    spawnObject: 0
-    spawnShop: 0
+    itemLevel: 0
+    itemExplain: "\uAD11\uBB3C\uC774 \uC790\uB3D9\uC73C\uB85C \uAC00\uBC29\uC73C\uB85C
+      \uB4E4\uC5B4\uAC11\uB2C8\uB2E4.\n<color=#ff0000>(\uB354\uC6B1 \uAC15\uB825\uD558\uAC8C!!)</color>"
+    itemExplain_Eng: 'Minerals automatically enter Player''s bag
+
+      <color=#ff0000>(More
+      powerfully!!)</color>'
+    cost: 750
+    spawnObject: 1
+    spawnShop: 1
     spawnTreasureBox: 0
     stage01: 0
-    stage02: 0
+    stage02: 1
     activeItem: 0
     shopItemExplain:
-    - 
-    - 
-    - 
-    - 
+    - "\uAD11\uBB3C\uC774 \uC790\uB3D9\uC73C\uB85C \uAC00\uBC29\uC73C\uB85C"
+    - "\uB4E4\uC5B4\uAC11\uB2C8\uB2E4."
+    - "<color=#ff0000>(\uB354\uC6B1 \uAC15\uB825\uD558\uAC8C!!)</color>"
+    - <color=#00ff00ff>Passive</color>
     shopItemExplain_Eng:
-    - 
-    - 
-    - 
-    - 
+    - Minerals automatically
+    - ' enter Player''s bag'
+    - <color=#ff0000>(More powerfully!!)</color>
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: -1154901020958969117, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uC0C1\uC810\uD560\uC778\uCFE0\uD3F0"
@@ -705,33 +708,32 @@ MonoBehaviour:
     - 
     - 
     - 
-  - itemImg: {fileID: -2508396360270527412, guid: 97d3c54966193f14c907520abfa4d08e,
+  - itemImg: {fileID: 5590679027259038846, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
-    itemName: "\uB79C\uB364 \uB2E4\uC774\uC2A4"
-    itemName_Eng: Random dice
+    itemName: "\uBCF4\uC628\uBCD1"
+    itemName_Eng: Thermos
     value0: 50
     value1: 300
     itemLevel: 1
-    itemExplain: "\uC0AC\uC6A9\uD560\uB54C\uB9C8\uB2E4 \uC0C1\uC810 \uC544\uC774\uD15C\uC758
-      \uAC00\uACA9\uC774 \uBB34\uC791\uC704\uB85C \uBCC0\uD569\uB2C8\uB2E4."
-    itemExplain_Eng: Shop product prices change randomly
-    cost: 0
-    spawnObject: 0
-    spawnShop: 0
+    itemExplain: "\uBAB8\uC744 \uD56D\uC0C1 \uB530\uB73B\uD558\uAC8C \uD574\uC90D\uB2C8\uB2E4."
+    itemExplain_Eng: It always warms your body.
+    cost: 1500
+    spawnObject: 1
+    spawnShop: 1
     spawnTreasureBox: 0
     stage01: 0
-    stage02: 0
+    stage02: 1
     activeItem: 0
     shopItemExplain:
+    - "\uBAB8\uC744 \uD56D\uC0C1 \uB530\uB73B\uD558\uAC8C \uD574\uC90D\uB2C8\uB2E4."
     - 
     - 
-    - 
-    - 
+    - <color=#00ff00ff>Passive</color>
     shopItemExplain_Eng:
+    - It always warms your body.
     - 
     - 
-    - 
-    - 
+    - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: 743105807723266493, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
     itemName: "\uBCF4\uBB3C\uD0D0\uC9C0\uAE30"

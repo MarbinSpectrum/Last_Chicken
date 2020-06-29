@@ -294,44 +294,70 @@ public class Stage02_3 : StageData
         }
         #endregion
 
-        //#region[이글루]
-        //if (Random.Range(0, 100) > 60)
-        //{
-        //    List<Vector2Int> IglooList = new List<Vector2Int>();
-        //    for (int y = world.WorldHeight / 2; y < world.WorldHeight - 1; y++)
-        //    {
-        //        for (int x = 0; x < world.WorldWidth - 1; x++)
-        //        {
-        //            bool treasureFlag = true;
-        //            for (int i = 0; i < 15; i++)
-        //                for (int j = 0; j < 10; j++)
-        //                {
-        //                    int ax = x + i;
-        //                    int ay = y + j;
-        //                    if (Exception.IndexOutRange(ax, ay, groundData) && groundData[ax, ay] != GroundLayer.Dirt)
-        //                        treasureFlag = false;
-        //                    else if (!Exception.IndexOutRange(ax, ay, groundData))
-        //                        treasureFlag = false;
-        //                }
+        #region[냉기구멍배치]
+        List<Vector2Int> iceHolePos = new List<Vector2Int>();
+        for (int n = 0; n < 150; n++)
+        {
+            if (Random.Range(0, 100) <= StageManager.instance.stage0203_TrapValue)
+                continue;
+            List<Vector2Int> iceHoleList = new List<Vector2Int>();
+            for (int y = 40; y < world.WorldHeight - 40; y++)
+            {
+                for (int x = 30; x < world.WorldWidth - 30; x++)
+                {
+                    bool iceHoleFlag = true;
+                    for (int i = x - 1; i <= x + 1; i++)
+                        for (int j = y - 1; j <= y + 1; j++)
+                        {
+                            if (Exception.IndexOutRange(i, j, groundData) && groundData[i, j] == (GroundLayer)(-1))
+                                iceHoleFlag = false;
+                            else if (!Exception.IndexOutRange(i, j, groundData))
+                                iceHoleFlag = false;
 
-        //            if (treasureFlag)
-        //                IglooList.Add(new Vector2Int(x, y));
+                            if (Exception.IndexOutRange(i, j, backGroundData) && backGroundData[i, j] == (BackGroundLayer)(-1))
+                                iceHoleFlag = false;
+                            else if (!Exception.IndexOutRange(i, j, backGroundData))
+                                iceHoleFlag = false;
 
-        //        }
-        //    }
-        //    if (IglooList.Count > 0)
-        //    {
-        //        Vector2Int pos = IglooList[Random.Range(0, IglooList.Count)];
-        //        ObjectManager.instance.Igloo(pos + new Vector2Int(3, 2));
-        //    }
-        //}
-        //#endregion
+                            if(!iceHoleFlag)
+                            {
+                                i = 10000;
+                                j = 10000;
+                            }
+                        }
+
+                    if (!iceHoleFlag)
+                        continue;
+
+                    for (int i = 0; i < iceHolePos.Count; i++)
+                        if (Vector2.Distance(new Vector2Int(x, y), iceHolePos[i]) < 4)
+                        {
+                            iceHoleFlag = false;
+                            break;
+                        }
+
+                    if (!iceHoleFlag)
+                        continue;
+
+                    if (iceHoleFlag)
+                        iceHoleList.Add(new Vector2Int(x, y));
+
+                }
+            }
+            if (iceHoleList.Count > 0)
+            {
+                Vector2Int pos = iceHoleList[Random.Range(0, iceHoleList.Count)];
+                iceHolePos.Add(pos);
+                ObjectManager.instance.IceHole(pos + new Vector2Int(1, 1));
+            }
+        }
+        #endregion
 
         #region[상자배치]
         List<Vector2Int> woodBoxpos = new List<Vector2Int>();
-        for (int n = 0; n < 75; n++)
+        for (int n = 0; n < 50; n++)
         {
-            if (Random.Range(0, 100) <= StageManager.instance.stage0201_WoodBoxValue)
+            if (Random.Range(0, 100) <= StageManager.instance.stage0203_WoodBoxValue)
                 continue;
 
             List<Vector2Int> woodBoxList = new List<Vector2Int>();
@@ -374,9 +400,9 @@ public class Stage02_3 : StageData
 
         #region[고드름배치]
         List<Vector2Int> falliciclePos = new List<Vector2Int>();
-        for (int n = 0; n < 25; n++)
+        for (int n = 0; n < 100; n++)
         {
-            if (Random.Range(0, 100) <= StageManager.instance.stage0201_TrapValue)
+            if (Random.Range(0, 100) <= StageManager.instance.stage0203_TrapValue)
                 continue;
 
             List<Vector2Int> fallicicleList = new List<Vector2Int>();
@@ -401,7 +427,7 @@ public class Stage02_3 : StageData
 
 
                     for (int i = 0; i < falliciclePos.Count; i++)
-                        if (Vector2.Distance(new Vector2Int(x, y), falliciclePos[i]) < 5)
+                        if (Vector2.Distance(new Vector2Int(x, y), falliciclePos[i]) < 2)
                             fallicicleFlag = false;
 
                     if (fallicicleFlag)
@@ -418,7 +444,7 @@ public class Stage02_3 : StageData
         }
 
         List<Vector2Int> bottomIciclePos = new List<Vector2Int>();
-        for (int n = 0; n < 25; n++)
+        for (int n = 0; n < 100; n++)
         {
             if (Random.Range(0, 100) <= StageManager.instance.stage0201_TrapValue)
                 continue;
@@ -445,7 +471,7 @@ public class Stage02_3 : StageData
 
 
                     for (int i = 0; i < bottomIciclePos.Count; i++)
-                        if (Vector2.Distance(new Vector2Int(x, y), bottomIciclePos[i]) < 5)
+                        if (Vector2.Distance(new Vector2Int(x, y), bottomIciclePos[i]) < 2)
                             bottomIcicleFlag = false;
 
                     if (bottomIcicleFlag)

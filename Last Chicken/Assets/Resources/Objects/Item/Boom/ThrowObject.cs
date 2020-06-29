@@ -21,14 +21,14 @@ public class ThrowObject : CustomCollider
     #region[Update]
     void Update()
     {
-        if(Vector2.Distance(rigidbody2D.velocity,Vector2.zero) > 5)
+        if(Vector2.Distance(rigidbody2D.velocity,Vector2.zero) > 3)
         {
-            AttackMonster(damage);
             if (cool >= 0.25f)
             {
                 AttackObject(damage);
                 cool = 0;
             }
+            AttackMonster(damage);
         }
         cool += Time.deltaTime;
     }
@@ -63,7 +63,7 @@ public class ThrowObject : CustomCollider
             if (monsters[i].transform.tag.Equals("Monster"))
             {
                 Monster monster = monsters[i].transform.GetComponent<Monster>();
-                if (monster)
+                if (monster && !monster.damage)
                 {
                     monster.Damage(damage);
                     bool dicX = monster.transform.position.x < transform.position.x ? true : false;

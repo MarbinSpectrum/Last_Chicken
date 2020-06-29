@@ -63,28 +63,20 @@ public class WhiteBear : Monster
         if (isAttack)
             return;
 
+        if (!playerSeeck && Vector2.Distance(nowPos, targetPos) < range && Mathf.Abs(nowPos.y - targetPos.y) <= 5)
+            playerSeeck = true;
+        else if (playerSeeck && Vector2.Distance(nowPos, targetPos) >= range * 1.2f)
+            playerSeeck = false;
+
         float newSpeed = speed;
-        if (Vector2.Distance(nowPos, targetPos) < range &&
-            Exception.IndexOutRange(nowPos, GroundManager.instance.linkArea) &&
-            GroundManager.instance.linkArea[nowPos.x, nowPos.y] &&
-                Mathf.Abs(nowPos.y - targetPos.y) <= 5)
+        if (playerSeeck)
         {
-            if (Mathf.Abs(nowPos.x - targetPos.x) < 0.25f)
+            if (Mathf.Abs(nowPos.x - targetPos.x) < 2)
                 MovingGround(+0);
             else if (nowPos.x < targetPos.x)
-            {
-                if (CanMove(newSpeed))
-                    MovingGround(+newSpeed);
-                else
-                    MovingGround(+0);
-            }
+                MovingGround(+newSpeed);
             else if (nowPos.x > targetPos.x)
-            {
-                if (CanMove(-newSpeed))
-                    MovingGround(-newSpeed);
-                else
-                    MovingGround(+0);
-            }
+                MovingGround(-newSpeed);
         }
         else
         {

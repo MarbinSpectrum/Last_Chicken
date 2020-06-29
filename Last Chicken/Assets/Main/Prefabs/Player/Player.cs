@@ -114,6 +114,7 @@ public class Player : CustomCollider
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     bool playerIce = false;
+    [System.NonSerialized] public float playerHotTime = 0;
 
     bool hang;  //매달림 여부
     bool canHang;
@@ -277,6 +278,14 @@ public class Player : CustomCollider
     #region[플레이어 상태 체크]
     public void PlayerStateCheck()
     {
+
+        if (playerHotTime > 0)
+        {
+            playerHotTime -= Time.deltaTime;
+            if (UIManager.instance.playerIceStateAni.GetCurrentAnimatorStateInfo(0).IsName("Stage"))
+                UIManager.instance.playerIceStateAni.SetTrigger("Exit");
+        }
+
         playerIce = UIManager.instance.playerIceStateAni.GetCurrentAnimatorStateInfo(0).IsName("Stage");
     }
     #endregion
@@ -845,6 +854,9 @@ public class Player : CustomCollider
 
         chicken_Easy_Catch = ItemManager.instance.CanUsePassiveItem("Smart_Gloves");
 
+        if (ItemManager.instance.CanUsePassiveItem("Thermos"))
+            playerHotTime = Mathf.Max(playerHotTime, 2);
+
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         if (Input.GetMouseButtonDown(1))
@@ -962,6 +974,15 @@ public class Player : CustomCollider
             nowHp += ItemManager.instance.itemData[ItemManager.FindData("Beer")].value0;
             nowHp = nowHp > maxHp ? maxHp : nowHp;
             EffectManager.instance.HearthEffect();
+        }
+        else if (name.Equals("Coffee"))
+        {
+            SoundManager.instance.PlayerGlup();
+            nowHp += ItemManager.instance.itemData[ItemManager.FindData("Coffee")].value0;
+            nowHp = nowHp > maxHp ? maxHp : nowHp;
+            EffectManager.instance.HearthEffect();
+
+            playerHotTime = ItemManager.instance.itemData[ItemManager.FindData("Coffee")].value1;
         }
     }
     #endregion
@@ -1163,6 +1184,8 @@ public class Player : CustomCollider
         //얼어서 플레이어가 파란색으로 보임
         if (playerIce)
             spriteRenderer.color = new Color(88 / 255f, 91/255f, 1);
+        else if(playerHotTime > 0)
+            spriteRenderer.color = new Color(255/255f, 198/255f, 198/255f);
         else
             spriteRenderer.color = new Color(1, 1, 1);
 

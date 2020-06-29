@@ -309,15 +309,14 @@ public class ItemEditor : MyEditor
                 temp = (int)(temp);
                 data.value1 = temp;
                 break;
-            case "Smart_Advanced_Pick":
-                temp = FloatField("공격속도 증가수치(%)", data.value0, dataStyle);
+            case "Coffee":
+                temp = FloatField("회복량", data.value0, dataStyle);
                 temp = temp < 0 ? 0 : temp;
-                temp = (int)(temp);
+                temp = (((int)(temp * 10) / 5) * 5) / 10f;
                 data.value0 = temp;
 
-                temp = FloatField("공격력    증가수치(%)", data.value1, dataStyle);
+                temp = FloatField("따뜻함 유지시간", data.value1, dataStyle);
                 temp = temp < 0 ? 0 : temp;
-                temp = (int)(temp);
                 data.value1 = temp;
                 break;
             case "Smart_Light_Pick":
@@ -446,25 +445,6 @@ public class ItemEditor : MyEditor
 
                 EditorGUILayout.EndHorizontal();
                 break;
-            case "RandomDice":
-                EditorGUILayout.BeginHorizontal();
-
-                EditorGUILayout.LabelField("랜덤한 수치 범위(%)", dataStyle, GUILayout.Width(150));
-
-                temp = EditorGUILayout.FloatField(data.value0, GUILayout.Width(30));
-                temp = temp < 0 ? 0 : temp;
-                temp = (int)(temp);
-                data.value0 = temp;
-
-                EditorGUILayout.LabelField(" ~ ", dataStyle, GUILayout.Width(20));
-
-                temp = EditorGUILayout.FloatField(data.value1, GUILayout.Width(30));
-                temp = temp < 0 ? 0 : temp;
-                temp = (int)(temp);
-                data.value1 = temp;
-
-                EditorGUILayout.EndHorizontal();
-                break;
         }
         #endregion
 
@@ -554,14 +534,14 @@ public class ItemEditor : MyEditor
                 return "다이너마이트";
             case "Smart_Gloves":
                 return "찍찍이장갑";
-            case "Smart_Heavy_Pick":
-                return "편리한 무거운 곡괭이";
+            case "Coffee":
+                return "커피";
             case "Smart_Advanced_Pick":
                 return "편리한 고급 곡괭이";
             case "MineBag":
                 return "광물가방";
-            case "Smart_MineBag":
-                return "편리한 광물가방";
+            case "MineBag_EX":
+                return "광물가방 EX";
             case "SaleCoupon":
                 return "상점 할인쿠폰";
             case "ShopVIpNormal":

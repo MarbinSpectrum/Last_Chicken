@@ -26,14 +26,14 @@ public class ItemManager : ObjectPool
         "Dynamite",
         "Smart_Gloves",
         "Charm",
-        "Smart_Advanced_Pick",
+        "Coffee",
         "MineBag",
-        "Smart_MineBag",
+        "MineBag_EX",
         "SaleCoupon",
         "ShopVIpNormal",
         "ShopVIpSpecial",
         "OldPocket",
-        "RandomDice",
+        "Thermos",
         "TreasureBox_Radar",
         "Trap_Radar",
         "RainbowPocket",
@@ -101,9 +101,6 @@ public class ItemManager : ObjectPool
             case "RainbowPocket":
                 activeItem = true;
                 break;
-            case "RandomDice":
-                activeItem = true;
-                break;
         }
         return activeItem;
     }
@@ -154,6 +151,7 @@ public class ItemManager : ObjectPool
             case "Beer":
             case "OldPocket":
             case "RainbowPocket":
+            case "Coffee":
                 return true;
         }
         return false;
@@ -172,6 +170,7 @@ public class ItemManager : ObjectPool
             case "ShopVIpSpecial":
             case "Coke":
             case "Beer":
+            case "Coffee":
                 return true;
         }
         return false;

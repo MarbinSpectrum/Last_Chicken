@@ -27,7 +27,7 @@ public class MonsterManager : ObjectPool
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static string[] monsterName = new string[] { "Bat", "Rat", "Snake", "Mole", "Penguin", "WhiteBear", "MovingShop" };
+    public static string[] monsterName = new string[] { "Bat", "Rat", "Snake", "Mole", "Penguin", "WhiteBear", "IceBat", "MovingShop" };
 
     [System.Serializable]
     public class MonsterStats
@@ -54,6 +54,7 @@ public class MonsterManager : ObjectPool
     GameObject mole;
     GameObject penguin;
     GameObject whiteBear;
+    GameObject iceBat;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -75,8 +76,9 @@ public class MonsterManager : ObjectPool
             mole = Resources.Load("Objects/Monster/Mole") as GameObject;
             penguin = Resources.Load("Objects/Monster/Penguin") as GameObject;
             whiteBear = Resources.Load("Objects/Monster/WhiteBear") as GameObject;
+            iceBat = Resources.Load("Objects/Monster/IceBat") as GameObject;
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 25; i++)
             {
                 Bat(new Vector2(-1000,-1000));
                 Rat(new Vector2(-1000, -1000));
@@ -84,6 +86,7 @@ public class MonsterManager : ObjectPool
                 Mole(new Vector2(-1000, -1000));
                 Penguin(new Vector2(-1000, -1000));
                 WhiteBear(new Vector2(-1000, -1000));
+                IceBat(new Vector2(-1000, -1000));
             }
 
             PoolOff();
@@ -131,10 +134,11 @@ public class MonsterManager : ObjectPool
             case 2:
             case 3:
             case 4:
-                size = 0;
+            case 6:
+                size = 2;
                 break;
             case 5:
-                size = 2;
+                size = 3;
                 break;
             default:
                 Debug.LogError("몬스터 크기검사를");
@@ -167,6 +171,9 @@ public class MonsterManager : ObjectPool
                 break;
             case 5:
                 WhiteBear(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
+                break;
+            case 6:
+                IceBat(new Vector3(pos.x + offset.x, pos.y + offset.y, -2));
                 break;
             default:
                 Debug.LogError("몬스터를 추가해주세요!!");
@@ -256,16 +263,18 @@ public class MonsterManager : ObjectPool
 
         bool [,] donSetPos = new bool[world.WorldWidth, world.WorldHeight];
 
-        for (int x = StageData.instance.altarRect.x; x < StageData.instance.altarRect.x + StageData.instance.altarRect.width; x++)
-            for (int y = StageData.instance.altarRect.y - StageData.instance.altarRect.height; y < StageData.instance.altarRect.y; y++)
-                if (Exception.IndexOutRange(x, y, donSetPos))
-                    donSetPos[x, y] = true;
+        //for (int x = StageData.instance.altarRect.x; x < StageData.instance.altarRect.x + StageData.instance.altarRect.width; x++)
+        //    for (int y = StageData.instance.altarRect.y - StageData.instance.altarRect.height; y < StageData.instance.altarRect.y; y++)
+        //        if (Exception.IndexOutRange(x, y, donSetPos))
+        //            donSetPos[x, y] = true;
 
-        for (int x = StageData.instance.fountainRect.x; x < StageData.instance.fountainRect.x + StageData.instance.fountainRect.width; x++)
-            for (int y = StageData.instance.fountainRect.y - StageData.instance.fountainRect.height; y < StageData.instance.fountainRect.y; y++)
-                if (Exception.IndexOutRange(x, y, donSetPos))
-                    donSetPos[x, y] = true;
+        
+        //for (int x = StageData.instance.fountainRect.x; x < StageData.instance.fountainRect.x + StageData.instance.fountainRect.width; x++)
+        //    for (int y = StageData.instance.fountainRect.y - StageData.instance.fountainRect.height; y < StageData.instance.fountainRect.y; y++)
+        //        if (Exception.IndexOutRange(x, y, donSetPos))
+        //            donSetPos[x, y] = true;
 
+        //같은 몬스터 근처 제외
         Vector2Int pos;
         int r = dis;
         for (int i = 0; i < transform.childCount; i++)
@@ -276,20 +285,28 @@ public class MonsterManager : ObjectPool
                     if (Exception.IndexOutRange(x, y, donSetPos))
                         donSetPos[x, y] = true;
         }
-        if(Player.instance)
+
+        //플레이어 근처는 제외
+        if (Player.instance)
         {
             pos = new Vector2Int((int)Player.instance.transform.position.x, (int)Player.instance.transform.position.y);
             for (int x = pos.x - r; x < pos.x + r; x++)
                 for (int y = pos.y - r; y < pos.y + r; y++)
                     if (Exception.IndexOutRange(x, y, donSetPos))
                         donSetPos[x, y] = true;
+
+            for (int x = 0; x < world.WorldWidth; x++)
+                for (int y = 0; y < world.WorldHeight - 0; y++)
+                    if (Mathf.Abs((int)Player.instance.transform.position.x - x) < 30)
+                        donSetPos[x, y] = true;
+
         }
 
-        for (int x = 0; x < world.WorldWidth; x++)
-            for (int y = 0; y < world.WorldHeight; y++)
-                if (Exception.IndexOutRange(x, y - 1, donSetPos))
-                    if (StageData.instance.GetBlock(x, y - 1) == (StageData.GroundLayer)(-1))
-                        donSetPos[x, y] = true;
+        //for (int x = 0; x < world.WorldWidth; x++)
+        //    for (int y = 0; y < world.WorldHeight; y++)
+        //        if (Exception.IndexOutRange(x, y - 1, donSetPos))
+        //            if (StageData.instance.GetBlock(x, y - 1) == (StageData.GroundLayer)(-1))
+        //                donSetPos[x, y] = true;
 
         for (int x = 0; x < world.WorldWidth; x++)
             for (int y = 20; y < world.WorldHeight - 20; y++)
@@ -301,11 +318,21 @@ public class MonsterManager : ObjectPool
                     { 
                         if (Exception.IndexOutRange(a, b, donSetPos))
                         {
-                            if (StageData.instance.GetBlock(a, b) != (StageData.GroundLayer)(-1) && !donSetPos[a, b])
+                            if (StageData.instance.GetBlock(a, b) != (StageData.GroundLayer)(-1) || donSetPos[x, y])
+                            {
                                 canSet = false;
+                                a = 10000;
+                                b = 10000;
+                                break;
+                            }
                         }
                         else
+                        {
                             canSet = false;
+                            a = 10000;
+                            b = 10000;
+                            break;
+                        }
                     }
                 }
 
@@ -464,6 +491,27 @@ public class MonsterManager : ObjectPool
         if (emp == null)
         {
             emp = Instantiate(whiteBear);
+            emp.transform.name = name;
+            AddObject(emp);
+        }
+
+        emp.SetActive(true);
+        emp.transform.parent = transform;
+        emp.transform.position = new Vector3(vector3.x, vector3.y, emp.transform.position.z);
+        emp.transform.rotation = new Quaternion(0, 0, 0, 0);
+    }
+    #endregion
+
+    #region[얼음박쥐]
+    public void IceBat(Vector3 vector3)
+    {
+        string name = monsterName[6];
+
+        GameObject emp = FindObject(name);
+
+        if (emp == null)
+        {
+            emp = Instantiate(iceBat);
             emp.transform.name = name;
             AddObject(emp);
         }

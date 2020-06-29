@@ -22,6 +22,7 @@ public abstract class Monster : CustomCollider
     protected Vector2Int nowPos;  //몬스터위치
     protected Vector2Int targetPos; //타겟위치
     protected int range = 25;   //탐색범위
+    protected bool playerSeeck;
     protected int AstarRange = 20;
     protected bool iceFlag = false;
     protected float iceVelocity;
@@ -44,7 +45,7 @@ public abstract class Monster : CustomCollider
 
     protected float attackPower;   //공격력
 
-    protected bool damage; //데미지 
+    [HideInInspector] public bool damage; //데미지 
     protected float stunTime = 0.5f;   //경직시간
     protected float isStunTime;
 

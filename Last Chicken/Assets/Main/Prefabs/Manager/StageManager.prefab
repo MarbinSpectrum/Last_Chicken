@@ -52,8 +52,8 @@ MonoBehaviour:
   stage0101_Name: "< \uC9C0\uD558 \uB3D9\uAD74 1 - 1 >"
   stage0101_Name_Eng: < Underground Cave 1 - 1 >
   stage0101_Monsters:
-    monsters: 01010000000000
-    monsterValue: 3c000000280000000000000000000000000000000000000000000000
+    monsters: 0101000000000000
+    monsterValue: 3c00000028000000000000000000000000000000000000000000000000000000
     monsterDistance: 15
     monsterNum: 30
   stage0101_ObjectValue: 75
@@ -64,8 +64,8 @@ MonoBehaviour:
   stage0102_Name: "< \uC9C0\uD558 \uB3D9\uAD74 1 - 2 >"
   stage0102_Name_Eng: < Underground Cave 1 - 2 >
   stage0102_Monsters:
-    monsters: 01000101000000
-    monsterValue: 1400000000000000140000003c000000000000000000000000000000
+    monsters: 0100010100000000
+    monsterValue: 1400000000000000140000003c00000000000000000000000000000000000000
     monsterDistance: 15
     monsterNum: 30
   stage0102_ObjectValue: 60
@@ -76,8 +76,8 @@ MonoBehaviour:
   stage0103_Name: "< \uC9C0\uD558 \uB3D9\uAD74 1 - 3 >"
   stage0103_Name_Eng: < Underground Cave 1 - 3 >
   stage0103_Monsters:
-    monsters: 01010101000000
-    monsterValue: 0a000000140000000a0000003c000000000000000000000000000000
+    monsters: 0101010100000000
+    monsterValue: 0a000000140000000a0000003c00000000000000000000000000000000000000
     monsterDistance: 15
     monsterNum: 30
   stage0103_ObjectValue: 50
@@ -88,44 +88,44 @@ MonoBehaviour:
   stage0201_Name: "\uC5BC\uC74C\uB3D9\uAD742-1"
   stage0201_Name_Eng: < Ice Cave 2 - 1 >
   stage0201_Monsters:
-    monsters: 00000000010000
-    monsterValue: 32000000000000000000000000000000320000001900000000000000
-    monsterDistance: 15
+    monsters: 0000000001000000
+    monsterValue: 3200000000000000000000000000000032000000190000000000000000000000
+    monsterDistance: 12
     monsterNum: 30
   stage0201_ObjectValue: 50
-  stage0201_WoodBoxValue: 50
-  stage0201_TrapValue: 25
-  stage0202_BackGround: {fileID: 21300000, guid: 665bc7fc47e9a474ca7456644ea9cca8,
+  stage0201_WoodBoxValue: 10
+  stage0201_TrapValue: 75
+  stage0202_BackGround: {fileID: 21300000, guid: c472a7aba9cb6c843be29bb7945ea12d,
     type: 3}
   stage0202_Name: "\uC5BC\uC74C\uB3D9\uAD742-2"
   stage0202_Name_Eng: < Ice Cave 2 - 2 >
   stage0202_Monsters:
-    monsters: 01000000010000
-    monsterValue: 190000000000000000000000000000004b0000000000000000000000
-    monsterDistance: 15
-    monsterNum: 30
+    monsters: 0000000001010000
+    monsterValue: 0000000000000000000000000000000032000000320000000000000000000000
+    monsterDistance: 10
+    monsterNum: 45
   stage0202_ObjectValue: 50
-  stage0202_WoodBoxValue: 50
-  stage0202_TrapValue: 25
-  stage0203_BackGround: {fileID: 21300000, guid: 665bc7fc47e9a474ca7456644ea9cca8,
+  stage0202_WoodBoxValue: 10
+  stage0202_TrapValue: 75
+  stage0203_BackGround: {fileID: 21300000, guid: 2260dcfe9766e8c4780b731fb1384510,
     type: 3}
-  stage0203_Name: "\uC5BC\uC74C\uB3D9\uAD742-2"
+  stage0203_Name: "\uC5BC\uC74C\uB3D9\uAD742-3"
   stage0203_Name_Eng: < Ice Cave 2 - 3 >
   stage0203_Monsters:
-    monsters: 01000000010100
-    monsterValue: 19000000000000000000000000000000320000001900000000000000
-    monsterDistance: 15
-    monsterNum: 30
+    monsters: 0000000001010100
+    monsterValue: 1900000000000000000000000000000019000000320000001900000000000000
+    monsterDistance: 8
+    monsterNum: 60
   stage0203_ObjectValue: 50
-  stage0203_WoodBoxValue: 50
-  stage0203_TrapValue: 25
+  stage0203_WoodBoxValue: 10
+  stage0203_TrapValue: 100
   Igloo_BackGround: {fileID: 21300000, guid: 665bc7fc47e9a474ca7456644ea9cca8, type: 3}
   Igloo_Name: "\uC774\uAE00\uB8E8"
   Igloo_Name_Eng: < Igloo >
   Igloo_Monsters:
-    monsters: 00000000010000
-    monsterValue: 32000000000000000000000000000000320000000000000000000000
-    monsterDistance: 15
+    monsters: 0000000001000000
+    monsterValue: 3200000000000000000000000000000032000000000000000000000000000000
+    monsterDistance: 12
     monsterNum: 30
   Igloo_ObjectValue: 50
   Igloo_WoodBoxValue: 50
