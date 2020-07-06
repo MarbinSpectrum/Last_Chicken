@@ -6,11 +6,21 @@ using UnityEngine.SceneManagement;
 public class SelectLanguageManager : MonoBehaviour
 {
     bool flag = false;
-    public void Awake()
+    bool run = false;
+    float time = 0;
+    public void Update()
     {
-        if(GameManager.instance.playData.firstGame == false)
+        time += Time.deltaTime;
+       // if (Input.GetKeyDown(KeyCode.Space))
+          //  time = 4;
+        if (!run && time > 4 && GameManager.instance.playData.firstGame == false)
+        {
+            run = true;
             SceneManager.LoadScene("Prologue");
+        }
     }
+
+
 
     public void Select_Language(int language)
     {
