@@ -274,7 +274,7 @@ public class GameManager : TerrainGenerator
     #region[인게임인지 검사]
     public bool InGame()
     {
-        return !SceneController.instance.nowScene.Equals("Title") && !SceneController.instance.nowScene.Equals("Prologue") && !SceneController.instance.nowScene.Equals("Demo");
+        return !SceneController.instance.nowScene.Equals("FirstStart") && !SceneController.instance.nowScene.Equals("Title") && !SceneController.instance.nowScene.Equals("Prologue") && !SceneController.instance.nowScene.Equals("Demo");
     }
     #endregion
 
@@ -476,7 +476,7 @@ public class GameManager : TerrainGenerator
                 if (Player.instance.transform.position.x <= 230 || Player.instance.transform.position.y >= 70)
                     return;
                 playData.firstGame = false;
-                SceneController.instance.MoveScene("Title");
+                SceneController.instance.MoveScene("Stage0101");
                 break;
             case "Stage0101":
             case "Stage0102":
