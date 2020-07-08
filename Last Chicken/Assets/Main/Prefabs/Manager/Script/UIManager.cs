@@ -524,20 +524,12 @@ public class UIManager : MonoBehaviour
             if (ItemManager.instance.HasItemCheck("Hammer"))
             {
                 ItemManager.instance.CostItem("Hammer");
-                Smithy.instance.used = true;
-                GameManager.instance.playData.pickLevel++;
-                Player.instance.canControl = true;
-                Smithy.instance.thisUse = false;
-                SoundManager.instance.Smithy();
+                Smithy.instance.Reinforce();
             }
             else if (GameManager.instance.playerMoney >= Smithy.reinforceCost[Player.instance.pickLevel])
             {
                 GameManager.instance.playerMoney -= Smithy.reinforceCost[Player.instance.pickLevel];
-                Smithy.instance.used = true;
-                GameManager.instance.playData.pickLevel++;
-                Player.instance.canControl = true;
-                Smithy.instance.thisUse = false;
-                SoundManager.instance.Smithy();
+                Smithy.instance.Reinforce();
             }
             else 
             {
