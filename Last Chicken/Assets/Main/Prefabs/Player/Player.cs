@@ -39,7 +39,7 @@ public class Player : CustomCollider
 
     [System.NonSerialized] public Animator animator;
 
-    SpriteRenderer spriteRenderer;
+    [System.NonSerialized] public SpriteRenderer spriteRenderer;
 
     [System.NonSerialized] public new Rigidbody2D rigidbody2D;
 
@@ -50,7 +50,7 @@ public class Player : CustomCollider
 
     GameObject chickenHead;
     GameObject chickenHeadLight;
-    SpriteRenderer chickenHeadSpriteRenderer;
+    [System.NonSerialized] public SpriteRenderer chickenHeadSpriteRenderer;
 
     GameObject dizzyStar;
 

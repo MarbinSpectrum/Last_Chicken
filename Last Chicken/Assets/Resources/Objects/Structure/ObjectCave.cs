@@ -19,6 +19,8 @@ public class ObjectCave : CustomCollider
     public SpriteRenderer stageFoothold;
     public float minX,maxX;
     public AreaScript areaScript;
+    public Color onColor = Color.white;
+    public Color offColor = Color.white;
     bool act = false;
     bool fadeAct = false;
 
@@ -136,6 +138,7 @@ public class ObjectCave : CustomCollider
         }
 
         foothold.SetActive(!targetObject.activeSelf);
+        stageDoor.color = !targetObject.activeSelf ? onColor : offColor;
     }
     #endregion
 

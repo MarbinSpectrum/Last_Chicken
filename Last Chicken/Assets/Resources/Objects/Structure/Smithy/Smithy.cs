@@ -16,6 +16,8 @@ public class Smithy : AreaScript
     GameObject uiMouse;
 
     public List<GameObject> languageData = new List<GameObject>();
+    public List<GameObject> actObj = new List<GameObject>();
+    public List<GameObject> unActObj = new List<GameObject>();
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -41,6 +43,13 @@ public class Smithy : AreaScript
         onArea = IsAtPlayer(bodyCollider);
         UseArea();
 
+        for (int i = 0; i < actObj.Count; i++)
+            if (actObj[i])
+                actObj[i].SetActive(used);
+
+        for (int i = 0; i < unActObj.Count; i++)
+            if (unActObj[i])
+                unActObj[i].SetActive(!used);
     }
     #endregion
 
