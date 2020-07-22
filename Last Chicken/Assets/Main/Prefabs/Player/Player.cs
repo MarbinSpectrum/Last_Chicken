@@ -143,6 +143,7 @@ public class Player : CustomCollider
     Vector2 frontPos = Vector2.zero;
 
     [System.NonSerialized] public GameObject playerUmbrella;
+    [System.NonSerialized] public float inShadow;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -154,6 +155,8 @@ public class Player : CustomCollider
     public void Awake()
     {
         instance = this;
+
+        inShadow = 0;
 
         transform.position = new Vector3(transform.position.x, transform.position.y, -35);
 
@@ -1185,13 +1188,14 @@ public class Player : CustomCollider
             return;
 
         //얼어서 플레이어가 파란색으로 보임
-        if (playerIce)
+        else if (playerIce)
             spriteRenderer.color = new Color(88 / 255f, 91/255f, 1);
         else if(playerHotTime > 0)
             spriteRenderer.color = new Color(255/255f, 198/255f, 198/255f);
         else
             spriteRenderer.color = new Color(1, 1, 1);
-
+        spriteRenderer.color = new Color(spriteRenderer.color.r - inShadow, spriteRenderer.color.g - inShadow, spriteRenderer.color.b - inShadow);
+        chickenHeadSpriteRenderer.color = new Color(1 - inShadow, 1 - inShadow, 1 - inShadow);
         //얼어서 플레이어가 느려짐
         if (playerIce)
             animator.speed = 0.5f;

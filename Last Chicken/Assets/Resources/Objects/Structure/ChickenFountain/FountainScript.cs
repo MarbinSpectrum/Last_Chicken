@@ -48,7 +48,7 @@ public class FountainScript : AreaScript
         onArea = IsAtPlayer(bodyCollider);
         int outWidth = GroundManager.instance.altarRect.GetLength(0);
         int outHeight = Mathf.FloorToInt(GroundManager.instance.altarRect.GetLength(1) * 0.7f);
-        int Inwidth = Mathf.FloorToInt(outWidth * 0.7f);
+        int Inwidth = Mathf.FloorToInt(outWidth * 0.3f);
         int Inheight = 14;
         inRect = new RectInt((int)(transform.position.x) - Inwidth / 2, (int)(transform.position.y) - 6 + Inheight, Inwidth, Inheight);
         outRect = new RectInt((int)(transform.position.x) - outWidth / 2, (int)(transform.position.y) - 7 + outHeight, outWidth, outHeight);
@@ -121,6 +121,8 @@ public class FountainScript : AreaScript
             PlayerIn(false);
             act = true;
         }
+        if (fountainAnimator.GetCurrentAnimatorStateInfo(0).IsName("FountainUsed") && fountainAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.1f && fountainAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.9f)
+            EffectManager.instance.Vibration(10, fountainAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime * 2);
         if (fountainAnimator.GetCurrentAnimatorStateInfo(0).IsName("FountainUsed") && fountainAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.95f && !usedEnd)
             usedEnd = true;
     }
