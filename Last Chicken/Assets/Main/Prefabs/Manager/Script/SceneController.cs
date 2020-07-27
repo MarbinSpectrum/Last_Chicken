@@ -114,6 +114,13 @@ public class SceneController : MonoBehaviour
                 break;
             #endregion
 
+            #region[Records]
+            case "Records":
+                SoundManager.instance.StopBGM_Sound();
+                //SoundManager.instance.Records();
+                break;
+            #endregion
+
             ////////////////////////////// 인게임맵 ///////////////////////////////////////////
 
             #region[Tutorial]
@@ -131,6 +138,9 @@ public class SceneController : MonoBehaviour
 
             #region[Stage0101]
             case "Stage0101":
+                GameManager.instance.ClearData();
+                GameManager.instance.playData.stageName = "Stage0101";
+                GameManager.instance.SaveData();
                 if (stageBackGround)
                     stageBackGround.sprite = StageManager.instance.stage0101_BackGround;
                 GameSceneSet();

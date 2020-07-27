@@ -28,6 +28,7 @@ public class MonsterManager : ObjectPool
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static string[] monsterName = new string[] { "Bat", "Rat", "Snake", "Mole", "Penguin", "WhiteBear", "IceBat", "MovingShop" };
+    public static string[] monsterName_KR = new string[] { "박쥐", "쥐", "뱀", "두더지", "펭귄", "곰", "얼음박쥐", "이동상인" };
 
     [System.Serializable]
     public class MonsterStats
@@ -47,6 +48,7 @@ public class MonsterManager : ObjectPool
     }
 
     public MonsterStats[] monsterData = new MonsterStats[monsterName.Length];
+    public Sprite[] recordSprite = new Sprite[monsterName.Length];
 
     GameObject bat;
     GameObject rat;
@@ -69,6 +71,21 @@ public class MonsterManager : ObjectPool
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            for(int i = 0; i < recordSprite.Length; i++)
+            {
+                Texture2D temp = Resources.Load("Objects/Monster/Record/" + monsterName[i]) as Texture2D;
+                if(temp != null)
+                {
+                    Sprite recordData = Sprite.Create(temp, new Rect(0, 0, temp.width, temp.height), new Vector2(0.5f, 0.5f));
+                    if (recordData != null)
+                        recordSprite[i] = recordData;
+                    else
+                        Debug.LogError("도감에 추가될 몬스터 이미지를 넣으세요!!(" + monsterName[i] + ")");
+                }
+                else
+                    Debug.LogError("도감에 추가될 몬스터 이미지를 넣으세요!!(" + monsterName[i] + ")");
+            }
 
             bat = Resources.Load("Objects/Monster/Bat") as GameObject;
             rat = Resources.Load("Objects/Monster/Rat") as GameObject;

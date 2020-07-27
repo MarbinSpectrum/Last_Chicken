@@ -99,6 +99,8 @@ public class FountainScript : AreaScript
                 Player.instance.invincibility = true;
                 thisUse = false;
                 used = true;
+                SoundManager.instance.EarthRumble();
+                SoundManager.instance.Altar(true);
             }
             uiMouse.SetActive(!thisUse);
         }
@@ -160,7 +162,6 @@ public class FountainScript : AreaScript
             return;
         if (b)
         {
-            SoundManager.instance.Altar(true);
             StageBackGround.instance.FadeOut();
             areaLight.SetActive(true);
         }

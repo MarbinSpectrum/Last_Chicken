@@ -566,7 +566,7 @@ public class Player : CustomCollider
         else
         {
             Vector2Int pos = new Vector2Int(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y) - 1);
-            //밟은 땅의 종류에 따른 소리를 킴
+            //눈위에서는 미끄러움 처리
             int slipperyGround = (1 << (int)StageData.GroundLayer.Ice);
 
             if (slip && (1 << (int)StageData.instance.GetBlock(pos) & slipperyGround) != 0 && !CaveManager.inCave)
@@ -662,7 +662,7 @@ public class Player : CustomCollider
                 if(!inFluid)
                 {
 
-                    if ((1 << (int)StageData.instance.GetBlock(pos) & dirtSoundMask) != 0)
+                    if ((1 << (int)StageData.instance.GetBlock(pos) & dirtSoundMask) != 0 || (CaveManager.inCave && grounded))
                         SoundManager.instance.PlayerRunDirt();
                     else if ((1 << (int)StageData.instance.GetBlock(pos) & stoneSoundMask) != 0)
                         SoundManager.instance.PlayerRunStone();

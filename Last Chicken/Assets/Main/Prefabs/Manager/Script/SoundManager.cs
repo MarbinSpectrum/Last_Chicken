@@ -57,6 +57,7 @@ public class SoundManager : MonoBehaviour
     AudioClip ignite;
     AudioClip smithy;
     AudioClip bombCount;
+    AudioClip earthRumble;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -77,6 +78,7 @@ public class SoundManager : MonoBehaviour
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     AudioClip title;
+    AudioClip records;
     AudioClip altar;
     AudioClip stage1;
     AudioClip stage2;
@@ -149,6 +151,7 @@ public class SoundManager : MonoBehaviour
             explosion = Resources.Load("Sounds/SE/Object/폭탄폭발") as AudioClip;
             ignite = Resources.Load("Sounds/SE/Object/불꽃점화") as AudioClip;
             bombCount = Resources.Load("Sounds/SE/Object/폭탄카운트") as AudioClip;
+            earthRumble = Resources.Load("Sounds/SE/Object/지진") as AudioClip;
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -168,6 +171,7 @@ public class SoundManager : MonoBehaviour
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             title = Resources.Load("Sounds/BGM/타이틀") as AudioClip;
+            records = Resources.Load("Sounds/BGM/도감") as AudioClip;
             altar = Resources.Load("Sounds/BGM/제단") as AudioClip;
             stage1 = Resources.Load("Sounds/BGM/스테이지1") as AudioClip;
             stage2 = Resources.Load("Sounds/BGM/스테이지2") as AudioClip;
@@ -625,6 +629,19 @@ public class SoundManager : MonoBehaviour
     }
     #endregion
 
+    #region[지진]
+    public void EarthRumble(bool canStop = false)
+    {
+        if (!canStop)
+            SE.PlayOneShot(earthRumble);
+        else
+        {
+            StopSE.volume = SE.volume;
+            StopSE.PlayOneShot(earthRumble);
+        }
+    }
+    #endregion
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     #region[시계소리]
@@ -729,6 +746,25 @@ public class SoundManager : MonoBehaviour
             BGM.Pause();
             SubBGM.volume = BGM.volume;
             SubBGM.clip = title;
+            SubBGM.Play();
+        }
+    }
+    #endregion
+
+    #region[도감]
+    public void Records(bool sub = false)
+    {
+        if (!sub)
+        {
+            SubBGM.Pause();
+            BGM.clip = records;
+            BGM.Play();
+        }
+        else
+        {
+            BGM.Pause();
+            SubBGM.volume = BGM.volume;
+            SubBGM.clip = records;
             SubBGM.Play();
         }
     }

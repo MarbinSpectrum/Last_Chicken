@@ -51,6 +51,9 @@ public class PlayData
 
     ///////////////////////////////////////////////////////////////////
 
+    public bool[] monsterRecords = new bool[MonsterManager.monsterName.Length];
+    public bool[] itemRecords = new bool[ItemManager.itemName.Length];
+
     public int seed = 0;
 
     //초기화
@@ -113,6 +116,12 @@ public class PlayData
             playerBuffItemNum[i] = 0;
             playerBuffItemTime[i] = 0;
         }
+
+        for (int i = 0; i < MonsterManager.monsterName.Length; i++)
+            monsterRecords[i] = false;
+
+        for (int i = 0; i < ItemManager.itemName.Length; i++)
+            itemRecords[i] = false;
 
         seed = Random.Range(0, 10000);
     }

@@ -167,14 +167,17 @@ public class ObjectCave : CustomCollider
             GroundManager.instance.InitDigMask();
             CaveManager.instance.CaveExit();
             SoundManager.instance.PlayBGM_Sound(true);
-
         }
+
 
         fadeAct = false;
         Player.instance.invincibility = false;
         Player.instance.canControl = true;
 
         targetObject.SetActive(act);
+        EffectManager.instance.PoolOff();
+        if (StageWall.instance)
+            StageWall.instance.gameObject.SetActive(!act);
         ObjectManager.instance.gameObject.SetActive(!act);
         MonsterManager.instance.gameObject.SetActive(!act);
         ItemManager.instance.CaveObjectAct(act);

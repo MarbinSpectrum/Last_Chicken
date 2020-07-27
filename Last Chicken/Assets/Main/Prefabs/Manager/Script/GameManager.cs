@@ -2,6 +2,7 @@
 using System.IO;
 using TerrainEngine2D;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class GameManager : TerrainGenerator
 {
@@ -83,6 +84,8 @@ public class GameManager : TerrainGenerator
     #region[Update]
     public void Update()
     {
+        ItemRecord();
+
         if (gamePause)
             Time.timeScale = 0;
         else
@@ -116,6 +119,7 @@ public class GameManager : TerrainGenerator
     #region[데이터 클리어]
     public void ClearData()
     {
+        //삭제하지않을데이터들
         int screenWidth = playData.ScreenWidth;
         int screenHeight = playData.ScreenHeight;
         float seVolume = playData.SE_Volume;
@@ -123,7 +127,17 @@ public class GameManager : TerrainGenerator
         bool fullScreen = playData.fullScreen;
         bool firstGame = playData.firstGame;
         PlayData.Language language = playData.language;
+        List<bool> monsterRecordTemp = new List<bool>();
+        for (int i = 0; i < playData.monsterRecords.Length; i++)
+            monsterRecordTemp.Add(playData.monsterRecords[i]);
+        List<bool> itemRecordTemp = new List<bool>();
+        for (int i = 0; i < playData.itemRecords.Length; i++)
+            itemRecordTemp.Add(playData.itemRecords[i]);
+
+        //데이터 삭제
         playData = new PlayData();
+
+        //삭제하지않을데이터입력
         playData.ScreenWidth = screenWidth;
         playData.ScreenHeight = screenHeight;
         playData.SE_Volume = seVolume;
@@ -131,6 +145,10 @@ public class GameManager : TerrainGenerator
         playData.fullScreen = fullScreen;
         playData.firstGame = firstGame;
         playData.language = language;
+        for (int i = 0; i < playData.monsterRecords.Length; i++)
+            playData.monsterRecords[i] = monsterRecordTemp[i];
+        for (int i = 0; i < playData.itemRecords.Length; i++)
+            playData.itemRecords[i] = itemRecordTemp[i];
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -177,7 +195,6 @@ public class GameManager : TerrainGenerator
         string data = File.ReadAllText(Application.dataPath + "/Resources/PlayData.json");
         if (data != null)
             playData = JsonUtility.FromJson<PlayData>(data.ToString());
-
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -252,6 +269,19 @@ public class GameManager : TerrainGenerator
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    #region[아이템 기록]
+    public void ItemRecord()
+    {
+        for(int i = 0; i < itemSlot.Length; i++)
+            if(slotAct[i])
+            {
+                int itemNum = ItemManager.FindData(itemSlot[i]);
+                if(itemNum != -1)
+                    playData.itemRecords[itemNum] = true;
+            }
+    }
+    #endregion
+
     #region[수치 설정]
     public void SetValue()
     {
@@ -274,7 +304,7 @@ public class GameManager : TerrainGenerator
     #region[인게임인지 검사]
     public bool InGame()
     {
-        return !SceneController.instance.nowScene.Equals("FirstStart") && !SceneController.instance.nowScene.Equals("Title") && !SceneController.instance.nowScene.Equals("Prologue") && !SceneController.instance.nowScene.Equals("Demo");
+        return !SceneController.instance.nowScene.Equals("Records") && !SceneController.instance.nowScene.Equals("FirstStart") && !SceneController.instance.nowScene.Equals("Title") && !SceneController.instance.nowScene.Equals("Prologue") && !SceneController.instance.nowScene.Equals("Demo");
     }
     #endregion
 

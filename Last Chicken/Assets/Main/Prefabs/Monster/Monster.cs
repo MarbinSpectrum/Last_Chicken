@@ -180,6 +180,10 @@ public abstract class Monster : CustomCollider
 
         if (hp <= 0)
         {
+            int monsterNum = MonsterManager.FindData(transform.name);
+            if (monsterNum != -1)
+                GameManager.instance.playData.monsterRecords[monsterNum] = true;
+
             EffectManager.instance.Vibration(EffectManager.instance.monsterDeadVibration.num, EffectManager.instance.monsterDeadVibration.power);
             SoundManager.instance.MonsterDead();
             transform.position = new Vector3(-1000,-1000,transform.position.z);

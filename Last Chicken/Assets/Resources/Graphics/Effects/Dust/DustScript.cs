@@ -18,7 +18,6 @@ public class DustScript : MonoBehaviour
     }
     #endregion
 
-
     IEnumerator AniCoroutine()
     {
         delayTime = Random.Range(0, 10);
@@ -45,6 +44,11 @@ public class DustScript : MonoBehaviour
 
     public void LightCheck()
     {
+        if(CaveManager.inCave)
+        {
+            img.SetActive(false);
+            return;
+        }
         Vector2Int nowPos = new Vector2Int(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y));
         if (AdvancedLightSystem.Instance)
         {
