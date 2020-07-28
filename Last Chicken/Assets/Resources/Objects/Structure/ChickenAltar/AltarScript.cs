@@ -124,7 +124,8 @@ public class AltarScript : AreaScript
 
             act = true;
         }
-
+        if (altarAnimator.GetCurrentAnimatorStateInfo(0).IsName("AltarUsed") && altarAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.1f && altarAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.9f)
+            EffectManager.instance.Vibration(10, altarAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime * 2);
         if (altarAnimator.GetCurrentAnimatorStateInfo(0).IsName("AltarUsed") && altarAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.95f && !usedEnd)
             usedEnd = true;
     }

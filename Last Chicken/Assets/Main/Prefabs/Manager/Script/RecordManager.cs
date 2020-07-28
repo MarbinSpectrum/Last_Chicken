@@ -26,6 +26,7 @@ public class RecordManager : MonoBehaviour
     public RectTransform itemData;
     public Vector2 itemDataSpace;
     public Vector2 itemDataSize;
+    public RectTransform explainRect;
 
     public List<GameObject> languageData = new List<GameObject>();
 
@@ -98,7 +99,7 @@ public class RecordManager : MonoBehaviour
             itemGrid.spacing = itemDataSpace;
         }
         if (itemContent != null)
-            itemContent.sizeDelta = new Vector2(itemContent.sizeDelta.x, 200 + itemDataSize.y * Mathf.Ceil(ItemManager.itemName.Length / 3f) + itemDataSpace.y * (ItemManager.itemName.Length / 3));
+            itemContent.sizeDelta = new Vector2(itemContent.sizeDelta.x, 200 + itemDataSize.y * Mathf.Ceil(ItemManager.itemName.Length / 4f) + itemDataSpace.y * (ItemManager.itemName.Length / 4));
     }
     #endregion
 
@@ -113,8 +114,6 @@ public class RecordManager : MonoBehaviour
         SoundManager.instance.BtnClick();
         SceneController.instance.MoveScene("Title");
     }
-
-
     #endregion
 
     #region[아이템 리스트 확인]
