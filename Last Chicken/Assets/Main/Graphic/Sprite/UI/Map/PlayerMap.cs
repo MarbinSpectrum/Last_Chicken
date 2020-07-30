@@ -136,7 +136,23 @@ public class PlayerMap : MonoBehaviour
                                 int ai = (int)(i / value);
                                 int aj = (int)(j / value);
                                 if (Exception.IndexOutRange(ai, aj, StageData.instance.groundData))
-                                    maptexture.SetPixel(i + (int)((maptexture.width - worldW * value) / 2) + offset.x, j + (int)((maptexture.height - worldH * value) / 2) + offset.y, GrounddataToColor(StageData.instance.groundData[ai, aj]));
+                                    if ((int)StageData.instance.groundData[ai, aj] != -1)
+                                    {
+                                        int[,] dic = new int[4, 2] { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+                                        bool check = false;
+                                        for(int d = 0; d < 4; d++)
+                                            if (Exception.IndexOutRange(ai + dic[d, 0], aj + dic[d, 1], StageData.instance.groundData))
+                                                if ((int)StageData.instance.groundData[ai + dic[d, 0], aj + dic[d, 1]] == -1)
+                                                    check = true;
+                                        if(!check)
+                                            maptexture.SetPixel(i + (int)((maptexture.width - worldW * value) / 2) + offset.x, j + (int)((maptexture.height - worldH * value) / 2) + offset.y, Empty_Color);
+                                        else
+                                            maptexture.SetPixel(i + (int)((maptexture.width - worldW * value) / 2) + offset.x, j + (int)((maptexture.height - worldH * value) / 2) + offset.y, Color.white);
+                                    }
+                                    else
+                                    {
+                                        maptexture.SetPixel(i + (int)((maptexture.width - worldW * value) / 2) + offset.x, j + (int)((maptexture.height - worldH * value) / 2) + offset.y, Color.gray);
+                                    }
                             }
                     }
                     else
