@@ -207,6 +207,14 @@ public class UIManager : MonoBehaviour
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    [NonSerialized] public GameObject itemBagUpgradeUI;               //가방업그레이드 UI
+    [NonSerialized] public Text itemBagUpgradeText;
+    [NonSerialized] public GameObject itemBagUpgradeYes;
+    [NonSerialized] public GameObject itemBagUpgradeNo;
+    [NonSerialized] public GameObject itemBagUpgradeOk;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     [NonSerialized] public GameObject settingMenu;  //설정 메뉴
     Dropdown windowDropdown;
     Toggle windowToggle;
@@ -552,6 +560,37 @@ public class UIManager : MonoBehaviour
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        itemBagUpgradeUI = canvas.Find("ItemBagUpgradeUI").gameObject;
+        itemBagUpgradeYes = itemBagUpgradeUI.transform.Find("Yes").gameObject;
+        itemBagUpgradeNo = itemBagUpgradeUI.transform.Find("No").gameObject;
+        itemBagUpgradeOk = itemBagUpgradeUI.transform.Find("Ok").gameObject;
+        itemBagUpgradeYes.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            if (GameManager.instance.playerMoney >= ItemBagShop.reinforceCost[GameManager.instance.playData.ItemBagLevel()])
+            {
+                GameManager.instance.playerMoney -= ItemBagShop.reinforceCost[GameManager.instance.playData.ItemBagLevel()];
+                ItemBagShop.instance.Reinforce();
+                SoundManager.instance.PlayerMoney();
+            }
+            else
+            {
+                SoundManager.instance.CantRun();
+            }
+        });
+        itemBagUpgradeNo.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            ItemBagShop.instance.thisUse = false;
+            Player.instance.canControl = true;
+        });
+        itemBagUpgradeOk.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            ItemBagShop.instance.thisUse = false;
+            Player.instance.canControl = true;
+        });
+        itemBagUpgradeText = itemBagUpgradeUI.transform.Find("Text").GetComponent<Text>();
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         settingMenu = canvas.Find("SettingMenu").gameObject;
         seSlider = settingMenu.transform.Find("SE").Find("Slider").GetComponent<Slider>();
         bgmSlider = settingMenu.transform.Find("BGM").Find("Slider").GetComponent<Slider>();
@@ -675,6 +714,7 @@ public class UIManager : MonoBehaviour
             shopUI.SetActive(false);
             movingShopUI.SetActive(false);
             smithyUI.SetActive(false);
+            itemBagUpgradeUI.SetActive(false);
             explainObject.SetActive(false);
             playerMoney.SetActive(false);
             playerState.SetActive(false);
@@ -828,6 +868,38 @@ public class UIManager : MonoBehaviour
                     else if (GameManager.instance.playData.language == PlayData.Language.English)
                         smithyText.text += "\n<color=#886600ff><size=40>Increases the overall quality of the pickaxe.(Increases attack force, increases attack speed.)</size></color>";
                 }
+            }
+            #endregion
+
+            #region[가방 업그레이드 UI 조절]
+            if (ItemBagShop.instance)
+            {
+                itemBagUpgradeUI.SetActive(ItemBagShop.instance.thisUse);
+                if (GameManager.instance.playData.ItemBagLevel() >= 3)
+                {
+                    itemBagUpgradeNo.SetActive(false);
+                    itemBagUpgradeYes.SetActive(false);
+                    itemBagUpgradeOk.SetActive(true);
+                    if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                        itemBagUpgradeText.text = "더 이상 가방 크기를 늘릴수 없다.";
+                    else if (GameManager.instance.playData.language == PlayData.Language.English)
+                        itemBagUpgradeText.text = "I can't increase the size of the bag anymore.";
+                }
+                else
+                {
+                    itemBagUpgradeNo.SetActive(true);
+                    itemBagUpgradeYes.SetActive(true);
+                    itemBagUpgradeOk.SetActive(false);
+                    if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                        itemBagUpgradeText.text = "가방을 늘릴려면 <color=#FFD600>" + Smithy.reinforceCost[Player.instance.pickLevel] + "</color> 만큼의 비용이 필요하다.\n비용을 지불하겠습니까?";
+                    else if (GameManager.instance.playData.language == PlayData.Language.English)
+                        itemBagUpgradeText.text = "It costs as much as <color=#FFD600>" + Smithy.reinforceCost[Player.instance.pickLevel] + "</color> to increase bags. \n Will you pay for it?";
+                }
+
+                if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                    itemBagUpgradeText.text += "\n<color=#886688ff><size=40>아이템을 더 많이 담을 수 있습니다.</size></color>";
+                else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    itemBagUpgradeText.text += "\n<color=#886688ff><size=40>You can store more items. (Attack increased)</size></color>";
             }
             #endregion
 
@@ -1101,8 +1173,15 @@ public class UIManager : MonoBehaviour
         {
             for (int i = 0; i < 6; i++)
             {
-                try { itemImg[i].sprite = ItemManager.instance.itemData[ItemManager.FindData(GameManager.instance.itemSlot[i])].itemImg; itemImg[i].enabled = true; }
-                catch { itemImg[i].enabled = false; }
+                try
+                {
+                    itemImg[i].sprite = ItemManager.instance.itemData[ItemManager.FindData(GameManager.instance.itemSlot[i])].itemImg;
+                    itemImg[i].enabled = true;
+                }
+                catch
+                {
+                    itemImg[i].enabled = false;
+                }
             }
         }
 

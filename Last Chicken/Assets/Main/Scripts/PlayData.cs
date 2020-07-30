@@ -56,6 +56,15 @@ public class PlayData
 
     public int seed = 0;
 
+    public int ItemBagLevel()
+    {
+        int level = 0;
+        for (int i = 3; i < 6; i++)
+            if (slotAct[i])
+                level++;
+        return level;
+    }
+
     //초기화
     public PlayData()
     {
