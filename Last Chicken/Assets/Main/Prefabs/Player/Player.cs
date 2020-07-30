@@ -1026,6 +1026,17 @@ public class Player : CustomCollider
         if (ShopScript.instance)
             ShopScript.instance.thisUse = false;
 
+        //지도사용 중지
+        if (PlayerMap.instance)
+        {
+            PlayerMap.instance.map.SetActive(false);
+            PlayerMap.instance.thisUse = false;
+            if (!CaveManager.inCave)
+            {
+                PlayerMap.instance.CameraSettingReset();
+            }
+        }
+
         //플레이어 체력감소
         if (shield > 0)
             shield--;

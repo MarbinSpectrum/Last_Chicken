@@ -92,15 +92,18 @@ public class FountainScript : AreaScript
             return;
         if (!used && IsAtPlayer(bodyCollider))
         {
-            if (/*Input.GetMouseButtonDown(1) || */ Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.W))
             {
-                Player.instance.canControl = false;
-                Player.instance.pray = true;
-                Player.instance.invincibility = true;
-                thisUse = false;
-                used = true;
-                SoundManager.instance.EarthRumble();
-                SoundManager.instance.Altar(true);
+                if (Player.instance.canControl)
+                {
+                    Player.instance.canControl = false;
+                    Player.instance.pray = true;
+                    Player.instance.invincibility = true;
+                    thisUse = false;
+                    used = true;
+                    SoundManager.instance.EarthRumble();
+                    SoundManager.instance.Altar(true);
+                }
             }
             uiMouse.SetActive(!thisUse);
         }

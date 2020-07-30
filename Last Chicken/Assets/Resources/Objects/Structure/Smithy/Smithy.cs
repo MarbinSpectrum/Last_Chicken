@@ -88,10 +88,18 @@ public class Smithy : AreaScript
             return;
         if (!used && IsAtPlayer(bodyCollider))
         {
-            if (/*Input.GetMouseButtonDown(1) || */Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.W))
             {
-                Player.instance.canControl = thisUse;
-                thisUse = !thisUse;
+                if(Player.instance.canControl && !thisUse)
+                {
+                    Player.instance.canControl = false;
+                    thisUse = true;
+                }
+                else if(thisUse)
+                {
+                    Player.instance.canControl = true;
+                    thisUse = false;
+                }
             }
             uiMouse.SetActive(!thisUse);
         }

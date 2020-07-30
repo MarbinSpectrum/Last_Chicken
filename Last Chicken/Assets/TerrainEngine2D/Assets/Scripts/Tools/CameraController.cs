@@ -14,6 +14,8 @@ namespace TerrainEngine2D
         //Focus: Will follow an object until the user uses Horizontal/Veritcal movement or right clicks
         public enum Followtype { None, Permanent, Focus }
         public bool edgeCheck;
+        public bool edgeX;
+        public bool edgeY;
         private World world;
         private Camera mainCamera;
         private Camera lightingCamera;
@@ -89,6 +91,8 @@ namespace TerrainEngine2D
             base.Awake();
             time = 0;
             edgeCheck = true;
+            edgeX = true;
+            edgeY = true;
         }
 
         private void Start()
@@ -188,10 +192,16 @@ namespace TerrainEngine2D
 
                     if (!edgeCheck)
                     {
-                        minX = -20000;
-                        maxX = 20000;
-                        minY = -20000;
-                        maxY = 20000;
+                        if(edgeX)
+                        {
+                            minX = -20000;
+                            maxX = 20000;
+                        }
+                        if (edgeY)
+                        {
+                            minY = -20000;
+                            maxY = 20000;
+                        }
 
                     }
                         newPosition = new Vector3(objectToFollow.position.x + objectCameraOffset.x, objectToFollow.position.y + objectCameraOffset.y, newPosition.z);
