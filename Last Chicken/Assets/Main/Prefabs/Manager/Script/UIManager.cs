@@ -254,6 +254,9 @@ public class UIManager : MonoBehaviour
 
     public List<GameObject> languageData = new List<GameObject>();
 
+    bool rightTrigger = false;
+    bool leftTrigger = false;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -671,7 +674,7 @@ public class UIManager : MonoBehaviour
             if (languageData[i])
                 languageData[i].SetActive(languageData[i].transform.name.Contains(GameManager.instance.playData.language.ToString()));
 
-        if (Input.GetKeyDown(KeyCode.Escape) && !goTitle)
+        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick2Button6)) && !goTitle)
         {
             if (GameManager.instance.InGame())
             {
@@ -1116,15 +1119,17 @@ public class UIManager : MonoBehaviour
         int actSlotNum = 0;
         for (int i = 0; i < 6; i++)
             if (GameManager.instance.slotAct[i])
-                actSlotNum++; 
+                actSlotNum++;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //아이템교체
-
-        if (Input.GetKeyDown(KeyCode.Q) || Input.GetAxis("Mouse ScrollWheel") > 0)
+        if (Input.GetAxisRaw("Right Trigger") == 0)
+            rightTrigger = false;
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetAxis("Mouse ScrollWheel") > 0 || (Input.GetAxisRaw("Right Trigger") == 1 && !rightTrigger))
         {
+            rightTrigger = true;
             ////////////////////////////////////////////////////////////////////////////////////////
             //슬롯 회전
             SlotCycle(1);
@@ -1142,9 +1147,11 @@ public class UIManager : MonoBehaviour
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //아이템버리기
-
-        if (Input.GetKeyDown(KeyCode.F) && Player.instance.canControl)
+        if (Input.GetAxisRaw("Left Trigger") == 0)
+            leftTrigger = false;
+        if ((Input.GetKeyDown(KeyCode.F) || (Input.GetAxisRaw("Left Trigger") == 1 && !leftTrigger)) && Player.instance.canControl)
         {
+            leftTrigger = true;
             int throwNum = GameManager.instance.selectNum;
             if (!GameManager.instance.itemSlot[throwNum].Equals(""))
             {

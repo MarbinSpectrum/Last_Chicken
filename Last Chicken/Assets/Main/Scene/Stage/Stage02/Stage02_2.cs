@@ -181,6 +181,7 @@ public class Stage02_2 : StageData
         ProceduralGeneration(world, groundData, GroundLayer.Dirt);
 
         outlineflipX = Random.Range(0, 100) > 50;
+        PlayerMap.instance.exitArrow = outlineflipX;
 
         for (int y = 0; y < world.WorldHeight; y++)
             for (int x = 0; x < world.WorldWidth; x++)
@@ -263,34 +264,42 @@ public class Stage02_2 : StageData
     void SetObject()
     {
         #region[보물배치]
-        if (Random.Range(0, 100) > 80)
+        List<Vector2Int> treasureList = new List<Vector2Int>();
+        for (int y = (int)(world.WorldHeight * 0.25f); y < world.WorldHeight - 1; y++)
         {
-            List<Vector2Int> treasureList = new List<Vector2Int>();
-            for (int y = world.WorldHeight / 2; y < world.WorldHeight - 1; y++)
+            for (int x = 0; x < world.WorldWidth - 1; x++)
             {
-                for (int x = 0; x < world.WorldWidth - 1; x++)
+                bool treasureFlag = true;
+                for (int ax = x; ax < x + 5; ax++)
                 {
-                    bool treasureFlag = true;
-                    for (int i = 0; i < 15; i++)
+                    for (int ay = y; ay < y + 3; ay++)
                     {
-                        int ax = x + i % 5;
-                        int ay = y / 5;
                         if (Exception.IndexOutRange(ax, ay, groundData) && groundData[ax, ay] != GroundLayer.Dirt)
+                        {
+                            ax = 10000;
+                            ay = 10000;
                             treasureFlag = false;
+                            break;
+                        }
                         else if (!Exception.IndexOutRange(ax, ay, groundData))
+                        {
+                            ax = 10000;
+                            ay = 10000;
                             treasureFlag = false;
+                            break;
+                        }
                     }
-
-                    if (treasureFlag)
-                        treasureList.Add(new Vector2Int(x, y));
-
                 }
+
+                if (treasureFlag)
+                    treasureList.Add(new Vector2Int(x, y));
+
             }
-            if (treasureList.Count > 0)
-            {
-                Vector2Int pos = treasureList[Random.Range(0, treasureList.Count)];
-                ObjectManager.instance.TreasureBox(pos + new Vector2Int(3, 2));
-            }
+        }
+        if (treasureList.Count > 0)
+        {
+            Vector2Int pos = treasureList[Random.Range(0, treasureList.Count)];
+            ObjectManager.instance.TreasureBox(pos + new Vector2Int(3, 2));
         }
         #endregion
 

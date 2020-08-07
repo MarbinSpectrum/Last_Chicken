@@ -537,6 +537,7 @@ public class GroundManager : MonoBehaviour
             StageData.instance.RemoveBlock(pos);
             StageData.instance.groundData[pos.x, pos.y] = (StageData.GroundLayer)(-1);
             LinkArea(pos);
+            PlayerMap.instance.DrawMapGroundData(pos.x, pos.y);
         }
         #endregion
     }

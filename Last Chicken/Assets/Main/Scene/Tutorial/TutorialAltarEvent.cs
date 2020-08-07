@@ -37,6 +37,7 @@ public class TutorialAltarEvent : CustomCollider
     bool digFlag = false;
 
     public List<GameObject> languageData = new List<GameObject>();
+    bool upTrigger;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -62,6 +63,8 @@ public class TutorialAltarEvent : CustomCollider
     #region[Update]
     public void Update()
     {
+        if (Input.GetAxisRaw("Vertical") == 0)
+            upTrigger = false;
         for (int i = 0; i < languageData.Count; i++)
             if (languageData[i])
                 languageData[i].SetActive(languageData[i].transform.name.Contains(GameManager.instance.playData.language.ToString()));
@@ -116,8 +119,9 @@ public class TutorialAltarEvent : CustomCollider
             if (IsAtPlayer(altarCollider))
             {
                 uiMouse.SetActive(true);
-                if (/*Input.GetMouseButtonDown(1) || */Input.GetKeyDown(KeyCode.W))
+                if (Input.GetKeyDown(KeyCode.W) || (Input.GetAxisRaw("Vertical") > 0 && !upTrigger))
                 {
+                    upTrigger = true;
                     Player.instance.canControl = false;
                     Player.instance.pray = true;
                     altarFlag = true;

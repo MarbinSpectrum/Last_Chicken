@@ -276,7 +276,7 @@ public class GameManager : TerrainGenerator
             if(slotAct[i])
             {
                 int itemNum = ItemManager.FindData(itemSlot[i]);
-                if(itemNum != -1)
+                if (itemNum != -1)
                     playData.itemRecords[itemNum] = true;
             }
     }

@@ -8,6 +8,7 @@ public class IglooObject : CustomCollider
     public GameObject enterUi;
     public List<GameObject> languageData = new List<GameObject>();
     bool used = false;
+    bool upTrigger;
 
     #region[Update]
     void Update()
@@ -29,9 +30,12 @@ public class IglooObject : CustomCollider
     #region[이글루들어가기]
     void EnterIgloo()
     {
+        if (Input.GetAxisRaw("Vertical") == 0)
+            upTrigger = false;
         enterUi.SetActive(!used && IsAtPlayer(check));
-        if (IsAtPlayer(check) && Input.GetKeyDown(KeyCode.W) && Player.instance.canControl && !used)
+        if (IsAtPlayer(check) && (Input.GetKeyDown(KeyCode.W) || (Input.GetAxisRaw("Vertical") > 0 && !upTrigger)) && Player.instance.canControl && !used)
         {
+            upTrigger = true;
             used = true;
             SceneController.instance.MoveScene("IglooMap");
             Player.instance.canControl = false;

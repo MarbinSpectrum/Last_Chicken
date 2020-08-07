@@ -40,7 +40,9 @@ public class ItemManager : ObjectPool
         "Garbage",
         "Hammer",
         "Crampons",
-        "Umbrella"
+        "Umbrella",
+        "Mineral_Map",
+        "Treasure_Map",
     };
 
     #region[스테이지 아이템 여부검사]

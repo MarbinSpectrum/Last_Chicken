@@ -82,6 +82,7 @@ public class SceneController : MonoBehaviour
             MonsterManager.instance.PoolOff();
             ItemManager.instance.PoolOff();
             CaveManager.instance.PoolOff();
+            ObjectManager.instance.treasurePos.Clear();
         }
 
         World world = World.Instance;

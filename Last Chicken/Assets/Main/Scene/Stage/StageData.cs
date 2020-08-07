@@ -15,7 +15,7 @@ public class StageData : TerrainGenerator
     public enum Layers { BackGround, Ground }
     //Block types
     public enum BackGroundLayer { NormalBackGround, AltarBackGround, DarkAltarBackGround }
-    public enum GroundLayer { Dirt, Stone, Copper, Sand, Granite, Iron, Silver, Gold, Mithril, Diamond, Magnetite, Titanium, Cobalt, Ice, UnBreakable, Grass, HearthStone }
+    public enum GroundLayer {Empty = -1, Dirt, Stone, Copper, Sand, Granite, Iron, Silver, Gold, Mithril, Diamond, Magnetite, Titanium, Cobalt, Ice, UnBreakable, Grass, HearthStone,End }
     public enum FluidType { Air, Water, Poison, Lava }
 
     public BackGroundLayer[,] backGroundData;

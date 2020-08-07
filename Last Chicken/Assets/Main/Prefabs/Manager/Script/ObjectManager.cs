@@ -143,6 +143,7 @@ public class ObjectManager : ObjectPool
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     GameObject treasureBox;
+    [HideInInspector] public List<GameObject> treasurePos = new List<GameObject>();
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1092,6 +1093,7 @@ public class ObjectManager : ObjectPool
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
         emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
+        treasurePos.Add(emp);
     }
     #endregion
 

@@ -925,6 +925,60 @@ MonoBehaviour:
     - when you use it.
     - 
     - <color=#ff0000ff>Active</color>
+  - itemImg: {fileID: 2187954390455599933, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uAD11\uBB3C\uC9C0\uB3C4"
+    itemName_Eng: Mineral Map
+    value0: 0
+    value1: 0
+    itemLevel: 0
+    itemExplain: "\uC9C0\uB3C4\uC5D0 \uAD11\uBB3C\uC758 \uC704\uCE58\uAC00 \uBCF4\uC785\uB2C8\uB2E4."
+    itemExplain_Eng: The map shows the location of the mineral.
+    cost: 500
+    spawnObject: 1
+    spawnShop: 1
+    spawnTreasureBox: 0
+    stage01: 1
+    stage02: 1
+    activeItem: 0
+    shopItemExplain:
+    - "\uC9C0\uB3C4\uC5D0 \uAD11\uBB3C\uC758 \uC704\uCE58\uAC00 \uBCF4\uC785\uB2C8\uB2E4."
+    - 
+    - 
+    - <color=#00ff00ff>Passive</color>
+    shopItemExplain_Eng:
+    - The map shows the location of the mineral.
+    - 
+    - 
+    - <color=#00ff00ff>Passive</color>
+  - itemImg: {fileID: 3441175708914941465, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
+    itemName: "\uBCF4\uBB3C\uC9C0\uB3C4"
+    itemName_Eng: TreasureMap
+    value0: 0
+    value1: 0
+    itemLevel: 2
+    itemExplain: "\uB9F5\uC5D0 \uBCF4\uBB3C\uC774 \uC874\uC7AC\uD55C\uB2E4\uBA74
+      \uD574\uB2F9 \uBCF4\uBB3C\uC758 \uC704\uCE58\uAC00 \uBCF4\uC785\uB2C8\uB2E4."
+    itemExplain_Eng: If a treasure exists on the map, the location of the treasure
+      is visible.
+    cost: 2000
+    spawnObject: 1
+    spawnShop: 1
+    spawnTreasureBox: 0
+    stage01: 0
+    stage02: 0
+    activeItem: 0
+    shopItemExplain:
+    - "\uB9F5\uC5D0 \uBCF4\uBB3C\uC774 \uC874\uC7AC\uD55C\uB2E4\uBA74"
+    - "\uD574\uB2F9 \uBCF4\uBB3C\uC758 \uC704\uCE58\uAC00 \uBCF4\uC785\uB2C8\uB2E4."
+    - 
+    - <color=#00ff00ff>Passive</color>
+    shopItemExplain_Eng:
+    - If a treasure exists on the map,
+    - ' the location of the treasure is visible.'
+    - 
+    - <color=#00ff00ff>Passive</color>
   ReSpawnItemList: 
   fieldObject: []
   caveObject: []

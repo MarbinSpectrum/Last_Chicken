@@ -15,7 +15,6 @@ public class CaveManager : ObjectPool
 
     public static bool inCave;
 
-
     #region[Awake]
     public void Awake()
     {

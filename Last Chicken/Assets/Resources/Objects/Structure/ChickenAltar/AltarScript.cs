@@ -14,6 +14,7 @@ public class AltarScript : AreaScript
     [System.NonSerialized] public bool onArea;
     Animator altarAnimator;
     GameObject uiMouse;
+    bool upTrigger;
 
     public List<GameObject> languageData = new List<GameObject>();
 
@@ -93,10 +94,13 @@ public class AltarScript : AreaScript
     {
         if (GameManager.instance.gamePause)
             return;
+        if (Input.GetAxisRaw("Vertical") == 0)
+            upTrigger = false;
         if (!used && IsAtPlayer(bodyCollider))
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.W) || (Input.GetAxisRaw("Vertical") > 0 && !upTrigger))
             {
+                upTrigger = true;
                 if (Player.instance.canControl && !thisUse)
                 {
                     Player.instance.canControl = false;

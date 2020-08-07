@@ -559,9 +559,9 @@ public class Player : CustomCollider
     void PlayerRun()
     {
         //누른 키에 따라 이동할려는 방향 값을 설정
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetAxisRaw("Horizontal") > 0)
             playerMoveDirection = +1;
-        else if (Input.GetKey(KeyCode.A))
+        else if (Input.GetAxisRaw("Horizontal") < 0)
             playerMoveDirection = -1;
         else
         {
@@ -597,7 +597,7 @@ public class Player : CustomCollider
         flipX = playerMoveDirection != 0 ? (int)playerMoveDirection : flipX;
 
         //이동 거리
-        float moveDistance = playerMoveDirection * speed;
+        float moveDistance = playerMoveDirection * speed * Mathf.Abs(Input.GetAxisRaw("Horizontal"));
         //순간적인 이동 거리
         Vector2 moveValue;
 
@@ -644,7 +644,7 @@ public class Player : CustomCollider
             //일정한 간격으로 걸음소리가 들리도록 시간을잼
             runSoundCycle += Time.deltaTime;
             //일정시간이 지나면
-            if(runSoundCycle > 0.3f)
+            if(runSoundCycle > 0.3f * (animator.GetBool("Walk") ? 2 : 1))
             {
                 runSoundCycle = 0;
                 Vector2Int pos = new Vector2Int(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y) - 1);
@@ -681,11 +681,11 @@ public class Player : CustomCollider
         if (grounded || hang)
         {
             bool downFlag = false;
-            if (hang && Input.GetKey(KeyCode.S))
+            if (hang && (Input.GetKey(KeyCode.S) || Input.GetAxisRaw("Vertical") < 0))
                 downFlag = true;
 
             //점프키룰 누름
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick2Button0))
             {
                 //점프사운드
                 if (!inFluid)
@@ -714,10 +714,10 @@ public class Player : CustomCollider
         if (pressJump)
         {
             float jumpTimeLimit = 0.5f; //점프키를 누르는 최대시간
-            if (Input.GetKey(KeyCode.Space))  //점프키를 누르고 있는 시간을 체크
+            if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick2Button0))  //점프키를 누르고 있는 시간을 체크
                 jumpKeyTime += Time.deltaTime;
 
-            if (jumpKeyTime >= jumpTimeLimit || Input.GetKeyUp(KeyCode.Space)) //점프키 최대 시간을 넘기거나 점프키를 땟을 경우
+            if (jumpKeyTime >= jumpTimeLimit || Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick2Button0)) //점프키 최대 시간을 넘기거나 점프키를 땟을 경우
             {
                 //올라가는 중이면 더이상 위로 올라가지 않도록
                 if (rigidbody2D.velocity.y > 0)
@@ -749,14 +749,16 @@ public class Player : CustomCollider
         /////////////////////////////////////////////////////////////////////////////////////////
 
         //마우스위치를 바꾸면 콤보 초기화및 공격 위치 변경
-        if (attackTop != (MouseManager.instance.mousePos.y > transform.position.y))
+        if ((!Input.GetMouseButton(0) && attackTop == Input.GetAxisRaw("Vertical") < 0) || (Input.GetMouseButton(0) && attackTop != (MouseManager.instance.mousePos.y > transform.position.y)))
         {
             attackTop = !attackTop;
             combo = 0;
         }
-
-        //if(AttackingCheck.aniTime == 0)
-         //   attackFlag = false;
+        //if (attackTop != (MouseManager.instance.mousePos.y > transform.position.y))
+        //{
+        //    attackTop = !attackTop;
+        //    combo = 0;
+        //}
 
         //콤보 제한시간 처리
         comboTime -= Time.deltaTime;
@@ -766,7 +768,7 @@ public class Player : CustomCollider
         /////////////////////////////////////////////////////////////////////////////////////////
 
         //공격처리
-        if (Input.GetMouseButton(0) && !attackFlag)
+        if ((Input.GetMouseButton(0) || Input.GetKey(KeyCode.Joystick2Button2)) && !attackFlag)
         {
             if (inFluid)
                 EffectManager.instance.CreateBubbleEffect(transform.position, new Vector4(-2, 2, -1, 1), 20, 20);
@@ -795,10 +797,10 @@ public class Player : CustomCollider
             damageCollider.SetActive(true);
 
             //마우스의 위치에 따라 이미지 방향 바꿈
-            if (MouseManager.instance.mousePos.x > transform.position.x)
-                flipX = 1;
-            else if (MouseManager.instance.mousePos.x < transform.position.x)
-                flipX = -1;
+            //if (MouseManager.instance.mousePos.x > transform.position.x)
+            //    flipX = 1;
+            //else if (MouseManager.instance.mousePos.x < transform.position.x)
+            //    flipX = -1;
 
         }
     }
@@ -808,7 +810,7 @@ public class Player : CustomCollider
     void PlayerGetChicken()
     {
         //E키로 치킨이 범위안에 있으면 주움
-        if (Input.GetKeyDown(KeyCode.E) && !getChicken)
+        if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Joystick2Button3)) && !getChicken)
             if (IsAtChicken(bodyCollider) || 
                 (chicken_Easy_Catch && Vector2.Distance(new Vector2(transform.position.x, transform.position.y + 2), Chicken.instance.transform.position) < 4))
             {
@@ -836,7 +838,8 @@ public class Player : CustomCollider
         Monster.useMonsterRadar = ItemManager.instance.CanUsePassiveItem("Monster_Radar");
         TreasureBoxScirpt.useTreasureBoxRadar = ItemManager.instance.CanUsePassiveItem("TreasureBox_Radar");
         TrapScript.useTrapRadar = ItemManager.instance.CanUsePassiveItem("Trap_Radar");
-
+        PlayerMap.useMineralMap = ItemManager.instance.CanUsePassiveItem("Mineral_Map");
+        PlayerMap.useTreasureMap = ItemManager.instance.CanUsePassiveItem("Treasure_Map");
         hasFeatherShoes = ItemManager.instance.CanUsePassiveItem("Feather_Shoes");
 
         bat_Hate_Light = (ItemManager.instance.CanUsePassiveItem("Torch") || ItemManager.instance.CanUsePassiveItem("Mine_Helmet"));
@@ -864,7 +867,7 @@ public class Player : CustomCollider
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Joystick2Button1))
         {
             if (CaveManager.inCave)
                 return;
@@ -1031,10 +1034,6 @@ public class Player : CustomCollider
         {
             PlayerMap.instance.map.SetActive(false);
             PlayerMap.instance.thisUse = false;
-            if (!CaveManager.inCave)
-            {
-                PlayerMap.instance.CameraSettingReset();
-            }
         }
 
         //플레이어 체력감소
@@ -1225,13 +1224,14 @@ public class Player : CustomCollider
         //플레이어의 데미지 시간에 따른 애니메이션
         PlayerDamageTime();
 
-        bool GetRunKey = (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A));
+        bool GetRunKey = (Input.GetAxisRaw("Horizontal") != 0);
         //애니메이션설정
         if (runFlag && GetRunKey)
             animator.SetBool("Run", true);
         else
             animator.SetBool("Run", false);
 
+        animator.SetBool("Walk", Mathf.Abs(Input.GetAxisRaw("Horizontal")) < 0.7f);
         animator.SetBool("Pray", pray);
 
         animator.SetBool("Hang", hang);
