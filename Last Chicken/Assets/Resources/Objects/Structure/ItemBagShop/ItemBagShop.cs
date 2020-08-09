@@ -19,7 +19,6 @@ public class ItemBagShop : AreaScript
     public List<GameObject> languageData = new List<GameObject>();
     public List<GameObject> actObj = new List<GameObject>();
     public List<GameObject> unActObj = new List<GameObject>();
-    bool upTrigger;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -87,13 +86,10 @@ public class ItemBagShop : AreaScript
     {
         if (GameManager.instance.gamePause)
             return;
-        if (Input.GetAxisRaw("Vertical") == 0)
-            upTrigger = false;
         if (!used && IsAtPlayer(bodyCollider))
         {
-            if (Input.GetKeyDown(KeyCode.W) || (Input.GetAxisRaw("Vertical") > 0 && !upTrigger))
+            if (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.Up]) || Input.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Up]))
             {
-                upTrigger = true;
                 Player.instance.canControl = thisUse;
                 thisUse = !thisUse;
             }

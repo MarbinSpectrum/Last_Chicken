@@ -216,6 +216,16 @@ public class UIManager : MonoBehaviour
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     [NonSerialized] public GameObject settingMenu;  //설정 메뉴
+
+    GameObject selectSettingMenu;
+    Button gameSettingBtn;
+    GameObject gameSetting;
+    Button gameKeyBoardBtn;
+    GameObject gameKeyBoard;
+    Button gamePadBtn;
+    GameObject gamePad;
+
+
     Dropdown windowDropdown;
     Toggle windowToggle;
 
@@ -253,9 +263,6 @@ public class UIManager : MonoBehaviour
     [NonSerialized] public GraphicRaycaster graphicRaycaster;
 
     public List<GameObject> languageData = new List<GameObject>();
-
-    bool rightTrigger = false;
-    bool leftTrigger = false;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -595,14 +602,48 @@ public class UIManager : MonoBehaviour
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         settingMenu = canvas.Find("SettingMenu").gameObject;
-        seSlider = settingMenu.transform.Find("SE").Find("Slider").GetComponent<Slider>();
-        bgmSlider = settingMenu.transform.Find("BGM").Find("Slider").GetComponent<Slider>();
-        windowDropdown = settingMenu.transform.Find("Window").Find("Dropdown").GetComponent<Dropdown>();
-        windowToggle = settingMenu.transform.Find("Toggle").GetComponent<Toggle>();
+
+        selectSettingMenu = settingMenu.transform.Find("Select").gameObject;
+
+        gameSetting = settingMenu.transform.Find("Sound_Window_Language").gameObject;
+        gameSettingBtn = selectSettingMenu.transform.Find("GameSetting").GetComponent<Button>();
+
+        gameKeyBoard = settingMenu.transform.Find("Controll_KeyBoard").gameObject;
+        gameKeyBoardBtn = selectSettingMenu.transform.Find("KeyBoard").GetComponent<Button>();
+
+        gamePad = settingMenu.transform.Find("Controll_GamePad").gameObject;
+        gamePadBtn = selectSettingMenu.transform.Find("GamePad").GetComponent<Button>();
+
+        gameSettingBtn.onClick.AddListener(() =>
+        {
+            selectSettingMenu.SetActive(false);
+            gameSetting.SetActive(true);
+            gameKeyBoard.SetActive(false);
+            gamePad.SetActive(false);
+        });
+        gameKeyBoardBtn.onClick.AddListener(() =>
+        {
+            selectSettingMenu.SetActive(false);
+            gameSetting.SetActive(false);
+            gameKeyBoard.SetActive(true);
+            gamePad.SetActive(false);
+        });
+        gamePadBtn.onClick.AddListener(() =>
+        {
+            selectSettingMenu.SetActive(false);
+            gameSetting.SetActive(false);
+            gameKeyBoard.SetActive(false);
+            gamePad.SetActive(true);
+        });
+
+        seSlider = settingMenu.transform.Find("Sound_Window_Language").Find("SE").Find("Slider").GetComponent<Slider>();
+        bgmSlider = settingMenu.transform.Find("Sound_Window_Language").Find("BGM").Find("Slider").GetComponent<Slider>();
+        windowDropdown = settingMenu.transform.Find("Sound_Window_Language").Find("Window").Find("Dropdown").GetComponent<Dropdown>();
+        windowToggle = settingMenu.transform.Find("Sound_Window_Language").Find("Toggle").GetComponent<Toggle>();
 
         graphicRaycaster = canvas.GetComponent<GraphicRaycaster>();
 
-        languageObject = settingMenu.transform.Find("Language").gameObject;
+        languageObject = settingMenu.transform.Find("Sound_Window_Language").Find("Language").gameObject;
         languageDropdown = languageObject.transform.Find("Dropdown").GetComponent<Dropdown>();
 
     }
@@ -674,7 +715,7 @@ public class UIManager : MonoBehaviour
             if (languageData[i])
                 languageData[i].SetActive(languageData[i].transform.name.Contains(GameManager.instance.playData.language.ToString()));
 
-        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick2Button6)) && !goTitle)
+        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button6)) && !goTitle && !SetGameKey.runSetting)
         {
             if (GameManager.instance.InGame())
             {
@@ -1114,6 +1155,8 @@ public class UIManager : MonoBehaviour
     #region[플레이어 아이템]
     void PlayerItem()
     {
+        if (GameManager.instance.gamePause)
+            return;
         ////////////////////////////////////////////////////////////////////////////////////////
         //활성화슬롯갯수를 파악
         int actSlotNum = 0;
@@ -1125,11 +1168,8 @@ public class UIManager : MonoBehaviour
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //아이템교체
-        if (Input.GetAxisRaw("Right Trigger") == 0)
-            rightTrigger = false;
-        if (Input.GetKeyDown(KeyCode.Q) || Input.GetAxis("Mouse ScrollWheel") > 0 || (Input.GetAxisRaw("Right Trigger") == 1 && !rightTrigger))
+        if (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.ItemChange]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.ItemChange]) || Input.GetAxis("Mouse ScrollWheel") > 0)
         {
-            rightTrigger = true;
             ////////////////////////////////////////////////////////////////////////////////////////
             //슬롯 회전
             SlotCycle(1);
@@ -1147,11 +1187,8 @@ public class UIManager : MonoBehaviour
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //아이템버리기
-        if (Input.GetAxisRaw("Left Trigger") == 0)
-            leftTrigger = false;
-        if ((Input.GetKeyDown(KeyCode.F) || (Input.GetAxisRaw("Left Trigger") == 1 && !leftTrigger)) && Player.instance.canControl)
+        if ((Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.ItemTrash]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.ItemTrash])) && Player.instance.canControl)
         {
-            leftTrigger = true;
             int throwNum = GameManager.instance.selectNum;
             if (!GameManager.instance.itemSlot[throwNum].Equals(""))
             {
@@ -1424,6 +1461,14 @@ public class UIManager : MonoBehaviour
         SoundManager.instance.SelectMenu();
         settingMenu.SetActive(b);
         uiBack.SetActive(b);
+
+        SetGameKey.runSetting = false;
+        selectSettingMenu.SetActive(true);
+        gameSetting.SetActive(false);
+        gameKeyBoard.SetActive(false);
+        gamePad.SetActive(false);
+
+
         if(!pauseMenu.activeSelf)
             GameManager.instance.gamePause = b;
     }

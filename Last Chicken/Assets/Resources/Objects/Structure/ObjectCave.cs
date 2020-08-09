@@ -23,7 +23,6 @@ public class ObjectCave : CustomCollider
     public Color offColor = Color.white;
     bool act = false;
     bool fadeAct = false;
-    bool upTrigger;
 
     #region[Update]
     void Update()
@@ -127,13 +126,10 @@ public class ObjectCave : CustomCollider
         bool playerIn = IsAtPlayer(check) && Player.instance.grounded;
         uiMouse.SetActive(playerIn);
 
-        if (Input.GetAxisRaw("Vertical") == 0)
-            upTrigger = false;
         if (playerIn && Player.instance.canControl)
         {
-            if (Input.GetKeyDown(KeyCode.W) || (Input.GetAxisRaw("Vertical") > 0 && !upTrigger))
+            if (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.Up]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Up]))
             {
-                upTrigger = true;
                 act = !act;
                 fadeAct = true;
                 Player.instance.invincibility = true;

@@ -14,7 +14,6 @@ public class FountainScript : AreaScript
 
     Animator fountainAnimator;
     GameObject uiMouse;
-    bool upTrigger;
 
     public List<GameObject> languageData = new List<GameObject>();
 
@@ -91,13 +90,10 @@ public class FountainScript : AreaScript
     {
         if (GameManager.instance.gamePause)
             return;
-        if (Input.GetAxisRaw("Vertical") == 0)
-            upTrigger = false;
         if (!used && IsAtPlayer(bodyCollider))
         {
-            if (Input.GetKeyDown(KeyCode.W) || (Input.GetAxisRaw("Vertical") > 0 && !upTrigger))
+            if (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.Up]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Up]))
             {
-                upTrigger = true;
                 if (Player.instance.canControl)
                 {
                     Player.instance.canControl = false;

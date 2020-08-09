@@ -91,7 +91,7 @@ public class Smithy : AreaScript
             upTrigger = false;
         if (!used && IsAtPlayer(bodyCollider))
         {
-            if (Input.GetKeyDown(KeyCode.W) || (Input.GetAxisRaw("Vertical") > 0 && !upTrigger))
+            if (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.Up]) || Input.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Up]) || (Input.GetAxisRaw("Vertical") > 0 && !upTrigger))
             {
                 upTrigger = true;
                 if (Player.instance.canControl && !thisUse)

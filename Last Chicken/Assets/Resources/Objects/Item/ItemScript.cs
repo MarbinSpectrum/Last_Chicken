@@ -85,7 +85,7 @@ public class ItemScript : CustomCollider
 
         if (GameManager.getItemDelay < 0 && IsAtPlayer(bodyCollider))
         {
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Joystick2Button3))
+            if (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.ItemGet]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.ItemGet]))
             {
                 if (ItemManager.FindData(transform.name) != -1)
                 {

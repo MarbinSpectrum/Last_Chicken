@@ -114,6 +114,9 @@ public class PlayerMap : MonoBehaviour
             return;
         }
 
+        if (GameManager.instance.gamePause)
+            return;
+
         mineral_Img.gameObject.SetActive(useMineralMap);
         treasure_Img.gameObject.SetActive(useTreasureMap);
         
@@ -126,7 +129,7 @@ public class PlayerMap : MonoBehaviour
         UpdatePlayerPos();
         UpdateTreasurePos();
 
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.Map]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Map]))
         {
             if (Player.instance.grounded && Player.instance.canControl && !thisUse)
             {

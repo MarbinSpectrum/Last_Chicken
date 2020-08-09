@@ -238,6 +238,7 @@ public class Player : CustomCollider
     #region[LateUpdate]
     public void LateUpdate()
     {
+        //Debug.Log(Input.GetAxisRaw("HorizontalAxis") + "," + -Input.GetAxisRaw("VerticalAxis"));
         PlayerLightColor();
         PlayerStateCheck();
         PlayerBuffCheck();
@@ -265,7 +266,6 @@ public class Player : CustomCollider
         runFlag = false;
         chickenHead.SetActive(getChicken);
         animator.SetBool("Hang", hang);
-
 
         //조작가능상태이거나 멈춰있으면
         if (!canControl || stop)
@@ -559,9 +559,9 @@ public class Player : CustomCollider
     void PlayerRun()
     {
         //누른 키에 따라 이동할려는 방향 값을 설정
-        if (Input.GetAxisRaw("Horizontal") > 0)
+        if (KeyManager.HorizonScale > 0)
             playerMoveDirection = +1;
-        else if (Input.GetAxisRaw("Horizontal") < 0)
+        else if (KeyManager.HorizonScale < 0)
             playerMoveDirection = -1;
         else
         {
@@ -597,7 +597,7 @@ public class Player : CustomCollider
         flipX = playerMoveDirection != 0 ? (int)playerMoveDirection : flipX;
 
         //이동 거리
-        float moveDistance = playerMoveDirection * speed * Mathf.Abs(Input.GetAxisRaw("Horizontal"));
+        float moveDistance = playerMoveDirection * speed * Mathf.Abs(KeyManager.HorizonScale);
         //순간적인 이동 거리
         Vector2 moveValue;
 
@@ -681,11 +681,11 @@ public class Player : CustomCollider
         if (grounded || hang)
         {
             bool downFlag = false;
-            if (hang && (Input.GetKey(KeyCode.S) || Input.GetAxisRaw("Vertical") < 0))
+            if (hang && (KeyManager.VerticalScale < 0))
                 downFlag = true;
 
             //점프키룰 누름
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick2Button0))
+            if (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.Jump]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Jump]))
             {
                 //점프사운드
                 if (!inFluid)
@@ -714,10 +714,10 @@ public class Player : CustomCollider
         if (pressJump)
         {
             float jumpTimeLimit = 0.5f; //점프키를 누르는 최대시간
-            if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick2Button0))  //점프키를 누르고 있는 시간을 체크
+            if (Input.GetKey(KeyManager.instance.keyBoard[GameKeyType.Jump]) || KeyManager.GetKey(KeyManager.instance.gamePad[GameKeyType.Jump]))  //점프키를 누르고 있는 시간을 체크
                 jumpKeyTime += Time.deltaTime;
 
-            if (jumpKeyTime >= jumpTimeLimit || Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick2Button0)) //점프키 최대 시간을 넘기거나 점프키를 땟을 경우
+            if (jumpKeyTime >= jumpTimeLimit || Input.GetKeyUp(KeyManager.instance.keyBoard[GameKeyType.Jump]) || KeyManager.GetKeyUp(KeyManager.instance.gamePad[GameKeyType.Jump])) //점프키 최대 시간을 넘기거나 점프키를 땟을 경우
             {
                 //올라가는 중이면 더이상 위로 올라가지 않도록
                 if (rigidbody2D.velocity.y > 0)
@@ -749,10 +749,13 @@ public class Player : CustomCollider
         /////////////////////////////////////////////////////////////////////////////////////////
 
         //마우스위치를 바꾸면 콤보 초기화및 공격 위치 변경
-        if ((!Input.GetMouseButton(0) && attackTop == Input.GetAxisRaw("Vertical") < 0) || (Input.GetMouseButton(0) && attackTop != (MouseManager.instance.mousePos.y > transform.position.y)))
+        if(Input.GetKey(KeyManager.instance.keyBoard[GameKeyType.Attack]) || KeyManager.GetKey(KeyManager.instance.gamePad[GameKeyType.Attack]))
         {
-            attackTop = !attackTop;
-            combo = 0;
+            if((KeyManager.nowController == GameController.GamePad && attackTop == KeyManager.VerticalScale < 0) || (KeyManager.nowController == GameController.KeyBoard && attackTop != (MouseManager.instance.mousePos.y > transform.position.y)))
+            {
+                attackTop = !attackTop;
+                combo = 0;
+            }
         }
         //if (attackTop != (MouseManager.instance.mousePos.y > transform.position.y))
         //{
@@ -768,7 +771,7 @@ public class Player : CustomCollider
         /////////////////////////////////////////////////////////////////////////////////////////
 
         //공격처리
-        if ((Input.GetMouseButton(0) || Input.GetKey(KeyCode.Joystick2Button2)) && !attackFlag)
+        if ((Input.GetKey(KeyManager.instance.keyBoard[GameKeyType.Attack]) || KeyManager.GetKey(KeyManager.instance.gamePad[GameKeyType.Attack])) && !attackFlag)
         {
             if (inFluid)
                 EffectManager.instance.CreateBubbleEffect(transform.position, new Vector4(-2, 2, -1, 1), 20, 20);
@@ -810,7 +813,7 @@ public class Player : CustomCollider
     void PlayerGetChicken()
     {
         //E키로 치킨이 범위안에 있으면 주움
-        if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Joystick2Button3)) && !getChicken)
+        if (((Input.GetKey(KeyManager.instance.keyBoard[GameKeyType.ItemGet]) || KeyManager.GetKey(KeyManager.instance.gamePad[GameKeyType.ItemGet]))) && !getChicken)
             if (IsAtChicken(bodyCollider) || 
                 (chicken_Easy_Catch && Vector2.Distance(new Vector2(transform.position.x, transform.position.y + 2), Chicken.instance.transform.position) < 4))
             {
@@ -867,7 +870,7 @@ public class Player : CustomCollider
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Joystick2Button1))
+        if ((Input.GetKey(KeyManager.instance.keyBoard[GameKeyType.ItemUse]) || KeyManager.GetKey(KeyManager.instance.gamePad[GameKeyType.ItemUse])))
         {
             if (CaveManager.inCave)
                 return;
@@ -1224,14 +1227,14 @@ public class Player : CustomCollider
         //플레이어의 데미지 시간에 따른 애니메이션
         PlayerDamageTime();
 
-        bool GetRunKey = (Input.GetAxisRaw("Horizontal") != 0);
+        bool GetRunKey = (KeyManager.HorizonScale != 0);
         //애니메이션설정
         if (runFlag && GetRunKey)
             animator.SetBool("Run", true);
         else
             animator.SetBool("Run", false);
 
-        animator.SetBool("Walk", Mathf.Abs(Input.GetAxisRaw("Horizontal")) < 0.7f);
+        animator.SetBool("Walk", Mathf.Abs(KeyManager.HorizonScale) < 0.7f);
         animator.SetBool("Pray", pray);
 
         animator.SetBool("Hang", hang);
