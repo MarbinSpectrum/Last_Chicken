@@ -61,7 +61,16 @@ public class SetGameKey : MonoBehaviour
             }
             else if (gameController == GameController.Wireless)
             {
-                text_UI.text = "<color=#FF00FF>[" + KeyManager.instance.gamePad[gameKeyType].ToString() + "]</color>";
+                if (KeyManager.instance.gamePad[gameKeyType] == "□")
+                    text_UI.text = "<color=#FF00A2>" + "[□]" + "</color>";
+                else if (KeyManager.instance.gamePad[gameKeyType] == "Ⅹ")
+                    text_UI.text = "<color=#009CFF>" + "[Ⅹ]" + "</color>";
+                else if (KeyManager.instance.gamePad[gameKeyType] == "○")
+                    text_UI.text = "<color=#FF0000>" + "[○]" + "</color>";
+                else if (KeyManager.instance.gamePad[gameKeyType] == "△")
+                    text_UI.text = "<color=#1DFF00>" + "[△]" + "</color>";
+                else
+                    text_UI.text = "<color=#FF00FF>[" + KeyManager.instance.gamePad[gameKeyType].ToString() + "]</color>";
             }
         }
     }
