@@ -111,12 +111,12 @@ public class TutorialAltarEvent : CustomCollider
         #endregion
 
         #region[제단 이벤트]
-        else if (!altarFlag)
+        else if (!altarFlag) 
         {
             if (IsAtPlayer(altarCollider))
             {
                 uiMouse.SetActive(true);
-                if (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.Up]) || Input.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Up]))
+                if (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.Up]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Up]))
                 {
                     Player.instance.canControl = false;
                     Player.instance.pray = true;

@@ -219,12 +219,22 @@ public class UIManager : MonoBehaviour
 
     GameObject selectSettingMenu;
     Button gameSettingBtn;
+    GameObject gameSettingSelect;
+    GameObject gameSettingNotSelect;
     GameObject gameSetting;
+
     Button gameKeyBoardBtn;
+    GameObject gameKeyBoardSelect;
+    GameObject gameKeyBoardNotSelect;
     GameObject gameKeyBoard;
+
     Button gamePadBtn;
+    GameObject gamePadSelect;
+    GameObject gamePadNotSelect;
     GameObject gamePad;
 
+    GameObject NotConnected;
+    GameObject PadOption;
 
     Dropdown windowDropdown;
     Toggle windowToggle;
@@ -605,35 +615,62 @@ public class UIManager : MonoBehaviour
 
         selectSettingMenu = settingMenu.transform.Find("Select").gameObject;
 
+        NotConnected = settingMenu.transform.Find("Controll_GamePad").Find("NotConnected").gameObject;
+        PadOption = settingMenu.transform.Find("Controll_GamePad").Find("PadOption").gameObject;
+
         gameSetting = settingMenu.transform.Find("Sound_Window_Language").gameObject;
         gameSettingBtn = selectSettingMenu.transform.Find("GameSetting").GetComponent<Button>();
+        gameSettingSelect = selectSettingMenu.transform.Find("GameSetting").Find("Select").gameObject;
+        gameSettingNotSelect = selectSettingMenu.transform.Find("GameSetting").Find("NotSelect").gameObject;
 
         gameKeyBoard = settingMenu.transform.Find("Controll_KeyBoard").gameObject;
         gameKeyBoardBtn = selectSettingMenu.transform.Find("KeyBoard").GetComponent<Button>();
+        gameKeyBoardSelect = selectSettingMenu.transform.Find("KeyBoard").Find("Select").gameObject;
+        gameKeyBoardNotSelect = selectSettingMenu.transform.Find("KeyBoard").Find("NotSelect").gameObject;
 
         gamePad = settingMenu.transform.Find("Controll_GamePad").gameObject;
         gamePadBtn = selectSettingMenu.transform.Find("GamePad").GetComponent<Button>();
+        gamePadSelect = selectSettingMenu.transform.Find("GamePad").Find("Select").gameObject;
+        gamePadNotSelect = selectSettingMenu.transform.Find("GamePad").Find("NotSelect").gameObject;
 
         gameSettingBtn.onClick.AddListener(() =>
         {
-            selectSettingMenu.SetActive(false);
             gameSetting.SetActive(true);
             gameKeyBoard.SetActive(false);
             gamePad.SetActive(false);
+
+            gameSettingSelect.SetActive(true);
+            gameSettingNotSelect.SetActive(false);
+            gameKeyBoardSelect.SetActive(false);
+            gameKeyBoardNotSelect.SetActive(true);
+            gamePadSelect.SetActive(false);
+            gamePadNotSelect.SetActive(true);
         });
         gameKeyBoardBtn.onClick.AddListener(() =>
         {
-            selectSettingMenu.SetActive(false);
             gameSetting.SetActive(false);
             gameKeyBoard.SetActive(true);
             gamePad.SetActive(false);
+
+            gameSettingSelect.SetActive(false);
+            gameSettingNotSelect.SetActive(true);
+            gameKeyBoardSelect.SetActive(true);
+            gameKeyBoardNotSelect.SetActive(false);
+            gamePadSelect.SetActive(false);
+            gamePadNotSelect.SetActive(true);
         });
         gamePadBtn.onClick.AddListener(() =>
         {
-            selectSettingMenu.SetActive(false);
             gameSetting.SetActive(false);
             gameKeyBoard.SetActive(false);
             gamePad.SetActive(true);
+
+            gameSettingSelect.SetActive(false);
+            gameSettingNotSelect.SetActive(true);
+            gameKeyBoardSelect.SetActive(false);
+            gameKeyBoardNotSelect.SetActive(true);
+            gamePadSelect.SetActive(true);
+            gamePadNotSelect.SetActive(false);
         });
 
         seSlider = settingMenu.transform.Find("Sound_Window_Language").Find("SE").Find("Slider").GetComponent<Slider>();
@@ -715,7 +752,35 @@ public class UIManager : MonoBehaviour
             if (languageData[i])
                 languageData[i].SetActive(languageData[i].transform.name.Contains(GameManager.instance.playData.language.ToString()));
 
-        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button6)) && !goTitle && !SetGameKey.runSetting)
+        string[] pad = Input.GetJoystickNames();
+        bool xbox = false;
+        bool ps = false;
+        for (int i = 0; i < pad.Length; i++)
+        {
+            if (pad[i].Contains("XBOX"))
+                xbox = true;
+            else if (pad[i].Contains("Wireless"))
+                ps = true;
+        }
+        if (!PadOption.activeSelf)
+        {
+            if (ps)
+                KeyManager.nowController = GameController.Wireless;
+            if (xbox)
+                KeyManager.nowController = GameController.XBOX;
+            if (xbox || ps)
+            {
+                NotConnected.SetActive(false);
+                PadOption.SetActive(true);      
+            }
+        }
+        else if(!xbox && !ps)
+        {
+            NotConnected.SetActive(true);
+            PadOption.SetActive(false);
+        }
+
+        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton6) || Input.GetKeyDown(KeyCode.JoystickButton9)) && !goTitle && !SetGameKey.runSetting)
         {
             if (GameManager.instance.InGame())
             {
@@ -946,6 +1011,8 @@ public class UIManager : MonoBehaviour
                     itemBagUpgradeText.text += "\n<color=#886688ff><size=40>You can store more items. (Attack increased)</size></color>";
             }
             #endregion
+
+
 
             if (Player.instance)
             {
@@ -1463,13 +1530,18 @@ public class UIManager : MonoBehaviour
         uiBack.SetActive(b);
 
         SetGameKey.runSetting = false;
-        selectSettingMenu.SetActive(true);
-        gameSetting.SetActive(false);
+        gameSetting.SetActive(true);
         gameKeyBoard.SetActive(false);
         gamePad.SetActive(false);
 
+        gameSettingSelect.SetActive(true);
+        gameSettingNotSelect.SetActive(false);
+        gameKeyBoardSelect.SetActive(false);
+        gameKeyBoardNotSelect.SetActive(true);
+        gamePadSelect.SetActive(false);
+        gamePadNotSelect.SetActive(true);
 
-        if(!pauseMenu.activeSelf)
+        if (!pauseMenu.activeSelf)
             GameManager.instance.gamePause = b;
     }
     #endregion

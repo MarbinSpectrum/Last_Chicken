@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
+using System.Collections.Generic;
 
 [System.Serializable]
 public class PlayData
@@ -14,6 +14,9 @@ public class PlayData
     public bool fullScreen;         //전체화면 여부
     public bool firstGame;          //처음게임을 실행했는가?
     public Language language;
+    public List<string> gamePadListXBOX = new List<string>();
+    public List<string> gamePadListPS = new List<string>();
+    public List<KeyCode> keyBoardList = new List<KeyCode>();
 
     ////////////////////////////////////////////////////////////////////////////
 
@@ -76,6 +79,48 @@ public class PlayData
         firstGame = true;
         language = Language.한국어;
 
+        gamePadListXBOX.Add("StickLeft");
+        gamePadListXBOX.Add("StickRight");
+        gamePadListXBOX.Add("StickUp");
+        gamePadListXBOX.Add("StickDown");
+        gamePadListXBOX.Add("A");
+        gamePadListXBOX.Add("X");
+        gamePadListXBOX.Add("Y");
+        gamePadListXBOX.Add("LT");
+        gamePadListXBOX.Add("RT");
+        gamePadListXBOX.Add("B");
+        gamePadListXBOX.Add("RB");
+
+        gamePadListPS.Add("StickLeft");
+        gamePadListPS.Add("StickRight");
+        gamePadListPS.Add("StickUp");
+        gamePadListPS.Add("StickDown");
+        gamePadListPS.Add("Ⅹ");
+        gamePadListPS.Add("□");
+        gamePadListPS.Add("△");
+        gamePadListPS.Add("L2");
+        gamePadListPS.Add("R2");
+        gamePadListPS.Add("○");
+        gamePadListPS.Add("R1");
+
+        keyBoardList.Add(KeyCode.A);
+        keyBoardList.Add(KeyCode.D);
+        keyBoardList.Add(KeyCode.W);
+        keyBoardList.Add(KeyCode.S);
+        keyBoardList.Add(KeyCode.Space);
+        keyBoardList.Add(KeyCode.Mouse0);
+        keyBoardList.Add(KeyCode.E);
+        keyBoardList.Add(KeyCode.F);
+        keyBoardList.Add(KeyCode.Q);
+        keyBoardList.Add(KeyCode.Mouse1);
+        keyBoardList.Add(KeyCode.M);
+
+        for (int i = 0; i < MonsterManager.monsterName.Length; i++)
+            monsterRecords[i] = false;
+
+        for (int i = 0; i < ItemManager.itemName.Length; i++)
+            itemRecords[i] = false;
+
         ///////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////
@@ -125,12 +170,6 @@ public class PlayData
             playerBuffItemNum[i] = 0;
             playerBuffItemTime[i] = 0;
         }
-
-        for (int i = 0; i < MonsterManager.monsterName.Length; i++)
-            monsterRecords[i] = false;
-
-        for (int i = 0; i < ItemManager.itemName.Length; i++)
-            itemRecords[i] = false;
 
         seed = Random.Range(0, 10000);
     }

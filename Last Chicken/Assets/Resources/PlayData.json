@@ -6,6 +6,45 @@
     "fullScreen": false,
     "firstGame": true,
     "language": 1,
+    "gamePadListXBOX": [
+        "StickLeft",
+        "StickRight",
+        "StickUp",
+        "StickDown",
+        "A",
+        "X",
+        "Y",
+        "LT",
+        "RT",
+        "B",
+        "START"
+    ],
+    "gamePadListPS": [
+        "StickLeft",
+        "StickRight",
+        "StickUp",
+        "StickDown",
+        "Ⅹ",
+        "□",
+        "△",
+        "R2",
+        "L1",
+        "○",
+        "R1"
+    ],
+    "keyBoardList": [
+        97,
+        100,
+        119,
+        115,
+        32,
+        323,
+        101,
+        102,
+        113,
+        324,
+        109
+    ],
     "stageName": "Stage0101",
     "playerNowHp": 3.0,
     "playerMaxHp": 3.0,
@@ -59,8 +98,8 @@
         0.0
     ],
     "monsterRecords": [
-        true,
-        true,
+        false,
+        false,
         false,
         false,
         false,
@@ -69,12 +108,6 @@
         false
     ],
     "itemRecords": [
-        true,
-        false,
-        false,
-        false,
-        false,
-        true,
         false,
         false,
         false,
@@ -82,7 +115,13 @@
         false,
         false,
         false,
-        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
         false,
         false,
         false,
@@ -104,5 +143,5 @@
         false,
         false
     ],
-    "seed": 4372
+    "seed": 2577
 }

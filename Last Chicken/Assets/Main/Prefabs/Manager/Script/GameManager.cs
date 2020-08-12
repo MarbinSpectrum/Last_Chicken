@@ -127,12 +127,25 @@ public class GameManager : TerrainGenerator
         bool fullScreen = playData.fullScreen;
         bool firstGame = playData.firstGame;
         PlayData.Language language = playData.language;
+
         List<bool> monsterRecordTemp = new List<bool>();
         for (int i = 0; i < playData.monsterRecords.Length; i++)
             monsterRecordTemp.Add(playData.monsterRecords[i]);
         List<bool> itemRecordTemp = new List<bool>();
         for (int i = 0; i < playData.itemRecords.Length; i++)
             itemRecordTemp.Add(playData.itemRecords[i]);
+
+        List<string> gamePadXBOXList = new List<string>();
+        for(int i = 0; i <= 10; i++)
+            gamePadXBOXList.Add(playData.gamePadListXBOX[i]);
+
+        List<string> gamePadPSList = new List<string>();
+        for (int i = 0; i <= 10; i++)
+            gamePadPSList.Add(playData.gamePadListPS[i]);
+
+        List<KeyCode> keyBoardList = new List<KeyCode>();
+        for (int i = 0; i <= 10; i++)
+            keyBoardList.Add(playData.keyBoardList[i]);
 
         //데이터 삭제
         playData = new PlayData();
@@ -149,6 +162,15 @@ public class GameManager : TerrainGenerator
             playData.monsterRecords[i] = monsterRecordTemp[i];
         for (int i = 0; i < playData.itemRecords.Length; i++)
             playData.itemRecords[i] = itemRecordTemp[i];
+
+        for (int i = 0; i <= 10; i++)
+            playData.gamePadListXBOX[i] = gamePadXBOXList[i];
+
+        for (int i = 0; i <= 10; i++)
+            playData.gamePadListPS[i] = gamePadPSList[i];
+
+        for (int i = 0; i <= 10; i++)
+            playData.keyBoardList[i] = keyBoardList[i];
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 

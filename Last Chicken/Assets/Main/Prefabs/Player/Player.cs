@@ -751,7 +751,7 @@ public class Player : CustomCollider
         //마우스위치를 바꾸면 콤보 초기화및 공격 위치 변경
         if(Input.GetKey(KeyManager.instance.keyBoard[GameKeyType.Attack]) || KeyManager.GetKey(KeyManager.instance.gamePad[GameKeyType.Attack]))
         {
-            if((KeyManager.nowController == GameController.GamePad && attackTop == KeyManager.VerticalScale < 0) || (KeyManager.nowController == GameController.KeyBoard && attackTop != (MouseManager.instance.mousePos.y > transform.position.y)))
+            if((KeyManager.nowController != GameController.KeyBoard && attackTop == KeyManager.VerticalScale < 0) || (KeyManager.nowController == GameController.KeyBoard && attackTop != (MouseManager.instance.mousePos.y > transform.position.y)))
             {
                 attackTop = !attackTop;
                 combo = 0;
