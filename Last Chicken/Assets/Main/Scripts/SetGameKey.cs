@@ -11,6 +11,7 @@ public class SetGameKey : MonoBehaviour
     public GameKeyType gameKeyType;
     public static bool runSetting = false;
     public bool isRun = false;
+    bool realCheck = false;
     public void OnGUI()
     {
         if (isRun)
@@ -22,16 +23,7 @@ public class SetGameKey : MonoBehaviour
                 runSetting = false;
                 isRun = false;
             }
-            else if(KeyManager.CheckJoyStick())
-            {
-                KeyManager.instance.ChangeGamePadInput(gameKeyType, KeyManager.GetJoyStickKey());
-                runSetting = false;
-                isRun = false;
-            }
         }
-
-        if(!runSetting)
-            isRun = false;
     }
 
     public void Update()
@@ -73,6 +65,22 @@ public class SetGameKey : MonoBehaviour
                     text_UI.text = "<color=#FF00FF>[" + KeyManager.instance.gamePad[gameKeyType].ToString() + "]</color>";
             }
         }
+        else
+        {
+            if (KeyManager.GetKeyUp(KeyManager.instance.gamePad[GameKeyType.Select]))
+            {
+                realCheck = true;
+                Debug.Log("!!");
+            }
+            else if (realCheck && KeyManager.CheckJoyStick())
+            {
+                Debug.LogError("!!");
+                KeyManager.instance.ChangeGamePadInput(gameKeyType, KeyManager.GetJoyStickKey());
+                runSetting = false;
+                isRun = false;
+            }
+
+        }
     }
 
     public void InputGameKey()
@@ -81,6 +89,7 @@ public class SetGameKey : MonoBehaviour
             return;
         isRun = true;
         runSetting = true;
+        realCheck = false;
         text_UI.text = "<color=#FFFFFF>_</color>";
     }
 }

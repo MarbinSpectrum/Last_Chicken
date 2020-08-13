@@ -85,6 +85,12 @@ public class MouseManager : MonoBehaviour
         if (cursorSize < 0)
             return;
 
+        if (KeyManager.nowController != GameController.KeyBoard)
+            Cursor.visible = false;
+        else
+            Cursor.visible = true;
+
+
         //마우스 좌표 갱신
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos = new Vector2Int(Mathf.FloorToInt(mousePosition.x), Mathf.FloorToInt(mousePosition.y));

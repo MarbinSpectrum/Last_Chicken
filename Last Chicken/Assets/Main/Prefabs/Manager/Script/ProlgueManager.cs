@@ -58,7 +58,7 @@ public class ProlgueManager : MonoBehaviour
     #region[Update]
     void Update()
     {
-        if (!prolgueOut && (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)))
+        if (!prolgueOut && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.Attack]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Attack])))
             prolgueOut = true;
 
         if (prolgueOut)

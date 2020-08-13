@@ -9,7 +9,8 @@ public enum GameKeyType
 {
     Left,Right,Up,Down,Jump,Attack,
     ItemGet,ItemTrash,ItemChange,ItemUse,
-    Map
+    Map,
+    Select,Cancle, Pause, SystemLeft, SystemRight, SystemUp, SystemDown
 }
 
 public class KeyManager : MonoBehaviour
@@ -87,6 +88,12 @@ public class KeyManager : MonoBehaviour
             keyBoard[GameKeyType.ItemUse] = GameManager.instance.playData.keyBoardList[9];
             keyBoard[GameKeyType.Map] = GameManager.instance.playData.keyBoardList[10];
 
+            keyBoard[GameKeyType.Pause] = KeyCode.Escape;
+            keyBoard[GameKeyType.SystemLeft] = KeyCode.LeftArrow;
+            keyBoard[GameKeyType.SystemRight] = KeyCode.RightArrow;
+            keyBoard[GameKeyType.SystemUp] = KeyCode.UpArrow;
+            keyBoard[GameKeyType.SystemDown] = KeyCode.DownArrow;
+
             gamePad[GameKeyType.Left] = GameManager.instance.playData.gamePadListXBOX[0];
             gamePad[GameKeyType.Right] = GameManager.instance.playData.gamePadListXBOX[1];
             gamePad[GameKeyType.Up] = GameManager.instance.playData.gamePadListXBOX[2];
@@ -98,6 +105,15 @@ public class KeyManager : MonoBehaviour
             gamePad[GameKeyType.ItemChange] = GameManager.instance.playData.gamePadListXBOX[8];
             gamePad[GameKeyType.ItemUse] = GameManager.instance.playData.gamePadListXBOX[9];
             gamePad[GameKeyType.Map] = GameManager.instance.playData.gamePadListXBOX[10];
+
+            gamePad[GameKeyType.Pause] = GameManager.instance.playData.gamePadListXBOX[5];
+            gamePad[GameKeyType.Select] = GameManager.instance.playData.gamePadListXBOX[5];
+            gamePad[GameKeyType.Cancle] = GameManager.instance.playData.gamePadListXBOX[4];
+            gamePad[GameKeyType.SystemLeft] = GameManager.instance.playData.gamePadListXBOX[0];
+            gamePad[GameKeyType.SystemRight] = GameManager.instance.playData.gamePadListXBOX[1];
+            gamePad[GameKeyType.SystemUp] = GameManager.instance.playData.gamePadListXBOX[2];
+            gamePad[GameKeyType.SystemDown] = GameManager.instance.playData.gamePadListXBOX[3];
+
         }
     }
 
@@ -116,6 +132,14 @@ public class KeyManager : MonoBehaviour
             gamePad[GameKeyType.ItemChange] = GameManager.instance.playData.gamePadListXBOX[8];
             gamePad[GameKeyType.ItemUse] = GameManager.instance.playData.gamePadListXBOX[9];
             gamePad[GameKeyType.Map] = GameManager.instance.playData.gamePadListXBOX[10];
+
+            gamePad[GameKeyType.Pause] = "Back";
+            gamePad[GameKeyType.Select] = "X";
+            gamePad[GameKeyType.Cancle] = "Y";
+            gamePad[GameKeyType.SystemLeft] = "StickLeft";
+            gamePad[GameKeyType.SystemRight] = "StickRight";
+            gamePad[GameKeyType.SystemUp] = "StickUp";
+            gamePad[GameKeyType.SystemDown] = "StickDown";
         }
         else if (nowController == GameController.Wireless)
         {
@@ -130,6 +154,14 @@ public class KeyManager : MonoBehaviour
             gamePad[GameKeyType.ItemChange] = GameManager.instance.playData.gamePadListPS[8];
             gamePad[GameKeyType.ItemUse] = GameManager.instance.playData.gamePadListPS[9];
             gamePad[GameKeyType.Map] = GameManager.instance.playData.gamePadListPS[10];
+
+            gamePad[GameKeyType.Pause] = "OPTIONS";
+            gamePad[GameKeyType.Select] = "□";
+            gamePad[GameKeyType.Cancle] = "Ⅹ";
+            gamePad[GameKeyType.SystemLeft] = "StickLeft";
+            gamePad[GameKeyType.SystemRight] = "StickRight";
+            gamePad[GameKeyType.SystemUp] = "StickUp";
+            gamePad[GameKeyType.SystemDown] = "StickDown";
         }
 
         if (nowController == GameController.KeyBoard)
@@ -248,7 +280,7 @@ public class KeyManager : MonoBehaviour
                 leftStickUp = false;
             if (_lastLeftStick != Input.GetAxisRaw("Horizontal"))
             {
-                if (_lastLeftStick > -checkSize && Input.GetAxisRaw("Horizontal") >= -checkSize)
+                if (_lastLeftStick > -checkSize && Input.GetAxisRaw("Horizontal") <= -checkSize)
                     leftStickDown = true;
                 if (_lastLeftStick < 0f && Input.GetAxisRaw("Horizontal") >= 0)
                     leftStickUp = true;
@@ -272,7 +304,7 @@ public class KeyManager : MonoBehaviour
                 downStickUp = false;
             if (_lastDownStick != Input.GetAxisRaw("Vertical"))
             {
-                if (_lastDownStick > -checkSize && Input.GetAxisRaw("Vertical") >= -checkSize)
+                if (_lastDownStick > -checkSize && Input.GetAxisRaw("Vertical") <= -checkSize)
                     downStickDown = true;
                 if (_lastDownStick < 0f && Input.GetAxisRaw("Vertical") >= 0)
                     downStickUp = true;
@@ -813,7 +845,7 @@ public class KeyManager : MonoBehaviour
             nowController = GameController.KeyBoard;
             Debug.Log("키보드");
         }
-        else if(nowController == GameController.KeyBoard/* && CheckJoyStick()*/)
+        else if(nowController == GameController.KeyBoard && CheckJoyStick())
         {
             string[] pad = Input.GetJoystickNames();
             for (int i = 0; i < pad.Length; i++)

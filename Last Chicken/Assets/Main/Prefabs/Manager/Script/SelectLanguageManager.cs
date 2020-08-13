@@ -1,9 +1,9 @@
-﻿
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SelectLanguageManager : MonoBehaviour
 {
@@ -13,11 +13,41 @@ public class SelectLanguageManager : MonoBehaviour
     float time = 0;
     public List<GameObject> obj = new List<GameObject>();
 
+    public EventTrigger[] BtnTrigger;
+    public Image[] btnImg;
+    public Sprite[] selectImg;
+    public Sprite[] notSelectImg;
+    int selectBtn = 1;
+
+    public void Awake()
+    {
+        for(int i = 0; i < BtnTrigger.Length; i++)
+        {
+            EventTrigger.Entry pEnter = new EventTrigger.Entry();
+            pEnter.eventID = EventTriggerType.PointerEnter;
+            int n = i;
+            pEnter.callback.AddListener((data) =>
+            {
+                if (KeyManager.nowController != GameController.KeyBoard)
+                    return;
+                selectBtn = n;
+            });
+            BtnTrigger[i].triggers.Add(pEnter);
+
+            EventTrigger.Entry pDown = new EventTrigger.Entry();
+            pDown.eventID = EventTriggerType.PointerDown;
+            pDown.callback.AddListener((data) =>
+            {
+                Select_Language();
+            });
+            BtnTrigger[i].triggers.Add(pDown);
+        }
+
+    }
+
     public void Update()
     {
         time += Time.deltaTime;
-        // if (Input.GetKeyDown(KeyCode.Space))
-        //  time = 4;
 
         if (!chicken && time > 2f)
         {
@@ -35,16 +65,34 @@ public class SelectLanguageManager : MonoBehaviour
                     obj[i].SetActive(true);
             }
         }
+        if(run)
+        {
+            if (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemUp]) || Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemDown]) ||
+                    KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown]))
+            {
+                selectBtn++;
+                selectBtn %= 2;
+            }
+
+            for (int i = 0; i < btnImg.Length; i++)
+            {
+                if (selectBtn == i)
+                    btnImg[i].sprite = selectImg[i];
+                else
+                    btnImg[i].sprite = notSelectImg[i];
+            }
+
+            if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
+                Select_Language();
+        }
     }
 
-
-
-    public void Select_Language(int language)
+    public void Select_Language()
     {
         if (flag)
             return;
         flag = true;
-        GameManager.instance.playData.language = (PlayData.Language)language;
+        GameManager.instance.playData.language = (PlayData.Language)selectBtn;
         SceneController.instance.MoveScene("Prologue");
         SoundManager.instance.BtnClick();
     }

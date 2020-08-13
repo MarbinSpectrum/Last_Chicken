@@ -83,6 +83,10 @@ public class PlayData
         gamePadListXBOX.Add("StickRight");
         gamePadListXBOX.Add("StickUp");
         gamePadListXBOX.Add("StickDown");
+        //gamePadListXBOX.Add("◀");
+        //gamePadListXBOX.Add("▶");
+        //gamePadListXBOX.Add("▲");
+        //gamePadListXBOX.Add("▼");
         gamePadListXBOX.Add("A");
         gamePadListXBOX.Add("X");
         gamePadListXBOX.Add("Y");
