@@ -67,8 +67,9 @@ public class SelectLanguageManager : MonoBehaviour
         }
         if(run)
         {
-            if (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemUp]) || Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemDown]) ||
-                    KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown]))
+
+
+            if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown]))
             {
                 selectBtn++;
                 selectBtn %= 2;

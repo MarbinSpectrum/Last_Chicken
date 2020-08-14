@@ -145,6 +145,9 @@ public class Player : CustomCollider
     [System.NonSerialized] public GameObject playerUmbrella;
     [System.NonSerialized] public float inShadow;
 
+    [System.NonSerialized] public bool selectKeyUp =  true;
+
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -260,6 +263,9 @@ public class Player : CustomCollider
         if (GameManager.instance.gamePause)
             return;
 
+        if (!selectKeyUp && KeyManager.GetKeyUp(KeyManager.instance.gamePad[GameKeyType.Select]))
+            selectKeyUp = true;
+
         //자동으로 작동되는 행동
         PlayerFall();
         PlayerInFluidAct();
@@ -267,8 +273,10 @@ public class Player : CustomCollider
         chickenHead.SetActive(getChicken);
         animator.SetBool("Hang", hang);
 
-        //조작가능상태이거나 멈춰있으면
+        //조작불가능상태이거나 멈춰있으면
         if (!canControl || stop)
+            return;
+        if (!selectKeyUp)
             return;
         //플레이어 조작에 따른 행동
         PlayerUseItem();

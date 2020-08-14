@@ -1,18 +1,18 @@
 {
-    "SE_Volume": 0.39500030875205996,
+    "SE_Volume": 0.0,
     "BGM_Volume": 0.8389999866485596,
     "ScreenWidth": 1280,
     "ScreenHeight": 720,
     "fullScreen": false,
     "firstGame": false,
-    "language": 1,
+    "language": 0,
     "gamePadListXBOX": [
         "StickLeft",
         "?",
         "?",
         "?",
-        "A",
         "X",
+        "A",
         "Y",
         "LT",
         "RT",
@@ -45,7 +45,7 @@
         324,
         109
     ],
-    "stageName": "Stage0101",
+    "stageName": "Stage0102",
     "playerNowHp": 3.0,
     "playerMaxHp": 3.0,
     "itemSlot": [
@@ -98,7 +98,7 @@
         0.0
     ],
     "monsterRecords": [
-        false,
+        true,
         false,
         false,
         false,
@@ -108,12 +108,12 @@
         false
     ],
     "itemRecords": [
+        true,
         false,
         false,
         false,
         false,
-        false,
-        false,
+        true,
         false,
         false,
         false,
@@ -143,5 +143,5 @@
         false,
         false
     ],
-    "seed": 4232
+    "seed": 5066
 }

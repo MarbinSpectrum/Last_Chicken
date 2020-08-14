@@ -45,6 +45,10 @@ public class UIManager : MonoBehaviour
 
     [NonSerialized] public GameObject uiBack;       //UI뒤 이미지
     [NonSerialized] public GameObject pauseMenu;    //일시정지 메뉴
+    int pauseMenuNum = 0;
+    [NonSerialized] public GameObject continueSelectObj;    //계속하기 메뉴
+    [NonSerialized] public GameObject settingSelectObj;    //설정 메뉴
+    [NonSerialized] public GameObject goTitleSelectObj;    //타이틀로 메뉴
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -352,6 +356,9 @@ public class UIManager : MonoBehaviour
 
         uiBack = canvas.Find("Back").gameObject;
         pauseMenu = canvas.Find("PauseMenu").gameObject;
+        goTitleSelectObj = pauseMenu.transform.Find("Title").Find("Select").gameObject;
+        settingSelectObj = pauseMenu.transform.Find("Setting").Find("Select").gameObject;
+        continueSelectObj = pauseMenu.transform.Find("Continue").Find("Select").gameObject;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -894,30 +901,34 @@ public class UIManager : MonoBehaviour
             PadOption.SetActive(false);
         }
 
-        if ((Input.GetKeyDown(KeyCode.Escape) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Pause])) && !goTitle && !SetGameKey.runSetting)
+        if ((Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.Pause]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Pause])) 
+            && GameManager.instance.InGame() && !goTitle && !SetGameKey.runSetting)
         {
-            if (GameManager.instance.InGame())
+            if (GameManager.instance.playData.firstGame)
             {
-                if (GameManager.instance.playData.firstGame)
-                {
-                    if (settingMenu.activeSelf)
-                        ActSettingMenu(false);
-                    else if (!settingMenu.activeSelf)
-                        ActSettingMenu(true);
-                }
-                else
-                {
-                    if (settingMenu.activeSelf)
-                        ActSettingMenu(false);
-                    else if (pauseMenu.activeSelf)
-                        ActPauseMenu(false);
-                    else if (!pauseMenu.activeSelf)
-                        ActPauseMenu(true);
-                }
+                if (settingMenu.activeSelf)
+                    ActSettingMenu(false);
+                else if (!settingMenu.activeSelf)
+                    ActSettingMenu(true);
             }
+            else
+            {
+                if (settingMenu.activeSelf)
+                    ActSettingMenu(false);
+                else if (pauseMenu.activeSelf)
+                    ActPauseMenu(false);
+                else if (!pauseMenu.activeSelf)
+                    ActPauseMenu(true);
+            }
+        }
+        else if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Pause]) && !SetGameKey.runSetting)
+        {
+            if (settingMenu.activeSelf)
+                ActSettingMenu(false);
         }
 
         SettingMenu_Update();
+        PauseMenu_Update();
 
         if (!GameManager.instance.InGame())
         {
@@ -1614,6 +1625,9 @@ public class UIManager : MonoBehaviour
         GameManager.instance.gamePause = b;
         pauseMenu.SetActive(b);
         uiBack.SetActive(b);
+        pauseMenuNum = 0;
+        if(Player.instance)
+            Player.instance.selectKeyUp = false;
     }
     #endregion
 
@@ -1677,27 +1691,82 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
+    #region[일시정지메뉴처리]
+    public void PauseMenu_Update()
+    {
+        continueSelectObj.SetActive(false);
+        settingSelectObj.SetActive(false);
+        goTitleSelectObj.SetActive(false);
+
+        if (KeyManager.nowController == GameController.KeyBoard)
+            return;
+
+        if (!pauseMenu.activeSelf || settingMenu.activeSelf)
+            return;
+
+        continueSelectObj.SetActive(false);
+        settingSelectObj.SetActive(false);
+        goTitleSelectObj.SetActive(false);
+
+        if (pauseMenuNum == 0)
+        {
+            continueSelectObj.SetActive(true);
+            if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown]))
+                pauseMenuNum = 1;
+            else if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp]))
+                pauseMenuNum = 2;
+            else if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]) && pauseMenu.activeSelf)
+                ActPauseMenu(false);
+
+        }
+        else if (pauseMenuNum == 1)
+        {
+            settingSelectObj.SetActive(true);
+            if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown]))
+                pauseMenuNum = 2;
+            else if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp]))
+                pauseMenuNum = 0;
+            else if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]) && !settingMenu.activeSelf)
+                ActSettingMenu(true);
+
+        }
+        else if (pauseMenuNum == 2)
+        {
+            goTitleSelectObj.SetActive(true);
+            if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown]))
+                pauseMenuNum = 0;
+            else if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp]))
+                pauseMenuNum = 1;
+            else if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]) && !goTitle)
+                GoToTile();
+        }
+    }
+    #endregion
+
+    #region[설정메뉴처리]
     public void SettingMenu_Update()
     {
         if (!settingMenu.activeSelf)
             return;
         if (SetGameKey.runSetting)
             return;
+        if (KeyManager.nowController == GameController.KeyBoard)
+            return;
 
         #region[게임설정에서의 조작]
-        if (selectMenuNum == 0 && selectSettingNum >= 0 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemLeft]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemLeft])))
+        if (selectMenuNum == 0 && selectSettingNum >= 0 && (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemLeft])))
         {
             selectSettingNum = -selectSettingNum;
             selectSettingNum -= 1;
         }
-        else if (selectMenuNum == 0 && selectSettingNum < 0 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemRight]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemRight])))
+        else if (selectMenuNum == 0 && selectSettingNum < 0 && (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemRight])))
         {
             selectSettingNum += 1;
             selectSettingNum = -selectSettingNum;
         }
         else if (selectSettingNum >= 0)
         {
-            if (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemUp]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp]))
+            if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp]))
             {
                 selectSettingNum -= 1;
                 if (selectSettingNum < 0)
@@ -1712,7 +1781,7 @@ public class UIManager : MonoBehaviour
                 else
                     selectSettingNum %= 4;
             }
-            else if (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemDown]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown]))
+            else if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown]))
             {
                 selectSettingNum++;
                 if (languageObject.activeSelf)
@@ -1721,7 +1790,7 @@ public class UIManager : MonoBehaviour
                     selectSettingNum %= 4;
             }
         } 
-        else if (selectMenuNum == 0 && selectSettingNum < 0 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemDown]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown])))
+        else if (selectMenuNum == 0 && selectSettingNum < 0 && (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown])))
         {
             gameSetting.SetActive(false);
             gameKeyBoard.SetActive(true);
@@ -1737,7 +1806,7 @@ public class UIManager : MonoBehaviour
             selectSettingNum = -1;
             selectGamePadNum = -1;
         }
-        else if (selectMenuNum == 0 && selectSettingNum < 0 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemUp]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp])))
+        else if (selectMenuNum == 0 && selectSettingNum < 0 && (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp])))
         {
             gameSetting.SetActive(false);
             gameKeyBoard.SetActive(false);
@@ -1755,7 +1824,8 @@ public class UIManager : MonoBehaviour
         }
         #endregion
 
-        else if (selectMenuNum == 1 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemDown]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown])))
+        #region[키보드에서의 설정]
+        else if (selectMenuNum == 1 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown]))
         {
             gameSetting.SetActive(false);
             gameKeyBoard.SetActive(false);
@@ -1771,7 +1841,7 @@ public class UIManager : MonoBehaviour
             selectSettingNum = -1;
             selectGamePadNum = -1;
         }
-        else if (selectMenuNum == 1 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemUp]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp])))
+        else if (selectMenuNum == 1 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp]))
         {
             gameSetting.SetActive(true);
             gameKeyBoard.SetActive(false);
@@ -1787,61 +1857,62 @@ public class UIManager : MonoBehaviour
             selectSettingNum = -1;
             selectGamePadNum = -1;
         }
+        #endregion
 
         #region[게임패드에서의 조작]
-        else if (selectMenuNum == 2 && 0 <= selectGamePadNum && selectGamePadNum < 4 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemLeft]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemLeft])))
+        else if (selectMenuNum == 2 && 0 <= selectGamePadNum && selectGamePadNum < 4 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemLeft]))
         {
             selectGamePadNum = -selectGamePadNum;
             selectGamePadNum -= 1;
         }
-        else if (selectMenuNum == 2 && selectGamePadNum < 0 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemRight]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemRight])))
+        else if (selectMenuNum == 2 && selectGamePadNum < 0 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemRight]))
         {
             selectGamePadNum += 1;
             selectGamePadNum = -selectGamePadNum;
         }
-        else if (selectMenuNum == 2 && selectGamePadNum == 0 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemDown]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown])))
+        else if (selectMenuNum == 2 && selectGamePadNum == 0 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown]))
             selectGamePadNum = 1;
-        else if (selectMenuNum == 2 && selectGamePadNum == 0 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemUp]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp])))
+        else if (selectMenuNum == 2 && selectGamePadNum == 0 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp]))
             selectGamePadNum = 3;
-        else if (selectMenuNum == 2 && selectGamePadNum == 0 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemRight]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemRight])))
+        else if (selectMenuNum == 2 && selectGamePadNum == 0 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemRight]))
             selectGamePadNum = 4;
-        else if (selectMenuNum == 2 && selectGamePadNum == 1 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemDown]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown])))
+        else if (selectMenuNum == 2 && selectGamePadNum == 1 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown]))
             selectGamePadNum = 2;
-        else if (selectMenuNum == 2 && selectGamePadNum == 1 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemUp]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp])))
+        else if (selectMenuNum == 2 && selectGamePadNum == 1 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp]))
             selectGamePadNum = 0;
-        else if (selectMenuNum == 2 && selectGamePadNum == 1 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemRight]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemRight])))
+        else if (selectMenuNum == 2 && selectGamePadNum == 1 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemRight]))
             selectGamePadNum = 5;
-        else if (selectMenuNum == 2 && selectGamePadNum == 2 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemDown]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown])))
+        else if (selectMenuNum == 2 && selectGamePadNum == 2 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown]))
             selectGamePadNum = 3;
-        else if (selectMenuNum == 2 && selectGamePadNum == 2 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemUp]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp])))
+        else if (selectMenuNum == 2 && selectGamePadNum == 2 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp]))
             selectGamePadNum = 1;
-        else if (selectMenuNum == 2 && selectGamePadNum == 2 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemRight]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemRight])))
+        else if (selectMenuNum == 2 && selectGamePadNum == 2 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemRight]))
             selectGamePadNum = 5;
-        else if (selectMenuNum == 2 && selectGamePadNum == 3 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemDown]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown])))
+        else if (selectMenuNum == 2 && selectGamePadNum == 3 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown]))
             selectGamePadNum = 0;
-        else if (selectMenuNum == 2 && selectGamePadNum == 3 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemUp]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp])))
+        else if (selectMenuNum == 2 && selectGamePadNum == 3 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp]))
             selectGamePadNum = 2;
-        else if (selectMenuNum == 2 && selectGamePadNum == 3 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemRight]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemRight])))
+        else if (selectMenuNum == 2 && selectGamePadNum == 3 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemRight]))
             selectGamePadNum = 6;
-        else if (selectMenuNum == 2 && selectGamePadNum == 4 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemDown]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown])))
+        else if (selectMenuNum == 2 && selectGamePadNum == 4 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown]))
             selectGamePadNum = 5;
-        else if (selectMenuNum == 2 && selectGamePadNum == 4 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemUp]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp])))
+        else if (selectMenuNum == 2 && selectGamePadNum == 4 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp]))
             selectGamePadNum = 6;
-        else if (selectMenuNum == 2 && selectGamePadNum == 4 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemLeft]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemLeft])))
+        else if (selectMenuNum == 2 && selectGamePadNum == 4 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemLeft]))
             selectGamePadNum = 0;
-        else if (selectMenuNum == 2 && selectGamePadNum == 5 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemDown]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown])))
+        else if (selectMenuNum == 2 && selectGamePadNum == 5 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown]))
             selectGamePadNum = 6;
-        else if (selectMenuNum == 2 && selectGamePadNum == 5 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemUp]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp])))
+        else if (selectMenuNum == 2 && selectGamePadNum == 5 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp]))
             selectGamePadNum = 4;
-        else if (selectMenuNum == 2 && selectGamePadNum == 5 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemLeft]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemLeft])))
+        else if (selectMenuNum == 2 && selectGamePadNum == 5 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemLeft]))
             selectGamePadNum = 2;
-        else if (selectMenuNum == 2 && selectGamePadNum == 6 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemDown]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown])))
+        else if (selectMenuNum == 2 && selectGamePadNum == 6 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown]))
             selectGamePadNum = 4;
-        else if (selectMenuNum == 2 && selectGamePadNum == 6 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemUp]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp])))
+        else if (selectMenuNum == 2 && selectGamePadNum == 6 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp]))
             selectGamePadNum = 5;
-        else if (selectMenuNum == 2 && selectGamePadNum == 6 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemLeft]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemLeft])))
+        else if (selectMenuNum == 2 && selectGamePadNum == 6 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemLeft]))
             selectGamePadNum = 3;
-        else if (selectMenuNum == 2 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemDown]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown])))
+        else if (selectMenuNum == 2 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown]))
         {
             gameSetting.SetActive(true);
             gameKeyBoard.SetActive(false);
@@ -1857,7 +1928,7 @@ public class UIManager : MonoBehaviour
             selectSettingNum = -1;
             selectGamePadNum = -1;
         }
-        else if (selectMenuNum == 2 && (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.SystemUp]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp])))
+        else if (selectMenuNum == 2 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp]))
         {
             gameSetting.SetActive(false);
             gameKeyBoard.SetActive(true);
@@ -1879,15 +1950,17 @@ public class UIManager : MonoBehaviour
         KeyBoardSetting_Update();
         GamePadSetting_Update();
     }
+    #endregion
 
+    #region[키보드설정]
     public void KeyBoardSetting_Update()
     {
     }
+    #endregion
 
+    #region[게임패드설정]
     public void GamePadSetting_Update()
     {
-
-
         jump_SelectObj.SetActive(false);
         attack_SelectObj.SetActive(false);
         itemChange_SelectObj.SetActive(false);
@@ -1896,6 +1969,9 @@ public class UIManager : MonoBehaviour
         itemUse_SelectObj.SetActive(false);
         pickUp_SelectObj.SetActive(false);
 
+        if (KeyManager.nowController == GameController.KeyBoard)
+            return;
+
         if (selectMenuNum != 2)
             return;
 
@@ -1903,63 +1979,44 @@ public class UIManager : MonoBehaviour
         {
             jump_SelectObj.SetActive(true);
             if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
-                SetGameKeyRun();
+                jump_SetGameKey.InputGameKey();
         }
         else if (selectGamePadNum == 1)
         {
             attack_SelectObj.SetActive(true);
             if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
-                SetGameKeyRun();
+                attack_SetGameKey.InputGameKey();
         }
         else if (selectGamePadNum == 2)
         {
             itemChange_SelectObj.SetActive(true);
             if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
-                SetGameKeyRun();
+                itemChange_SetGameKey.InputGameKey();
         }
         else if (selectGamePadNum == 3)
         {
             itemThrow_SelectObj.SetActive(true);
             if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
-                SetGameKeyRun();
+                itemThrow_SetGameKey.InputGameKey();
         }
         else if (selectGamePadNum == 4)
         {
             mapKey_SelectObj.SetActive(true);
             if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
-                SetGameKeyRun();
+                mapKey_SetGameKey.InputGameKey();
         }
         else if (selectGamePadNum == 5)
         {
             itemUse_SelectObj.SetActive(true);
             if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
-                SetGameKeyRun();
+                itemUse_SetGameKey.InputGameKey();
         }
         else if (selectGamePadNum == 6)
         {
             pickUp_SelectObj.SetActive(true);
             if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
-                SetGameKeyRun();
+                pickUp_SetGameKey.InputGameKey();
         }
-    }
-
-    public void SetGameKeyRun()
-    {
-        if (selectGamePadNum == 0)
-            jump_SetGameKey.InputGameKey();
-        else if (selectGamePadNum == 1)
-            attack_SetGameKey.InputGameKey();
-        else if (selectGamePadNum == 2)
-            itemChange_SetGameKey.InputGameKey();
-        else if (selectGamePadNum == 3)
-            itemThrow_SetGameKey.InputGameKey();
-        else if (selectGamePadNum == 4)
-            mapKey_SetGameKey.InputGameKey();
-        else if (selectGamePadNum == 5)
-            itemUse_SetGameKey.InputGameKey();
-        else if (selectGamePadNum == 6)
-            pickUp_SetGameKey.InputGameKey();
-
     }
 
     public void SelectGamePadKey(int n)
@@ -1970,6 +2027,7 @@ public class UIManager : MonoBehaviour
             return;
         selectGamePadNum = n;
     }
+    #endregion
 
     #region[게임설정]
     public void GameSetting_Update()
@@ -1979,6 +2037,14 @@ public class UIManager : MonoBehaviour
         BGM_SelectObj.SetActive(false);
         SE_SelectObj.SetActive(false);
         Language_SelectObj.SetActive(false);
+
+        if (GameManager.instance.playData.language == PlayData.Language.English)
+            fullScreenShowText.text = GameManager.instance.playData.fullScreen ? "ON" : "OFF";
+        else
+            fullScreenShowText.text = GameManager.instance.playData.fullScreen ? "켜짐" : "꺼짐";
+
+        if (KeyManager.nowController == GameController.KeyBoard)
+            return;
 
         if (selectSettingNum == 0)
         {
@@ -2030,6 +2096,7 @@ public class UIManager : MonoBehaviour
             if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
                 ChangeLanguage();
         }
+
     }
     #endregion
 
@@ -2062,10 +2129,6 @@ public class UIManager : MonoBehaviour
     public void ChangeFullScreen()
     {
         GameManager.instance.playData.fullScreen = !GameManager.instance.playData.fullScreen;
-        if(GameManager.instance.playData.language == PlayData.Language.English)
-            fullScreenShowText.text = GameManager.instance.playData.fullScreen ? "ON" : "OFF";
-        else
-            fullScreenShowText.text = GameManager.instance.playData.fullScreen ? "켜짐" : "꺼짐";
         Screen.SetResolution(GameManager.instance.playData.ScreenWidth, GameManager.instance.playData.ScreenHeight, GameManager.instance.playData.fullScreen);
         SoundManager.instance.SelectMenu();
 

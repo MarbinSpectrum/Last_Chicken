@@ -42,6 +42,18 @@ public class TitleManager : MonoBehaviour
 
     public List<GameObject> languageData = new List<GameObject>();
 
+
+    int selectNum = 0;
+
+    GameObject TUTORIAL_Select;
+    GameObject CONTINUE_Select;
+    GameObject NEWGAME_Select;
+    GameObject RECORDS_Select;
+    GameObject OPTION_Select;
+    GameObject QUIT_Select;
+    GameObject NEWGAME_YES_Select;
+    GameObject NEWGAME_NO_Select;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -89,127 +101,148 @@ public class TitleManager : MonoBehaviour
         newGameCheckNo = newGameCheck.transform.Find("No").GetComponent<Button>();
         newGameCheckExit = newGameCheck.transform.Find("Exit").GetComponent<Button>();
 
+        NEWGAME_YES_Select = newGameCheckYes.transform.Find("Select").gameObject;
+        NEWGAME_NO_Select = newGameCheckNo.transform.Find("Select").gameObject;
+
         #region[한국어]
         newGameTUTORIAL.onClick.AddListener(() =>
         {
-            if (SceneController.instance.nowSceneMoving)
-                return;
-            SoundManager.instance.BtnClick();
-            SoundManager.instance.ChickenCoco();
-            SceneController.instance.MoveScene("Tutorial");
+            Tutorial();
         });
         newGameNEW.onClick.AddListener(() =>
         {
-            if (SceneController.instance.nowSceneMoving)
-                return;
-            GameManager.instance.ClearData();
-            SoundManager.instance.BtnClick();
-            SoundManager.instance.ChickenCoco();
-            SceneController.instance.MoveScene(GameManager.instance.playData.stageName);
+            NewGame(false);
         });
         newGameRECORDS.onClick.AddListener(() =>
         {
-            if (SceneController.instance.nowSceneMoving)
-                return;
-            SoundManager.instance.BtnClick();
-            SoundManager.instance.ChickenCoco();
-            SceneController.instance.MoveScene("Records");
+            Record();
         });
         newGameOPTION.onClick.AddListener(() =>
         {
-            if (SceneController.instance.nowSceneMoving)
-                return;
-            SoundManager.instance.BtnClick();
-            UIManager.instance.ActSettingMenu(true);
+            SettingMenu();
         });
         newGameQUIT.onClick.AddListener(() =>
         {
-            if (SceneController.instance.nowSceneMoving)
-                return;
-            SoundManager.instance.BtnClick();
-            SoundManager.instance.ChickenCoco();
-            SceneController.instance.MoveScene("Quit");
+            GameQuit();
         });
 
         //////////////////////////////////////////////////////////////
 
         loadGameCONTINUE.onClick.AddListener(() =>
         {
-            if (SceneController.instance.nowSceneMoving)
-                return;
-            GameManager.instance.LoadData();
-            SoundManager.instance.BtnClick();
-            SoundManager.instance.ChickenCoco();
-            SceneController.instance.MoveScene(GameManager.instance.playData.stageName);
+            Contine();
         });
         loadGameNEW.onClick.AddListener(() =>
         {
-            SoundManager.instance.BtnClick();
-            newGameCheck.SetActive(true);
+            NewGame(true);
         });
         loadGameRECORDS.onClick.AddListener(() =>
         {
-            if (SceneController.instance.nowSceneMoving)
-                return;
-            SoundManager.instance.BtnClick();
-            SoundManager.instance.ChickenCoco();
-            SceneController.instance.MoveScene("Records");
-        });
-        newGameCheckYes.onClick.AddListener(() =>
-        {
-            if (SceneController.instance.nowSceneMoving)
-                return;
-            newGameCheck.SetActive(false);
-            GameManager.instance.ClearData();
-            SoundManager.instance.BtnClick();
-            SoundManager.instance.ChickenCoco();
-            SceneController.instance.MoveScene(GameManager.instance.playData.stageName);
-        });
-        newGameCheckNo.onClick.AddListener(() =>
-        {
-            SoundManager.instance.BtnClick();
-            newGameCheck.SetActive(false);
-        });
-        newGameCheckExit.onClick.AddListener(() =>
-        {
-            SoundManager.instance.BtnClick();
-            newGameCheck.SetActive(false);
+            Record();
         });
         loadGameTUTORIAL.onClick.AddListener(() =>
         {
-            if (SceneController.instance.nowSceneMoving)
-                return;
-            SoundManager.instance.BtnClick();
-            SoundManager.instance.ChickenCoco();
-            SceneController.instance.MoveScene("Tutorial");
+            Tutorial();
         });
         loadGameOPTION.onClick.AddListener(() =>
         {
-            if (SceneController.instance.nowSceneMoving)
-                return;
-            SoundManager.instance.BtnClick();
-            UIManager.instance.ActSettingMenu(true);
+            SettingMenu();
         });
         loadGameQUIT.onClick.AddListener(() =>
         {
-            if (SceneController.instance.nowSceneMoving)
-                return;
-            SoundManager.instance.BtnClick();
-            SoundManager.instance.ChickenCoco();
-            SceneController.instance.MoveScene("Quit");
+            GameQuit();
         });
         #endregion
 
         #region[English]
         newGameTUTORIAL_Eng.onClick.AddListener(() =>
         {
-            if (SceneController.instance.nowSceneMoving)
-                return;
-            SoundManager.instance.BtnClick();
-            SoundManager.instance.ChickenCoco();
-            SceneController.instance.MoveScene("Tutorial");
+            Tutorial();
         });
         newGameNEW_Eng.onClick.AddListener(() =>
+        {
+            NewGame(false);
+        });
+        newGameRECORDS_Eng.onClick.AddListener(() =>
+        {
+            Record();
+        });
+        newGameOPTION_Eng.onClick.AddListener(() =>
+        {
+            SettingMenu();
+        });
+        newGameQUIT_Eng.onClick.AddListener(() =>
+        {
+            GameQuit();
+        });
+
+        //////////////////////////////////////////////////////////////
+
+        loadGameCONTINUE_Eng.onClick.AddListener(() =>
+        {
+            Contine();
+        });
+        loadGameNEW_Eng.onClick.AddListener(() =>
+        {
+            NewGame(true);
+        });
+        loadGameRECORDS_Eng.onClick.AddListener(() =>
+        {
+            Record();
+        });
+        loadGameTUTORIAL_Eng.onClick.AddListener(() =>
+        {
+            Tutorial();
+        });
+        loadGameOPTION_Eng.onClick.AddListener(() =>
+        {
+            SettingMenu();
+        });
+        loadGameQUIT_Eng.onClick.AddListener(() =>
+        {
+            GameQuit();
+        });
+        #endregion
+
+        #region[게임기록 새로 작성 여부]
+        newGameCheckYes.onClick.AddListener(() =>
+        {
+            NewGameData();
+        });
+        newGameCheckNo.onClick.AddListener(() =>
+        {
+            NewGameWindowExit();
+        });
+        newGameCheckExit.onClick.AddListener(() =>
+        {
+            NewGameWindowExit();
+        });
+        #endregion
+
+    }
+    #endregion
+
+    #region[튜토리얼로]
+    public void Tutorial()
+    {
+        if (SceneController.instance.nowSceneMoving)
+            return;
+        SoundManager.instance.BtnClick();
+        SoundManager.instance.ChickenCoco();
+        SceneController.instance.MoveScene("Tutorial");
+    }
+    #endregion
+
+    #region[새게임하기]
+    public void NewGame(bool checkNewGame)
+    {
+        if(checkNewGame && !newGameCheck.activeSelf)
+        {
+            selectNum = 0;
+            SoundManager.instance.BtnClick();
+            newGameCheck.SetActive(true);
+        }
+        else
         {
             if (SceneController.instance.nowSceneMoving)
                 return;
@@ -217,80 +250,73 @@ public class TitleManager : MonoBehaviour
             SoundManager.instance.BtnClick();
             SoundManager.instance.ChickenCoco();
             SceneController.instance.MoveScene(GameManager.instance.playData.stageName);
-        });
-        newGameRECORDS_Eng.onClick.AddListener(() =>
-        {
-            if (SceneController.instance.nowSceneMoving)
-                return;
-            SoundManager.instance.BtnClick();
-            SoundManager.instance.ChickenCoco();
-            SceneController.instance.MoveScene("Records");
-        });
-        newGameOPTION_Eng.onClick.AddListener(() =>
-        {
-            if (SceneController.instance.nowSceneMoving)
-                return;
-            SoundManager.instance.BtnClick();
-            UIManager.instance.ActSettingMenu(true);
-        });
-        newGameQUIT_Eng.onClick.AddListener(() =>
-        {
-            if (SceneController.instance.nowSceneMoving)
-                return;
-            SoundManager.instance.BtnClick();
-            SoundManager.instance.ChickenCoco();
-            SceneController.instance.MoveScene("Quit");
-        });
-
-        //////////////////////////////////////////////////////////////
-
-        loadGameCONTINUE_Eng.onClick.AddListener(() =>
-        {
-            if (SceneController.instance.nowSceneMoving)
-                return;
-            GameManager.instance.LoadData();
-            SoundManager.instance.BtnClick();
-            SoundManager.instance.ChickenCoco();
-            SceneController.instance.MoveScene(GameManager.instance.playData.stageName);
-        });
-        loadGameNEW_Eng.onClick.AddListener(() =>
-        {
-            SoundManager.instance.BtnClick();
-            newGameCheck.SetActive(true);
-        });
-        loadGameRECORDS_Eng.onClick.AddListener(() =>
-        {
-            if (SceneController.instance.nowSceneMoving)
-                return;
-            SoundManager.instance.BtnClick();
-            SoundManager.instance.ChickenCoco();
-            SceneController.instance.MoveScene("Records");
-        });
-        loadGameTUTORIAL_Eng.onClick.AddListener(() =>
-        {
-            if (SceneController.instance.nowSceneMoving)
-                return;
-            SoundManager.instance.BtnClick();
-            SoundManager.instance.ChickenCoco();
-            SceneController.instance.MoveScene("Tutorial");
-        });
-        loadGameOPTION_Eng.onClick.AddListener(() =>
-        {
-            if (SceneController.instance.nowSceneMoving)
-                return;
-            SoundManager.instance.BtnClick();
-            UIManager.instance.ActSettingMenu(true);
-        });
-        loadGameQUIT_Eng.onClick.AddListener(() =>
-        {
-            if (SceneController.instance.nowSceneMoving)
-                return;
-            SoundManager.instance.BtnClick();
-            SoundManager.instance.ChickenCoco();
-            SceneController.instance.MoveScene("Quit");
-        });
-        #endregion
+        }
     }
+    #endregion
+
+    #region[탐험일지]
+    public void Record()
+    {
+        if (SceneController.instance.nowSceneMoving)
+            return;
+        SoundManager.instance.BtnClick();
+        SoundManager.instance.ChickenCoco();
+        SceneController.instance.MoveScene("Records");
+    }
+    #endregion
+
+    #region[이어하기]
+    public void Contine()
+    {
+        if (SceneController.instance.nowSceneMoving)
+            return;
+        GameManager.instance.LoadData();
+        SoundManager.instance.BtnClick();
+        SoundManager.instance.ChickenCoco();
+        SceneController.instance.MoveScene(GameManager.instance.playData.stageName);
+    }
+    #endregion
+
+    #region[설정메뉴]
+    public void SettingMenu()
+    {
+        if (SceneController.instance.nowSceneMoving)
+            return;
+        SoundManager.instance.BtnClick();
+        UIManager.instance.ActSettingMenu(true);
+    }
+    #endregion
+
+    #region[게임종료]
+    public void GameQuit()
+    {
+        if (SceneController.instance.nowSceneMoving)
+            return;
+        SoundManager.instance.BtnClick();
+        SoundManager.instance.ChickenCoco();
+        SceneController.instance.MoveScene("Quit");
+    }
+    #endregion
+
+    #region[게임기록새로작성]
+    public void NewGameData()
+    {
+        if (SceneController.instance.nowSceneMoving)
+            return;
+        newGameCheck.SetActive(false);
+        GameManager.instance.ClearData();
+        SoundManager.instance.BtnClick();
+        SoundManager.instance.ChickenCoco();
+        SceneController.instance.MoveScene(GameManager.instance.playData.stageName);
+    }
+    public void NewGameWindowExit()
+    {
+        if (!newGameCheck.activeSelf)
+            return;
+        SoundManager.instance.BtnClick();
+        newGameCheck.SetActive(false);
+    }
+
     #endregion
 
     #region[Update]
@@ -306,10 +332,225 @@ public class TitleManager : MonoBehaviour
             SoundManager.instance.ChickenBark(2);
             pressAnyKey.SetActive(false);
             if (GameManager.instance.playData.stageName != "Stage0101")
+            {
                 loadGame.SetActive(true);
+                selectNum = 0;
+            }
             else
+            {
                 newGame.SetActive(true);
+                selectNum = 1;
+            }
         }
+
+        #region[게임새로하기 체크]
+        else if (newGameCheck.activeSelf)
+        {
+            CONTINUE_Select.SetActive(false);
+            NEWGAME_Select.SetActive(false);
+            TUTORIAL_Select.SetActive(false);
+            RECORDS_Select.SetActive(false);
+            OPTION_Select.SetActive(false);
+            QUIT_Select.SetActive(false);
+            NEWGAME_YES_Select.SetActive(false);
+            NEWGAME_NO_Select.SetActive(false);
+
+            if (KeyManager.nowController == GameController.KeyBoard)
+                return;
+
+            if (SceneController.instance.nowSceneMoving)
+                return;
+
+            if (selectNum == 0 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemRight]))
+            {
+                selectNum++;
+                selectNum %= 2;
+            }
+            else if (selectNum == 1 && KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemLeft]))
+            {
+                selectNum++;
+                selectNum %= 2;
+            }
+
+            if (selectNum == 0)
+            {
+                NEWGAME_YES_Select.SetActive(true);
+                if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
+                    NewGameData();
+            }
+            else if (selectNum == 1)
+            {
+                NEWGAME_NO_Select.SetActive(true);
+                if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
+                    NewGameWindowExit();
+            }
+
+        }
+        #endregion
+
+        #region[새게임 메뉴들]
+        else if (newGame.activeSelf)
+        {
+            if(TUTORIAL_Select == null)
+                TUTORIAL_Select = newGame.transform.Find("TutorialSelect").gameObject;
+            if (NEWGAME_Select == null)
+                NEWGAME_Select = newGame.transform.Find("NewGameSelect").gameObject;
+            if (RECORDS_Select == null)
+                RECORDS_Select = newGame.transform.Find("RecordSelect").gameObject;
+            if (OPTION_Select == null)
+                OPTION_Select = newGame.transform.Find("SettingSelect").gameObject;
+            if (QUIT_Select == null)
+                QUIT_Select = newGame.transform.Find("QUITSelect").gameObject;
+
+            TUTORIAL_Select.SetActive(false);
+            NEWGAME_Select.SetActive(false);
+            RECORDS_Select.SetActive(false);
+            OPTION_Select.SetActive(false);
+            QUIT_Select.SetActive(false);
+
+            if (KeyManager.nowController == GameController.KeyBoard)
+                return;
+
+            if (UIManager.instance.settingMenu.activeSelf)
+                return;
+
+            if (newGameCheck.activeSelf)
+                return;
+
+            if (SceneController.instance.nowSceneMoving)
+                return;
+
+            if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown]))
+            {
+                selectNum++;
+                selectNum = selectNum > 4 ? 0 : selectNum;
+            }
+            else if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp]))
+            {
+                selectNum--;
+                selectNum = selectNum < 0 ? 4 : selectNum;
+            }
+
+            if (selectNum == 0)
+            {
+                TUTORIAL_Select.SetActive(true);
+                if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
+                    Tutorial();
+            }
+            else if (selectNum == 1)
+            {
+                NEWGAME_Select.SetActive(true);
+                if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
+                    NewGame(false);
+            }
+            else if (selectNum == 2)
+            {
+                RECORDS_Select.SetActive(true);
+                if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
+                    Record();
+            }
+            else if (selectNum == 3)
+            {
+                OPTION_Select.SetActive(true);
+                if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
+                    SettingMenu();
+            }
+            else if (selectNum == 4)
+            {
+                QUIT_Select.SetActive(true);
+                if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
+                    GameQuit();
+            }
+        }
+        #endregion
+
+        #region[로드게임 메뉴들]
+        else if (loadGame.activeSelf)
+        {
+            if (CONTINUE_Select == null)
+                CONTINUE_Select = loadGame.transform.Find("ContinueSelect").gameObject;
+            if (NEWGAME_Select == null)
+                NEWGAME_Select = loadGame.transform.Find("NewGameSelect").gameObject;
+            if (TUTORIAL_Select == null)
+                TUTORIAL_Select = loadGame.transform.Find("TutorialSelect").gameObject;
+            if (RECORDS_Select == null)
+                RECORDS_Select = loadGame.transform.Find("RecordSelect").gameObject;
+            if (OPTION_Select == null)
+                OPTION_Select = loadGame.transform.Find("SettingSelect").gameObject;
+            if (QUIT_Select == null)
+                QUIT_Select = loadGame.transform.Find("QUITSelect").gameObject;
+
+            CONTINUE_Select.SetActive(false);
+            NEWGAME_Select.SetActive(false);
+            TUTORIAL_Select.SetActive(false);
+            RECORDS_Select.SetActive(false);
+            OPTION_Select.SetActive(false);
+            QUIT_Select.SetActive(false);
+
+            if (KeyManager.nowController == GameController.KeyBoard)
+                return;
+
+            if (UIManager.instance.settingMenu.activeSelf)
+                return;
+
+            if (newGameCheck.activeSelf)
+                return;
+
+            if (SceneController.instance.nowSceneMoving)
+                return;
+
+            if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown]))
+            {
+                selectNum++;
+                selectNum = selectNum > 5 ? 0 : selectNum;
+            }
+            else if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemUp]))
+            {
+                selectNum--;
+                selectNum = selectNum < 0 ? 5 : selectNum;
+            }
+
+            if (selectNum == 0)
+            {
+                CONTINUE_Select.SetActive(true);
+                if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
+                    Contine();
+            }
+            else if (selectNum == 1)
+            {
+                NEWGAME_Select.SetActive(true);
+                if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
+                    NewGame(true);
+            }
+            else if (selectNum == 2)
+            {
+                TUTORIAL_Select.SetActive(true);
+                if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
+                    Tutorial();
+            }
+            else if (selectNum == 3)
+            {
+                RECORDS_Select.SetActive(true);
+                if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
+                    Record();
+            }
+            else if (selectNum == 4)
+            {
+                OPTION_Select.SetActive(true);
+                if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
+                    SettingMenu();
+            }
+            else if (selectNum == 5)
+            {
+                QUIT_Select.SetActive(true);
+                if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
+                    GameQuit();
+            }
+
+        }
+        #endregion
+
+
     }
     #endregion
 

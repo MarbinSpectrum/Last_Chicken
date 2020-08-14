@@ -133,9 +133,9 @@ public class KeyManager : MonoBehaviour
             gamePad[GameKeyType.ItemUse] = GameManager.instance.playData.gamePadListXBOX[9];
             gamePad[GameKeyType.Map] = GameManager.instance.playData.gamePadListXBOX[10];
 
-            gamePad[GameKeyType.Pause] = "Back";
+            gamePad[GameKeyType.Pause] = "BACK";
             gamePad[GameKeyType.Select] = "X";
-            gamePad[GameKeyType.Cancle] = "Y";
+            gamePad[GameKeyType.Cancle] = "A";
             gamePad[GameKeyType.SystemLeft] = "StickLeft";
             gamePad[GameKeyType.SystemRight] = "StickRight";
             gamePad[GameKeyType.SystemUp] = "StickUp";
@@ -600,6 +600,9 @@ public class KeyManager : MonoBehaviour
             if (key == "RB")
                 if (Input.GetKey(KeyCode.JoystickButton5))
                     return true;
+            if (key == "BACK")
+                if (Input.GetKey(KeyCode.JoystickButton6))
+                    return true;
             if (key == "START")
                 if (Input.GetKey(KeyCode.JoystickButton7))
                     return true;
@@ -693,6 +696,9 @@ public class KeyManager : MonoBehaviour
             if (key == "RB")
                 if (Input.GetKeyDown(KeyCode.JoystickButton5))
                     return true;
+            if (key == "BACK")
+                if (Input.GetKeyDown(KeyCode.JoystickButton6))
+                    return true;
             if (key == "START")
                 if (Input.GetKeyDown(KeyCode.JoystickButton7))
                     return true;
@@ -776,6 +782,9 @@ public class KeyManager : MonoBehaviour
             if (key == "RB")
                 if (Input.GetKeyUp(KeyCode.JoystickButton5))
                     return true;
+            if (key == "BACK")
+                if (Input.GetKeyUp(KeyCode.JoystickButton6))
+                    return true;
             if (key == "START")
                 if (Input.GetKeyUp(KeyCode.JoystickButton7))
                     return true;
@@ -844,6 +853,7 @@ public class KeyManager : MonoBehaviour
         {
             nowController = GameController.KeyBoard;
             Debug.Log("키보드");
+            SetGameKey.runSetting = false;
         }
         else if(nowController == GameController.KeyBoard && CheckJoyStick())
         {
@@ -854,12 +864,14 @@ public class KeyManager : MonoBehaviour
                 {
                     nowController = GameController.XBOX;
                     Debug.Log("XBOX");
+                    SetGameKey.runSetting = false;
                     break;
                 }
                 else if (pad[i].Contains("Wireless"))
                 {
                     nowController = GameController.Wireless;
                     Debug.Log("PS");
+                    SetGameKey.runSetting = false;
                     break;
                 }
             }

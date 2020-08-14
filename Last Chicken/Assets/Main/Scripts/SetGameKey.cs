@@ -70,11 +70,9 @@ public class SetGameKey : MonoBehaviour
             if (KeyManager.GetKeyUp(KeyManager.instance.gamePad[GameKeyType.Select]))
             {
                 realCheck = true;
-                Debug.Log("!!");
             }
             else if (realCheck && KeyManager.CheckJoyStick())
             {
-                Debug.LogError("!!");
                 KeyManager.instance.ChangeGamePadInput(gameKeyType, KeyManager.GetJoyStickKey());
                 runSetting = false;
                 isRun = false;
