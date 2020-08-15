@@ -181,6 +181,9 @@ public class UIManager : MonoBehaviour
     [NonSerialized] public SpriteGlowEffect[,] caseSpriteglow;
     Color itemDarkColor = new Color(0.2f, 0.2f, 0.2f);
 
+    int selectAltarMenu = 0;
+    [NonSerialized] public GameObject[] case_AltarSelectObj;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     [NonSerialized] public GameObject shopUI;               //상점 UI
@@ -190,6 +193,9 @@ public class UIManager : MonoBehaviour
     [NonSerialized] public Image[] shopItemImg;             //상점아이템이미지
     [NonSerialized] public GameObject[] shopItemSoldOut;         //매진 이미지
     [NonSerialized] public Button[] shopItemBuy;            //아이템 구매 버튼
+
+    int selectShopMenu = 0;
+    [NonSerialized] public GameObject[] case_ShopSelectObj;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -201,6 +207,9 @@ public class UIManager : MonoBehaviour
     [NonSerialized] public GameObject[] movingShopItemSoldOut;         //매진 이미지
     [NonSerialized] public Button[] movingShopItemBuy;            //아이템 구매 버튼
 
+    int selectMovingShopMenu = 0;
+    [NonSerialized] public GameObject[] case_MovingShopSelectObj;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     [NonSerialized] public GameObject smithyUI;               //대장간 UI
@@ -209,6 +218,11 @@ public class UIManager : MonoBehaviour
     [NonSerialized] public GameObject smithyNo;
     [NonSerialized] public GameObject smithyOk;
 
+    int selectSmithyNum = 0;
+
+    [NonSerialized] public GameObject smithyYes_SelectObj;
+    [NonSerialized] public GameObject smithyNo_SelectObj;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     [NonSerialized] public GameObject itemBagUpgradeUI;               //가방업그레이드 UI
@@ -216,6 +230,11 @@ public class UIManager : MonoBehaviour
     [NonSerialized] public GameObject itemBagUpgradeYes;
     [NonSerialized] public GameObject itemBagUpgradeNo;
     [NonSerialized] public GameObject itemBagUpgradeOk;
+
+    int selectitemBagUpgradeNum = 0;
+
+    [NonSerialized] public GameObject itemBagUpgradeYes_SelectObj;
+    [NonSerialized] public GameObject itemBagUpgradeNo_SelectObj;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -537,6 +556,12 @@ public class UIManager : MonoBehaviour
             caseEvent[i].triggers.Add(pointerClick);
         }
 
+        case_AltarSelectObj = new GameObject[3];
+        case_AltarSelectObj[0] = altarUI.transform.Find("Case1 Select").gameObject;
+        case_AltarSelectObj[1] = altarUI.transform.Find("Case2 Select").gameObject;
+        case_AltarSelectObj[2] = altarUI.transform.Find("Case3 Select").gameObject;
+
+
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         shopUI = canvas.Find("ShopUI").gameObject;
@@ -561,6 +586,11 @@ public class UIManager : MonoBehaviour
             shopItemBuy[i].onClick.AddListener(() => { ShopScript.instance.BuyItem(number); });
         }
 
+        case_ShopSelectObj = new GameObject[3];
+        case_ShopSelectObj[0] = shopUI.transform.Find("Case1 Select").gameObject;
+        case_ShopSelectObj[1] = shopUI.transform.Find("Case2 Select").gameObject;
+        case_ShopSelectObj[2] = shopUI.transform.Find("Case3 Select").gameObject;
+
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         movingShopUI = canvas.Find("MovingShopUI").gameObject;
@@ -584,6 +614,11 @@ public class UIManager : MonoBehaviour
             movingShopItemBuy[i] = temp.Find("Buy").GetComponent<Button>();
             movingShopItemBuy[i].onClick.AddListener(() => { MovingShop.instance.BuyItem(number); });
         }
+
+        case_MovingShopSelectObj = new GameObject[3];
+        case_MovingShopSelectObj[0] = shopUI.transform.Find("Case1 Select").gameObject;
+        case_MovingShopSelectObj[1] = shopUI.transform.Find("Case2 Select").gameObject;
+        case_MovingShopSelectObj[2] = shopUI.transform.Find("Case3 Select").gameObject;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -622,6 +657,9 @@ public class UIManager : MonoBehaviour
         });
         smithyText = smithyUI.transform.Find("Text").GetComponent<Text>();
 
+        smithyYes_SelectObj = smithyUI.transform.Find("Yes").Find("Select").gameObject;
+        smithyNo_SelectObj = smithyUI.transform.Find("No").Find("Select").gameObject;
+
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         itemBagUpgradeUI = canvas.Find("ItemBagUpgradeUI").gameObject;
@@ -652,6 +690,9 @@ public class UIManager : MonoBehaviour
             Player.instance.canControl = true;
         });
         itemBagUpgradeText = itemBagUpgradeUI.transform.Find("Text").GetComponent<Text>();
+
+        itemBagUpgradeYes_SelectObj = itemBagUpgradeUI.transform.Find("Yes").Find("Select").gameObject;
+        itemBagUpgradeNo_SelectObj = itemBagUpgradeUI.transform.Find("No").Find("Select").gameObject;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -955,6 +996,7 @@ public class UIManager : MonoBehaviour
                 altarUI.SetActive(AltarScript.instance.thisUse);
             if (!altarUI.activeSelf)
             {
+                selectAltarMenu = 0;
                 if (GameManager.instance.playData.language == PlayData.Language.한국어)
                     buffText.text = "닭의 신이 축복을 내립니다.\n축복을 선택해주세요.";
                 else if (GameManager.instance.playData.language == PlayData.Language.English)
@@ -1009,6 +1051,34 @@ public class UIManager : MonoBehaviour
                 for (int i = 0; i < 3; i++)
                     caseImage[i].transform.localScale = size;
                 #endregion
+
+                case_AltarSelectObj[0].SetActive(false);
+                case_AltarSelectObj[1].SetActive(false);
+                case_AltarSelectObj[2].SetActive(false);
+
+                if (selectAltarMenu < 3 && KeyManager.nowController != GameController.KeyBoard && !GameManager.instance.gamePause)
+                {
+                    case_AltarSelectObj[selectAltarMenu].SetActive(true);
+
+                    if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemLeft]))
+                    {
+                        selectAltarMenu--;
+                        selectAltarMenu = selectAltarMenu < 0 ? 2 : selectAltarMenu;
+                    }
+                    else if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemRight]))
+                    {
+                        selectAltarMenu++;
+                        selectAltarMenu = selectAltarMenu > 2 ? 0 : selectAltarMenu;
+                    }
+                    else if(KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
+                    {
+                        BuffManager.instance.AddBuff(AltarScript.instance.buffList[selectAltarMenu]);
+                        Player.instance.invincibility = true;
+                        AltarScript.instance.thisUse = false;
+                        AltarScript.instance.used = true;
+                        altarUI.SetActive(false);
+                    }
+                }
             }
             #endregion
 
@@ -1018,15 +1088,73 @@ public class UIManager : MonoBehaviour
                 shopUI.SetActive(ShopScript.instance.thisUse && ShopScript.instance.gameObject.activeSelf);
                 for (int i = 0; i < ShopScript.instance.itmeBuyList.Count; i++)
                     shopItemSoldOut[i].SetActive(ShopScript.instance.itmeBuyList[i]);
+
+                case_ShopSelectObj[0].SetActive(false);
+                case_ShopSelectObj[1].SetActive(false);
+                case_ShopSelectObj[2].SetActive(false);
+
+                if (shopUI.activeSelf)
+                {
+                    if (selectShopMenu < 3 && KeyManager.nowController != GameController.KeyBoard && !GameManager.instance.gamePause)
+                    {
+                        case_ShopSelectObj[selectShopMenu].SetActive(true);
+
+                        if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemLeft]))
+                        {
+                            selectShopMenu--;
+                            selectShopMenu = selectShopMenu < 0 ? 2 : selectShopMenu;
+                        }
+                        else if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemRight]))
+                        {
+                            selectShopMenu++;
+                            selectShopMenu = selectShopMenu > 2 ? 0 : selectShopMenu;
+                        }
+                        else if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
+                        {
+                            ShopScript.instance.BuyItem(selectShopMenu);
+                        }
+                    }
+                }
+                else
+                    selectShopMenu = 0;
             }
             #endregion
 
-            #region[상점 UI 조절]
+            #region[이동상점 UI 조절]
             if (MovingShop.instance)
             {
                 movingShopUI.SetActive(MovingShop.instance.thisUse && MovingShop.instance.gameObject.activeSelf);
                 for (int i = 0; i < MovingShop.instance.itmeBuyList.Count; i++)
                     movingShopItemSoldOut[i].SetActive(MovingShop.instance.itmeBuyList[i]);
+
+                case_MovingShopSelectObj[0].SetActive(false);
+                case_MovingShopSelectObj[1].SetActive(false);
+                case_MovingShopSelectObj[2].SetActive(false);
+
+                if (movingShopUI.activeSelf)
+                {
+                    if (selectMovingShopMenu < 3 && KeyManager.nowController != GameController.KeyBoard && !GameManager.instance.gamePause)
+                    {
+                        case_MovingShopSelectObj[selectMovingShopMenu].SetActive(true);
+
+                        if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemLeft]))
+                        {
+                            selectMovingShopMenu--;
+                            selectMovingShopMenu = selectMovingShopMenu < 0 ? 2 : selectMovingShopMenu;
+                        }
+                        else if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemRight]))
+                        {
+                            selectMovingShopMenu++;
+                            selectMovingShopMenu = selectMovingShopMenu > 2 ? 0 : selectMovingShopMenu;
+                        }
+                        else if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
+                        {
+                            MovingShop.instance.BuyItem(selectMovingShopMenu);
+                        }
+                    }
+                }
+                else
+                    selectMovingShopMenu = 0;
             }
             #endregion
 
@@ -1095,6 +1223,59 @@ public class UIManager : MonoBehaviour
                     else if (GameManager.instance.playData.language == PlayData.Language.English)
                         smithyText.text += "\n<color=#886600ff><size=40>Increases the overall quality of the pickaxe.(Increases attack force, increases attack speed.)</size></color>";
                 }
+
+                if (smithyUI.activeSelf)
+                {
+                    smithyNo_SelectObj.SetActive(false);
+                    smithyYes_SelectObj.SetActive(false);
+
+                    if (selectSmithyNum < 2 && KeyManager.nowController != GameController.KeyBoard && !GameManager.instance.gamePause)
+                    {
+                        if(selectSmithyNum == 0)
+                            smithyYes_SelectObj.SetActive(true);
+                        else if (selectSmithyNum == 1)
+                            smithyNo_SelectObj.SetActive(true);
+
+                        if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemLeft]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemRight]))
+                        {
+                            selectSmithyNum++;
+                            selectSmithyNum %= 2;
+                        }
+                        else if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
+                        {
+                            if(smithyOk.activeSelf || selectSmithyNum == 1)
+                            {
+                                Smithy.instance.thisUse = false;
+                                Player.instance.canControl = true;
+                                Player.instance.selectKeyUp = false;
+                                smithyUI.SetActive(false);
+                            }
+                            else if (selectSmithyNum == 0)
+                            {
+                                if (ItemManager.instance.HasItemCheck("Hammer"))
+                                {
+                                    ItemManager.instance.CostItem("Hammer");
+                                    Smithy.instance.Reinforce();
+                                    SoundManager.instance.PlayerMoney();
+                                    smithyUI.SetActive(false);
+                                }
+                                else if (GameManager.instance.playerMoney >= Smithy.reinforceCost[Player.instance.pickLevel])
+                                {
+                                    GameManager.instance.playerMoney -= Smithy.reinforceCost[Player.instance.pickLevel];
+                                    Smithy.instance.Reinforce();
+                                    SoundManager.instance.PlayerMoney();
+                                    smithyUI.SetActive(false);
+                                }
+                                else
+                                {
+                                    SoundManager.instance.CantRun();
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                    selectSmithyNum = 0;
             }
             #endregion
 
@@ -1127,6 +1308,52 @@ public class UIManager : MonoBehaviour
                     itemBagUpgradeText.text += "\n<color=#886688ff><size=40>아이템을 더 많이 담을 수 있습니다.</size></color>";
                 else if (GameManager.instance.playData.language == PlayData.Language.English)
                     itemBagUpgradeText.text += "\n<color=#886688ff><size=40>You can store more items. (Attack increased)</size></color>";
+
+                if (itemBagUpgradeUI.activeSelf)
+                {
+                    itemBagUpgradeNo_SelectObj.SetActive(false);
+                    itemBagUpgradeYes_SelectObj.SetActive(false);
+
+                    if (selectitemBagUpgradeNum < 2 && KeyManager.nowController != GameController.KeyBoard && !GameManager.instance.gamePause)
+                    {
+                        if (selectitemBagUpgradeNum == 0)
+                            itemBagUpgradeNo_SelectObj.SetActive(true);
+                        else if (selectitemBagUpgradeNum == 1)
+                            itemBagUpgradeYes_SelectObj.SetActive(true);
+
+                        if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemLeft]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemRight]))
+                        {
+                            selectitemBagUpgradeNum++;
+                            selectitemBagUpgradeNum %= 2;
+                        }
+                        else if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
+                        {
+                            if (itemBagUpgradeOk.activeSelf || selectitemBagUpgradeNum == 1)
+                            {
+                                ItemBagShop.instance.thisUse = false;
+                                Player.instance.canControl = true;
+                                Player.instance.selectKeyUp = false;
+                                itemBagUpgradeUI.SetActive(false);
+                            }
+                            else if (selectitemBagUpgradeNum == 0)
+                            {
+                                if (GameManager.instance.playerMoney >= ItemBagShop.reinforceCost[GameManager.instance.playData.ItemBagLevel()])
+                                {
+                                    GameManager.instance.playerMoney -= ItemBagShop.reinforceCost[GameManager.instance.playData.ItemBagLevel()];
+                                    ItemBagShop.instance.Reinforce();
+                                    SoundManager.instance.PlayerMoney();
+                                    itemBagUpgradeUI.SetActive(false);
+                                }
+                                else
+                                {
+                                    SoundManager.instance.CantRun();
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                    selectSmithyNum = 0;
             }
             #endregion
 

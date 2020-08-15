@@ -95,7 +95,8 @@ public class AltarScript : AreaScript
             return;
         if (!used && IsAtPlayer(bodyCollider))
         {
-            if (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.Up]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Up]))
+            if (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.Up]) ||
+                KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Up]))
             {
                 if (Player.instance.canControl && !thisUse)
                 {

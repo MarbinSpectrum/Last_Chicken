@@ -265,6 +265,9 @@ public class Player : CustomCollider
 
         if (!selectKeyUp && KeyManager.GetKeyUp(KeyManager.instance.gamePad[GameKeyType.Select]))
             selectKeyUp = true;
+        else if(!selectKeyUp && KeyManager.nowController == GameController.KeyBoard)
+            selectKeyUp = true;
+
 
         //자동으로 작동되는 행동
         PlayerFall();
