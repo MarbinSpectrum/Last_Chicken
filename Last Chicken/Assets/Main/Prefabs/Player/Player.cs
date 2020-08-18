@@ -147,6 +147,7 @@ public class Player : CustomCollider
 
     [System.NonSerialized] public bool selectKeyUp =  true;
 
+    [System.NonSerialized] public int mapAni = 0;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1245,10 +1246,14 @@ public class Player : CustomCollider
         else
             animator.SetBool("Run", false);
 
-        animator.SetBool("Walk", Mathf.Abs(KeyManager.HorizonScale) < 0.7f);
+        animator.SetBool("Walk", runFlag && Mathf.Abs(KeyManager.HorizonScale) < 0.7f);
         animator.SetBool("Pray", pray);
 
         animator.SetBool("Hang", hang);
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Map_Close") && (pray || hang || !grounded || animator.GetBool("Run") || animator.GetBool("Walk")))
+            mapAni = -1;
+        animator.SetInteger("Map", mapAni);
 
     }
     #endregion

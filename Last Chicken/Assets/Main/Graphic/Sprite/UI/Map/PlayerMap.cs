@@ -134,6 +134,7 @@ public class PlayerMap : MonoBehaviour
             if (Player.instance.grounded && Player.instance.canControl && !thisUse)
             {
                 Player.instance.canControl = false;
+                Player.instance.mapAni = Random.Range(1, 3);
                 map.SetActive(true);
                 thisUse = true;
                 DrawPlayerPos();
@@ -141,6 +142,7 @@ public class PlayerMap : MonoBehaviour
             else if (thisUse)
             {
                 Player.instance.canControl = true;
+                Player.instance.mapAni = 0;
                 map.SetActive(false);
                 thisUse = false;
             }
