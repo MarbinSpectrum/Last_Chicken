@@ -48,6 +48,8 @@ public class ObjectCave : CustomCollider
     public void ObjectInit()
     {
         areaScript.Init();
+        act = false;
+        targetObject.SetActive(false);
     }
     #endregion
 
@@ -129,8 +131,6 @@ public class ObjectCave : CustomCollider
         if (playerIn && Player.instance.canControl)
         {
             if (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.Up]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Up]))
-            if (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.Up]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Up]))
-            if (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.Up]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Up]))
             {
                 act = !act;
                 fadeAct = true;
@@ -196,13 +196,6 @@ public class ObjectCave : CustomCollider
         }
         CustomFluidChunk.fluidAct = !act;
         Chunk.actChunk = !act;
-
-
-        //if (!act)
-        //{
-        //    yield return new WaitForSeconds(0.2f);
-        //   gameObject.SetActive(false);
-        //}
     }
     #endregion
 

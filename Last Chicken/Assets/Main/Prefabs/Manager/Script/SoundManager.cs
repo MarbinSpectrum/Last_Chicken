@@ -201,11 +201,13 @@ public class SoundManager : MonoBehaviour
         {
             if (BGM)
                 BGM.Stop();
+            BGM.clip = null;
         }
         else
         {
             if (SubBGM)
                 SubBGM.Stop();
+            SubBGM.clip = null;
         }
     }
     #endregion

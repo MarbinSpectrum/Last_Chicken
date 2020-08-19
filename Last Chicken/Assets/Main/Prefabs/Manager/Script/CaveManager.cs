@@ -6,10 +6,10 @@ public class CaveManager : ObjectPool
 {
     public static CaveManager instance;
 
-    public GameObject[] shopCave;
-    public GameObject[] smithyCave;
-    public GameObject[] altarCave;
-    public GameObject[] fountainCave;
+    public ObjectCave[] shopCave;
+    public ObjectCave[] smithyCave;
+    public ObjectCave[] altarCave;
+    public ObjectCave[] fountainCave;
     public Sprite[] stageDoor_Spr = new Sprite[2];
     public Sprite[] stageDoorFoothold_Spr = new Sprite[2];
 
@@ -32,7 +32,7 @@ public class CaveManager : ObjectPool
 
         if (emp == null)
         {
-            emp = Instantiate(shopCave[dic]);
+            emp = Instantiate(shopCave[dic].transform.gameObject);
             emp.transform.name = name;
             AddObject(emp);
         }
@@ -54,7 +54,7 @@ public class CaveManager : ObjectPool
 
         if (emp == null)
         {
-            emp = Instantiate(smithyCave[dic]);
+            emp = Instantiate(smithyCave[dic].transform.gameObject);
             emp.transform.name = name;
             AddObject(emp);
         }
@@ -76,7 +76,7 @@ public class CaveManager : ObjectPool
 
         if (emp == null)
         {
-            emp = Instantiate(altarCave[dic]);
+            emp = Instantiate(altarCave[dic].transform.gameObject);
             emp.transform.name = name;
             AddObject(emp);
         }
@@ -98,7 +98,7 @@ public class CaveManager : ObjectPool
 
         if (emp == null)
         {
-            emp = Instantiate(fountainCave[dic]);
+            emp = Instantiate(fountainCave[dic].transform.gameObject);
             emp.transform.name = name;
             AddObject(emp);
         }
@@ -125,7 +125,6 @@ public class CaveManager : ObjectPool
             if (objectPool[i].transform.position.x != -1000)
                 objectPool[i].SetActive(true);
     }
-
 
     #region[오브젝트풀링 데이터를 모두 비활성화]
     public override void PoolOff()

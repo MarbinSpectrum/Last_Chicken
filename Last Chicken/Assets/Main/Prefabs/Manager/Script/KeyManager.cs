@@ -89,6 +89,8 @@ public class KeyManager : MonoBehaviour
             keyBoard[GameKeyType.Map] = GameManager.instance.playData.keyBoardList[10];
 
             keyBoard[GameKeyType.Pause] = KeyCode.Escape;
+            keyBoard[GameKeyType.Select] = KeyCode.Mouse0;
+            //keyBoard[GameKeyType.Cancle] = GameManager.instance.playData.gamePadListXBOX[4];
             keyBoard[GameKeyType.SystemLeft] = KeyCode.LeftArrow;
             keyBoard[GameKeyType.SystemRight] = KeyCode.RightArrow;
             keyBoard[GameKeyType.SystemUp] = KeyCode.UpArrow;
