@@ -19,6 +19,7 @@ namespace TerrainEngine2D
         private World world;
         private Camera mainCamera;
         private Camera lightingCamera;
+        private Camera radarCamera;
         private Camera overlayCamera;
         private Camera postProcessCamera;
 
@@ -107,26 +108,26 @@ namespace TerrainEngine2D
                 {
                     mainCamera.cullingMask |= 1 << LayerMask.NameToLayer("Terrain");
                     mainCamera.cullingMask &= ~(1 << LayerMask.NameToLayer("Lighting"));
+                    mainCamera.cullingMask &= ~(1 << LayerMask.NameToLayer("Radar"));
                     if (world.BasicLighting)
                         mainCamera.cullingMask |= 1 << LayerMask.NameToLayer("Ignore Lighting");
                     else
                         mainCamera.cullingMask &= ~(1 << LayerMask.NameToLayer("Ignore Lighting"));
                 }
-                lightingCamera = transform.GetChild(0).GetComponent<Camera>();
+
+                lightingCamera = transform.Find("LightCamera").GetComponent<Camera>();
                 if (lightingCamera != null)
-                {
                     lightingCamera.cullingMask = LayerMask.GetMask("Lighting");
-                }
-                overlayCamera = transform.GetChild(1).GetComponent<Camera>();
+                radarCamera = transform.Find("RadarCamera").GetComponent<Camera>();
+                if (radarCamera != null)
+                    radarCamera.cullingMask |= 1 << LayerMask.NameToLayer("Radar");
+                overlayCamera = transform.Find("OverlayCamera").GetComponent<Camera>();
                 if (overlayCamera != null)
-                {
                     overlayCamera.cullingMask |= 1 << LayerMask.NameToLayer("Ignore Lighting");
-                }
-                postProcessCamera = transform.GetChild(2).GetComponent<Camera>();
+
+                postProcessCamera = transform.Find("PostProcessCamera").GetComponent<Camera>();
                 if (postProcessCamera != null)
-                {
                     postProcessCamera.cullingMask = LayerMask.GetMask("PostProcess");
-                }
             }
 
             if (pixelPerfectCamera)

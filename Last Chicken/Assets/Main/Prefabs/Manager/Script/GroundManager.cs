@@ -527,6 +527,9 @@ public class GroundManager : MonoBehaviour
         #endregion
 
         #region[해당위치 광물 제거]
+
+        if (groundHp[pos.x, pos.y] + damage > 0 && groundHp[pos.x, pos.y] <= 0)
+            PlayerMap.instance.DrawMapGroundData(pos.x, pos.y);
         if (groundHp[pos.x, pos.y] <= 0)
         {
             bool iceBreak = StageData.instance.GetBlock(pos.x, pos.y) == StageData.GroundLayer.Ice;
@@ -537,7 +540,6 @@ public class GroundManager : MonoBehaviour
             StageData.instance.RemoveBlock(pos);
             StageData.instance.groundData[pos.x, pos.y] = (StageData.GroundLayer)(-1);
             LinkArea(pos);
-            PlayerMap.instance.DrawMapGroundData(pos.x, pos.y);
         }
         #endregion
     }

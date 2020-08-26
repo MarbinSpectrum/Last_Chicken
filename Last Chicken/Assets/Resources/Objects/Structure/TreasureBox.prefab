@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7959087028143060505}
   - component: {fileID: 5128219269975147227}
   - component: {fileID: 2435782772051200920}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1949659625574219090}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8022886274526440000}
   m_RootOrder: 1
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
-  m_Color: {r: 0.06203568, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.06203568, g: 1, b: 0, a: 0.78431374}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -81,7 +81,7 @@ public abstract class Monster : CustomCollider
         rigidbody2D = GetComponent<Rigidbody2D>();
 
         light = transform.Find("Light").gameObject;
-        light.transform.localScale = new Vector3(2, 2, 1);
+        light.transform.localScale = new Vector3(1, 1, 1);
     }
     #endregion
 

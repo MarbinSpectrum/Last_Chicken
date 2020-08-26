@@ -19,6 +19,10 @@ namespace TerrainEngine2D.Lighting
         /// </summary>
         public Camera LightCamera;
         /// <summary>
+        /// The radar camera
+        /// </summary>
+        public Camera RadarCamera;
+        /// <summary>
         /// The overlay camera; for objects that should render on top of the lighting
         /// </summary>
         public Camera OverlayCamera;
@@ -31,6 +35,16 @@ namespace TerrainEngine2D.Lighting
         {
             get { return lightRenderTexture; }
         }
+
+        private RenderTexture radarRenderTexture;
+        /// <summary>
+        /// The render texture used to capture the light graphics
+        /// </summary>
+        public RenderTexture RadarRenderTexture
+        {
+            get { return radarRenderTexture; }
+        }
+
         private RenderTexture overlayRenderTexture;
         /// <summary>
         /// The render texture used to capture graphics which overlay the lighting
@@ -63,6 +77,7 @@ namespace TerrainEngine2D.Lighting
         [SerializeField]
         [Tooltip("The material used to add the overlay graphics to the rest of the graphics")]
         private Material overlayMaterial;
+        public Material overMaterial;
 
         //The previous screen size
         private int prevScreenWidth;
@@ -73,6 +88,7 @@ namespace TerrainEngine2D.Lighting
             base.Awake();
             prevScreenWidth = Screen.width;
             prevScreenHeight = Screen.height;
+            radarRenderTexture = new RenderTexture(prevScreenWidth, prevScreenHeight, 0);
             lightRenderTexture = new RenderTexture(prevScreenWidth, prevScreenHeight, 0);
             overlayRenderTexture = new RenderTexture(prevScreenWidth, prevScreenHeight, 0);
         }
@@ -99,6 +115,7 @@ namespace TerrainEngine2D.Lighting
             prevScreenWidth = Screen.width;
             prevScreenHeight = Screen.height;
             lightRenderTexture = new RenderTexture(prevScreenWidth, prevScreenHeight, 0);
+            radarRenderTexture = new RenderTexture(prevScreenWidth, prevScreenHeight, 0);
             overlayRenderTexture = new RenderTexture(prevScreenWidth, prevScreenHeight, 0);
         }
 
@@ -130,17 +147,46 @@ namespace TerrainEngine2D.Lighting
 
             //////////////////////////////////////////////////////////////////////////////////////////
 
+
+            RenderTexture tempRenderTexture5 = RenderTexture.GetTemporary(source.width >> 1, source.height >> 1);
+            RenderTexture tempRenderTexture6 = RenderTexture.GetTemporary(source.width, source.height);
+
+            //Render the lighting graphics
+            RadarCamera.targetTexture = radarRenderTexture;
+            RadarCamera.Render();
+
+            Graphics.Blit(radarRenderTexture, tempRenderTexture5);
+
+            //Blur and down res the lighting graphic to smooth the texture edges
+            for (int i = 0; i < NumberBlurPasses; i++)
+            {
+                RenderTexture tempRenderTexture3 = RenderTexture.GetTemporary(source.width >> 1, source.height >> 1);
+
+                Graphics.Blit(tempRenderTexture5, tempRenderTexture3, blurMaterial);
+                RenderTexture.ReleaseTemporary(tempRenderTexture5);
+                tempRenderTexture5 = tempRenderTexture3;
+            }
+            //Copy the source texture into a temporary render texture
+            Graphics.Blit(source, tempRenderTexture6);
+
+            //Add the lighting to the texture using a Multiplicative shader
+            Graphics.Blit(tempRenderTexture5, tempRenderTexture6, blendMaterial);
+
+            //////////////////////////////////////////////////////////////////////////////////////////
+
             //Render the overlay graphics
             OverlayCamera.targetTexture = overlayRenderTexture;
             OverlayCamera.Render();
             //Add the overlay to the texture using the UIOverlay material
+            Graphics.Blit(tempRenderTexture6, tempRenderTexture2, overMaterial);
             Graphics.Blit(overlayRenderTexture, tempRenderTexture2, overlayMaterial);
-
             //Copy the new texture to the destination (to be output to the screen)
+            //Graphics.Blit(tempRenderTexture6, destination);
             Graphics.Blit(tempRenderTexture2, destination);
-
             RenderTexture.ReleaseTemporary(tempRenderTexture);
             RenderTexture.ReleaseTemporary(tempRenderTexture2);
+            RenderTexture.ReleaseTemporary(tempRenderTexture5);
+            RenderTexture.ReleaseTemporary(tempRenderTexture6);
         }
 
         /// <summary>

@@ -15,7 +15,7 @@ public abstract class TrapScript : StructureObject
     {
         base.Awake();
         light = transform.Find("Body").Find("Light").gameObject;
-        light.transform.localScale = new Vector3(3, 3, 1);
+        light.transform.localScale = new Vector3(1, 1, 1);
     }
     #endregion
 

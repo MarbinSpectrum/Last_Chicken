@@ -1,5 +1,92 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &491818953770051603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4054066019815900155}
+  - component: {fileID: 5981288493860647026}
+  - component: {fileID: 5197362307460869023}
+  m_Layer: 0
+  m_Name: RadarCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4054066019815900155
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491818953770051603}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7080038400613201590}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &5981288493860647026
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491818953770051603}
+  m_Enabled: 0
+  serializedVersion: 2
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 1
+  orthographic size: 22.5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 0
+  m_AllowMSAA: 0
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!114 &5197362307460869023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491818953770051603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19580e1dcbe68ea4db7c6c8c78f0d571, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7080038399829217972
 GameObject:
   m_ObjectHideFlags: 0
@@ -31,7 +118,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7080038400613201590}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &7080038399829217976
 Camera:
@@ -222,6 +309,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7080038400491515395}
+  - {fileID: 4054066019815900155}
   - {fileID: 7080038400717716189}
   - {fileID: 7080038399829217973}
   - {fileID: 1976518234286588499}
@@ -284,6 +372,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   edgeCheck: 0
+  edgeX: 0
+  edgeY: 0
   autoSetCullingMask: 1
   movementSpeed: 3
   movementSensitivity: 1.2
@@ -312,12 +402,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LightCamera: {fileID: 7080038400491515645}
+  RadarCamera: {fileID: 5981288493860647026}
   OverlayCamera: {fileID: 7080038400717716191}
   DownRes: 2
   NumberBlurPasses: 3
   blurMaterial: {fileID: 2100000, guid: c614b3264d5cec44d976355c8131806f, type: 2}
   blendMaterial: {fileID: 2100000, guid: 5d89936923319e64c92749fc4c959938, type: 2}
   overlayMaterial: {fileID: 2100000, guid: dd296e7300de8c747851bd148a3d2f93, type: 2}
+  overMaterial: {fileID: 2100000, guid: 5caedec90d1674442ac33db7c2db1d37, type: 2}
 --- !u!81 &7080038400613201591
 AudioListener:
   m_ObjectHideFlags: 0
@@ -400,7 +492,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7080038400613201590}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &7080038400717716191
 Camera:
@@ -502,7 +594,7 @@ PrefabInstance:
     - target: {fileID: 8732296836730831689, guid: 2553dcd3f438b9e4cb1fca820219379d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8732296836730831689, guid: 2553dcd3f438b9e4cb1fca820219379d,
         type: 3}

@@ -670,6 +670,17 @@ public class Stage01_1 : StageData
         }
         #endregion
 
+        #region[덩굴배치]
+        int dw = 25;
+        int dh = 25;
+        int w = world.WorldWidth / dw;
+        int h = world.WorldHeight / dh;
+        for (int x = 0; x <= dw; x++)
+            for (int y = 0; y <= dh; y++)
+                if (Random.Range(0, 100) < 40)
+                    ObjectManager.instance.Vine(new Vector2(x * w, y * h), Random.Range(0, 2) == 0 ? true : false);
+        #endregion
+
         SetCave();
 
         ObjectManager.instance.Sign(new Vector2(66 + (outlineflipX ? 0 : -52), 26), false);

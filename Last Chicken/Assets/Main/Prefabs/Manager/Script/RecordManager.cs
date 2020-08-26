@@ -100,6 +100,54 @@ public class RecordManager : MonoBehaviour
         }
         if (itemContent != null)
             itemContent.sizeDelta = new Vector2(itemContent.sizeDelta.x, 200 + itemDataSize.y * Mathf.Ceil(ItemManager.itemName.Length / 4f) + itemDataSpace.y * (ItemManager.itemName.Length / 4));
+
+        if(monsterScrollView != null)
+        {
+            if(KeyManager.nowController != GameController.KeyBoard)
+            {
+                if (KeyManager.GetKey(KeyManager.instance.gamePad[GameKeyType.Down]))
+                {
+                    monsterScrollView.verticalNormalizedPosition -= 0.003f;
+                    monsterScrollView.verticalNormalizedPosition = monsterScrollView.verticalNormalizedPosition < 0 ? 0 : monsterScrollView.verticalNormalizedPosition;
+                }
+                else if (KeyManager.GetKey(KeyManager.instance.gamePad[GameKeyType.Up]))
+                {
+                    monsterScrollView.verticalNormalizedPosition += 0.003f;
+                    monsterScrollView.verticalNormalizedPosition = monsterScrollView.verticalNormalizedPosition > 1 ? 1 : monsterScrollView.verticalNormalizedPosition;
+                }
+            }
+        }
+
+        if (itemScrollView != null)
+        {
+            if (KeyManager.nowController != GameController.KeyBoard)
+            {
+                if (KeyManager.GetKey(KeyManager.instance.gamePad[GameKeyType.Down]))
+                {
+                    itemScrollView.verticalNormalizedPosition -= 0.003f;
+                    itemScrollView.verticalNormalizedPosition = itemScrollView.verticalNormalizedPosition < 0 ? 0 : itemScrollView.verticalNormalizedPosition;
+                }
+                else if (KeyManager.GetKey(KeyManager.instance.gamePad[GameKeyType.Up]))
+                {
+                    itemScrollView.verticalNormalizedPosition += 0.003f;
+                    itemScrollView.verticalNormalizedPosition = itemScrollView.verticalNormalizedPosition > 1 ? 1 : itemScrollView.verticalNormalizedPosition;
+                }
+            }
+        }
+
+        if(!itemScrollView.gameObject.activeSelf)
+        {
+            if (KeyManager.nowController != GameController.KeyBoard)
+                if (KeyManager.GetKey(KeyManager.instance.gamePad[GameKeyType.Right]))
+                    ShowItemList();
+        }
+
+        if (!monsterScrollView.gameObject.activeSelf)
+        {
+            if (KeyManager.nowController != GameController.KeyBoard)
+                if (KeyManager.GetKey(KeyManager.instance.gamePad[GameKeyType.Left]))
+                    ShowMonsterList();
+        }
     }
     #endregion
 

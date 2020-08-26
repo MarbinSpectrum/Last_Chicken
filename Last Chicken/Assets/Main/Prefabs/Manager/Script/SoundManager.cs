@@ -197,17 +197,16 @@ public class SoundManager : MonoBehaviour
     #region[배경음 멈추기]
     public void StopBGM_Sound(bool sub = false)
     {
+        AudioClip temp;
         if(!sub)
         {
             if (BGM)
                 BGM.Stop();
-            BGM.clip = null;
         }
         else
         {
             if (SubBGM)
                 SubBGM.Stop();
-            SubBGM.clip = null;
         }
     }
     #endregion

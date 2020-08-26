@@ -169,7 +169,7 @@ public class TutorialAltarEvent : CustomCollider
                 Player.instance.canControl = true;
                 Player.instance.pray = false;
                 followChicken.transform.GetChild(0).gameObject.SetActive(true);
-                SoundManager.instance.StopBGM_Sound();
+                SoundManager.instance.StopBGM_Sound(true);
             }
 
             if (chickenDownTime < 5)

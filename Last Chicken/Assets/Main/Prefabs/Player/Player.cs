@@ -761,7 +761,7 @@ public class Player : CustomCollider
         /////////////////////////////////////////////////////////////////////////////////////////
 
         //마우스위치를 바꾸면 콤보 초기화및 공격 위치 변경
-        if(Input.GetKey(KeyManager.instance.keyBoard[GameKeyType.Attack]) || KeyManager.GetKey(KeyManager.instance.gamePad[GameKeyType.Attack]))
+        if(Input.GetMouseButtonDown(0)/*Input.GetKey(KeyManager.instance.keyBoard[GameKeyType.Attack])*/ || KeyManager.GetKey(KeyManager.instance.gamePad[GameKeyType.Attack]))
         {
             if((KeyManager.nowController != GameController.KeyBoard && attackTop == KeyManager.VerticalScale < 0) || (KeyManager.nowController == GameController.KeyBoard && attackTop != (MouseManager.instance.mousePos.y > transform.position.y)))
             {
@@ -882,7 +882,7 @@ public class Player : CustomCollider
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        if ((Input.GetKey(KeyManager.instance.keyBoard[GameKeyType.ItemUse]) || KeyManager.GetKey(KeyManager.instance.gamePad[GameKeyType.ItemUse])))
+        if ((Input.GetMouseButtonDown(1)/*Input.GetKey(KeyManager.instance.keyBoard[GameKeyType.ItemUse])*/ || KeyManager.GetKey(KeyManager.instance.gamePad[GameKeyType.ItemUse])))
         {
             if (CaveManager.inCave)
                 return;
@@ -902,6 +902,16 @@ public class Player : CustomCollider
             if (Smithy.instance && Smithy.instance.onArea)
                 return;
 
+            //Debug.Log(Input.GetAxisRaw("HorizontalAxis") + "," + -Input.GetAxisRaw("VerticalAxis"));
+            Vector2 dic;
+            if (KeyManager.nowController == GameController.KeyBoard)
+            {
+                dic = MouseManager.instance.mousePos - (Vector2)transform.position;
+                dic = dic.normalized;
+            }
+            else
+                dic = new Vector2(+Input.GetAxisRaw("HorizontalAxis"), -Input.GetAxisRaw("VerticalAxis"));
+
             if (ItemManager.instance.CanUseActiveItem("Dynamite"))
             {
                 ItemManager.instance.UseItem("Dynamite");
@@ -910,15 +920,11 @@ public class Player : CustomCollider
             else if (ItemManager.instance.CanUseActiveItem("BoomItem"))
             {
                 ItemManager.instance.UseItem("BoomItem");
-                Vector2 dic = MouseManager.instance.mousePos - (Vector2)transform.position;
-                dic = dic.normalized;
                 ObjectManager.instance.Boom(transform.position + new Vector3(0,1,0),dic*3000);
             }
             else if (ItemManager.instance.CanUseActiveItem("Splash_Pick"))
             {
                 ItemManager.instance.UseItem("Splash_Pick");
-                Vector2 dic = MouseManager.instance.mousePos - (Vector2)transform.position;
-                dic = dic.normalized;
                 ObjectManager.instance.SplashAxe(transform.position + new Vector3(0, 1, 0), dic * 3000);
             }
             else if (ItemManager.instance.CanUseActiveItem("Bell"))

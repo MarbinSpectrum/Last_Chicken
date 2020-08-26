@@ -112,6 +112,8 @@ public class ObjectManager : ObjectPool
 
     GameObject iceHole;
 
+    GameObject[] vine = new GameObject[4];
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     GameObject altar;
@@ -181,6 +183,8 @@ public class ObjectManager : ObjectPool
             shovel = Resources.Load("Objects/Structure/Stage01/Shovel") as GameObject;
             sign = Resources.Load("Objects/Structure/Sign") as GameObject;
             worm = Resources.Load("Objects/Structure/Stage01/Worm") as GameObject;
+            for (int i = 0; i < vine.Length; i++)
+                vine[i] = Resources.Load("Objects/Structure/Stage01/Vine_" + i) as GameObject;
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -625,6 +629,32 @@ public class ObjectManager : ObjectPool
         if (emp == null)
         {
             emp = Instantiate(iceHole);
+            emp.transform.name = name;
+            AddObject(emp);
+        }
+
+        emp.SetActive(true);
+        emp.transform.localRotation = Quaternion.identity;
+        emp.transform.parent = transform;
+        emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
+        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
+    }
+    #endregion
+
+    #region[광산덩굴]
+    public void Vine(Vector2 vector2, bool flipX = false)
+    {
+        Vine(vector2, Random.Range(0,vine.Length), flipX);
+    }
+    public void Vine(Vector2 vector2,int n, bool flipX = false)
+    {
+        string name = "Vine" + n;
+
+        GameObject emp = FindObject(name);
+
+        if (emp == null)
+        {
+            emp = Instantiate(vine[n]);
             emp.transform.name = name;
             AddObject(emp);
         }

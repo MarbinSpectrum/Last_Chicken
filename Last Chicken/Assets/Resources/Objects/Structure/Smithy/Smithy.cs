@@ -128,7 +128,9 @@ public class Smithy : AreaScript
         yield return new WaitForSeconds(1f);
 
         GameManager.instance.playData.pickLevel++;
-        SoundManager.instance.Smithy();
+        Invoke("HammerSound", 0.1f);
+        Invoke("HammerSound", 0.4f);
+        Invoke("HammerSound", 0.8f);
         ObjectInit();
 
         yield return new WaitForSeconds(1f);
@@ -142,5 +144,10 @@ public class Smithy : AreaScript
         Player.instance.canControl = true;
     }
     #endregion
+
+    void HammerSound()
+    {
+        SoundManager.instance.Smithy();
+    }
 
 }
