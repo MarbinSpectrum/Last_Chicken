@@ -73,6 +73,7 @@
     <Compile Include="Assets\Main\Graphic\Materials\Shader\CreateChickenEvent.cs" />
     <Compile Include="Assets\Main\Graphic\Materials\Shader\RotateTransform.cs" />
     <Compile Include="Assets\Main\Graphic\Materials\Shader\SpriteUVToShader.cs" />
+    <Compile Include="Assets\Main\Graphic\Materials\SpriteOutline.cs" />
     <Compile Include="Assets\Main\Graphic\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
     <Compile Include="Assets\Main\Graphic\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
     <Compile Include="Assets\Main\Graphic\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Assets\Main\Graphic\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
     <Compile Include="Assets\Main\Graphic\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
     <Compile Include="Assets\Main\Graphic\Sprite\Background\StageBackGround.cs" />
+    <Compile Include="Assets\Main\Graphic\Sprite\UI\GetItem\GetShowItem.cs" />
     <Compile Include="Assets\Main\Graphic\Sprite\UI\Map\PlayerMap.cs" />
     <Compile Include="Assets\Main\Prefabs\Chicken\Animation\Cry\CryingCheck.cs" />
     <Compile Include="Assets\Main\Prefabs\Chicken\Animation\Head\ChickenHead.cs" />
@@ -271,6 +273,7 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\Main\Graphic\Materials\Shader\ChangeColorSprite.shader" />
     <None Include="Assets\Main\Graphic\PostProcessing\Resources\Shaders\GrainGen.shader" />
+    <None Include="Assets\Main\Graphic\Materials\ObjectOutLine.shader" />
     <None Include="Assets\Main\Graphic\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
     <None Include="Assets\Main\Graphic\PostProcessing\Resources\Shaders\FXAA3.cginc" />
     <None Include="Assets\Main\Graphic\PostProcessing\Resources\Shaders\EyeAdaptation.shader" />

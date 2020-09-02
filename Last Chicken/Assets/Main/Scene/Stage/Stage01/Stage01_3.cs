@@ -581,7 +581,7 @@ public class Stage01_3 : StageData
         for (int x = 0; x <= dw; x++)
             for (int y = 0; y <= dh; y++)
                 if (Random.Range(0, 100) < 40)
-                    ObjectManager.instance.Vine(new Vector2(x * w, y * h), Random.Range(0, 2) == 0 ? true : false);
+                    ObjectManager.instance.Vine(new Vector2(x * w, y * h), Random.Range(4, 8), Random.Range(0, 2) == 0 ? true : false);
         #endregion
 
         SetCave();

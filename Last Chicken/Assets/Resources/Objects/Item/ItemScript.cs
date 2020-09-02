@@ -93,12 +93,16 @@ public class ItemScript : CustomCollider
                     if (ItemManager.instance.AddItemCheck(transform.name))
                     {
                         ItemManager.instance.AddItem(transform.name, num);
+
                         transform.name = "";
                         num = 0;
                     }
                     else if (ItemManager.CheckGetActiveItem(transform.name))
                     {
                         Player.instance.ActItem(transform.name);
+
+                        GetShowItem.instance.AddShowList(transform.name);
+
                         transform.name = "";
                         num = 0;
                     }
@@ -143,6 +147,8 @@ public class ItemScript : CustomCollider
                             GameManager.instance.itemNum[getSlot] = num;
                             GameManager.instance.itemCool[getSlot] = cool;
 
+                            GetShowItem.instance.AddShowList(transform.name);
+
                             transform.name = tempItem;
                             num = tempItemCount;
                             cool = tempItemCool;
@@ -157,6 +163,8 @@ public class ItemScript : CustomCollider
                             GameManager.instance.itemSlot[getSlot] = transform.name;
                             GameManager.instance.itemNum[getSlot] = num;
                             GameManager.instance.itemCool[getSlot] = cool;
+
+                            GetShowItem.instance.AddShowList(transform.name);
 
                             transform.name = "";
                             num = 0;
