@@ -17,8 +17,11 @@ public class GetShowItem : MonoBehaviour
     bool delay = false;
     void Awake()
     {
-        instance = this;
-        getAniAnimator = getAni.GetComponent<Animator>();
+        if(instance == null)
+        {
+            instance = this;
+            getAniAnimator = getAni.GetComponent<Animator>();
+        }
     }
 
     private void Update()

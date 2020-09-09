@@ -368,6 +368,7 @@ GameObject:
   - component: {fileID: 2854795388714732285}
   - component: {fileID: 2854795388714732272}
   - component: {fileID: 2854795388714732275}
+  - component: {fileID: 5612233535828242282}
   m_Layer: 0
   m_Name: Chicken
   m_TagString: Chicken
@@ -411,7 +412,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 82cf56857a1af0e4f8bc6042eaec35f6, type: 2}
+  - {fileID: 2100000, guid: ceacd268e0567c14a93ed76dcfc220a7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -499,6 +500,20 @@ MonoBehaviour:
   baseJumpPower: 1500
   baseGravity: 4
   pattenType: 2
+--- !u!114 &5612233535828242282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2854795388714732287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cdf99302797f1149a1e5c982f169cdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 0, g: 0, b: 0, a: 1}
+  outlineSize: 1
 --- !u!1 &5283644233232488587
 GameObject:
   m_ObjectHideFlags: 0

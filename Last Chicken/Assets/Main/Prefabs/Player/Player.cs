@@ -179,7 +179,7 @@ public class Player : CustomCollider
 
         chickenHead = transform.Find("ChickenHead").gameObject;
         chickenHeadLight = chickenHead.transform.Find("Light").gameObject;
-        chickenHeadSpriteRenderer = chickenHead.GetComponent<SpriteRenderer>();
+        chickenHeadSpriteRenderer = chickenHead.transform.Find("Img").GetComponent<SpriteRenderer>();
 
         shiledBuff = transform.Find("Shield").gameObject;
         shiledSprite = shiledBuff.transform.Find("Img").GetComponent<SpriteRenderer>();
@@ -695,10 +695,11 @@ public class Player : CustomCollider
             bool downFlag = false;
             if (hang && (KeyManager.VerticalScale < 0))
                 downFlag = true;
-
+            animator.SetBool("JumpHigh", false);
             //점프키룰 누름
             if (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.Jump]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Jump]))
             {
+                animator.SetBool("GetJump", true);
                 //점프사운드
                 if (!inFluid)
                     SoundManager.instance.PlayerJump();
@@ -718,6 +719,8 @@ public class Player : CustomCollider
                 //매달린 상태 설정
                 InitHang(hangDic, false, true);
             }
+            else
+                animator.SetBool("GetJump", false);
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////////

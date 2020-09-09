@@ -4,7 +4,6 @@
 [ExecuteInEditMode]
 public class SpriteOutline : MonoBehaviour
 {
-    [ColorUsage(true,true)]
     public Color color = Color.black;
 
     [Range(0, 16)]
