@@ -209,6 +209,22 @@ public abstract class Monster : CustomCollider
             force += iceVelocity;
         }
 
+
+        //자동이동
+        GameObject conveyorBelt = IsAtObjectWithTag(boxCollider2D, "ConveyorBelt");
+        if (conveyorBelt == null)
+            nowConveyorBelt = null;
+        else if (nowConveyorBelt == null && grounded)
+            nowConveyorBelt = conveyorBelt.GetComponent<ConveyorBelt>();
+        float autoMoveValue = 0;
+        if (nowConveyorBelt)
+            autoMoveValue += nowConveyorBelt.power;
+
+        //if (nowConveyorBelt)
+        //    Debug.Log(force);
+        autoMoveValue *= Mathf.Abs(force);
+        force += autoMoveValue;
+
         if (force != 0)
         {
             #region[경사아래로 이동]
@@ -272,23 +288,30 @@ public abstract class Monster : CustomCollider
     #endregion
 
     #region[이동검사]
+    /// <summary> 해당방향에 벽이 있는지 검사 </summary>
     public bool CanMove(float dic)
     {
         if (StageData.instance.GetBlock(nowPos + new Vector2Int((int)Mathf.Sign(dic), 0)) != (StageData.GroundLayer)(-1) &&
             StageData.instance.GetBlock(nowPos + new Vector2Int((int)Mathf.Sign(dic), 1)) != (StageData.GroundLayer)(-1))
             return false;
+        if (IsAtTerrain(boxCollider2D,new Vector2Int((int)Mathf.Sign(dic), 0)) && 
+            IsAtTerrain(boxCollider2D,new Vector2Int((int)Mathf.Sign(dic), 1)))
+            return false;
+
         return true;
     }
     #endregion
 
     #region[떨어질수있는 블록 검사]
+    /// <summary> 더가면 낭떠러지인지 검사 </summary>
     public bool CanFallBlock(float dic, int n)
     {
         for (int i = 1; i <= n; i++)
-        {
             if (StageData.instance.GetBlock(nowPos + new Vector2Int((int)Mathf.Sign(dic), -i)) != (StageData.GroundLayer)(-1))
                 return true;
-        }
+        for (int i = 1; i <= n; i++)
+            if (IsAtTerrain(boxCollider2D, new Vector2Int((int)Mathf.Sign(dic), -i)))
+                return true;
         return false;
     }
     #endregion

@@ -332,7 +332,6 @@ public class ItemManager : ObjectPool
     #region[오브젝트에서 랜덤하게 아이템 생성]
     public int GetRandomItemAtWoodBox()
     {
-        Random.InitState((int)Time.time * Random.Range(0, 100));
         float randomValue = Random.Range(0, 100);
 
         List<int> itemList = new List<int>();
@@ -405,14 +404,28 @@ public class ItemManager : ObjectPool
         if (itemNum != -1)
             SpawnItem(vector2, itemName[itemNum]);
         else if(Random.Range(0,100) > 50)
+            SpawnMine(vector2);
+    }
+
+    public void SpawnMine(Vector2 vector2)
+    {
+        int mineNum = Random.Range(6, 15);
+        for (int i = 0; i < mineNum; i++)
         {
-            int mineNum = Random.Range(3, 10);
-            for (int i = 0; i < mineNum; i++)
-            {
-                Vector2 Force = new Vector2(Random.Range(-0.5f, 0.5f), 1);
-                Force *= Force * 1600;
-                ItemManager.instance.SpawnMineral(vector2, Force, "Copper");
-            }
+            Vector2 Force = new Vector2(Random.Range(-0.5f, 0.5f), 1);
+            int mineType = Random.Range(0, 100);
+            Force *= Force * 1600;
+            //Debug.Log(mineType + "," + mineNum);
+            if (mineType < 50)
+                SpawnMineral(vector2, Force, "Copper");
+            else if (mineType < 75)
+                SpawnMineral(vector2, Force, "Iron");
+            else if (mineType < 85)
+                SpawnMineral(vector2, Force, "Silver");
+            else if (mineType < 97)
+                SpawnMineral(vector2, Force, "Gold");
+            else if (mineType < 97)
+                SpawnMineral(vector2, Force, "Diamond");
         }
     }
     #endregion

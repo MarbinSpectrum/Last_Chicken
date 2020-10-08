@@ -92,7 +92,7 @@ public class MonsterManagerEditor : MyEditor
 
         GUI.color = Color.white;
         EditorGUILayout.BeginVertical("box");
-        stageScroll = EditorGUILayout.BeginScrollView(stageScroll, GUILayout.Width(275), GUILayout.Height(300));
+        stageScroll = EditorGUILayout.BeginScrollView(stageScroll, GUILayout.Width(375), GUILayout.Height(300));
 
         for(int i = 0; i < MonsterManager.monsterName.Length; i++)
         {

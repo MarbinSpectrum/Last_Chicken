@@ -1066,7 +1066,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7279376658263954926}
   - component: {fileID: 7279376658263954734}
-  - component: {fileID: 8947615310252312576}
+  - component: {fileID: 2473405683134197991}
   m_Layer: 0
   m_Name: WoodBox
   m_TagString: Object
@@ -1111,7 +1111,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8947615310252312576
+--- !u!114 &2473405683134197991
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1120,11 +1120,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7279376658263954148}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8351731d38d3de4aac66d2339f14c93, type: 3}
+  m_Script: {fileID: 11500000, guid: 78e240c8c714e3c4e8b639e2b9ce50e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectType: 0
   inItem: Random
+  noneBox_Spr: {fileID: 21300000, guid: 19ac76c82a413fb4b8ef099eef640d0b, type: 3}
+  mineBox_Spr: {fileID: 21300000, guid: fd83015c2cd772947ad0211f7d3198e9, type: 3}
+  itemBox_Spr: {fileID: 21300000, guid: 6a601e7447b874e4abc4c0f5ade3ab7b, type: 3}
 --- !u!1 &7279376658263954149
 GameObject:
   m_ObjectHideFlags: 0

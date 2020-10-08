@@ -568,7 +568,7 @@ public class Stage01_1 : StageData
                 continue;
 
             List<Vector2Int> woodBoxList = new List<Vector2Int>();
-            for (int y = 20; y < world.WorldHeight; y++)
+            for (int y = 40; y < world.WorldHeight - 40; y++)
             {
                 for (int x = 10; x < world.WorldWidth - 10; x++)
                 {
@@ -578,18 +578,20 @@ public class Stage01_1 : StageData
                         {
                             int ax = x + i;
                             int ay = y + j;
-                            if (Exception.IndexOutRange(ax, ay, groundData) && groundData[ax, ay] != (GroundLayer)(-1))
+                            if (j == 0 && Exception.IndexOutRange(ax, ay, groundData) && groundData[ax, ay] == (GroundLayer)(-1))
+                                boxFlag = false;
+                            else if (j == 1 && Exception.IndexOutRange(ax, ay, groundData) && groundData[ax, ay] != (GroundLayer)(-1))
                                 boxFlag = false;
                             else if (!Exception.IndexOutRange(ax, ay, groundData))
                                 boxFlag = false;
                         }
 
-                    for (int i = 0; i < mineRoadArea.Count; i++)
-                        if (Mathf.Abs(mineRoadArea[i].y - y) < 10)
-                            boxFlag = false;
+                    //for (int i = 0; i < mineRoadArea.Count; i++)
+                    //    if (Mathf.Abs(mineRoadArea[i].y - y) < 10)
+                    //        boxFlag = false;
 
                     for (int i = 0; i < woodBoxpos.Count; i++)
-                        if (Vector2.Distance(new Vector2Int(x, y), woodBoxpos[i]) < 5)
+                        if (Vector2.Distance(new Vector2Int(x, y), woodBoxpos[i]) < 15)
                             boxFlag = false;
 
                     if (boxFlag)

@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     [NonSerialized] public GameObject showTimer;
-    [NonSerialized] public Text countDown;
+    [NonSerialized] public Animator countDown;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -309,8 +309,10 @@ public class UIManager : MonoBehaviour
             { 1920,1080 }
     };
 
-    Slider seSlider;
-    Slider bgmSlider;
+    [NonSerialized]
+    public Slider seSlider;
+    [NonSerialized]
+    public Slider bgmSlider;
 
 
     Text languageShowText;
@@ -319,8 +321,8 @@ public class UIManager : MonoBehaviour
     [NonSerialized]
     public string[] languageOption = new string[]
     {
-            PlayData.Language.English.ToString(),
-            PlayData.Language.한국어.ToString()
+            Language.English.ToString(),
+            Language.한국어.ToString()
     };
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -354,7 +356,7 @@ public class UIManager : MonoBehaviour
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         showTimer = canvas.Find("Timer").gameObject;
-        countDown = showTimer.transform.Find("Text").GetComponent<Text>();
+        countDown = showTimer.transform.GetComponent<Animator>();
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -525,16 +527,16 @@ public class UIManager : MonoBehaviour
             pointerEnter.eventID = EventTriggerType.PointerEnter;
             pointerEnter.callback.AddListener((data) => 
             { 
-                if(GameManager.instance.playData.language == PlayData.Language.한국어)
+                if(GameManager.instance.playData.language == Language.한국어)
                     buffName.text = BuffManager.instance.buffData[AltarScript.instance.buffList[number]].buffName;
-                else if (GameManager.instance.playData.language == PlayData.Language.English)
+                else if (GameManager.instance.playData.language == Language.English)
                     buffName.text = BuffManager.instance.buffData[AltarScript.instance.buffList[number]].buffName_Eng;
             });
             pointerEnter.callback.AddListener((data) =>
             {
-                if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                if (GameManager.instance.playData.language == Language.한국어)
                     buffText.text = BuffManager.instance.buffData[AltarScript.instance.buffList[number]].buffExplain;
-                else if (GameManager.instance.playData.language == PlayData.Language.English)
+                else if (GameManager.instance.playData.language == Language.English)
                     buffText.text = BuffManager.instance.buffData[AltarScript.instance.buffList[number]].buffExplain_Eng;
             });
             pointerEnter.callback.AddListener((data) => { caseImage[number].color = Color.white; });
@@ -833,11 +835,6 @@ public class UIManager : MonoBehaviour
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        if (GameManager.instance.playData.language == PlayData.Language.English)
-            fullScreenShowText.text = GameManager.instance.playData.fullScreen ? "ON" : "OFF";
-        else
-            fullScreenShowText.text = GameManager.instance.playData.fullScreen ? "켜짐" : "꺼짐";
-
         pDown = new EventTrigger.Entry();
         pDown.eventID = EventTriggerType.PointerDown;
         pDown.callback.AddListener((data) =>
@@ -997,9 +994,9 @@ public class UIManager : MonoBehaviour
             if (!altarUI.activeSelf)
             {
                 selectAltarMenu = 0;
-                if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                if (GameManager.instance.playData.language == Language.한국어)
                     buffText.text = "닭의 신이 축복을 내립니다.\n축복을 선택해주세요.";
-                else if (GameManager.instance.playData.language == PlayData.Language.English)
+                else if (GameManager.instance.playData.language == Language.English)
                     buffText.text = "The god of chicken blesses you.\nPlease select a blessing.";
                 for (int i = 0; i < 3; i++)
                     for (int k = 0; k < 2; k++)
@@ -1167,9 +1164,9 @@ public class UIManager : MonoBehaviour
                     smithyNo.SetActive(false);
                     smithyYes.SetActive(false);
                     smithyOk.SetActive(true);
-                    if(GameManager.instance.playData.language == PlayData.Language.한국어)
+                    if(GameManager.instance.playData.language == Language.한국어)
                         smithyText.text = "더 이상 곡괭이를 강화할 수 없어 보인다.";
-                    else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    else if (GameManager.instance.playData.language == Language.English)
                         smithyText.text = "It seems that the pickaxe can no longer be reinforced.";
                 }
                 else if (ItemManager.instance.HasItemCheck("Hammer"))
@@ -1177,9 +1174,9 @@ public class UIManager : MonoBehaviour
                     smithyNo.SetActive(true);
                     smithyYes.SetActive(true);
                     smithyOk.SetActive(false);
-                    if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                    if (GameManager.instance.playData.language == Language.한국어)
                         smithyText.text = "대장장이의 신께 망치를 바치면 곡괭이가 더 강해질 것 같다.\n망치를 바칠까?";
-                    else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    else if (GameManager.instance.playData.language == Language.English)
                         smithyText.text = "The pickaxe is likely to be stronger if a hammer is offered to the blacksmith's god.";
                 }
                 else
@@ -1189,38 +1186,38 @@ public class UIManager : MonoBehaviour
                     smithyOk.SetActive(false);
                     if (Player.instance.pickLevel >= 4)
                         return;
-                    if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                    if (GameManager.instance.playData.language == Language.한국어)
                         smithyText.text = "대장장이의 신께 <color=#FFD600>" + Smithy.reinforceCost[Player.instance.pickLevel] + "</color> 만큼의 제물을 바치면 곡괭이가 더 강해질 것 같다.\n제물을 바칠까?";
-                    else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    else if (GameManager.instance.playData.language == Language.English)
                         smithyText.text = "A sacrifice of as much as <color=#FFD600>" + Smithy.reinforceCost[Player.instance.pickLevel] + "</color> to the smith's god is likely to make the pickaxe stronger.";
                 }
 
                 if(Player.instance.pickLevel == 0)
                 {
-                    if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                    if (GameManager.instance.playData.language == Language.한국어)
                         smithyText.text += "\n<color=#886688ff><size=40>곡괭이가 좀 더 튼튼해집니다.(공격력 상승)</size></color>";
-                    else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    else if (GameManager.instance.playData.language == Language.English)
                         smithyText.text += "\n<color=#886688ff><size=40>Pickaxes become stronger. (Attack increased)</size></color>";
                 }
                 else if (Player.instance.pickLevel == 1)
                 {
-                    if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                    if (GameManager.instance.playData.language == Language.한국어)
                         smithyText.text += "\n<color=#446688ff><size=40>곡괭이의 손잡이를 다듬습니다.(공격속도 상승)</size></color>";
-                    else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    else if (GameManager.instance.playData.language == Language.English)
                         smithyText.text += "\n<color=#446688ff><size=40>Trim the handle of the pickaxe (increase attack speed).</size></color>";
                 }
                 else if (Player.instance.pickLevel == 2)
                 {
-                    if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                    if (GameManager.instance.playData.language == Language.한국어)
                         smithyText.text += "\n<color=#446644ff><size=40>곡괭이의 전체적인 밸런스를 조절합니다.(공격력 상승, 공격속도 상승)</size></color>";
-                    else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    else if (GameManager.instance.playData.language == Language.English)
                         smithyText.text += "\n<color=#446644ff><size=40>Adjust the overall balance of the pickaxe (increase attack force, increase attack speed)</size></color>";
                 }
                 else if (Player.instance.pickLevel == 3)
                 {
-                    if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                    if (GameManager.instance.playData.language == Language.한국어)
                         smithyText.text += "\n<color=#886600ff><size=40>곡괭이의 전체적인 질을 올립니다.(공격력 상승, 공격속도 상승)</size></color>";
-                    else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    else if (GameManager.instance.playData.language == Language.English)
                         smithyText.text += "\n<color=#886600ff><size=40>Increases the overall quality of the pickaxe.(Increases attack force, increases attack speed.)</size></color>";
                 }
 
@@ -1288,9 +1285,9 @@ public class UIManager : MonoBehaviour
                     itemBagUpgradeNo.SetActive(false);
                     itemBagUpgradeYes.SetActive(false);
                     itemBagUpgradeOk.SetActive(true);
-                    if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                    if (GameManager.instance.playData.language == Language.한국어)
                         itemBagUpgradeText.text = "더 이상 가방 크기를 늘릴수 없다.";
-                    else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    else if (GameManager.instance.playData.language == Language.English)
                         itemBagUpgradeText.text = "I can't increase the size of the bag anymore.";
                 }
                 else
@@ -1298,15 +1295,15 @@ public class UIManager : MonoBehaviour
                     itemBagUpgradeNo.SetActive(true);
                     itemBagUpgradeYes.SetActive(true);
                     itemBagUpgradeOk.SetActive(false);
-                    if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                    if (GameManager.instance.playData.language == Language.한국어)
                         itemBagUpgradeText.text = "가방을 늘릴려면 <color=#FFD600>" + Smithy.reinforceCost[Player.instance.pickLevel] + "</color> 만큼의 비용이 필요하다.\n비용을 지불하겠습니까?";
-                    else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    else if (GameManager.instance.playData.language == Language.English)
                         itemBagUpgradeText.text = "It costs as much as <color=#FFD600>" + Smithy.reinforceCost[Player.instance.pickLevel] + "</color> to increase bags. \n Will you pay for it?";
                 }
 
-                if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                if (GameManager.instance.playData.language == Language.한국어)
                     itemBagUpgradeText.text += "\n<color=#886688ff><size=40>아이템을 더 많이 담을 수 있습니다.</size></color>";
-                else if (GameManager.instance.playData.language == PlayData.Language.English)
+                else if (GameManager.instance.playData.language == Language.English)
                     itemBagUpgradeText.text += "\n<color=#886688ff><size=40>You can store more items. (Attack increased)</size></color>";
 
                 if (itemBagUpgradeUI.activeSelf)
@@ -1811,9 +1808,9 @@ public class UIManager : MonoBehaviour
     public void ExplainPlayerItem(string name)
     {
         string temp = "";
-        if (GameManager.instance.playData.language == PlayData.Language.한국어)
+        if (GameManager.instance.playData.language == Language.한국어)
             temp = "<" + ItemManager.instance.itemData[ItemManager.FindData(name)].itemName + ">\n" + ItemManager.instance.itemData[ItemManager.FindData(name)].itemExplain;
-        else if (GameManager.instance.playData.language == PlayData.Language.English)
+        else if (GameManager.instance.playData.language == Language.English)
             temp = "<" + ItemManager.instance.itemData[ItemManager.FindData(name)].itemName_Eng + ">\n" + ItemManager.instance.itemData[ItemManager.FindData(name)].itemExplain_Eng;
         //if (name.Equals("RandomDice"))
         //{
@@ -1829,18 +1826,16 @@ public class UIManager : MonoBehaviour
     #region[시간제한표시]
     void ShowCountDown()
     {
-        showTimer.SetActive(false);
 
-        if (Player.instance && Player.instance.getChicken)
+        if ((Player.instance && Player.instance.getChicken) || SceneController.instance.nowScene.Equals("Tutorial") || (Player.instance && Player.instance.nowHp <= 0))
+        {
+            showTimer.SetActive(false);
             return;
-        if (SceneController.instance.nowScene.Equals("Tutorial"))
-            return;
-        if (Player.instance && Player.instance.nowHp <= 0)
-            return;
+        }
         if ((int)GameManager.instance.countDown >= 0)
         {
             showTimer.SetActive(true);
-            countDown.text = (int)GameManager.instance.countDown + "";
+            //countDown.text = (int)GameManager.instance.countDown + "";
         }
     }
     #endregion
@@ -1973,6 +1968,11 @@ public class UIManager : MonoBehaviour
     #region[설정메뉴처리]
     public void SettingMenu_Update()
     {
+        if (GameManager.instance.playData.language == Language.English)
+            fullScreenShowText.text = GameManager.instance.playData.fullScreen ? "ON" : "OFF";
+        else
+            fullScreenShowText.text = GameManager.instance.playData.fullScreen ? "켜짐" : "꺼짐";
+
         if (!settingMenu.activeSelf)
             return;
         if (SetGameKey.runSetting)
@@ -2265,11 +2265,6 @@ public class UIManager : MonoBehaviour
         SE_SelectObj.SetActive(false);
         Language_SelectObj.SetActive(false);
 
-        if (GameManager.instance.playData.language == PlayData.Language.English)
-            fullScreenShowText.text = GameManager.instance.playData.fullScreen ? "ON" : "OFF";
-        else
-            fullScreenShowText.text = GameManager.instance.playData.fullScreen ? "켜짐" : "꺼짐";
-
         if (KeyManager.nowController == GameController.KeyBoard)
             return;
 
@@ -2366,18 +2361,18 @@ public class UIManager : MonoBehaviour
     public void ChangeLanguage()
     {
         int languageLen = 0;
-        foreach (int i in Enum.GetValues(typeof(PlayData.Language)))
+        foreach (int i in Enum.GetValues(typeof(Language)))
             languageLen++;
 
         for(int i = 0; i < languageLen; i++)
         {
-            if ((PlayData.Language)(i) == GameManager.instance.playData.language)
+            if ((Language)(i) == GameManager.instance.playData.language)
             {
                 int index = i;
                 index++;
                 index %= languageLen;
 
-                GameManager.instance.playData.language = (PlayData.Language)(index);
+                GameManager.instance.playData.language = (Language)(index);
                 languageShowText.text = GameManager.instance.playData.language.ToString();
                 break;
             }

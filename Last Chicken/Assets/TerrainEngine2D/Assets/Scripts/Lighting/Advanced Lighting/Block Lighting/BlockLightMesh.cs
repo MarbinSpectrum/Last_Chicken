@@ -51,7 +51,7 @@ namespace TerrainEngine2D.Lighting
 
             base.Start();
             //Set the z position/render order for the light system
-            transform.position = new Vector3(transform.position.x, transform.position.y, world.EndZPoint - world.ZBlockDistance * world.ZLayerFactor * World.LIGHT_SYSTEM_Z_ORDER);
+            transform.position = new Vector3(transform.position.x, transform.position.y,transform.position.z + world.EndZPoint - world.ZBlockDistance * world.ZLayerFactor * World.LIGHT_SYSTEM_Z_ORDER);
         }
 
         protected override void LateUpdate()

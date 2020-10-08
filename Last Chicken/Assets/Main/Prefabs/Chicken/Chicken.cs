@@ -228,7 +228,7 @@ public class Chicken : CustomCollider
     #region[닭 이동]
     void ChickenMove(int dic)
     {
-        int MoveDirection = 0;
+        float MoveDirection = 0;
         //이동 방향에 따라 방향 값을 설정
         if (dic > 0)
             MoveDirection = +1;
@@ -240,7 +240,18 @@ public class Chicken : CustomCollider
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         //이동방향으로 이미지 방향 설정
-        flipX = MoveDirection != 0 ? MoveDirection : flipX;
+        flipX = MoveDirection != 0 ? (int)MoveDirection : flipX;
+
+        //자동이동
+        GameObject conveyorBelt = IsAtObjectWithTag(bodyCollider, "ConveyorBelt");
+        if (conveyorBelt == null)
+            nowConveyorBelt = null;
+        else if (nowConveyorBelt == null && grounded)
+            nowConveyorBelt = conveyorBelt.GetComponent<ConveyorBelt>();
+        float autoMoveValue = 0;
+        if (nowConveyorBelt)
+            autoMoveValue += nowConveyorBelt.power;
+        MoveDirection += autoMoveValue;
 
         //뛰는 중인지 체크하는 변수
         bool runFlag = false;

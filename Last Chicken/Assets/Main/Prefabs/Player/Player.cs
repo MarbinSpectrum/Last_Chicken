@@ -608,8 +608,20 @@ public class Player : CustomCollider
         //이동방향이 없으면 기존 방향으로 설정
         flipX = playerMoveDirection != 0 ? (int)playerMoveDirection : flipX;
 
+
+        //자동이동
+        GameObject conveyorBelt = IsAtObjectWithTag(bodyCollider, "ConveyorBelt");
+        if (conveyorBelt == null)
+            nowConveyorBelt = null;
+        else if (nowConveyorBelt == null && grounded)
+            nowConveyorBelt = conveyorBelt.GetComponent<ConveyorBelt>();
+        float autoMoveValue = 0;
+        if (nowConveyorBelt)
+            autoMoveValue += nowConveyorBelt.power;
+        playerMoveDirection += autoMoveValue;
+
         //이동 거리
-        float moveDistance = playerMoveDirection * speed * Mathf.Abs(KeyManager.HorizonScale);
+        float moveDistance = playerMoveDirection * speed;/* * Mathf.Abs(KeyManager.HorizonScale)*/;
         //순간적인 이동 거리
         Vector2 moveValue;
 
@@ -764,19 +776,15 @@ public class Player : CustomCollider
         /////////////////////////////////////////////////////////////////////////////////////////
 
         //마우스위치를 바꾸면 콤보 초기화및 공격 위치 변경
-        if(Input.GetMouseButtonDown(0)/*Input.GetKey(KeyManager.instance.keyBoard[GameKeyType.Attack])*/ || KeyManager.GetKey(KeyManager.instance.gamePad[GameKeyType.Attack]))
+        if(Input.GetKey(KeyManager.instance.keyBoard[GameKeyType.Attack]) || KeyManager.GetKey(KeyManager.instance.gamePad[GameKeyType.Attack]))
         {
-            if((KeyManager.nowController != GameController.KeyBoard && attackTop == KeyManager.VerticalScale < 0) || (KeyManager.nowController == GameController.KeyBoard && attackTop != (MouseManager.instance.mousePos.y > transform.position.y)))
+            if((KeyManager.nowController != GameController.KeyBoard && attackTop == KeyManager.VerticalScale < 0) ||
+                (KeyManager.nowController == GameController.KeyBoard && attackTop != (MouseManager.instance.mousePos.y > transform.position.y)))
             {
                 attackTop = !attackTop;
                 combo = 0;
             }
         }
-        //if (attackTop != (MouseManager.instance.mousePos.y > transform.position.y))
-        //{
-        //    attackTop = !attackTop;
-        //    combo = 0;
-        //}
 
         //콤보 제한시간 처리
         comboTime -= Time.deltaTime;
@@ -1179,15 +1187,15 @@ public class Player : CustomCollider
                 break;
             case 2:
                 attackPower += 3;
-                attackSpeed += 0.25f;
+                attackSpeed += 0.1f;
                 break;
             case 3:
                 attackPower += 6;
-                attackSpeed += 0.5f;
+                attackSpeed += 0.2f;
                 break;
             case 4:
                 attackPower += 9;
-                attackSpeed += 1f;
+                attackSpeed += 0.3f;
                 break;
         }
     }

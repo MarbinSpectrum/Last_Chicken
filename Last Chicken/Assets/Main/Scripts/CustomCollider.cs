@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class CustomCollider : MonoBehaviour
 {
+    [HideInInspector] public ConveyorBelt nowConveyorBelt;
+
     #region[각도에 따른 컨퍼넌트 offset]
     public Vector2 GetAngleOffset(BoxCollider2D col)
     {
@@ -16,10 +19,9 @@ public class CustomCollider : MonoBehaviour
     {
         return IsAtChicken(col, Vector2.zero);
     }
-
     public bool IsAtChicken(BoxCollider2D col, Vector2 pos)
     {
-        RaycastHit2D[] monsters =
+        RaycastHit2D[] objects =
         Physics2D.BoxCastAll
             (
                 (Vector2)transform.position + GetAngleOffset(col) + pos,
@@ -29,8 +31,8 @@ public class CustomCollider : MonoBehaviour
                 1 << LayerMask.NameToLayer("Body")
             );
 
-        for (int i = 0; i < monsters.Length; i++)
-            if (monsters[i].transform.tag.Equals("Chicken"))
+        for (int i = 0; i < objects.Length; i++)
+            if (objects[i].transform.tag.Equals("Chicken"))
                 return true;
 
         return false;
@@ -45,7 +47,7 @@ public class CustomCollider : MonoBehaviour
 
     public bool IsAtPlayer(BoxCollider2D col, Vector2 pos)
     {
-        RaycastHit2D[] monsters =
+        RaycastHit2D[] objects =
         Physics2D.BoxCastAll
             (
                 (Vector2)transform.position + GetAngleOffset(col) + pos,
@@ -55,8 +57,8 @@ public class CustomCollider : MonoBehaviour
                 1 << LayerMask.NameToLayer("Body")
             );
 
-        for (int i = 0; i < monsters.Length; i++)
-            if (monsters[i].transform.tag.Equals("Player"))
+        for (int i = 0; i < objects.Length; i++)
+            if (objects[i].transform.tag.Equals("Player"))
                 return true;
 
         return false;
@@ -85,6 +87,32 @@ public class CustomCollider : MonoBehaviour
     }
     #endregion
 
+    #region[범위안에 지형오브젝트가 있는지 검사]
+    public bool IsAtTerrainObject(BoxCollider2D col, bool This = true)
+    {
+        return IsAtTerrainObject(col, Vector2.zero);
+    }
+
+    public bool IsAtTerrainObject(BoxCollider2D col, Vector2 pos, bool This = true)
+    {
+        RaycastHit2D[] objects =
+        Physics2D.BoxCastAll
+            (
+                (Vector2)transform.position + GetAngleOffset(col) + pos,
+                new Vector2(col.size.x * Mathf.Abs(transform.localScale.x), col.size.y * Mathf.Abs(transform.localScale.y)),
+                col.transform.eulerAngles.z * (transform.localScale.x < 0 ? -1 : 1),
+                Vector2.zero, 1,
+                1 << LayerMask.NameToLayer("Terrain")
+            );
+
+        for (int i = 0; i < objects.Length; i++)
+            if (objects[i].transform.tag.Equals("Object"))
+                return true;
+
+        return false;
+    }
+    #endregion
+
     #region[범위안에 오브젝트가 있는지 검사]
     public bool IsAtObject(BoxCollider2D col, bool This = true)
     {
@@ -93,7 +121,7 @@ public class CustomCollider : MonoBehaviour
 
     public bool IsAtObject(BoxCollider2D col, Vector2 pos, bool This = true)
     {
-        RaycastHit2D[] monsters =
+        RaycastHit2D[] objects =
         Physics2D.BoxCastAll
             (
                 (Vector2)transform.position + GetAngleOffset(col) + pos,
@@ -103,8 +131,8 @@ public class CustomCollider : MonoBehaviour
                 1 << LayerMask.NameToLayer("Body")
             );
 
-        for (int i = 0; i < monsters.Length; i++)
-            if (monsters[i].transform.tag.Equals("Object"))
+        for (int i = 0; i < objects.Length; i++)
+            if (objects[i].transform.tag.Equals("Object"))
                 return true;
 
         return false;
@@ -116,7 +144,7 @@ public class CustomCollider : MonoBehaviour
     }
     public bool IsAtItem(BoxCollider2D col, string name, Vector2 pos, bool This = true)
     {
-        RaycastHit2D[] monsters =
+        RaycastHit2D[] objects =
         Physics2D.BoxCastAll
             (
                 (Vector2)transform.position + GetAngleOffset(col) + pos,
@@ -126,37 +154,38 @@ public class CustomCollider : MonoBehaviour
                 1 << LayerMask.NameToLayer("Body")
             );
 
-        for (int i = 0; i < monsters.Length; i++)
-            if (monsters[i].transform.name.Equals(name))
+        for (int i = 0; i < objects.Length; i++)
+            if (objects[i].transform.name.Equals(name))
                 return true;
 
         return false;
     }
     #endregion
 
-    #region[범위안에 오브젝트가 있는지 검사]
-    public bool IsAtTerrainObject(BoxCollider2D col, bool This = true)
+    #region[범위안에 특정테그 오브젝트 받기]
+
+    public GameObject IsAtObjectWithTag(BoxCollider2D col,string tag)
     {
-        return IsAtTerrainObject(col, Vector2.zero);
+        return IsAtObjectWithTag(col, Vector2.zero, tag);
     }
 
-    public bool IsAtTerrainObject(BoxCollider2D col, Vector2 pos, bool This = true)
+    public GameObject IsAtObjectWithTag(BoxCollider2D col, Vector2 pos, string tag)
     {
-        RaycastHit2D[] monsters =
+        RaycastHit2D[] objects =
         Physics2D.BoxCastAll
             (
                 (Vector2)transform.position + GetAngleOffset(col) + pos,
                 new Vector2(col.size.x * Mathf.Abs(transform.localScale.x), col.size.y * Mathf.Abs(transform.localScale.y)),
                 col.transform.eulerAngles.z * (transform.localScale.x < 0 ? -1 : 1),
-                Vector2.zero, 1,
-                1 << LayerMask.NameToLayer("Terrain")
+                Vector2.zero, 1
             );
 
-        for (int i = 0; i < monsters.Length; i++)
-            if (monsters[i].transform.tag.Equals("Object"))
-                return true;
+        for (int i = 0; i < objects.Length; i++)
+            if (objects[i].transform.tag.Equals(tag))
+                return objects[i].transform.gameObject;
 
-        return false;
+        return null;
     }
     #endregion
+
 }

@@ -2,16 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class IceHoleScript : CustomCollider
 {
     public BoxCollider2D iceCollider;
 
-    public float time = 0;
+    [Range(0, 20)]
+    public float minCycle;
+    [Range(0, 20)]
+    public float maxCycle;
+    private float time = 0;
 
     public ParticleSystem iceParticle;
 
     void Update()
     {
+        minCycle = Mathf.Min(minCycle, maxCycle);
+        maxCycle = Mathf.Max(minCycle, maxCycle);
         if (time > 0)
         {
             if (time >= 0 && time - Time.deltaTime <= 0)
@@ -27,7 +34,7 @@ public class IceHoleScript : CustomCollider
         else
         {
             Random.InitState(Random.Range(-100, 100) * (int)(10000 * Time.deltaTime));
-            time = Random.Range(10, 20);
+            time = Random.Range(minCycle, maxCycle);
         }
     }
 }

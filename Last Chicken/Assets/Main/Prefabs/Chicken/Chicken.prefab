@@ -496,6 +496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ded8e9b1e6d442147a1c7ae8f53db853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nowConveyorBelt: {fileID: 0}
   baseSpeed: 8
   baseJumpPower: 1500
   baseGravity: 4
@@ -526,7 +527,7 @@ GameObject:
   - component: {fileID: 2017293331673257772}
   - component: {fileID: 6388517087535925422}
   - component: {fileID: 1254402759866540767}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: CreateChicken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -565,7 +566,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 550aee27f7dd65343a32fc5453410b10, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -609,6 +610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ccff98dda9f51447b1c0a6ea35600b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 2017293331673257772}
   glowBrightness: 2
   glowColor: {r: 0.78039217, g: 0.3882353, b: 0, a: 1}
   size: 1

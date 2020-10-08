@@ -17,8 +17,8 @@ PlayerSettings:
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
-  m_ShowUnitySplashScreen: 0
-  m_ShowUnitySplashLogo: 0
+  m_ShowUnitySplashScreen: 1
+  m_ShowUnitySplashLogo: 1
   m_SplashScreenOverlayOpacity: 1
   m_SplashScreenAnimation: 0
   m_SplashScreenLogoStyle: 1
@@ -677,6 +677,8 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
+    Build: 1
+    Collab: 1
     UNet: 1
   luminIcon:
     m_Name: 
@@ -692,7 +694,7 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   cloudProjectId: ea2f77dd-63bc-420f-8ed0-5dc9873b5515
   framebufferDepthMemorylessMode: 0
-  projectName: Chicken
+  projectName: Last Chicken
   organizationId: youngmuk
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0

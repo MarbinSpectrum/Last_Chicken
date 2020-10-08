@@ -12,7 +12,7 @@ public class Smithy : AreaScript
 
     [System.NonSerialized] public bool thisUse = false;
     [System.NonSerialized] public bool onArea;
-    public static int[] reinforceCost = new int[4] { 1200, 2400, 4800, 9600 };
+    public static int[] reinforceCost = new int[4] { 2500, 15000, 30000, 50000 };
     public SpriteRenderer fade;
     GameObject uiMouse;
 

@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer)), DisallowMultipleComponent, ExecuteInEditMode]
+[ExecuteInEditMode]
 public class CreateChickenEvent : MonoBehaviour
 {
-    private MaterialPropertyBlock materialProperties;
-    public SpriteRenderer Renderer { get; private set; }
+    public SpriteRenderer spriteRenderer;
 
     [SerializeField] private float glowBrightness = 2f;
     [SerializeField] private Color glowColor = Color.white;
@@ -14,47 +13,31 @@ public class CreateChickenEvent : MonoBehaviour
     [SerializeField] [Range(0, 1)] private float alphaCutOff = 0;
     [SerializeField] private bool imgAlpha = false;
 
-    private void Awake()
+    void OnEnable()
     {
-        Renderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        UpdateOutline(true);
     }
 
-    private void OnEnable()
+    void OnDisable()
     {
-        SetMaterialProperties();
+        UpdateOutline(false);
     }
 
-    private void OnDisable()
+    void Update()
     {
-        SetMaterialProperties();
+        UpdateOutline(true);
     }
 
-    private void OnValidate()
+    void UpdateOutline(bool outline)
     {
-        if (!isActiveAndEnabled) return;
-        SetMaterialProperties();
+        MaterialPropertyBlock mpb = new MaterialPropertyBlock();
+        spriteRenderer.GetPropertyBlock(mpb);
+        mpb.SetColor("_InLightColor", glowColor * glowBrightness);
+        mpb.SetFloat("_InLightSize", size);
+        mpb.SetFloat("_AlphaCutOff", alphaCutOff);
+        mpb.SetFloat("_ImgAlpha", imgAlpha ? 1 : 0);
+        spriteRenderer.SetPropertyBlock(mpb);
     }
-
-    private void OnDidApplyAnimationProperties()
-    {
-        SetMaterialProperties();
-    }
-
-    public void SetMaterialProperties()
-    {
-        if (!Renderer) return;
-
-        Renderer.sharedMaterial = ChickenEventMat.GetSharedFor(this);
-
-        if (materialProperties == null) // Initializing it at `Awake` or `OnEnable` causes nullref in editor in some cases.
-            materialProperties = new MaterialPropertyBlock();
-
-        materialProperties.SetColor(Shader.PropertyToID("_InLightColor"), glowColor * glowBrightness);
-        materialProperties.SetFloat(Shader.PropertyToID("_InLightSize"), size);
-        materialProperties.SetFloat(Shader.PropertyToID("_AlphaCutOff"), alphaCutOff);
-        materialProperties.SetFloat(Shader.PropertyToID("_ImgAlpha"), imgAlpha ? 1 : 0);
-
-        Renderer.SetPropertyBlock(materialProperties);
-    }
-
 }

@@ -104,9 +104,9 @@ public class ShopScript : AreaScript
         for (int i = 0; i < 3; i++)
         {
             UIManager.instance.shopItemCost[i].text = GetItemValue(ItemManager.itemName[itmeList[i]]) + "$";
-            if(GameManager.instance.playData.language == PlayData.Language.한국어)
+            if(GameManager.instance.playData.language == Language.한국어)
                 UIManager.instance.shopItemName[i].text = ItemManager.instance.itemData[itmeList[i]].itemName;
-            else if (GameManager.instance.playData.language == PlayData.Language.English)
+            else if (GameManager.instance.playData.language == Language.English)
                 UIManager.instance.shopItemName[i].text = ItemManager.instance.itemData[itmeList[i]].itemName_Eng;
             UIManager.instance.shopItemImg[i].sprite = ItemManager.instance.itemData[itmeList[i]].itemImg;
             if (itmeBuyList[i])
@@ -115,9 +115,9 @@ public class ShopScript : AreaScript
                 for (int k = 0; k < 4; k++)
                     UIManager.instance.shopItemExplan[i, k].text = "";
 
-                if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                if (GameManager.instance.playData.language == Language.한국어)
                     UIManager.instance.shopItemExplan[i, 1].text = "[매진]";
-                else if (GameManager.instance.playData.language == PlayData.Language.English)
+                else if (GameManager.instance.playData.language == Language.English)
                     UIManager.instance.shopItemExplan[i, 1].text = "[Sold Out]";
             }
             else
@@ -125,9 +125,9 @@ public class ShopScript : AreaScript
 
                 for(int k = 0; k < 4; k++)
                 {
-                    if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                    if (GameManager.instance.playData.language == Language.한국어)
                         UIManager.instance.shopItemExplan[i, k].text = ItemManager.instance.itemData[itmeList[i]].shopItemExplain[k];
-                    else if (GameManager.instance.playData.language == PlayData.Language.English)
+                    else if (GameManager.instance.playData.language == Language.English)
                         UIManager.instance.shopItemExplan[i, k].text = ItemManager.instance.itemData[itmeList[i]].shopItemExplain_Eng[k];
                 }
                 UIManager.instance.shopItemImg[i].color = Color.white;

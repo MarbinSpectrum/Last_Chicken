@@ -4932,8 +4932,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69d5ec67d3cc41f49a2993aa22cda0e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nowConveyorBelt: {fileID: 0}
   iceCollider: {fileID: 7438386946508547089}
-  time: 0
+  minCycle: 0
+  maxCycle: 2
   iceParticle: {fileID: 8169061204108484402}
 --- !u!61 &7438386946508547089
 BoxCollider2D:

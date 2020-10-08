@@ -26,9 +26,10 @@ public class MonsterManager : ObjectPool
     List<int> monsterList;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    public enum Monster { 박쥐, 쥐, 뱀, 두더지, 펭귄, 곰, 얼음박쥐, 이동상인 };
     public static string[] monsterName = new string[] { "Bat", "Rat", "Snake", "Mole", "Penguin", "WhiteBear", "IceBat", "MovingShop" };
     public static string[] monsterName_KR = new string[] { "박쥐", "쥐", "뱀", "두더지", "펭귄", "곰", "얼음박쥐", "이동상인" };
+    public static Dictionary<KeyValuePair<Monster, Language>, string> monsterExplain = new Dictionary<KeyValuePair<Monster, Language>, string>();
 
     [System.Serializable]
     public class MonsterStats
@@ -72,7 +73,24 @@ public class MonsterManager : ObjectPool
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            for(int i = 0; i < recordSprite.Length; i++)
+            monsterExplain[new KeyValuePair<Monster, Language>(Monster.박쥐, Language.한국어)] = "광산에 서식하는 박쥐입니다.";
+            monsterExplain[new KeyValuePair<Monster, Language>(Monster.쥐, Language.한국어)] = "광산에 서식하는 쥐입니다.";
+            monsterExplain[new KeyValuePair<Monster, Language>(Monster.뱀, Language.한국어)] = "광산에 서식하는 뱀입니다.";
+            monsterExplain[new KeyValuePair<Monster, Language>(Monster.두더지, Language.한국어)] = "광산에 서식하는 두더지입니다.";
+            monsterExplain[new KeyValuePair<Monster, Language>(Monster.펭귄, Language.한국어)] = "얼음동굴에 서식하는 펭귄입니다.";
+            monsterExplain[new KeyValuePair<Monster, Language>(Monster.얼음박쥐, Language.한국어)] = "얼음동굴에 서식하는 얼음박쥐입니다.";
+            monsterExplain[new KeyValuePair<Monster, Language>(Monster.곰, Language.한국어)] = "얼음동굴에 서식하는 곰입니다.";
+            monsterExplain[new KeyValuePair<Monster, Language>(Monster.이동상인, Language.한국어)] = "이동하면서 물건을 파는 상인";
+            monsterExplain[new KeyValuePair<Monster, Language>(Monster.박쥐, Language.English)] = "A bat that lives in a mine.";
+            monsterExplain[new KeyValuePair<Monster, Language>(Monster.쥐, Language.English)] = "A mouse that lives in a mine.";
+            monsterExplain[new KeyValuePair<Monster, Language>(Monster.뱀, Language.English)] = "A snake that lives in a mine.";
+            monsterExplain[new KeyValuePair<Monster, Language>(Monster.두더지, Language.English)] = "A mole that lives in a mine.";
+            monsterExplain[new KeyValuePair<Monster, Language>(Monster.펭귄, Language.English)] = "A penguin that lives in an ice cave.";
+            monsterExplain[new KeyValuePair<Monster, Language>(Monster.얼음박쥐, Language.English)] = "An ice bat that lives in an ice cave.";
+            monsterExplain[new KeyValuePair<Monster, Language>(Monster.곰, Language.English)] = "A bear that lives in an ice cave.";
+            monsterExplain[new KeyValuePair<Monster, Language>(Monster.이동상인, Language.English)] = "a merchant who sells goods on the move.";
+
+            for (int i = 0; i < recordSprite.Length; i++)
             {
                 Texture2D temp = Resources.Load("Objects/Monster/Record/" + monsterName[i]) as Texture2D;
                 if(temp != null)
@@ -135,11 +153,13 @@ public class MonsterManager : ObjectPool
     }
     #endregion
 
+
     #region[몬스터 생성]
     public void ReSwpawn(World world ,int dis = 20)
     {
         if (monsterList.Count <= 0)
             return;
+
         int r = monsterList[Random.Range(0, monsterList.Count)];
 
         int size = 0;
@@ -158,15 +178,25 @@ public class MonsterManager : ObjectPool
                 size = 3;
                 break;
             default:
-                Debug.LogError("몬스터 크기검사를");
+                Debug.LogError("생성몬스터의 크기설정이 안되어있습니다.");
                 break;
         }
 
-        List<Vector2Int> monsterPos = MonsterSpawnPos(world, dis, size);
+        List<Vector2Int> monsterPos = new List<Vector2Int>();
+        Vector2Int pos = Vector2Int.zero;
+
+        if (SceneController.instance.nowScene == "IglooMap")
+        {
+            for (int i = 0; i < Refrigerator.refrigeratorList.Count; i++)
+                monsterPos.Add((new Vector2Int((int)Refrigerator.refrigeratorList[i].transform.position.x, (int)Refrigerator.refrigeratorList[i].transform.position.y)));
+        }
+        else
+            monsterPos = MonsterSpawnPos(world, dis, size);
 
         if (monsterPos.Count <= 0)
             return;
-        Vector2Int pos = monsterPos[Random.Range(0, monsterPos.Count)];
+
+        pos = monsterPos[Random.Range(0, monsterPos.Count)];
 
         Vector2 offset = new Vector2(0, 1);
         switch (r)

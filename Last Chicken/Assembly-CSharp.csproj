@@ -63,13 +63,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Main\Graphic\Glow\Scripts\GlowColorRandomizer.cs" />
-    <Compile Include="Assets\Main\Graphic\Glow\Scripts\TestSpriteGlowBehaviour.cs" />
-    <Compile Include="Assets\Main\Graphic\Glow\ThirdParty\UnityCommon\Runtime\FpsDisplay.cs" />
-    <Compile Include="Assets\Main\Graphic\Glow\ThirdParty\UnityCommon\Runtime\SceneSwitcher.cs" />
-    <Compile Include="Assets\Main\Graphic\Glow\ThirdParty\UnityCommon\Runtime\Utils\StringUtils.cs" />
+    <Compile Include="Assets\Main\Graphic\GlowAssets\Scripts\GlowColorRandomizer.cs" />
+    <Compile Include="Assets\Main\Graphic\GlowAssets\Scripts\TestSpriteGlowBehaviour.cs" />
+    <Compile Include="Assets\Main\Graphic\GlowAssets\ThirdParty\UnityCommon\Runtime\FpsDisplay.cs" />
+    <Compile Include="Assets\Main\Graphic\GlowAssets\ThirdParty\UnityCommon\Runtime\SceneSwitcher.cs" />
+    <Compile Include="Assets\Main\Graphic\GlowAssets\ThirdParty\UnityCommon\Runtime\Utils\StringUtils.cs" />
     <Compile Include="Assets\Main\Graphic\Materials\ChangeColorSprite.cs" />
-    <Compile Include="Assets\Main\Graphic\Materials\Shader\ChickenEventMat.cs" />
     <Compile Include="Assets\Main\Graphic\Materials\Shader\CreateChickenEvent.cs" />
     <Compile Include="Assets\Main\Graphic\Materials\Shader\RotateTransform.cs" />
     <Compile Include="Assets\Main\Graphic\Materials\Shader\SpriteUVToShader.cs" />
@@ -119,16 +118,17 @@
     <Compile Include="Assets\Main\Graphic\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
     <Compile Include="Assets\Main\Graphic\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
     <Compile Include="Assets\Main\Graphic\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
-    <Compile Include="Assets\Main\Graphic\Sprite\Background\StageBackGround.cs" />
-    <Compile Include="Assets\Main\Graphic\Sprite\UI\GetItem\GetShowItem.cs" />
+    <Compile Include="Assets\Main\Graphic\Sprite\Background\Animation\StageBackGround.cs" />
+    <Compile Include="Assets\Main\Graphic\Sprite\UI\GetItem\Animaion\GetShowItem.cs" />
     <Compile Include="Assets\Main\Graphic\Sprite\UI\Map\PlayerMap.cs" />
     <Compile Include="Assets\Main\Prefabs\Chicken\Animation\Cry\CryingCheck.cs" />
-    <Compile Include="Assets\Main\Prefabs\Chicken\Animation\Head\ChickenHead.cs" />
     <Compile Include="Assets\Main\Prefabs\Chicken\Chicken.cs" />
+    <Compile Include="Assets\Main\Prefabs\Chicken\Head\Animation\ChickenHead.cs" />
     <Compile Include="Assets\Main\Prefabs\Manager\Script\BuffManager.cs" />
     <Compile Include="Assets\Main\Prefabs\Manager\Script\CaveManager.cs" />
     <Compile Include="Assets\Main\Prefabs\Manager\Script\CheatUI.cs" />
     <Compile Include="Assets\Main\Prefabs\Manager\Script\EffectManager.cs" />
+    <Compile Include="Assets\Main\Prefabs\Manager\Script\FirstSetting.cs" />
     <Compile Include="Assets\Main\Prefabs\Manager\Script\GameManager.cs" />
     <Compile Include="Assets\Main\Prefabs\Manager\Script\GroundManager.cs" />
     <Compile Include="Assets\Main\Prefabs\Manager\Script\ItemManager.cs" />
@@ -140,7 +140,6 @@
     <Compile Include="Assets\Main\Prefabs\Manager\Script\ProlgueManager.cs" />
     <Compile Include="Assets\Main\Prefabs\Manager\Script\RecordManager.cs" />
     <Compile Include="Assets\Main\Prefabs\Manager\Script\SceneController.cs" />
-    <Compile Include="Assets\Main\Prefabs\Manager\Script\SelectLanguageManager.cs" />
     <Compile Include="Assets\Main\Prefabs\Manager\Script\SoundManager.cs" />
     <Compile Include="Assets\Main\Prefabs\Manager\Script\StageManager.cs" />
     <Compile Include="Assets\Main\Prefabs\Manager\Script\TitleManager.cs" />
@@ -202,7 +201,9 @@
     <Compile Include="Assets\Resources\Objects\Structure\ChickenAltar\AltarScript.cs" />
     <Compile Include="Assets\Resources\Objects\Structure\ChickenFountain\FountainScript.cs" />
     <Compile Include="Assets\Resources\Objects\Structure\ChickenFountain\SetFountainMat.cs" />
+    <Compile Include="Assets\Resources\Objects\Structure\Igloo\ConveyorBelt.cs" />
     <Compile Include="Assets\Resources\Objects\Structure\Igloo\IglooObject.cs" />
+    <Compile Include="Assets\Resources\Objects\Structure\Igloo\Refrigerator.cs" />
     <Compile Include="Assets\Resources\Objects\Structure\ItemBagShop\ItemBagShop.cs" />
     <Compile Include="Assets\Resources\Objects\Structure\ObjectCave.cs" />
     <Compile Include="Assets\Resources\Objects\Structure\Shop\ShopScript.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="Assets\Resources\Objects\Structure\Smithy\Smithy.cs" />
     <Compile Include="Assets\Resources\Objects\Structure\StructureObject.cs" />
     <Compile Include="Assets\Resources\Objects\Structure\TreasureBoxScirpt.cs" />
+    <Compile Include="Assets\Resources\Objects\Structure\WoodBoxScript.cs" />
     <Compile Include="Assets\Resources\Objects\Trap\IceHoleScript.cs" />
     <Compile Include="Assets\Resources\Objects\Trap\LandMineScript.cs" />
     <Compile Include="Assets\Resources\Objects\Trap\StalagmiteScript.cs" />
@@ -281,7 +283,7 @@
     <None Include="Assets\Main\Graphic\PostProcessing\Editor Resources\UI\CurveBackground.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\Main\Graphic\PostProcessing\Resources\Shaders\BuiltinDebugViews.shader" />
-    <None Include="Assets\Main\Graphic\Glow\SpriteGlow\Resources\SpriteGlow\Shaders\SpriteOutline.shader" />
+    <None Include="Assets\Main\Graphic\GlowAssets\SpriteGlow\Resources\SpriteGlow\Shaders\SpriteOutline.shader" />
     <None Include="Assets\Main\Graphic\PostProcessing\Resources\Shaders\EyeAdaptation.cginc" />
     <None Include="Assets\Main\Graphic\PostProcessing\Resources\Shaders\LutGen.shader" />
     <None Include="Assets\Main\Graphic\Materials\Shader\RotateSprite.shader" />
@@ -352,80 +354,80 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
-    <None Include="Assets\Main\Graphic\Glow\ThirdParty\UnityCommon\LICENSE.txt" />
+    <None Include="Assets\Main\Graphic\GlowAssets\ThirdParty\UnityCommon\LICENSE.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\TerrainEngine2D\license.txt" />
     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.PixelPerfect.Editor">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.2D.PixelPerfect.Editor.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/Unity.2D.PixelPerfect.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Shaders">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Editor">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Runtime">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Runtime">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Editor">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Editor.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Postprocessing.Editor">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Postprocessing.Runtime">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.PixelPerfect">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.2D.PixelPerfect.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/Unity.2D.PixelPerfect.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>D:/Program Files/Git/Last_Chicken/Last Chicken/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>D:/Program Files/Git/Last Chicken/Last Chicken/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Program Files/Unity/2019.3.7f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

@@ -75,24 +75,7 @@ public class Stage02_Igloo : StageData
         backGroundData = new BackGroundLayer[world.WorldWidth, world.WorldHeight];
         for (int x = 0; x < world.WorldWidth; x++)
             for (int y = 0; y < world.WorldHeight; y++)
-                backGroundData[x, y] = (BackGroundLayer)(-1);
-
-        for (int x = 0; x < world.WorldWidth; x++)
-            for (int y = 0; y < world.WorldHeight; y++)
-                if (PerlinNoise(x, y, 9, 12, 1) <= 6)
-                    backGroundData[x, y] = BackGroundLayer.NormalBackGround;
-
-        for (int x = altarRect.x; x < altarRect.x + altarRect.width; x++)
-            for (int y = altarRect.y - altarRect.height; y < altarRect.y; y++)
-                if (Exception.IndexOutRange(x, y, backGroundData) && groundData[x, y] == (GroundLayer)(-1))
-                    backGroundData[x, y] = BackGroundLayer.DarkAltarBackGround;
-
-
-
-        for (int x = fountainRect.x; x < fountainRect.x + fountainRect.width; x++)
-            for (int y = fountainRect.y - fountainRect.height; y < fountainRect.y; y++)
-                if (Exception.IndexOutRange(x, y, backGroundData) && groundData[x, y] == (GroundLayer)(-1))
-                    backGroundData[x, y] = (BackGroundLayer)(-1);
+                backGroundData[x, y] = BackGroundLayer.NormalBackGround;
     }
     #endregion
 

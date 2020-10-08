@@ -146,9 +146,9 @@ public class TutorialAltarEvent : CustomCollider
             {
                 messageFlag[0] = true;
                 chickenMessage.SetActive(true);
-                if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                if (GameManager.instance.playData.language == Language.한국어)
                     chickenMessage.GetComponent<Text>().text = message[0];
-                else if (GameManager.instance.playData.language == PlayData.Language.English)
+                else if (GameManager.instance.playData.language == Language.English)
                     chickenMessage.GetComponent<Text>().text = message_eng[0];
             }
 
@@ -156,9 +156,9 @@ public class TutorialAltarEvent : CustomCollider
             {
                 messageFlag[1] = true;
                 chickenMessage.SetActive(true);
-                if (GameManager.instance.playData.language == PlayData.Language.한국어)
+                if (GameManager.instance.playData.language == Language.한국어)
                     chickenMessage.GetComponent<Text>().text = message[1];
-                else if (GameManager.instance.playData.language == PlayData.Language.English)
+                else if (GameManager.instance.playData.language == Language.English)
                     chickenMessage.GetComponent<Text>().text = message_eng[1];
                 white.color -= new Color(0, 0, 0, Time.deltaTime / 10f);
             }

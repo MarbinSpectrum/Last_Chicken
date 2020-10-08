@@ -16,6 +16,7 @@ public class StructureObject : CustomCollider
     protected GameObject piece;
     protected BoxCollider2D bodyCollider;
     protected new Rigidbody2D rigidbody2D;
+    protected SpriteRenderer spriteRenderer;
 
     protected float damageTime; //데미지
     protected int maxHp;
@@ -41,6 +42,7 @@ public class StructureObject : CustomCollider
         nowHp = maxHp;
         body = transform.Find("Body").gameObject;
         bodyCollider = body.transform.Find("Parts").Find("Body").GetComponent<BoxCollider2D>();
+        spriteRenderer = body.transform.Find("Parts").GetComponent<SpriteRenderer>();
         piece = transform.Find("Piece").gameObject;
         rigidbody2D = GetComponent<Rigidbody2D>();
     }

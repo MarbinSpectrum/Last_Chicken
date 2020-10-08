@@ -481,18 +481,20 @@ public class Stage01_3 : StageData
                         {
                             int ax = x + i;
                             int ay = y + j;
-                            if (Exception.IndexOutRange(ax, ay, groundData) && groundData[ax, ay] != (GroundLayer)(-1))
+                            if (j == 0 && Exception.IndexOutRange(ax, ay, groundData) && groundData[ax, ay] == (GroundLayer)(-1))
+                                boxFlag = false;
+                            else if (j == 1 && Exception.IndexOutRange(ax, ay, groundData) && groundData[ax, ay] != (GroundLayer)(-1))
                                 boxFlag = false;
                             else if (!Exception.IndexOutRange(ax, ay, groundData))
                                 boxFlag = false;
                         }
 
-                    for (int i = 0; i < mineRoadArea.Count; i++)
-                        if (Mathf.Abs(mineRoadArea[i].y - y) < 10)
-                            boxFlag = false;
+                    //for (int i = 0; i < mineRoadArea.Count; i++)
+                    //    if (Mathf.Abs(mineRoadArea[i].y - y) < 10)
+                    //        boxFlag = false;
 
                     for (int i = 0; i < woodBoxpos.Count; i++)
-                        if (Vector2.Distance(new Vector2Int(x, y), woodBoxpos[i]) < 5)
+                        if (Vector2.Distance(new Vector2Int(x, y), woodBoxpos[i]) < 15)
                             boxFlag = false;
 
                     if (boxFlag)

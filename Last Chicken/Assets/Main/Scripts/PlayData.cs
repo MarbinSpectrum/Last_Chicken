@@ -2,11 +2,11 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 
+public enum Language { English, 한국어 };
+
 [System.Serializable]
 public class PlayData
 {
-    public enum Language { English, 한국어 };
-
     public float SE_Volume;         //SE 크기
     public float BGM_Volume;        //BGM 크기
     public int ScreenWidth;         //화면 너비

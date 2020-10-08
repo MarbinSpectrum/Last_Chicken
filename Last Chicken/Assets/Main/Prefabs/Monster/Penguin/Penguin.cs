@@ -76,6 +76,7 @@ public class Penguin : Monster
                 patrolTime = isPatrolTime;
                 Random.InitState((int)Time.time * Random.Range(0, 100));
                 int r = Random.Range(0, 100);
+
                 if (r < 20)
                     patrolDic = MoveDic.정지;
                 else if (r < 60)
@@ -86,6 +87,8 @@ public class Penguin : Monster
             else
             {
                 patrolTime -= Time.deltaTime;
+                //if (nowConveyorBelt)
+                //    Debug.Log(patrolDic);
                 switch (patrolDic)
                 {
                     case MoveDic.오른쪽:

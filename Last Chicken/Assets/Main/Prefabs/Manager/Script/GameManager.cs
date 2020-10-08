@@ -126,7 +126,7 @@ public class GameManager : TerrainGenerator
         float bgmVolume = playData.BGM_Volume;
         bool fullScreen = playData.fullScreen;
         bool firstGame = playData.firstGame;
-        PlayData.Language language = playData.language;
+        Language language = playData.language;
 
         List<bool> monsterRecordTemp = new List<bool>();
         for (int i = 0; i < playData.monsterRecords.Length; i++)
@@ -348,6 +348,9 @@ public class GameManager : TerrainGenerator
                 }
                 else
                 {
+                    if(countDown == maxCountDown)
+                        UIManager.instance.countDown.SetTrigger("Full");
+
                     countDown -= Time.deltaTime;
                     clockFlag -= Time.deltaTime;
 
@@ -418,6 +421,7 @@ public class GameManager : TerrainGenerator
                                     Player.instance.canControl = true;
                                 }
                                 SoundManager.instance.PlayBGM_Sound(true);
+                                UIManager.instance.countDown.SetTrigger("Half");
                                 gameOverdelayTime = 0;
                                 countDown = 5;
                             }

@@ -92,7 +92,7 @@ public class ProlgueManager : MonoBehaviour
         if (prolgueDatas[n].sprite)
             prolgueImg.sprite = prolgueDatas[n].sprite;
         prolgueAnimator.Rebind();
-        if (GameManager.instance.playData.language == PlayData.Language.한국어)
+        if (GameManager.instance.playData.language == Language.한국어)
         {
             if (prolgueDatas[n].context != null)
             {

@@ -1089,7 +1089,7 @@ public class ObjectManager : ObjectPool
             emp.transform.name = name;
             AddObject(emp);
         }
-        emp.GetComponent<StructureObject>().inItem = item;
+        emp.GetComponent<WoodBoxScript>().InitWoodBox(item);
         emp.SetActive(true);
         emp.transform.localRotation = Quaternion.identity;
         emp.transform.parent = transform;
