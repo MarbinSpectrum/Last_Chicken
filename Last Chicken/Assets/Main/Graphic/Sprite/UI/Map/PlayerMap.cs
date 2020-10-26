@@ -82,11 +82,6 @@ public class PlayerMap : MonoBehaviour
     public Texture2D treasure_texture;
     public Image treasure_Img;
 
-    private Vector2 front_pivot = new Vector2(0.5f, 0.5f);
-    private Vector2 pivot = new Vector2(0.5f,0.5f);
-    private Vector3 center;
-    private float map_scale;
-
     #region[Awake]
     private void Awake()
     {
@@ -122,43 +117,8 @@ public class PlayerMap : MonoBehaviour
         if (GameManager.instance.gamePause)
             return;
 
-        if(!thisUse)
-            center = new Vector3(Screen.width / 2, Screen.height / 2, 0);
         mineral_Img.gameObject.SetActive(useMineralMap);
         treasure_Img.gameObject.SetActive(useTreasureMap);
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Vector3 dic = Input.mousePosition - center;
-            center += dic;
-            mapImg.rectTransform.position -= dic;
-        }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            mapImg.rectTransform.position = new Vector3(Screen.width / 2, Screen.height / 2, 0);
-            center = new Vector3(Screen.width / 2, Screen.height / 2, 0);
-        }
-
-        //if (map_scale == 1)
-        //{
-        //    pivot = new Vector2(0.5f, 0.5f);
-        //    front_pivot = pivot;
-        //}
-        //if (1 <= map_scale && map_scale <= 2f)
-        //    pivot = Vector2.Lerp(new Vector2(0.5f, 0.5f), front_pivot, map_scale - 1f);
-
-            //   if (map_scale >= 1)
-            //       map_scale += Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime * 15;
-
-            //   map_scale = Mathf.Min(map_scale, 3);
-            //   map_scale = Mathf.Max(map_scale, 1);
-
-            ////   mapImg.rectTransform.pivot = pivot;
-            //////  mapImg.rectTransform.localScale = new Vector3(map_scale, map_scale, map_scale);
-            ////   mineral_Img.rectTransform.pivot = pivot;
-            ////  //mineral_Img.rectTransform.localScale = new Vector3(map_scale, map_scale, map_scale);
-            //   treasure_Img.rectTransform.pivot = pivot;
-            //  treasure_Img.rectTransform.localScale = new Vector3(map_scale, map_scale, map_scale);
 
         if (world == null && World.Instance)
         {
