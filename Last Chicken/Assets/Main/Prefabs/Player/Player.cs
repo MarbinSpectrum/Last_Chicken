@@ -933,11 +933,6 @@ public class Player : CustomCollider
                 ItemManager.instance.UseItem("BoomItem");
                 ObjectManager.instance.Boom(transform.position + new Vector3(0,1,0),dic*3000);
             }
-            else if (ItemManager.instance.CanUseActiveItem("Splash_Pick"))
-            {
-                ItemManager.instance.UseItem("Splash_Pick");
-                ObjectManager.instance.SplashAxe(transform.position + new Vector3(0, 1, 0), dic * 3000);
-            }
             else if (ItemManager.instance.CanUseActiveItem("Bell"))
             {
                 ItemManager.instance.UseItem("Bell");

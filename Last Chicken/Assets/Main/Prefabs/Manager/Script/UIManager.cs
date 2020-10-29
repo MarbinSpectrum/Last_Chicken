@@ -1688,9 +1688,6 @@ public class UIManager : MonoBehaviour
                     case "Dynamite":
                         cool = ItemManager.instance.itemData[ItemManager.FindData("Dynamite")].value1;
                         break;
-                    case "Splash_Pick":
-                        cool = ItemManager.instance.itemData[ItemManager.FindData("Splash_Pick")].value1;
-                        break;
                     case "Umbrella":
                         cool = ItemManager.instance.itemData[ItemManager.FindData("Umbrella")].value1;
                         break;

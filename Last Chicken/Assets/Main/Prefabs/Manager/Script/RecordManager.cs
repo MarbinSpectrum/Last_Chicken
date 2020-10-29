@@ -65,7 +65,7 @@ public class RecordManager : MonoBehaviour
 
         for (int i = 0; i < ItemManager.itemName.Length; i++)
         {
-            if (!ItemManager.instance.itemData[i].spawnObject && !ItemManager.instance.itemData[i].spawnShop && !ItemManager.instance.itemData[i].spawnTreasureBox)
+            if (!ItemManager.instance.itemData[i].showRecord)
                 continue;
             GameObject temp = Instantiate(itemData, itemContent.transform).gameObject;
             temp.GetComponent<ItemData>().item_name = ItemManager.itemName[i];

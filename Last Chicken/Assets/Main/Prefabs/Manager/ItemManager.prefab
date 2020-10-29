@@ -70,6 +70,7 @@ MonoBehaviour:
     stage01: 1
     stage02: 0
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - "\uC0AC\uC6A9\uC2DC \uB2ED\uC774 \uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C"
     - "\uC774\uB3D9\uD569\uB2C8\uB2E4."
@@ -98,6 +99,7 @@ MonoBehaviour:
     stage01: 1
     stage02: 1
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - 
     - 
@@ -109,24 +111,21 @@ MonoBehaviour:
     - 
     - 
   - itemImg: {fileID: 21300000, guid: 3cf36eaa5bb235e41aff47ddffa877f2, type: 3}
-    itemName: "\uD22C\uCC99\uC6A9\uACE1\uAD2D\uC774"
+    itemName: "\uC131\uC218"
     itemName_Eng: Splash Pickaxe
     value0: 10
     value1: 1.5
     itemLevel: 1
-    itemExplain: "\uB358\uC9C0\uAE30 \uC88B\uC544\uBCF4\uC774\uB294 \uACE1\uAD2D\uC774\uB2E4.\n<size=30><color=#3BEAAC>                                                          
-      -\uCFE8\uD0C0\uC784 : 1.5 \uCD08</color></size>"
-    itemExplain_Eng: 'It''s a pickaxe that looks good to throw.
-
-      <size=30><color=#3BEAAC>                                                          
-      -Cooltime : 1.5 </color></size>'
+    itemExplain: "\uC131"
+    itemExplain_Eng: "\uC131\uC218"
     cost: 2000
     spawnObject: 0
     spawnShop: 0
     spawnTreasureBox: 0
-    stage01: 1
+    stage01: 0
     stage02: 0
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - "\uB358\uC9C0\uAE30 \uC88B\uC544\uBCF4\uC774\uB294"
     - "\uACE1\uAD2D\uC774\uB2E4."
@@ -154,6 +153,7 @@ MonoBehaviour:
     stage01: 1
     stage02: 0
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - "\uC989\uC0AC\uD560 \uB370\uBBF8\uC9C0\uBC1B\uC544\uB3C4 "
     - "\uB531 \uD55C\uBC88 \uC0B4\uB824\uC90D\uB2C8\uB2E4. "
@@ -180,6 +180,7 @@ MonoBehaviour:
     stage01: 1
     stage02: 1
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - "\uBC15\uC950\uAC00 \uD683\uBD88\uC744 \uC2EB\uC5B4\uD569\uB2C8\uB2E4."
     - 
@@ -208,6 +209,7 @@ MonoBehaviour:
     stage01: 0
     stage02: 0
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - 
     - 
@@ -234,6 +236,7 @@ MonoBehaviour:
     stage01: 1
     stage02: 0
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - "\uC2DC\uC6D0\uD55C \uCF5C\uB77C\uC785\uB2C8\uB2E4."
     - "\uCCB4\uB825 1 \uD68C\uBCF5"
@@ -260,6 +263,7 @@ MonoBehaviour:
     stage01: 1
     stage02: 1
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - "\uC2DC\uC6D0\uD55C \uB9E5\uC8FC\uC785\uB2C8\uB2E4."
     - "\uCCB4\uB825 2 \uD68C\uBCF5"
@@ -286,6 +290,7 @@ MonoBehaviour:
     stage01: 1
     stage02: 1
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - "\uBAAC\uC2A4\uD130\uC758 \uC704\uCE58\uB97C \uD0D0\uC9C0"
     - 
@@ -313,6 +318,7 @@ MonoBehaviour:
     stage01: 0
     stage02: 1
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - "50%\uD655\uB960\uB85C \uCCB4\uB825\uC774"
     - "\uBAA8\uB450  \uD68C\uBCF5\uB418\uAC70\uB098"
@@ -340,6 +346,7 @@ MonoBehaviour:
     stage01: 1
     stage02: 1
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - "\uBC15\uC950\uB97C \uCAD2\uC544\uB0B4\uACE0"
     - "\uBA38\uB9AC\uB97C \uBCF4\uD638\uD569\uB2C8\uB2E4."
@@ -352,13 +359,13 @@ MonoBehaviour:
     - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: -8311005278137815111, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
-    itemName: "\uAC00\uBCBC\uC6B4\uAE43\uD138"
-    itemName_Eng: Light Feather
+    itemName: "\uCE58\uD0A8 \uC131\uBB3C"
+    itemName_Eng: ChiceknRelic
     value0: 20
     value1: 0
     itemLevel: 0
-    itemExplain: "\uC810\uD504\uB825\uC774 \uC870\uAE08 \uC0C1\uC2B9\uD569\uB2C8\uB2E4."
-    itemExplain_Eng: The jump is slightly increased.
+    itemExplain: 
+    itemExplain_Eng: 
     cost: 500
     spawnObject: 0
     spawnShop: 0
@@ -366,6 +373,7 @@ MonoBehaviour:
     stage01: 1
     stage02: 1
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - "\uC810\uD504\uB825\uC774 \uC870\uAE08 \uC0C1\uC2B9\uD569\uB2C8\uB2E4."
     - 
@@ -392,6 +400,7 @@ MonoBehaviour:
     stage01: 1
     stage02: 1
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - "\uACBD\uC9C1\uC2DC \uB2ED\uC774"
     - "\uB0A0\uC544\uAC00\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4."
@@ -423,6 +432,7 @@ MonoBehaviour:
     stage01: 1
     stage02: 1
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - "\uAD11\uC0B0\uC5D0\uC11C \uAD6C\uBA4D\uC744 \uB6AB\uAE30\uC704\uD55C"
     - "\uD3ED\uD0C4\uC785\uB2C8\uB2E4."
@@ -454,6 +464,7 @@ MonoBehaviour:
     stage01: 0
     stage02: 1
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - "\uAD11\uC0B0\uC5D0\uC11C \uAD6C\uBA4D\uC744 \uB6AB\uAE30\uC704\uD55C"
     - "\uD3ED\uD0C4\uC785\uB2C8\uB2E4."
@@ -480,6 +491,7 @@ MonoBehaviour:
     stage01: 1
     stage02: 1
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - "\uB2ED\uC744 \uC880 \uB354 \uC27D\uAC8C"
     - "\uC7A1\uC744 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
@@ -492,20 +504,21 @@ MonoBehaviour:
     - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: -2755318035002780158, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
-    itemName: "\uBD80\uC801"
-    itemName_Eng: Charm
+    itemName: "\uB4DC\uB9B4"
+    itemName_Eng: Drill
     value0: 150
     value1: 0
     itemLevel: 2
-    itemExplain: "\uB2ED\uC774 \uC8FD\uC5B4\uB3C4 \uD55C \uBC88 \uC0B4\uB824\uC90D\uB2C8\uB2E4."
-    itemExplain_Eng: Even if the chicken dies, it will be saved once.
+    itemExplain: 
+    itemExplain_Eng: 
     cost: 3000
     spawnObject: 0
     spawnShop: 0
     spawnTreasureBox: 0
-    stage01: 1
-    stage02: 1
+    stage01: 0
+    stage02: 0
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - "\uB2ED\uC774 \uC8FD\uC5B4\uB3C4 \uD55C \uBC88"
     - "\uC0B4\uB824\uC90D\uB2C8\uB2E4."
@@ -517,23 +530,21 @@ MonoBehaviour:
     - 
     - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: 21300000, guid: 7fcdc3c5a79c62c469add4ed1e8886a2, type: 3}
-    itemName: "\uCEE4\uD53C"
-    itemName_Eng: Coffee
+    itemName: "\uC808\uC81C\uC758 \uAC80"
+    itemName_Eng: Temperance Swod
     value0: 1
     value1: 60
     itemLevel: 0
-    itemExplain: "\uCCB4\uB825\uC744 1\uB9CC\uD07C \uD68C\uBCF5\uD558\uACE0 1\uBD84\uB3D9\uC548
-      \uBAB8\uC744 \uB530\uB73B\uD558\uAC8C \uD574\uC90D\uB2C8\uB2E4."
-    itemExplain_Eng: 'Hot! (+1 heart)
-
-      Warm your body for 1 minute.'
+    itemExplain: 
+    itemExplain_Eng: 
     cost: 500
     spawnObject: 0
     spawnShop: 0
     spawnTreasureBox: 0
     stage01: 0
-    stage02: 1
+    stage02: 0
     activeItem: 0
+    showRecord: 0
     shopItemExplain:
     - "\uCCB4\uB825\uC744 1\uB9CC\uD07C \uD68C\uBCF5\uD558\uACE0"
     - "1\uBD84\uB3D9\uC548 \uBAB8\uC744"
@@ -561,6 +572,7 @@ MonoBehaviour:
     stage01: 1
     stage02: 0
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - "\uAD11\uBB3C\uC774 \uC790\uB3D9\uC73C\uB85C \uAC00\uBC29\uC73C\uB85C"
     - "\uB4E4\uC5B4\uAC11\uB2C8\uB2E4."
@@ -572,24 +584,21 @@ MonoBehaviour:
     - 
     - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: 21300000, guid: 0c3389475a8b61d4dadbe7e0f2cf873f, type: 3}
-    itemName: "\uAD11\uBB3C\uAC00\uBC29 <color=#ff0000>EX</color>"
-    itemName_Eng: Comfortable bag <color=#ff0000>EX</color>
+    itemName: "\uD669\uAE08\uC54C"
+    itemName_Eng: Gold Eff
     value0: 0
     value1: 0
     itemLevel: 0
-    itemExplain: "\uAD11\uBB3C\uC774 \uC790\uB3D9\uC73C\uB85C \uAC00\uBC29\uC73C\uB85C
-      \uB4E4\uC5B4\uAC11\uB2C8\uB2E4.\n<color=#ff0000>(\uB354\uC6B1 \uAC15\uB825\uD558\uAC8C!!)</color>"
-    itemExplain_Eng: 'Minerals automatically enter Player''s bag
-
-      <color=#ff0000>(More
-      powerfully!!)</color>'
+    itemExplain: 
+    itemExplain_Eng: 
     cost: 750
     spawnObject: 0
     spawnShop: 0
     spawnTreasureBox: 0
     stage01: 0
-    stage02: 1
+    stage02: 0
     activeItem: 0
+    showRecord: 0
     shopItemExplain:
     - "\uAD11\uBB3C\uC774 \uC790\uB3D9\uC73C\uB85C \uAC00\uBC29\uC73C\uB85C"
     - "\uB4E4\uC5B4\uAC11\uB2C8\uB2E4."
@@ -602,21 +611,21 @@ MonoBehaviour:
     - <color=#00ff00ff>Passive</color>
   - itemImg: {fileID: -1154901020958969117, guid: 97d3c54966193f14c907520abfa4d08e,
       type: 3}
-    itemName: "\uC0C1\uC810\uD560\uC778\uCFE0\uD3F0"
-    itemName_Eng: Discount coupon
+    itemName: "\uADF8\uB9AC\uB514\uC758 \uC2EC\uC7A5"
+    itemName_Eng: Grid Hearth
     value0: 30
     value1: 0
     itemLevel: 1
-    itemExplain: "\uC0C1\uC810\uC758 \uBB3C\uAC74\uC744 30% \uC2F8\uAC8C \uAD6C\uC785\uD560
-      \uC218 \uC788\uC2B5\uB2C8\uB2E4.\n(\uBB3C\uAC74\uC744 \uC0AC\uBA74 \uC18C\uBE44\uB429\uB2C8\uB2E4.)"
-    itemExplain_Eng: 30% off at the shop ( disposable )
+    itemExplain: 
+    itemExplain_Eng: 
     cost: 100
     spawnObject: 0
     spawnShop: 0
     spawnTreasureBox: 0
-    stage01: 1
-    stage02: 1
+    stage01: 0
+    stage02: 0
     activeItem: 0
+    showRecord: 0
     shopItemExplain:
     - "30% \uD560\uC778\uCFE0\uD3F0"
     - 
@@ -644,6 +653,7 @@ MonoBehaviour:
     stage01: 1
     stage02: 1
     activeItem: 0
+    showRecord: 0
     shopItemExplain:
     - "\uC0C1\uC810 VIP \uD68C\uC6D0\uC99D"
     - "\uBB3C\uAC74\uB4E4\uC774 30% \uD560\uC778\uB428"
@@ -671,6 +681,7 @@ MonoBehaviour:
     stage01: 0
     stage02: 0
     activeItem: 0
+    showRecord: 0
     shopItemExplain:
     - 
     - 
@@ -698,6 +709,7 @@ MonoBehaviour:
     stage01: 1
     stage02: 1
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - 
     - 
@@ -724,6 +736,7 @@ MonoBehaviour:
     stage01: 0
     stage02: 1
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - "\uBAB8\uC744 \uD56D\uC0C1 \uB530\uB73B\uD558\uAC8C \uD574\uC90D\uB2C8\uB2E4."
     - 
@@ -750,6 +763,7 @@ MonoBehaviour:
     stage01: 1
     stage02: 1
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - "\uBCF4\uBB3C\uC758 \uC704\uCE58\uB97C \uD45C\uC2DC\uD569\uB2C8\uB2E4"
     - 
@@ -776,6 +790,7 @@ MonoBehaviour:
     stage01: 1
     stage02: 1
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - "\uD568\uC815\uC758 \uC704\uCE58\uB97C \uD45C\uC2DC\uD569\uB2C8\uB2E4."
     - 
@@ -802,6 +817,7 @@ MonoBehaviour:
     stage01: 1
     stage02: 1
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - "\uC800\uB3C4 \uBB50\uAC00 \uB098\uC62C\uC9C0?"
     - 
@@ -829,6 +845,7 @@ MonoBehaviour:
     stage01: 0
     stage02: 0
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - 
     - 
@@ -859,6 +876,7 @@ MonoBehaviour:
     stage01: 1
     stage02: 1
     activeItem: 0
+    showRecord: 0
     shopItemExplain:
     - 
     - 
@@ -885,6 +903,7 @@ MonoBehaviour:
     stage01: 0
     stage02: 1
     activeItem: 0
+    showRecord: 1
     shopItemExplain:
     - "\uBE59\uD310\uAE38\uC5D0\uC11C \uBBF8\uB044\uB7EC\uC9C0\uC9C0"
     - "\uC54A\uC2B5\uB2C8\uB2E4."
@@ -915,6 +934,7 @@ MonoBehaviour:
     stage01: 1
     stage02: 1
     activeItem: 0
+    showRecord: 0
     shopItemExplain:
     - "\uC0AC\uC6A9\uC2DC \uCC9C\uCC9C\uD788 \uB5A8\uC5B4\uC9D1\uB2C8\uB2E4."
     - 
@@ -941,6 +961,7 @@ MonoBehaviour:
     stage01: 1
     stage02: 1
     activeItem: 0
+    showRecord: 0
     shopItemExplain:
     - "\uC9C0\uB3C4\uC5D0 \uAD11\uBB3C\uC758"
     - "\uC704\uCE58\uAC00 \uBCF4\uC785\uB2C8\uB2E4."
@@ -967,6 +988,7 @@ MonoBehaviour:
     stage01: 0
     stage02: 0
     activeItem: 0
+    showRecord: 0
     shopItemExplain:
     - "\uC9C0\uB3C4\uC5D0 \uBCF4\uBB3C\uC758"
     - "\uC704\uCE58\uAC00 \uD45C\uC2DC\uB429\uB2C8\uB2E4."

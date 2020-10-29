@@ -60,6 +60,7 @@ public class ItemEditor : MyEditor
                 emp.activeItem = itemManager.itemData[i].activeItem;
                 emp.stage01 = itemManager.itemData[i].stage01;
                 emp.stage02 = itemManager.itemData[i].stage02;
+                emp.showRecord = itemManager.itemData[i].showRecord;
                 for (int k = 0; k < 4; k++)
                     emp.shopItemExplain[k] = itemManager.itemData[i].shopItemExplain[k];
                 for (int k = 0; k < 4; k++)
@@ -88,6 +89,7 @@ public class ItemEditor : MyEditor
                 itemManager.itemData[i].activeItem = temp[i].activeItem;
                 itemManager.itemData[i].stage01 = temp[i].stage01;
                 itemManager.itemData[i].stage02 = temp[i].stage02;
+                itemManager.itemData[i].showRecord = temp[i].showRecord;
                 for (int k = 0; k < 4; k++)
                     itemManager.itemData[i].shopItemExplain[k]  = temp[i].shopItemExplain[k];
                 for (int k = 0; k < 4; k++)
@@ -115,6 +117,7 @@ public class ItemEditor : MyEditor
                 emp.activeItem = itemManager.itemData[i].activeItem;
                 emp.stage01 = itemManager.itemData[i].stage01;
                 emp.stage02 = itemManager.itemData[i].stage02;
+                emp.showRecord = itemManager.itemData[i].showRecord;
                 for (int k = 0; k < 4; k++)
                     emp.shopItemExplain[k] = itemManager.itemData[i].shopItemExplain[k];
                 for (int k = 0; k < 4; k++)
@@ -143,6 +146,7 @@ public class ItemEditor : MyEditor
                 itemManager.itemData[i].activeItem = temp[i].activeItem;
                 itemManager.itemData[i].stage01 = temp[i].stage01;
                 itemManager.itemData[i].stage02 = temp[i].stage02;
+                itemManager.itemData[i].showRecord = temp[i].showRecord;
                 for (int k = 0; k < 4; k++)
                     itemManager.itemData[i].shopItemExplain[k] = temp[i].shopItemExplain[k];
                 for (int k = 0; k < 4; k++)
@@ -470,6 +474,10 @@ public class ItemEditor : MyEditor
         data.stage02 = ToggleField("Stage 2", data.stage02, dataStyle);
         EditorGUILayout.EndHorizontal();
 
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.BeginVertical("helpbox");
+        data.showRecord = ToggleField("도감등장", data.showRecord, dataStyle);
         EditorGUILayout.EndVertical();
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

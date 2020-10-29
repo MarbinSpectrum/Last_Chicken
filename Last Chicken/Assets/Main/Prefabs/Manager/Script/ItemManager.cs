@@ -15,7 +15,7 @@ public class ItemManager : ObjectPool
     {
         "Bell",
         "Feather_Shoes",
-        "Splash_Pick",
+        "Holy_Water",
         "Medkit",
         "Torch",
         "FourLeafClover" ,
@@ -24,16 +24,16 @@ public class ItemManager : ObjectPool
         "Monster_Radar",
         "Russian_Roulette",
         "Mine_Helmet",
-        "Light_Feather" ,
+        "Chicken_Relic" ,
         "Rope",
         "BoomItem",
         "Dynamite",
         "Smart_Gloves",
-        "Charm",
-        "Coffee",
+        "Drill",
+        "Temperance_Sword",
         "MineBag",
-        "MineBag_EX",
-        "SaleCoupon",
+        "Gold_Egg",
+        "Grid_Heart",
         "ShopVIpNormal",
         "ShopVIpSpecial",
         "OldPocket",
@@ -75,9 +75,6 @@ public class ItemManager : ObjectPool
         switch (itemName)
         {
             case "Bell":
-                activeItem = true;
-                break;
-            case "Splash_Pick":
                 activeItem = true;
                 break;
             case "Umbrella":
@@ -134,15 +131,9 @@ public class ItemManager : ObjectPool
             case "Dynamite":
                 activeItem = true;
                 break;
-            case "Splash_Pick":
-                activeItem = true;
-                break;
             case "Umbrella":
                 activeItem = true;
                 break;
-                //default:
-                //    Debug.Log(itemName + "는 쿨타임여부검사를 실시안하고있다.");
-                //    break;
         }
         return activeItem;
     }
@@ -225,6 +216,7 @@ public class ItemManager : ObjectPool
         public bool stage01;
         public bool stage02;
         public bool activeItem;
+        public bool showRecord;
         public string[] shopItemExplain = new string[4];
         public string[] shopItemExplain_Eng = new string[4];
     }
