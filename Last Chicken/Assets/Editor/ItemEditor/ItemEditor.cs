@@ -346,8 +346,14 @@ public class ItemEditor : MyEditor
                 temp = (int)(temp);
                 data.value1 = temp;
                 break;
-            case "Light_Feather":
+            case "Feather_Shoes":
                 temp = FloatField("점프력 증가수치(%)", data.value0, dataStyle);
+                temp = temp < 0 ? 0 : temp;
+                temp = (int)(temp);
+                data.value0 = temp;
+                break;
+            case "Grid_Heart":
+                temp = FloatField("골드배율(%)", data.value0, dataStyle);
                 temp = temp < 0 ? 0 : temp;
                 temp = (int)(temp);
                 data.value0 = temp;
@@ -426,6 +432,12 @@ public class ItemEditor : MyEditor
                 break;
             case "ShopVIpSpecial":
                 temp = FloatField("할인률(%)", data.value0, dataStyle);
+                temp = temp < 0 ? 0 : temp;
+                temp = (int)(temp);
+                data.value0 = temp;
+                break;
+            case "Gold_Egg":
+                temp = FloatField("획득골드", data.value0, dataStyle);
                 temp = temp < 0 ? 0 : temp;
                 temp = (int)(temp);
                 data.value0 = temp;

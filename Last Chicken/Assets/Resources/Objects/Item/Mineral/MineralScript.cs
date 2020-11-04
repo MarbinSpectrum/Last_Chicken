@@ -129,40 +129,40 @@ public class MineralScript : ItemScript
             switch(transform.name)
             {
                 case "Dirt":
-                    GameManager.instance.playerMoney += GroundManager.instance.dirtValue;
+                    GameManager.instance.AddMoney(GroundManager.instance.dirtValue);
                     break;
                 case "Stone":
-                    GameManager.instance.playerMoney += GroundManager.instance.stoneValue;
+                    GameManager.instance.AddMoney(GroundManager.instance.stoneValue);
                     break;
                 case "Copper":
-                    GameManager.instance.playerMoney += GroundManager.instance.copperValue;
+                    GameManager.instance.AddMoney(GroundManager.instance.copperValue);
                     break;
                 case "Granite":
-                    GameManager.instance.playerMoney += GroundManager.instance.graniteValue;
+                    GameManager.instance.AddMoney(GroundManager.instance.graniteValue);
                     break;
                 case "Iron":
-                    GameManager.instance.playerMoney += GroundManager.instance.ironValue;
+                    GameManager.instance.AddMoney(GroundManager.instance.ironValue);
                     break;
                 case "Silver":
-                    GameManager.instance.playerMoney += GroundManager.instance.silverValue;
+                    GameManager.instance.AddMoney(GroundManager.instance.silverValue);
                     break;
                 case "Gold":
-                    GameManager.instance.playerMoney += GroundManager.instance.goldValue;
+                    GameManager.instance.AddMoney(GroundManager.instance.goldValue);
                     break;
                 case "Mithril":
-                    GameManager.instance.playerMoney += GroundManager.instance.mithrilValue;
+                    GameManager.instance.AddMoney(GroundManager.instance.mithrilValue);
                     break;
                 case "Diamond":
-                    GameManager.instance.playerMoney += GroundManager.instance.diamondValue;
+                    GameManager.instance.AddMoney(GroundManager.instance.diamondValue);
                     break;
                 case "Magnetite":
-                    GameManager.instance.playerMoney += GroundManager.instance.magnetiteValue;
+                    GameManager.instance.AddMoney(GroundManager.instance.magnetiteValue);
                     break;
                 case "Titanium":
-                    GameManager.instance.playerMoney += GroundManager.instance.titaniumValue;
+                    GameManager.instance.AddMoney(GroundManager.instance.titaniumValue);
                     break;
                 case "Cobalt":
-                    GameManager.instance.playerMoney += GroundManager.instance.cobaltValue;
+                    GameManager.instance.AddMoney(GroundManager.instance.cobaltValue);
                     break;
             }
             transform.position = new Vector3(-1000, -1000, transform.position.z);

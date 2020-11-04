@@ -570,6 +570,16 @@ public class GameManager : TerrainGenerator
     }
     #endregion
 
+    public void AddMoney(int value)
+    {
+        if (ItemManager.instance.CanUsePassiveItem("Grid_Heart"))
+        {
+            float temp = value * (ItemManager.instance.itemData[ItemManager.FindData("Grid_Heart")].value0) / 100f;
+            value = (int)temp;
+        }
+        playerMoney += value;
+    }
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     

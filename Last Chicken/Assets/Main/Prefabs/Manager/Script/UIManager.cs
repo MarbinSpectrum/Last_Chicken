@@ -165,6 +165,7 @@ public class UIManager : MonoBehaviour
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    string explainItem;
     [NonSerialized] public GameObject explainObject;    //설명텍스트
     [NonSerialized] public RectTransform explainRect;   
     [NonSerialized] public Text explainText;            
@@ -413,8 +414,7 @@ public class UIManager : MonoBehaviour
             if (GameManager.instance.itemSlot[0] != null && ItemManager.FindData(GameManager.instance.itemSlot[0]) != -1)
             {
                 explainObject.SetActive(true);
-                ExplainPlayerItem(GameManager.instance.itemSlot[0]);
-
+                explainItem = GameManager.instance.itemSlot[0];
             }
         });
         playerItem.transform.Find("MainObject").GetComponent<EventTrigger>().triggers.Add(mainitemPointerEnter);
@@ -429,8 +429,7 @@ public class UIManager : MonoBehaviour
                 if (GameManager.instance.itemSlot[n] != null && ItemManager.FindData(GameManager.instance.itemSlot[n]) != -1)
                 {
                     explainObject.SetActive(true);
-                    ExplainPlayerItem(GameManager.instance.itemSlot[n]);
-
+                    explainItem = GameManager.instance.itemSlot[n];
                 }
             });
             playerItem.transform.Find("SubGroup").GetChild(i - 1).GetComponent<EventTrigger>().triggers.Add(itemPointerEnter);
@@ -1360,6 +1359,7 @@ public class UIManager : MonoBehaviour
                 ShowPlayerHp();
                 PlayerItem();
                 PlayerMoney();
+                ExplainPlayerItem(explainItem);
             }
 
             if (Chicken.instance)
@@ -1807,17 +1807,24 @@ public class UIManager : MonoBehaviour
     #region[플레이어 아이템 설명표시]
     public void ExplainPlayerItem(string name)
     {
-        string temp = "";
-        if (GameManager.instance.playData.language == Language.한국어)
-            temp = "<" + ItemManager.instance.itemData[ItemManager.FindData(name)].itemName + ">\n" + ItemManager.instance.itemData[ItemManager.FindData(name)].itemExplain;
-        else if (GameManager.instance.playData.language == Language.English)
-            temp = "<" + ItemManager.instance.itemData[ItemManager.FindData(name)].itemName_Eng + ">\n" + ItemManager.instance.itemData[ItemManager.FindData(name)].itemExplain_Eng;
-        //if (name.Equals("RandomDice"))
-        //{
-        //    int value = GameManager.instance.playData.randomDice;
-        //    temp += "\n( 아이템가격 : " + value + "% )";
-        //}
-        explainText.text = temp;
+        try
+        {
+            string temp = "";
+            if (GameManager.instance.playData.language == Language.한국어)
+                temp = "<" + ItemManager.instance.itemData[ItemManager.FindData(name)].itemName + ">\n" + ItemManager.instance.itemData[ItemManager.FindData(name)].itemExplain;
+            else if (GameManager.instance.playData.language == Language.English)
+                temp = "<" + ItemManager.instance.itemData[ItemManager.FindData(name)].itemName_Eng + ">\n" + ItemManager.instance.itemData[ItemManager.FindData(name)].itemExplain_Eng;
+            if (name.Equals("Gold_Egg"))
+            {
+                int value = (int)GameManager.instance.playData.goldEgg;
+                temp += "\n( 남은시간 : " + value.ToString("D3") + ")";
+            }
+            explainText.text = temp;
+        }
+        catch
+        {
+
+        }
 
     }
 

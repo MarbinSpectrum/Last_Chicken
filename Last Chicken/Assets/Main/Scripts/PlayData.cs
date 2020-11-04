@@ -41,6 +41,7 @@ public class PlayData
 
     public bool shopVIP;
     public int randomDice;
+    public float goldEgg;
 
     ///////////////////////////////////////////////////////////////////
 
@@ -161,6 +162,7 @@ public class PlayData
 
         shopVIP = false;
         randomDice = 100;
+        goldEgg = 300;
 
         ///////////////////////////////////////////////////////////////////
 

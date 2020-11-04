@@ -721,7 +721,7 @@ public class Player : CustomCollider
                 if(!downFlag)
                 {
                     float newjumpPower = jumpPower;
-                    newjumpPower *= highJump ? (100 + ItemManager.instance.itemData[ItemManager.FindData("Light_Feather")].value0) / 100f : 1;
+                    newjumpPower *= highJump ? (ItemManager.instance.itemData[ItemManager.FindData("Feather_Shoes")].value0) / 100f : 1;
                     rigidbody2D.AddForce(new Vector2(0, newjumpPower));
                 }
 
@@ -884,12 +884,23 @@ public class Player : CustomCollider
 
         slip = !ItemManager.instance.CanUsePassiveItem("Crampons");
 
-        highJump = ItemManager.instance.CanUsePassiveItem("Light_Feather");
+        //highJump = ItemManager.instance.CanUsePassiveItem("Light_Feather");
+        highJump = ItemManager.instance.CanUsePassiveItem("Feather_Shoes");
 
         chicken_Easy_Catch = ItemManager.instance.CanUsePassiveItem("Smart_Gloves");
 
         if (ItemManager.instance.CanUsePassiveItem("Thermos"))
             playerHotTime = Mathf.Max(playerHotTime, 2);
+
+        if(!GameManager.instance.gamePause && ItemManager.instance.CanUsePassiveItem("Gold_Egg"))
+        {
+            GameManager.instance.playData.goldEgg -= Time.deltaTime;
+            if (GameManager.instance.playData.goldEgg <= 0)
+            {
+                GameManager.instance.AddMoney((int)ItemManager.instance.itemData[ItemManager.FindData("Gold_Egg")].value0);
+                GameManager.instance.playData.goldEgg = 300;
+            }
+        }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -969,7 +980,7 @@ public class Player : CustomCollider
         {
             int minValue = Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("OldPocket")].value0);
             int maxValue = Mathf.FloorToInt(ItemManager.instance.itemData[ItemManager.FindData("OldPocket")].value1);
-            GameManager.instance.playerMoney += UnityEngine.Random.Range(minValue, maxValue + 1);
+            GameManager.instance.AddMoney(UnityEngine.Random.Range(minValue, maxValue + 1));
             SoundManager.instance.PlayerMoney();
         }
         else if (name.Equals("RainbowPocket"))
@@ -1079,6 +1090,9 @@ public class Player : CustomCollider
 
         if(nowHp <= 0)
             animator.SetBool("Dead", nowHp <= 0);
+
+        while(ItemManager.instance.CanUsePassiveItem("Gold_Egg"))
+            ItemManager.instance.CostItem("Gold_Egg");
 
         //닭잡은 상태 취소
         if (getChicken)

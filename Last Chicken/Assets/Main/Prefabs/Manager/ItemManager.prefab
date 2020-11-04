@@ -85,7 +85,7 @@ MonoBehaviour:
       type: 3}
     itemName: "\uAE43\uD138\uC2E0\uBC1C"
     itemName_Eng: Wing Shoes
-    value0: 0
+    value0: 150
     value1: 0
     itemLevel: 3
     itemExplain: "\uB192\uC740 \uACF3\uC5D0\uC11C \uB5A8\uC5B4\uC838\uB3C4 \uB300\uBBF8\uC9C0\uB97C
@@ -583,19 +583,20 @@ MonoBehaviour:
     - ' enter Player''s bag'
     - 
     - <color=#00ff00ff>Passive</color>
-  - itemImg: {fileID: 21300000, guid: 0c3389475a8b61d4dadbe7e0f2cf873f, type: 3}
+  - itemImg: {fileID: 2848611876877353389, guid: 97d3c54966193f14c907520abfa4d08e,
+      type: 3}
     itemName: "\uD669\uAE08\uC54C"
-    itemName_Eng: Gold Eff
-    value0: 0
+    itemName_Eng: Gold Egg
+    value0: 3000
     value1: 0
-    itemLevel: 0
+    itemLevel: 2
     itemExplain: 
     itemExplain_Eng: 
     cost: 750
-    spawnObject: 0
+    spawnObject: 1
     spawnShop: 0
     spawnTreasureBox: 0
-    stage01: 0
+    stage01: 1
     stage02: 0
     activeItem: 0
     showRecord: 0
@@ -613,7 +614,7 @@ MonoBehaviour:
       type: 3}
     itemName: "\uADF8\uB9AC\uB514\uC758 \uC2EC\uC7A5"
     itemName_Eng: Grid Hearth
-    value0: 30
+    value0: 200
     value1: 0
     itemLevel: 1
     itemExplain: 
