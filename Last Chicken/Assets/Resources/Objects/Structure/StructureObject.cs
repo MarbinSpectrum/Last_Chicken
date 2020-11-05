@@ -25,6 +25,8 @@ public class StructureObject : CustomCollider
     float cool = 0;
     int moveDicX = 0;
 
+    //const string tagAAA = "";
+
     bool updateFlag = false;
 
     [HideInInspector] public string inItem = "Random";

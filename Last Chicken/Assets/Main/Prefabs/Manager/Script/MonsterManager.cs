@@ -92,10 +92,16 @@ public class MonsterManager : ObjectPool
                     if (recordData != null)
                         recordSprite[i] = recordData;
                     else
-                        Debug.LogError("도감에 추가될 몬스터 이미지를 넣으세요!!(" + monsterName[i] + ")");
+                    {
+
+                        //Debug.LogError("도감에 추가될 몬스터 이미지를 넣으세요!!(" + monsterName[i] + ")");
+                    }
                 }
                 else
-                    Debug.LogError("도감에 추가될 몬스터 이미지를 넣으세요!!(" + monsterName[i] + ")");
+                {
+                    //Debug.LogError("도감에 추가될 몬스터 이미지를 넣으세요!!(" + monsterName[i] + ")");
+
+                }
             }
 
             bat = Resources.Load("Objects/Monster/Bat") as GameObject;

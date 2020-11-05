@@ -45,6 +45,7 @@ public class CustomCollider : MonoBehaviour
         return IsAtPlayer(col, Vector2.zero);
     }
 
+    //RaycastHit2D[] tempObjects = new RaycastHit2D[10];
     public bool IsAtPlayer(BoxCollider2D col, Vector2 pos)
     {
         RaycastHit2D[] objects =
@@ -60,6 +61,19 @@ public class CustomCollider : MonoBehaviour
         for (int i = 0; i < objects.Length; i++)
             if (objects[i].transform.tag.Equals("Player"))
                 return true;
+
+        //int count = Physics2D.BoxCastNonAlloc
+        //    (
+        //        (Vector2)transform.position + GetAngleOffset(col) + pos,
+        //        new Vector2(col.size.x * Mathf.Abs(transform.localScale.x), col.size.y * Mathf.Abs(transform.localScale.y)),
+        //        col.transform.eulerAngles.z * (transform.localScale.x < 0 ? -1 : 1),
+        //        Vector2.zero, tempObjects, 1,
+        //        1 << LayerMask.NameToLayer("Body")
+        //    );
+
+        //for (int i = 0; i < count; ++i)
+        //    if (tempObjects[i].transform.tag.Equals("Player"))
+        //        return true;
 
         return false;
     }

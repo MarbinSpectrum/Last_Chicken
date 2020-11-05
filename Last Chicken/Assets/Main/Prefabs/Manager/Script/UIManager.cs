@@ -1158,7 +1158,7 @@ public class UIManager : MonoBehaviour
             if (Smithy.instance)
             {
                 smithyUI.SetActive(Smithy.instance.thisUse);
-                if (Player.instance.pickLevel >= 4)
+                if (/*Player.instance.HasModified(0) && */Player.instance.pickLevel >= 4)
                 {
                     smithyNo.SetActive(false);
                     smithyYes.SetActive(false);
