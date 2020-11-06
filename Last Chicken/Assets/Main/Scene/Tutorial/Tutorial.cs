@@ -18,8 +18,8 @@ public class Tutorial : StageData
         GenerateBackGround();
         GenerateGround();
 
-        ObjectManager.instance.WoodBox(new Vector2(186, 114),"Bell");
-        ItemManager.instance.SpawnItem(new Vector2(193.5f, 114), "Garbage");
+        ObjectManager.instance.WoodBox(new Vector2(186, 130),"Bell");
+        ItemManager.instance.SpawnItem(new Vector2(193.5f, 130), "Garbage");
         GroundManager.instance.Init(world);
     }
     #endregion
