@@ -3,7 +3,13 @@ using UnityEngine;
 
 public class DamageJudgMent : MonoBehaviour
 {
+    public const int CHECKCOUNT = 25;
+
     public BoxCollider2D damageJudgMent;
+
+    string BODY = "Body";
+    string MONSTER = "Monster";
+    string OBJECT = "Object";
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -107,17 +113,20 @@ public class DamageJudgMent : MonoBehaviour
     #endregion
 
     #region[몬스터 공격]
+    RaycastHit2D[] AttackMonsterArray = new RaycastHit2D[CHECKCOUNT];
     public void AttackMonster()
     {
         //공격범위에 해당하는 적을을 공격
         Vector2 digPos = (Vector2)Player.instance.transform.position + new Vector2(damageJudgMent.offset.x * Player.instance.transform.localScale.x, damageJudgMent.offset.y * Player.instance.transform.localScale.y);
         Vector2 newSize = new Vector2(Mathf.Abs(damageJudgMent.size.x * Player.instance.transform.localScale.x), Mathf.Abs(damageJudgMent.size.y * Player.instance.transform.localScale.y));
-        RaycastHit2D[] monsters = Physics2D.BoxCastAll(digPos, newSize, 0, Vector2.zero, 0, 1 << LayerMask.NameToLayer("Body"));
-        for (int i = 0; i < monsters.Length; i++)
+        int count = Physics2D.BoxCastNonAlloc(digPos, newSize, 0, Vector2.zero, AttackMonsterArray, 0, 1 << LayerMask.NameToLayer(BODY));
+
+        for (int i = 0; i < count; i++)
         {
-            if (monsters[i].transform.tag.Equals("Monster"))
+            if (AttackMonsterArray[i].transform.tag.Equals(MONSTER))
             {
-                Monster monster = monsters[i].transform.GetComponent<Monster>();
+                Monster monster = MonsterManager.instance.GetMonster(AttackMonsterArray[i].transform.gameObject);
+
                 if (monster)
                 {
                     monster.Damage(Player.instance.attackPower);
@@ -141,17 +150,18 @@ public class DamageJudgMent : MonoBehaviour
     #endregion
 
     #region[오브젝트 공격]
+    RaycastHit2D[] AttackObjectArray = new RaycastHit2D[CHECKCOUNT];
     public void AttackObject()
     {
         //공격범위에 해당하는 적을을 공격
         Vector2 digPos = (Vector2)Player.instance.transform.position + new Vector2(damageJudgMent.offset.x * Player.instance.transform.localScale.x, damageJudgMent.offset.y * Player.instance.transform.localScale.y);
         Vector2 newSize = new Vector2(Mathf.Abs(damageJudgMent.size.x * Player.instance.transform.localScale.x), Mathf.Abs(damageJudgMent.size.y * Player.instance.transform.localScale.y));
-        RaycastHit2D[] objects = Physics2D.BoxCastAll(digPos, newSize, 0, Vector2.zero, 0, 1 << LayerMask.NameToLayer("Body"));
-        for (int i = 0; i < objects.Length; i++)
+        int count = Physics2D.BoxCastNonAlloc(digPos, newSize, 0, Vector2.zero, AttackObjectArray, 0, 1 << LayerMask.NameToLayer(BODY));
+        for (int i = 0; i < count; i++)
         {
-            if (objects[i].transform.tag.Equals("Object"))
+            if (AttackObjectArray[i].transform.tag.Equals(OBJECT))
             {
-                StructureObject structureObject = objects[i].transform.GetComponent<StructureObject>();
+                StructureObject structureObject = AttackObjectArray[i].transform.GetComponent<StructureObject>();
                 if (structureObject)
                 {
                     structureObject.BreakObject(Player.instance.attackPower);

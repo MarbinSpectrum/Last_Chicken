@@ -53,9 +53,9 @@ public class MonsterData : MonoBehaviour
         if (GameManager.instance.playData.monsterRecords[MonsterNum])
         {
             itemNameText.text = (MonsterNum + 1).ToString("D3") + ". ";
-            itemNameText.text += MonsterManager.instance.GetRecordData((MonsterManager.Monster)MonsterNum, GameManager.instance.playData.language, MonsterSetting.Name);
+            itemNameText.text += MonsterManager.instance.GetRecordData((MonsterManager.MonsterEnum)MonsterNum, GameManager.instance.playData.language, MonsterSetting.Name);
             string temp = string.Empty;
-            string[] addString = MonsterManager.instance.GetRecordData((MonsterManager.Monster)MonsterNum, GameManager.instance.playData.language, MonsterSetting.Explain).Replace("\\n","\n").Split('\n');
+            string[] addString = MonsterManager.instance.GetRecordData((MonsterManager.MonsterEnum)MonsterNum, GameManager.instance.playData.language, MonsterSetting.Explain).Replace("\\n","\n").Split('\n');
             for (int i = 0; i < addString.Length; i++)
             {
                 temp += addString[i];

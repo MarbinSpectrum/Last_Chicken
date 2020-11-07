@@ -164,10 +164,12 @@ public class Stage01_3 : StageData
         for (int y = 0; y < world.WorldHeight; y++)
             for (int x = 0; x < world.WorldWidth; x++)
             {
+                int fy = (int)(y * ((float)GroundManager.instance.stage01OutlineRect.GetLength(1) / (float)world.WorldHeight));
                 int fx = outlineflipX ? x : world.WorldWidth - x - 1;
-                if (GroundManager.instance.stage01OutlineRect[fx, y] == GroundLayer.UnBreakable)
+                fx = (int)(x * ((float)GroundManager.instance.stage01OutlineRect.GetLength(0) / (float)world.WorldWidth));
+                if (GroundManager.instance.stage01OutlineRect[fx, fy] == GroundLayer.UnBreakable)
                     groundData[x, y] = GroundLayer.UnBreakable;
-                else if (GroundManager.instance.stage01OutlineRect[fx, y] == GroundLayer.Dirt)
+                else if (GroundManager.instance.stage01OutlineRect[fx, fy] == GroundLayer.Dirt)
                     groundData[x, y] = (GroundLayer)(-1);
             }
     }

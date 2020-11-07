@@ -11,6 +11,11 @@ public class Penguin : Monster
     MoveDic patrolDic = 0;
     public enum MoveDic { 오른쪽, 왼쪽, 정지 };
 
+    string DAMAGE = "Damage";
+    string MOVE = "Move";
+    string IN_ICE = "InIce";
+    string IGLOOMAP = "IglooMap";
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     #region[Awake]
@@ -41,9 +46,9 @@ public class Penguin : Monster
     #region[애니메이션]
     public void Ani()
     {
-        animator.SetBool("Damage", damage);
-        animator.SetBool("Move", moveFlag);
-        animator.SetBool("InIce", iceFlag);
+        animator.SetBool(DAMAGE, damage);
+        animator.SetBool(MOVE, moveFlag);
+        animator.SetBool(IN_ICE, iceFlag);
         if (damage || moveDic == 0)
             return;
         transform.localScale = new Vector3(-moveDic * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
@@ -88,7 +93,7 @@ public class Penguin : Monster
             {
                 patrolTime -= Time.deltaTime;
 
-                if (SceneController.instance.nowScene != "IglooMap")
+                if (SceneController.instance.nowScene != IGLOOMAP)
                 {
                     switch (patrolDic)
                     {

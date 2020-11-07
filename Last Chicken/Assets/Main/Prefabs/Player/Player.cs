@@ -123,27 +123,6 @@ public class Player : CustomCollider
 
     [System.NonSerialized] public int pickLevel;
 
-    //private int modified = 0;
-
-    //public bool HasModified(int bit)
-    //{
-    //    return (modified & (1 << bit)) != 0;
-    //}
-
-    //private int _pickLevel2 = 0;
-    //public int pickLevel2
-    //{
-    //    get => _pickLevel2;
-    //    set
-    //    {
-    //        if (_pickLevel2 != value)
-    //        {
-    //            _pickLevel2 = value;
-    //            modified |= 1;
-    //        }
-    //    }
-    //}
-
     [System.NonSerialized] public bool canAttack;
     [System.NonSerialized] public bool attackTop;   //상단 공격여부
     int combo = 0;

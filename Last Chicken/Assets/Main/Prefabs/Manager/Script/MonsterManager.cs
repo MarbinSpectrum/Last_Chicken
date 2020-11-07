@@ -31,10 +31,11 @@ public class MonsterManager : ObjectPool
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public enum Monster { 박쥐, 쥐, 뱀, 두더지, 펭귄, 곰, 얼음박쥐, 이동상인 };
+    public enum MonsterEnum { 박쥐, 쥐, 뱀, 두더지, 펭귄, 곰, 얼음박쥐, 이동상인 };
     public static string[] monsterName = new string[] { "Bat", "Rat", "Snake", "Mole", "Penguin", "WhiteBear", "IceBat", "MovingShop" };
     public static string[] monsterName_KR = new string[] { "박쥐", "쥐", "뱀", "두더지", "펭귄", "곰", "얼음박쥐", "이동상인" };
-    private static Dictionary<KeyValuePair<Monster, Language>, string[]> monsterExplain = new Dictionary<KeyValuePair<Monster, Language>, string[]>();
+    private static Dictionary<KeyValuePair<MonsterEnum, Language>, string[]> monsterExplain = new Dictionary<KeyValuePair<MonsterEnum, Language>, string[]>();
+    private static Dictionary<GameObject,Monster> monsterDictionary = new Dictionary<GameObject, Monster>();
 
     [System.Serializable]
     public class MonsterStats
@@ -432,6 +433,26 @@ public class MonsterManager : ObjectPool
     }
     #endregion
 
+    #region[몬스터 데이터얻기]
+    public void PushMonster(GameObject obj)
+    {
+        if(!FindMonster(obj))
+            monsterDictionary.Add(obj, obj.GetComponent<Monster>());
+    }
+
+    public bool FindMonster(GameObject obj)
+    {
+        return monsterDictionary.ContainsKey(obj);
+    }
+
+    public Monster GetMonster(GameObject obj)
+    {
+        if (FindMonster(obj))
+            return monsterDictionary[obj];
+        return null;
+    }
+    #endregion
+
     #region[몬스터 도감 데이터 읽기]
     private void ReadRecordData(Language language)
     {
@@ -467,18 +488,18 @@ public class MonsterManager : ObjectPool
             string[] values = newString.Split('☎');
             int tableID = 0;
             int.TryParse(values[0], out tableID);
-            if (!monsterExplain.ContainsKey(new KeyValuePair<Monster, Language>((Monster)(tableID - 1), language)))
+            if (!monsterExplain.ContainsKey(new KeyValuePair<MonsterEnum, Language>((MonsterEnum)(tableID - 1), language)))
             {
                 string[] Data = { values[1], values[2] };
-                monsterExplain.Add(new KeyValuePair<Monster, Language>((Monster)(tableID - 1), language), Data);
+                monsterExplain.Add(new KeyValuePair<MonsterEnum, Language>((MonsterEnum)(tableID - 1), language), Data);
             }
         }
     }
 
     /// <summary> 몬스터 도감 데이터 읽기 </summary>
-    public string GetRecordData(Monster monster, Language language, MonsterSetting monsterSetting)
+    public string GetRecordData(MonsterEnum monster, Language language, MonsterSetting monsterSetting)
     {
-        return monsterExplain[new KeyValuePair<Monster, Language>(monster, language)][(int)monsterSetting];
+        return monsterExplain[new KeyValuePair<MonsterEnum, Language>(monster, language)][(int)monsterSetting];
     }
     #endregion
 
@@ -504,6 +525,7 @@ public class MonsterManager : ObjectPool
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector3.x, vector3.y, emp.transform.position.z);
         emp.transform.rotation = new Quaternion(0, 0, 0, 0);
+        PushMonster(emp);
     }
     #endregion
 
@@ -525,6 +547,7 @@ public class MonsterManager : ObjectPool
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector3.x, vector3.y, emp.transform.position.z);
         emp.transform.rotation = new Quaternion(0, 0, 0, 0);
+        PushMonster(emp);
     }
     #endregion
 
@@ -546,6 +569,7 @@ public class MonsterManager : ObjectPool
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector3.x, vector3.y, emp.transform.position.z);
         emp.transform.rotation = new Quaternion(0, 0, 0, 0);
+        PushMonster(emp);
     }
     #endregion
 
@@ -567,6 +591,7 @@ public class MonsterManager : ObjectPool
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector3.x, vector3.y, emp.transform.position.z);
         emp.transform.rotation = new Quaternion(0, 0, 0, 0);
+        PushMonster(emp);
     }
     #endregion
 
@@ -588,6 +613,7 @@ public class MonsterManager : ObjectPool
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector3.x, vector3.y, emp.transform.position.z);
         emp.transform.rotation = new Quaternion(0, 0, 0, 0);
+        PushMonster(emp);
     }
     #endregion
 
@@ -609,6 +635,7 @@ public class MonsterManager : ObjectPool
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector3.x, vector3.y, emp.transform.position.z);
         emp.transform.rotation = new Quaternion(0, 0, 0, 0);
+        PushMonster(emp);
     }
     #endregion
 
@@ -630,6 +657,7 @@ public class MonsterManager : ObjectPool
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector3.x, vector3.y, emp.transform.position.z);
         emp.transform.rotation = new Quaternion(0, 0, 0, 0);
+        PushMonster(emp);
     }
     #endregion
 

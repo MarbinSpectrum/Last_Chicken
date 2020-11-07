@@ -27,7 +27,7 @@ public abstract class Monster : CustomCollider
     protected bool iceFlag = false;
     protected float iceVelocity;
     protected float slipperyValue = 0.8f;
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public enum MonsterType { Fly, Ground, Dig };
@@ -52,7 +52,7 @@ public abstract class Monster : CustomCollider
 
     protected float gravity = 8;
 
-
+    string ConveyorBelt = "ConveyorBelt";
     protected Vector2 knockback = new Vector2(750, 2000);   //넉백수치
     protected Vector2 jumpPower = Vector2.zero;
 
@@ -233,7 +233,7 @@ public abstract class Monster : CustomCollider
 
 
         //자동이동
-        GameObject conveyorBelt = IsAtObjectWithTag(boxCollider2D, "ConveyorBelt");
+        GameObject conveyorBelt = IsAtObjectWithTag(boxCollider2D, ConveyorBelt);
         if (conveyorBelt == null)
             nowConveyorBelt = null;
         else if (nowConveyorBelt == null && grounded)
