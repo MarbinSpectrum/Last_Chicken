@@ -290,7 +290,7 @@ public class Mole : Monster
         {
             if (Vector2.Distance(nowPos, targetPos) < range &&
             Exception.IndexOutRange(nowPos, GroundManager.instance.linkArea) &&
-            GroundManager.instance.linkArea[nowPos.x, nowPos.y] &&
+                  GroundManager.instance.FindParent(GroundManager.instance.linkArea[nowPos.x, nowPos.y]) == 1 &&
                 Mathf.Abs(nowPos.y - targetPos.y) <= 5)
             {
                 if (Mathf.Abs(nowPos.x - targetPos.x) < 0.15f)

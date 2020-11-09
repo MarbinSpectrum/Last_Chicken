@@ -12,7 +12,7 @@ public class TreasureBoxScirpt : StructureObject
     public override void Awake()
     {
         base.Awake();
-        light = transform.Find("Body").Find("Light").gameObject;
+        light = transform.Find(BODY).Find(LIGHT).gameObject;
     }
     #endregion
 
@@ -59,7 +59,7 @@ public class TreasureBoxScirpt : StructureObject
         {
             if (specialType == SpecialType.아이템드랍)
             {
-                if(inItem.Equals("Random"))
+                if(inItem.Equals(RANDOM))
                     ItemManager.instance.SpawnItemRandomAtTreasureBox(transform.position);
                 else
                     ItemManager.instance.SpawnItem(transform.position, inItem);

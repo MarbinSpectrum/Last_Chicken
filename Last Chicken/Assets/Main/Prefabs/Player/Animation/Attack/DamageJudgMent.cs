@@ -11,16 +11,26 @@ public class DamageJudgMent : MonoBehaviour
     string MONSTER = "Monster";
     string OBJECT = "Object";
 
+    bool flag = false;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    #region[OnEnable]
+    private void OnEnable()
+    {
+        flag = false;
+    }
+    #endregion
 
     #region[Update]
     void Update()
     {
         //공격시간이 일정하게 지난후 아직 공격이 진행이안됬을때
-        if (AttackingCheck.aniTime >= 0.25f && damageJudgMent.enabled)
+        if (AttackingCheck.aniTime >= 0.25f && damageJudgMent.enabled && !flag)
         {
+            flag = true;
             AttackTerrain();
             AttackMonster();
             AttackObject();
@@ -33,11 +43,13 @@ public class DamageJudgMent : MonoBehaviour
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    
     #region[지형 공격]
+    int[] SoundGroup = new int[17];
     public void AttackTerrain()
     {
-        int[] SoundGroup = new int[17];
+        for (int i = 0; i < 17; i++)
+            SoundGroup[i] = 0;
 
         #region[범위에 해당하는 광물 공격]
         //공격범위에 해당하는 광물을 공격
@@ -52,12 +64,13 @@ public class DamageJudgMent : MonoBehaviour
                             if ((GroundManager.instance.digMask & (int)Mathf.Pow(2, (int)StageData.instance.groundData[x, y])) != 0)
                             {
                                 SoundGroup[(int)StageData.instance.groundData[x, y]]++;
-                                //if (StageData.instance.groundData[x, y] != StageData.GroundLayer.Dirt)
-                                //    EffectManager.instance.PickAxeFire(new Vector3(x, y));
                                 GroundManager.instance.AttackTerrain(new Vector2Int(x, y), Player.instance.attackPower);
+                                if (GroundManager.instance.groundHp[x, y] <= 0)
+                                    GroundManager.instance.UnionArea(x, y, 1);
                             }
-               
-        
+
+
+
         #endregion
 
         #region[광물에 따른 소리 출력]
@@ -119,6 +132,7 @@ public class DamageJudgMent : MonoBehaviour
         //공격범위에 해당하는 적을을 공격
         Vector2 digPos = (Vector2)Player.instance.transform.position + new Vector2(damageJudgMent.offset.x * Player.instance.transform.localScale.x, damageJudgMent.offset.y * Player.instance.transform.localScale.y);
         Vector2 newSize = new Vector2(Mathf.Abs(damageJudgMent.size.x * Player.instance.transform.localScale.x), Mathf.Abs(damageJudgMent.size.y * Player.instance.transform.localScale.y));
+
         int count = Physics2D.BoxCastNonAlloc(digPos, newSize, 0, Vector2.zero, AttackMonsterArray, 0, 1 << LayerMask.NameToLayer(BODY));
 
         for (int i = 0; i < count; i++)
@@ -161,7 +175,7 @@ public class DamageJudgMent : MonoBehaviour
         {
             if (AttackObjectArray[i].transform.tag.Equals(OBJECT))
             {
-                StructureObject structureObject = AttackObjectArray[i].transform.GetComponent<StructureObject>();
+                StructureObject structureObject = ObjectManager.instance.GetStructureObject(AttackObjectArray[i].transform.gameObject);
                 if (structureObject)
                 {
                     structureObject.BreakObject(Player.instance.attackPower);

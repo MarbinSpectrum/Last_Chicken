@@ -63,7 +63,7 @@ public class UIManager : MonoBehaviour
         public GameObject halfempty;
         public GameObject emptyhalf;
         public Animator hearthAni;
-        public HearthType(GameObject g1, GameObject g2, GameObject g3, GameObject g4, GameObject g5,Animator animator)
+        public HearthType(GameObject g1, GameObject g2, GameObject g3, GameObject g4, GameObject g5, Animator animator)
         {
             full = g1;
             half = g2;
@@ -167,8 +167,8 @@ public class UIManager : MonoBehaviour
 
     string explainItem;
     [NonSerialized] public GameObject explainObject;    //설명텍스트
-    [NonSerialized] public RectTransform explainRect;   
-    [NonSerialized] public Text explainText;            
+    [NonSerialized] public RectTransform explainRect;
+    [NonSerialized] public Text explainText;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -215,7 +215,7 @@ public class UIManager : MonoBehaviour
 
     [NonSerialized] public GameObject smithyUI;               //대장간 UI
     [NonSerialized] public Text smithyText;
-    [NonSerialized] public GameObject smithyYes;               
+    [NonSerialized] public GameObject smithyYes;
     [NonSerialized] public GameObject smithyNo;
     [NonSerialized] public GameObject smithyOk;
 
@@ -504,9 +504,9 @@ public class UIManager : MonoBehaviour
         caseEvent = new EventTrigger[3];
         caseImage = new Image[3];
         caseObject = new GameObject[3, 2];
-        caseSpriteRenderer = new SpriteRenderer[3,2];
-        caseSpriteglow = new SpriteGlowEffect[3,2];
-        for (int i = 0; i< 3; i++)
+        caseSpriteRenderer = new SpriteRenderer[3, 2];
+        caseSpriteglow = new SpriteGlowEffect[3, 2];
+        for (int i = 0; i < 3; i++)
         {
             int number = i;
 
@@ -524,9 +524,9 @@ public class UIManager : MonoBehaviour
             //마우스가 들어갔을때 이벤트
             EventTrigger.Entry pointerEnter = new EventTrigger.Entry();
             pointerEnter.eventID = EventTriggerType.PointerEnter;
-            pointerEnter.callback.AddListener((data) => 
-            { 
-                if(GameManager.instance.playData.language == Language.한국어)
+            pointerEnter.callback.AddListener((data) =>
+            {
+                if (GameManager.instance.playData.language == Language.한국어)
                     buffName.text = BuffManager.instance.buffData[AltarScript.instance.buffList[number]].buffName;
                 else if (GameManager.instance.playData.language == Language.English)
                     buffName.text = BuffManager.instance.buffData[AltarScript.instance.buffList[number]].buffName_Eng;
@@ -568,7 +568,7 @@ public class UIManager : MonoBehaviour
         shopUI = canvas.Find("ShopUI").gameObject;
         shopItemCost = new Text[3];
         shopItemName = new Text[3];
-        shopItemExplan = new Text[3,4];
+        shopItemExplan = new Text[3, 4];
         shopItemImg = new Image[3];
         shopItemSoldOut = new GameObject[3];
         shopItemBuy = new Button[3];
@@ -579,8 +579,8 @@ public class UIManager : MonoBehaviour
             Transform temp = shopUI.transform.Find("ShopMenu" + i);
             shopItemCost[i] = temp.Find("Cost").GetComponent<Text>();
             shopItemName[i] = temp.Find("Name").GetComponent<Text>();
-            for(int k = 0; k < 4; k++)
-                shopItemExplan[i,k] = temp.Find("Explain" + k).GetComponent<Text>();
+            for (int k = 0; k < 4; k++)
+                shopItemExplan[i, k] = temp.Find("Explain" + k).GetComponent<Text>();
             shopItemImg[i] = temp.Find("Img").GetComponent<Image>();
             shopItemSoldOut[i] = temp.Find("SoldOut").gameObject;
             shopItemBuy[i] = temp.Find("Buy").GetComponent<Button>();
@@ -641,7 +641,7 @@ public class UIManager : MonoBehaviour
                 Smithy.instance.Reinforce();
                 SoundManager.instance.PlayerMoney();
             }
-            else 
+            else
             {
                 SoundManager.instance.CantRun();
             }
@@ -906,7 +906,7 @@ public class UIManager : MonoBehaviour
     #region[Update]
     void Update()
     {
-        for(int i = 0; i < languageData.Count; i++)
+        for (int i = 0; i < languageData.Count; i++)
             if (languageData[i])
                 languageData[i].SetActive(languageData[i].transform.name.Contains(GameManager.instance.playData.language.ToString()));
 
@@ -929,16 +929,16 @@ public class UIManager : MonoBehaviour
             if (xbox || ps)
             {
                 NotConnected.SetActive(false);
-                PadOption.SetActive(true);      
+                PadOption.SetActive(true);
             }
         }
-        else if(!xbox && !ps)
+        else if (!xbox && !ps)
         {
             NotConnected.SetActive(true);
             PadOption.SetActive(false);
         }
 
-        if ((Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.Pause]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Pause])) 
+        if ((Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.Pause]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Pause]))
             && GameManager.instance.InGame() && !goTitle && !SetGameKey.runSetting)
         {
             if (GameManager.instance.playData.firstGame)
@@ -1008,7 +1008,7 @@ public class UIManager : MonoBehaviour
             else
             {
                 #region[화면크기에 따른 제단 UI 크기조절]
-                Vector3 size = new Vector3(1,1,1);
+                Vector3 size = new Vector3(1, 1, 1);
                 if (Screen.width == windowOption[0, 0] && Screen.height == windowOption[0, 1])
                     size = new Vector3(2.5f, 2.5f, 1);
                 else if (Screen.width == windowOption[1, 0] && Screen.height == windowOption[1, 1])
@@ -1027,7 +1027,7 @@ public class UIManager : MonoBehaviour
                     {
                         caseObject[i, k].transform.localScale = size;
                         caseObject[i, k].transform.localScale = size;
-   
+
                     }
 
                 size = new Vector3(1, 1, 1);
@@ -1066,7 +1066,7 @@ public class UIManager : MonoBehaviour
                         selectAltarMenu++;
                         selectAltarMenu = selectAltarMenu > 2 ? 0 : selectAltarMenu;
                     }
-                    else if(KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
+                    else if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
                     {
                         BuffManager.instance.AddBuff(AltarScript.instance.buffList[selectAltarMenu]);
                         Player.instance.invincibility = true;
@@ -1163,7 +1163,7 @@ public class UIManager : MonoBehaviour
                     smithyNo.SetActive(false);
                     smithyYes.SetActive(false);
                     smithyOk.SetActive(true);
-                    if(GameManager.instance.playData.language == Language.한국어)
+                    if (GameManager.instance.playData.language == Language.한국어)
                         smithyText.text = "더 이상 곡괭이를 강화할 수 없어 보인다.";
                     else if (GameManager.instance.playData.language == Language.English)
                         smithyText.text = "It seems that the pickaxe can no longer be reinforced.";
@@ -1191,7 +1191,7 @@ public class UIManager : MonoBehaviour
                         smithyText.text = "A sacrifice of as much as <color=#FFD600>" + Smithy.reinforceCost[Player.instance.pickLevel] + "</color> to the smith's god is likely to make the pickaxe stronger.";
                 }
 
-                if(Player.instance.pickLevel == 0)
+                if (Player.instance.pickLevel == 0)
                 {
                     if (GameManager.instance.playData.language == Language.한국어)
                         smithyText.text += "\n<color=#886688ff><size=40>곡괭이가 좀 더 튼튼해집니다.(공격력 상승)</size></color>";
@@ -1227,7 +1227,7 @@ public class UIManager : MonoBehaviour
 
                     if (selectSmithyNum < 2 && KeyManager.nowController != GameController.KeyBoard && !GameManager.instance.gamePause)
                     {
-                        if(selectSmithyNum == 0)
+                        if (selectSmithyNum == 0)
                             smithyYes_SelectObj.SetActive(true);
                         else if (selectSmithyNum == 1)
                             smithyNo_SelectObj.SetActive(true);
@@ -1239,7 +1239,7 @@ public class UIManager : MonoBehaviour
                         }
                         else if (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.Select]))
                         {
-                            if(smithyOk.activeSelf || selectSmithyNum == 1)
+                            if (smithyOk.activeSelf || selectSmithyNum == 1)
                             {
                                 Smithy.instance.thisUse = false;
                                 Player.instance.canControl = true;
@@ -1381,7 +1381,7 @@ public class UIManager : MonoBehaviour
 
     #region[닭 위치 표시기]
     void SetChickenPos()
-    {  
+    {
         if (Player.instance && Player.instance.getChicken || SceneController.instance.nowScene.Equals("Tutorial"))
         {
             showChickenPos.SetActive(false);
@@ -1394,7 +1394,7 @@ public class UIManager : MonoBehaviour
             showChickenPos.SetActive(true);
 
             float screenWitdh = canvasScaler.referenceResolution.x;
-            float screenHeight = (float)Screen.height / (float)Screen.width *  canvasScaler.referenceResolution.x;
+            float screenHeight = (float)Screen.height / (float)Screen.width * canvasScaler.referenceResolution.x;
 
             Vector2 newPos;
 
@@ -1468,7 +1468,7 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < hpNow - 1; i++)
             hearthData[i].full.SetActive(true);
 
-        if(Custom.Exception.IndexOutRange(hpNow - 1, hearthData))
+        if (Custom.Exception.IndexOutRange(hpNow - 1, hearthData))
         {
             if (hpNow != Player.instance.nowHp)
             {
@@ -1537,7 +1537,7 @@ public class UIManager : MonoBehaviour
                 uiMoney = GameManager.instance.playerMoney;
         }
 
-        if(uiMoney != GameManager.instance.playerMoney)
+        if (uiMoney != GameManager.instance.playerMoney)
             goldAni.SetTrigger("Act");
 
         SetUIMoney();
@@ -1575,7 +1575,7 @@ public class UIManager : MonoBehaviour
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //아이템교체
-        if(Player.instance.canControl)
+        if (Player.instance.canControl)
         {
             if (Input.GetKeyDown(KeyManager.instance.keyBoard[GameKeyType.ItemChange]) || KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.ItemChange]) || Input.GetAxis("Mouse ScrollWheel") > 0)
             {
@@ -1605,7 +1605,7 @@ public class UIManager : MonoBehaviour
                 string tempName = GameManager.instance.itemSlot[throwNum];
                 int tempNum = GameManager.instance.itemNum[throwNum];
 
-                ItemManager.instance.SpawnItem(Player.instance.transform.position + new Vector3(0,1.5f,0), tempName, tempNum);
+                ItemManager.instance.SpawnItem(Player.instance.transform.position + new Vector3(0, 1.5f, 0), tempName, tempNum);
 
                 GameManager.instance.itemSlot[throwNum] = "";
                 GameManager.instance.itemNum[throwNum] = 0;
@@ -1722,40 +1722,40 @@ public class UIManager : MonoBehaviour
             GameManager.instance.selectNum = 1;
 
         #region[슬롯회전]
-            //슬롯 회전
-            //if (dic >= 0)
-            //{
-            //    string tempItem = GameManager.instance.itemSlot[0];
-            //    int tempItemCount = GameManager.instance.itemNum[0];
-            //    float tempItemCool = GameManager.instance.itemCool[0];
+        //슬롯 회전
+        //if (dic >= 0)
+        //{
+        //    string tempItem = GameManager.instance.itemSlot[0];
+        //    int tempItemCount = GameManager.instance.itemNum[0];
+        //    float tempItemCool = GameManager.instance.itemCool[0];
 
-            //    for (int j = 0; j < actSlotNum - 1; j++)
-            //    {
-            //        GameManager.instance.itemSlot[j] = GameManager.instance.itemSlot[j + 1];
-            //        GameManager.instance.itemNum[j] = GameManager.instance.itemNum[j + 1];
-            //        GameManager.instance.itemCool[j] = GameManager.instance.itemCool[j + 1];
-            //    }
-            //    GameManager.instance.itemSlot[actSlotNum - 1] = tempItem;
-            //    GameManager.instance.itemNum[actSlotNum - 1] = tempItemCount;
-            //    GameManager.instance.itemCool[actSlotNum - 1] = tempItemCool;
-            //}
-            //else
-            //{
-            //    string tempItem = GameManager.instance.itemSlot[actSlotNum - 1];
-            //    int tempItemCount = GameManager.instance.itemNum[actSlotNum - 1];
-            //    float tempItemCool = GameManager.instance.itemCool[actSlotNum - 1];
+        //    for (int j = 0; j < actSlotNum - 1; j++)
+        //    {
+        //        GameManager.instance.itemSlot[j] = GameManager.instance.itemSlot[j + 1];
+        //        GameManager.instance.itemNum[j] = GameManager.instance.itemNum[j + 1];
+        //        GameManager.instance.itemCool[j] = GameManager.instance.itemCool[j + 1];
+        //    }
+        //    GameManager.instance.itemSlot[actSlotNum - 1] = tempItem;
+        //    GameManager.instance.itemNum[actSlotNum - 1] = tempItemCount;
+        //    GameManager.instance.itemCool[actSlotNum - 1] = tempItemCool;
+        //}
+        //else
+        //{
+        //    string tempItem = GameManager.instance.itemSlot[actSlotNum - 1];
+        //    int tempItemCount = GameManager.instance.itemNum[actSlotNum - 1];
+        //    float tempItemCool = GameManager.instance.itemCool[actSlotNum - 1];
 
-            //    for (int j = actSlotNum - 1; j >= 1; j--)
-            //    {
-            //        GameManager.instance.itemSlot[j] = GameManager.instance.itemSlot[j - 1];
-            //        GameManager.instance.itemNum[j] = GameManager.instance.itemNum[j - 1];
-            //        GameManager.instance.itemCool[j] = GameManager.instance.itemCool[j - 1];
-            //    }
-            //    GameManager.instance.itemSlot[0] = tempItem;
-            //    GameManager.instance.itemNum[0] = tempItemCount;
-            //    GameManager.instance.itemCool[0] = tempItemCool;
-            //}
-            #endregion
+        //    for (int j = actSlotNum - 1; j >= 1; j--)
+        //    {
+        //        GameManager.instance.itemSlot[j] = GameManager.instance.itemSlot[j - 1];
+        //        GameManager.instance.itemNum[j] = GameManager.instance.itemNum[j - 1];
+        //        GameManager.instance.itemCool[j] = GameManager.instance.itemCool[j - 1];
+        //    }
+        //    GameManager.instance.itemSlot[0] = tempItem;
+        //    GameManager.instance.itemNum[0] = tempItemCount;
+        //    GameManager.instance.itemCool[0] = tempItemCool;
+        //}
+        #endregion
     }
     #endregion
 
@@ -1855,7 +1855,7 @@ public class UIManager : MonoBehaviour
         pauseMenu.SetActive(b);
         uiBack.SetActive(b);
         pauseMenuNum = 0;
-        if(Player.instance)
+        if (Player.instance)
             Player.instance.selectKeyUp = false;
     }
     #endregion
@@ -2023,7 +2023,7 @@ public class UIManager : MonoBehaviour
                 else
                     selectSettingNum %= 4;
             }
-        } 
+        }
         else if (selectMenuNum == 0 && selectSettingNum < 0 && (KeyManager.GetKeyDown(KeyManager.instance.gamePad[GameKeyType.SystemDown])))
         {
             gameSetting.SetActive(false);
@@ -2371,7 +2371,7 @@ public class UIManager : MonoBehaviour
         foreach (int i in Enum.GetValues(typeof(Language)))
             languageLen++;
 
-        for(int i = 0; i < languageLen; i++)
+        for (int i = 0; i < languageLen; i++)
         {
             if ((Language)(i) == GameManager.instance.playData.language)
             {

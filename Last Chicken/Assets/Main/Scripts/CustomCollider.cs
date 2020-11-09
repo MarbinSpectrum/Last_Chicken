@@ -5,14 +5,21 @@ public class CustomCollider : MonoBehaviour
 {
     public const int CHECKCOUNT = 25;
 
-    const string BODY = "Body";
-    const string CHICKEN = "Chicken";
-    const string PLAYER = "Player";
-    const string TERRAIN = "Terrain";
-    const string MONSTER = "Monster";
-    const string MONSTER_PASS = "MonsterPass";
-    const string CANT_HANG = "CantHang";
-    const string OBJECT = "Object";
+    public const string CONVEYORBELT = "ConveyorBelt";
+    public const string BODY = "Body";
+    public const string CHICKEN = "Chicken";
+    public const string PLAYER = "Player";
+    public const string TERRAIN = "Terrain";
+    public const string MONSTER = "Monster";
+    public const string MONSTER_PASS = "MonsterPass";
+    public const string CANT_HANG = "CantHang";
+    public const string OBJECT = "Object";
+    public const string DAMAGE = "Damage";
+    public const string MOVE = "Move";
+    public const string STOP = "Stop";
+    public const string RANDOM = "Random";
+    public const string MINECART = "MineCart";
+    public const string LIGHT = "Light";
 
     [HideInInspector] public ConveyorBelt nowConveyorBelt;
 
@@ -33,12 +40,14 @@ public class CustomCollider : MonoBehaviour
     }
     public bool IsAtChicken(BoxCollider2D col, Vector2 pos)
     {
+        if (Vector2.Distance(Chicken.instance.transform.position, (Vector2)transform.position + pos) > Mathf.Sqrt(col.size.x * col.size.x + col.size.y * col.size.y))
+            return false;
         int count = Physics2D.BoxCastNonAlloc
             (
                 (Vector2)transform.position + GetAngleOffset(col) + pos,
                 new Vector2(col.size.x * Mathf.Abs(transform.localScale.x), col.size.y * Mathf.Abs(transform.localScale.y)),
                 col.transform.eulerAngles.z * (transform.localScale.x < 0 ? -1 : 1),
-                Vector2.zero, IsAtChickenArray,1,
+                Vector2.zero, IsAtChickenArray,0,
                 1 << LayerMask.NameToLayer(BODY)
             );
 
@@ -59,12 +68,15 @@ public class CustomCollider : MonoBehaviour
 
     public bool IsAtPlayer(BoxCollider2D col, Vector2 pos)
     {
+        if(Vector2.Distance(Player.instance.transform.position,(Vector2)transform.position + pos) > Mathf.Max(col.size.x ,col.size.y)*2)
+            return false;
+
         int count = Physics2D.BoxCastNonAlloc
             (
                 (Vector2)transform.position + GetAngleOffset(col) + pos,
                 new Vector2(col.size.x * Mathf.Abs(transform.localScale.x), col.size.y * Mathf.Abs(transform.localScale.y)),
                 col.transform.eulerAngles.z * (transform.localScale.x < 0 ? -1 : 1),
-                Vector2.zero, IsAtPlayerArray,1,
+                Vector2.zero, IsAtPlayerArray,0,
                 1 << LayerMask.NameToLayer(BODY)
             );
 
@@ -91,7 +103,7 @@ public class CustomCollider : MonoBehaviour
                      (This ? (Vector2)transform.position : Vector2.zero) + GetAngleOffset(col) + pos,
                      new Vector2(col.size.x * Mathf.Abs(transform.localScale.x), col.size.y * Mathf.Abs(transform.localScale.y)),
                      col.transform.eulerAngles.z * (transform.localScale.x < 0 ? -1 : 1),
-                     Vector2.zero, IsAtTerrainArray,1,
+                     Vector2.zero, IsAtTerrainArray,0,
                      1 << LayerMask.NameToLayer(TERRAIN)
                  );
 
@@ -105,8 +117,6 @@ public class CustomCollider : MonoBehaviour
         for (int i = 0; i < count; i++)
             if (IsAtTerrainArray[i])
                 return true;
-
-
         return false;
     }
     #endregion
@@ -126,7 +136,7 @@ public class CustomCollider : MonoBehaviour
                 (This ? (Vector2)transform.position : Vector2.zero) + GetAngleOffset(col) + pos,
                 new Vector2(col.size.x * Mathf.Abs(transform.localScale.x), col.size.y * Mathf.Abs(transform.localScale.y)),
                 col.transform.eulerAngles.z * (transform.localScale.x < 0 ? -1 : 1),
-                Vector2.zero, IsAtTerrainbyHangArray, 1,
+                Vector2.zero, IsAtTerrainbyHangArray, 0,
                 1 << LayerMask.NameToLayer(TERRAIN)
             );
 
@@ -153,7 +163,7 @@ public class CustomCollider : MonoBehaviour
                 (Vector2)transform.position + GetAngleOffset(col) + pos,
                 new Vector2(col.size.x * Mathf.Abs(transform.localScale.x), col.size.y * Mathf.Abs(transform.localScale.y)),
                 col.transform.eulerAngles.z * (transform.localScale.x < 0 ? -1 : 1),
-                Vector2.zero, IsAtTerrainObjectArray, 1,
+                Vector2.zero, IsAtTerrainObjectArray, 0,
                 1 << LayerMask.NameToLayer(TERRAIN)
             );
 
@@ -180,7 +190,7 @@ public class CustomCollider : MonoBehaviour
                 (Vector2)transform.position + GetAngleOffset(col) + pos,
                 new Vector2(col.size.x * Mathf.Abs(transform.localScale.x), col.size.y * Mathf.Abs(transform.localScale.y)),
                 col.transform.eulerAngles.z * (transform.localScale.x < 0 ? -1 : 1),
-                Vector2.zero, IsAtObjectArray, 1,
+                Vector2.zero, IsAtObjectArray, 0,
                 1 << LayerMask.NameToLayer(BODY)
             );
 
@@ -230,7 +240,7 @@ public class CustomCollider : MonoBehaviour
                 (Vector2)transform.position + GetAngleOffset(col) + pos,
                 new Vector2(col.size.x * Mathf.Abs(transform.localScale.x), col.size.y * Mathf.Abs(transform.localScale.y)),
                 col.transform.eulerAngles.z * (transform.localScale.x < 0 ? -1 : 1),
-                Vector2.zero, IsAtObjectWithTagArray,1
+                Vector2.zero, IsAtObjectWithTagArray,0
             );
 
         for (int i = 0; i < count; i++)

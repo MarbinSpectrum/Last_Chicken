@@ -41,8 +41,8 @@ public class Rat : Monster
     #region[애니메이션]
     public void Ani()
     {
-        animator.SetBool("Damage", damage);
-        animator.SetBool("Move", moveFlag);
+        animator.SetBool(DAMAGE, damage);
+        animator.SetBool(MOVE, moveFlag);
         if (damage || moveDic == 0)
             return;
         transform.localScale = new Vector3(-moveDic * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);

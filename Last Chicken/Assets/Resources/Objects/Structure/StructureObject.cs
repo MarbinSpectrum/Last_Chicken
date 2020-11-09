@@ -29,7 +29,9 @@ public class StructureObject : CustomCollider
 
     bool updateFlag = false;
 
-    [HideInInspector] public string inItem = "Random";
+    [HideInInspector] public string inItem = RANDOM;
+
+    int objectIndex = -2;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -61,8 +63,7 @@ public class StructureObject : CustomCollider
     #region[Update]
     public virtual void Update()
     {
-        if (updateFlag)
-            UpdateStats();
+        UpdateStats();
         ObjectActive();
     }
     #endregion
@@ -105,14 +106,15 @@ public class StructureObject : CustomCollider
     #region[능력치 갱신]
     public virtual void UpdateStats()
     {
-        if (ObjectManager.FindData(transform.name) == -1 || !ObjectManager.instance)
+        if (objectIndex == -1 || updateFlag || ObjectManager.instance == null)
             return;
-
+        if(objectIndex == -2)
+            objectIndex = ObjectManager.FindData(transform.name);
         updateFlag = true;
-        maxHp = ObjectManager.instance.obejctData[ObjectManager.FindData(transform.name)].Hp;
-        objectType = ObjectManager.instance.obejctData[ObjectManager.FindData(transform.name)].ObjectType;
-        specialType = ObjectManager.instance.obejctData[ObjectManager.FindData(transform.name)].SpecialType;
-        damageSound = ObjectManager.instance.obejctData[ObjectManager.FindData(transform.name)].DamageSound;
+        maxHp = ObjectManager.instance.obejctData[objectIndex].Hp;
+        objectType = ObjectManager.instance.obejctData[objectIndex].ObjectType;
+        specialType = ObjectManager.instance.obejctData[objectIndex].SpecialType;
+        damageSound = ObjectManager.instance.obejctData[objectIndex].DamageSound;
     }
     #endregion
 
@@ -129,49 +131,52 @@ public class StructureObject : CustomCollider
             ObjectMove();
     }
 
+    RaycastHit2D[] DownDamageArray = new RaycastHit2D[CHECKCOUNT];
     public virtual void DownDamage()
     {
         Vector2 digPos = (Vector2)transform.position + new Vector2(bodyCollider.offset.x * transform.localScale.x, bodyCollider.offset.y * transform.localScale.y - 1f);
         Vector2 newSize = new Vector2(Mathf.Abs(bodyCollider.size.x * transform.localScale.x) * 0.9f, Mathf.Abs(bodyCollider.size.y * transform.localScale.y));
-        RaycastHit2D[] targets = Physics2D.BoxCastAll(digPos, newSize, 0, Vector2.zero, 0, 1 << LayerMask.NameToLayer("Body"));
-        for (int i = 0; i < targets.Length; i++)
+        int count = Physics2D.BoxCastNonAlloc(digPos, newSize, 0, Vector2.zero, DownDamageArray, 0, 1 << LayerMask.NameToLayer(BODY));
+        for (int i = 0; i < count; i++)
         {
-            if (targets[i].transform.tag.Equals("Monster"))
+            if (DownDamageArray[i].transform.tag.Equals(MONSTER))
             {
-                Monster monster = targets[i].transform.GetComponent<Monster>();
+                Monster monster = MonsterManager.instance.GetMonster(DownDamageArray[i].transform.gameObject);
                 if (monster)
                     monster.Damage(1);
             }
-            else if (targets[i].transform.tag.Equals("Player"))
+            else if (DownDamageArray[i].transform.tag.Equals(PLAYER))
                 Player.instance.PlayerDamage(0.5f);
         }
     }
 
+    RaycastHit2D[] EnterDamageArray = new RaycastHit2D[CHECKCOUNT];
     public virtual void EnterDamage()
     {
         Vector2 digPos = (Vector2)transform.position + new Vector2(bodyCollider.offset.x * transform.localScale.x, bodyCollider.offset.y * transform.localScale.y);
         Vector2 newSize = new Vector2(Mathf.Abs(bodyCollider.size.x * transform.localScale.x) * 0.9f, Mathf.Abs(bodyCollider.size.y * transform.localScale.y) * 0.9f);
-        RaycastHit2D[] targets = Physics2D.BoxCastAll(digPos, newSize, 0, Vector2.zero, 0, 1 << LayerMask.NameToLayer("Body"));
-        for (int i = 0; i < targets.Length; i++)
-            if (targets[i].transform.tag.Equals("Player"))
+        int count = Physics2D.BoxCastNonAlloc(digPos, newSize, 0, Vector2.zero, EnterDamageArray, 0, 1 << LayerMask.NameToLayer(BODY));
+        for (int i = 0; i < count; i++)
+            if (EnterDamageArray[i].transform.tag.Equals(PLAYER))
                 Player.instance.PlayerDamage(0.5f);
     }
 
+    RaycastHit2D[] HitMonsterDamageArray = new RaycastHit2D[CHECKCOUNT];
     public virtual void HitMonsterDamage()
     {
         Vector2 digPos;
         Vector2 newSize;
-        RaycastHit2D[] targets;
+        int count;
         if (Vector2.Distance(rigidbody2D.velocity, Vector2.zero) > 3)
         {
             digPos = (Vector2)transform.position + new Vector2(bodyCollider.offset.x * transform.localScale.x, bodyCollider.offset.y * transform.localScale.y - 1f);
             newSize = new Vector2(Mathf.Abs(bodyCollider.size.x * transform.localScale.x) * 0.9f, Mathf.Abs(bodyCollider.size.y * transform.localScale.y));
-            targets = Physics2D.BoxCastAll(digPos, newSize, 0, Vector2.zero, 0, 1 << LayerMask.NameToLayer("Body"));
-            for (int i = 0; i < targets.Length; i++)
+            count = Physics2D.BoxCastNonAlloc(digPos, newSize, 0, Vector2.zero, HitMonsterDamageArray,0, 1 << LayerMask.NameToLayer(BODY));
+            for (int i = 0; i < count; i++)
             {
-                if (targets[i].transform.tag.Equals("Monster"))
+                if (HitMonsterDamageArray[i].transform.tag.Equals(MONSTER))
                 {
-                    Monster monster = targets[i].transform.GetComponent<Monster>();
+                    Monster monster = MonsterManager.instance.GetMonster(HitMonsterDamageArray[i].transform.gameObject);
                     if (monster)
                         monster.Damage(10);
                 }
@@ -180,14 +185,14 @@ public class StructureObject : CustomCollider
             {
                 digPos = (Vector2)transform.position + new Vector2(bodyCollider.offset.x * transform.localScale.x, bodyCollider.offset.y * transform.localScale.y - 1f);
                 newSize = new Vector2(Mathf.Abs(bodyCollider.size.x * transform.localScale.x) * 0.9f, Mathf.Abs(bodyCollider.size.y * transform.localScale.y));
-                targets = Physics2D.BoxCastAll(digPos, newSize, 0, Vector2.zero, 0, 1 << LayerMask.NameToLayer("Body"));
-                for (int i = 0; i < targets.Length; i++)
+                count = Physics2D.BoxCastNonAlloc(digPos, newSize, 0, Vector2.zero, HitMonsterDamageArray, 0, 1 << LayerMask.NameToLayer(BODY));
+                for (int i = 0; i < count; i++)
                 {
-                    if (targets[i].transform.name == "MineCart")
+                    if (HitMonsterDamageArray[i].transform.name == MINECART)
                         continue;
-                    if (targets[i].transform.tag.Equals("Object"))
+                    if (HitMonsterDamageArray[i].transform.tag.Equals(OBJECT))
                     {
-                        StructureObject structureObject = targets[i].transform.GetComponent<StructureObject>();
+                        StructureObject structureObject = ObjectManager.instance.GetStructureObject(HitMonsterDamageArray[i].transform.gameObject);
                         if (structureObject)
                         {
                             structureObject.BreakObject(30);
@@ -262,7 +267,7 @@ public class StructureObject : CustomCollider
         {
             if (specialType == SpecialType.아이템드랍)
             {
-                if (inItem.Equals("Random"))
+                if (inItem.Equals(RANDOM))
                     ItemManager.instance.SpawnItemRandomAtObject(transform.position);
                 else
                     ItemManager.instance.SpawnItem(transform.position, inItem);

@@ -67,10 +67,10 @@ public class GroundManager : MonoBehaviour
     public int hearthStoneHp = 0;
 
     public int[,] groundHp;
-    public bool[,] linkArea;
+    public int[,] linkArea;
 
-    public List<Vector2Int> linkList = new List<Vector2Int>();
-    public List<Vector2Int> linkAreaList = new List<Vector2Int>();
+    public Queue<Vector2Int> linkList = new Queue<Vector2Int>();
+    //public List<Vector2Int> linkAreaList = new List<Vector2Int>();
 
     public int digMask;
 
@@ -191,17 +191,17 @@ public class GroundManager : MonoBehaviour
     #endregion
 
     #region[Start]
-    private void Start()
-    {
+    //private void Start()
+    //{
 
-    }
+    //}
     #endregion
 
     #region[Update]
-    private void Update()
-    {
+    //private void Update()
+    //{
 
-    }
+    //}
     #endregion
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -231,14 +231,28 @@ public class GroundManager : MonoBehaviour
     #endregion
 
     #region[초기설정]
+    public List<int> Parent = new List<int>();
     public void Init(World world)
     {
-        linkArea = new bool[world.WorldWidth, world.WorldHeight];
+        linkArea = new int[world.WorldWidth, world.WorldHeight];
         groundHp = new int[world.WorldWidth, world.WorldHeight];
         linkArea.Initialize();
         linkList.Clear();
-        linkAreaList.Clear();
-        LinkArea(world.WorldWidth / 2, world.WorldHeight - 1);
+        //linkAreaList.Clear();
+        Parent.Clear();
+
+        int p = 1;
+        Parent.Add(0);
+        Parent.Add(p);
+        LinkArea(world.WorldWidth / 2, world.WorldHeight - 1,p++);
+        for (int c = 0; c < world.WorldWidth; c++)
+            for (int r = world.WorldHeight - 1; r >= 0; r--)
+                if (StageData.instance.GetBlock(c, r) == (StageData.GroundLayer)(-1) && linkArea[c, r] == 0)
+                {
+                    Parent.Add(p);
+                    LinkArea(c, r, p++);
+                }
+
         SetGroundHp(world);
     }
     #endregion
@@ -311,34 +325,69 @@ public class GroundManager : MonoBehaviour
     #endregion
 
     #region[플레이어와 연결된 땅에 추가]
-    public void LinkArea(int x, int y)
+
+    public int FindParent(int n)
     {
-        if (!Exception.IndexOutRange(x, y, linkArea) || linkArea[x, y])
+        if (n == Parent[n])
+            return n;
+        else
+        {
+            Parent[n] = FindParent(Parent[n]);
+            return Parent[n];
+        }
+    }
+
+    public void UniParent(int a,int b)
+    {
+        int aFind = FindParent(a);
+        int bFind = FindParent(b);
+        if (a < b)
+            Parent[b] = a;
+        else
+            Parent[a] = b;
+    }
+
+     int[,] offset = { { 0, 1 }, { 0, -1 }, { -1, 0 }, { 1, 0 } };
+    public void LinkArea(int x, int y,int value)
+    {
+        if (!Exception.IndexOutRange(x, y, linkArea) || linkArea[x, y] == value)
             return;
-        linkList.Add(new Vector2Int(x, y));
-        linkAreaList.Add(new Vector2Int(x, y));
-        int[,] offset = { { 0, 1 }, { 0, -1 }, { -1, 0 }, { 1, 0 } };
+        linkList.Enqueue(new Vector2Int(x, y));
         while (linkList.Count > 0)
         {
-            Vector2Int emp = linkList[0];
-            linkList.RemoveAt(0);
-            linkArea[emp.x, emp.y] = true;
+            Vector2Int emp = linkList.Dequeue();
+            linkArea[emp.x, emp.y] = value;
             for (int i = 0; i < 4; i++)
             {
                 int ax = emp.x + offset[i, 0];
                 int ay = emp.y + offset[i, 1];
-                if (Exception.IndexOutRange(ax, ay, linkArea) && !linkArea[ax, ay] && StageData.instance.GetBlock(ax, ay) == (StageData.GroundLayer)(-1))
+                if (Exception.IndexOutRange(ax, ay, linkArea) && linkArea[ax, ay] == 0 && StageData.instance.GetBlock(ax, ay) == (StageData.GroundLayer)(-1))
                 {
-                    linkList.Add(new Vector2Int(ax, ay));
-                    linkArea[ax, ay] = true;
+                    linkList.Enqueue(new Vector2Int(ax, ay));
+                    linkArea[ax, ay] = value;
                 }
             }
         }
     }
 
-    public void LinkArea(Vector2Int pos)
+    public void UnionArea(int x,int y,int value)
     {
-        LinkArea(pos.x, pos.y);
+        linkArea[x, y] = 1;
+        for (int i = 0; i < 4; i++)
+        {
+            int ax = x + offset[i, 0];
+            int ay = y + offset[i, 1];
+            if (Exception.IndexOutRange(ax, ay, linkArea) && linkArea[ax, ay] != 0 && FindParent(linkArea[ax, ay]) != value)
+            {
+                int addLink = FindParent(linkArea[ax, ay]);
+                UniParent(addLink, 1);
+            }
+        }
+    }
+
+    public void LinkArea(Vector2Int pos,int value)
+    {
+        LinkArea(pos.x, pos.y, value);
     }
     #endregion
 
@@ -539,7 +588,6 @@ public class GroundManager : MonoBehaviour
             groundHp[pos.x, pos.y] = 0;
             StageData.instance.RemoveBlock(pos);
             StageData.instance.groundData[pos.x, pos.y] = (StageData.GroundLayer)(-1);
-            LinkArea(pos);
         }
         #endregion
     }

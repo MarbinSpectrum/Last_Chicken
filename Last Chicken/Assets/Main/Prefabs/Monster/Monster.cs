@@ -52,7 +52,6 @@ public abstract class Monster : CustomCollider
 
     protected float gravity = 8;
 
-    string ConveyorBelt = "ConveyorBelt";
     protected Vector2 knockback = new Vector2(750, 2000);   //넉백수치
     protected Vector2 jumpPower = Vector2.zero;
 
@@ -233,7 +232,7 @@ public abstract class Monster : CustomCollider
 
 
         //자동이동
-        GameObject conveyorBelt = IsAtObjectWithTag(boxCollider2D, ConveyorBelt);
+        GameObject conveyorBelt = IsAtObjectWithTag(boxCollider2D, CONVEYORBELT);
         if (conveyorBelt == null)
             nowConveyorBelt = null;
         else if (nowConveyorBelt == null && grounded)
@@ -405,7 +404,7 @@ public abstract class Monster : CustomCollider
 
     void TryRoute()
     {
-        if (monsterType == MonsterType.Dig || (Exception.IndexOutRange(nowPos, GroundManager.instance.linkArea) && GroundManager.instance.linkArea[nowPos.x, nowPos.y]))
+        if (monsterType == MonsterType.Dig || (Exception.IndexOutRange(nowPos, GroundManager.instance.linkArea) && GroundManager.instance.FindParent(GroundManager.instance.linkArea[nowPos.x, nowPos.y]) == 1))
         {
             //탐색경로도 갱신
             List<Vector2> emp = new List<Vector2>();

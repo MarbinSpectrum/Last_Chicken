@@ -8,6 +8,8 @@ public class ObjectManager : ObjectPool
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    private static Dictionary<GameObject, StructureObject> StructureDictionary = new Dictionary<GameObject, StructureObject>();
+
     public static string[] objectName = new string[]
     {
         "Ladder",
@@ -268,6 +270,27 @@ public class ObjectManager : ObjectPool
     #endregion
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    #region[구조물 데이터얻기]
+    public void PushStructureObject(GameObject obj)
+    {
+        if (!FindStructureObject(obj))
+            StructureDictionary.Add(obj, obj.GetComponent<StructureObject>());
+    }
+
+    public bool FindStructureObject(GameObject obj)
+    {
+        return StructureDictionary.ContainsKey(obj);
+    }
+
+    public StructureObject GetStructureObject(GameObject obj)
+    {
+        if (FindStructureObject(obj))
+            return StructureDictionary[obj];
+        return null;
+    }
+    #endregion
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -424,6 +447,7 @@ public class ObjectManager : ObjectPool
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
         emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
+        PushStructureObject(emp);
     }
     #endregion
 
@@ -446,6 +470,7 @@ public class ObjectManager : ObjectPool
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
         emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
+        PushStructureObject(emp);
     }
     #endregion
 
@@ -467,7 +492,8 @@ public class ObjectManager : ObjectPool
         emp.transform.localRotation = Quaternion.identity;
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
-        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
+        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1);
+        PushStructureObject(emp);
     }
     #endregion
 
@@ -492,7 +518,8 @@ public class ObjectManager : ObjectPool
         emp.transform.localRotation = Quaternion.identity;
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
-        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
+        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1);
+        PushStructureObject(emp);
     }
 
     public void Stone(Vector2 vector2, bool flipX = false)
@@ -519,7 +546,8 @@ public class ObjectManager : ObjectPool
         emp.transform.localRotation = Quaternion.identity;
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
-        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
+        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1);
+        PushStructureObject(emp);
     }
     #endregion
 
@@ -544,7 +572,8 @@ public class ObjectManager : ObjectPool
         emp.transform.localRotation = Quaternion.identity;
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
-        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
+        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1);
+        PushStructureObject(emp);
     }
 
     public void WoodBoard(Vector2 vector2, bool flipX = false)
@@ -571,7 +600,8 @@ public class ObjectManager : ObjectPool
         emp.transform.localRotation = Quaternion.identity;
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
-        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
+        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1);
+        PushStructureObject(emp);
     }
     #endregion
 
@@ -593,7 +623,8 @@ public class ObjectManager : ObjectPool
         emp.transform.localRotation = Quaternion.identity;
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
-        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
+        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1);
+        PushStructureObject(emp);
     }
     #endregion
 
@@ -615,7 +646,8 @@ public class ObjectManager : ObjectPool
         emp.transform.localRotation = Quaternion.identity;
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
-        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
+        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1);
+        PushStructureObject(emp);
     }
     #endregion
 
@@ -637,7 +669,7 @@ public class ObjectManager : ObjectPool
         emp.transform.localRotation = Quaternion.identity;
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
-        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
+        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1);
     }
     #endregion
 
@@ -909,7 +941,8 @@ public class ObjectManager : ObjectPool
         emp.transform.localRotation = Quaternion.identity;
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
-        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
+        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1);
+        PushStructureObject(emp);
     }
 
     public void Stalagmite(Vector2 vector2, bool flipX = false)
@@ -936,7 +969,8 @@ public class ObjectManager : ObjectPool
         emp.transform.localRotation = Quaternion.identity;
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
-        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
+        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1);
+        PushStructureObject(emp);
     }
     #endregion
 
@@ -961,7 +995,8 @@ public class ObjectManager : ObjectPool
         emp.transform.localRotation = Quaternion.identity;
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
-        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
+        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1);
+        PushStructureObject(emp);
     }
 
     public void Icicle(Vector2 vector2, bool flipX = false)
@@ -1094,7 +1129,8 @@ public class ObjectManager : ObjectPool
         emp.transform.localRotation = Quaternion.identity;
         emp.transform.parent = transform;
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
-        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
+        emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1);
+        PushStructureObject(emp);
     }
     #endregion
 
@@ -1124,6 +1160,7 @@ public class ObjectManager : ObjectPool
         emp.transform.position = new Vector3(vector2.x, vector2.y, emp.transform.position.z);
         emp.transform.localScale = new Vector3(flipX ? -1 : +1, 1, 1); ;
         treasurePos.Add(emp);
+        PushStructureObject(emp);
     }
     #endregion
 

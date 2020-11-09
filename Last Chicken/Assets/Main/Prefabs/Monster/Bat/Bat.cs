@@ -53,8 +53,8 @@ public class Bat : Monster
     #region[애니메이션]
     public void Ani()
     {
-        animator.SetBool("Damage", damage);
-        animator.SetBool("Stop", batStop);
+        animator.SetBool(DAMAGE, damage);
+        animator.SetBool(STOP, batStop);
         if (!damage)
         {
             if (rigidbody2D.velocity.x > 0)
@@ -81,7 +81,7 @@ public class Bat : Monster
         batStop = false;
 
         if (Exception.IndexOutRange(nowPos, GroundManager.instance.linkArea) &&
-            GroundManager.instance.linkArea[nowPos.x, nowPos.y] &&
+            GroundManager.instance.FindParent(GroundManager.instance.linkArea[nowPos.x, nowPos.y]) == 1 &&
             Vector2.Distance(nowPos, Player.instance.transform.position) < AstarRange && 
             !Player.instance.bat_Hate_Light)
         {
