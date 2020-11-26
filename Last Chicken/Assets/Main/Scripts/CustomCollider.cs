@@ -20,8 +20,21 @@ public class CustomCollider : MonoBehaviour
     public const string RANDOM = "Random";
     public const string MINECART = "MineCart";
     public const string LIGHT = "Light";
+    public const string MINE = "Mine";
+    public const string NONE = "None";
+    public const string IN_ICE = "InIce";
+    public const string IGLOOMAP = "IglooMap";
 
     [HideInInspector] public ConveyorBelt nowConveyorBelt;
+
+    #region[두 벡터사이 각도]
+    /// <summary> 두 벡터사이 각도 </summary>
+    public static float GetAngle(Vector3 vStart, Vector3 vEnd)
+    {
+        Vector3 v = vEnd - vStart;
+        return Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
+    }
+    #endregion
 
     #region[각도에 따른 컨퍼넌트 offset]
     public Vector2 GetAngleOffset(BoxCollider2D col)
@@ -68,7 +81,7 @@ public class CustomCollider : MonoBehaviour
 
     public bool IsAtPlayer(BoxCollider2D col, Vector2 pos)
     {
-        if(Vector2.Distance(Player.instance.transform.position,(Vector2)transform.position + pos) > Mathf.Max(col.size.x ,col.size.y)*2)
+        if(Vector2.Distance(Player.instance.transform.position,(Vector2)transform.position + pos) > Mathf.Max(col.size.x ,col.size.y)*4)
             return false;
 
         int count = Physics2D.BoxCastNonAlloc

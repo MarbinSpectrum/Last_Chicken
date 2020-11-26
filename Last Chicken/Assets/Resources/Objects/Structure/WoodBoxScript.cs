@@ -42,7 +42,7 @@ public class WoodBoxScript : StructureObject
     #region[InitWoodBox]
     public void InitWoodBox(string item)
     {
-        if (item.Equals("Random"))
+        if (item.Equals(RANDOM))
         {
             Random.InitState(Random.Range(0, 100 * objectNum));
             int itemNum = ItemManager.instance.GetRandomItemAtWoodBox();
@@ -50,9 +50,9 @@ public class WoodBoxScript : StructureObject
             {
                 int r = Random.Range(0, 100);
                 if (r > 50)
-                    inItem = "Mine";
+                    inItem = MINE;
                 else
-                    inItem = "None";
+                    inItem = NONE;
             }
             else
                 inItem = ItemManager.itemName[itemNum];
@@ -60,14 +60,14 @@ public class WoodBoxScript : StructureObject
         else
             inItem = item;
 
-        if(inItem.Equals("Mine"))
+        if(inItem.Equals(MINE))
             spriteRenderer.sprite = mineBox_Spr;
-        else if (inItem.Equals("None"))
+        else if (inItem.Equals(NONE))
             spriteRenderer.sprite = noneBox_Spr;
         else
             spriteRenderer.sprite = itemBox_Spr;
 
-        if (inItem.Equals("Mine"))
+        if (inItem.Equals(MINE))
             spriteRenderer.GetComponent<SpriteOutline>().outlineSize = 0;
         else
             spriteRenderer.GetComponent<SpriteOutline>().outlineSize = 1;
@@ -85,9 +85,9 @@ public class WoodBoxScript : StructureObject
         {
             if (specialType == SpecialType.아이템드랍)
             {
-                if (inItem.Equals("Mine"))
+                if (inItem.Equals(MINE))
                     ItemManager.instance.SpawnMine(transform.position);
-                else if (!inItem.Equals("None"))
+                else if (!inItem.Equals(NONE))
                     ItemManager.instance.SpawnItem(transform.position, inItem);
             }
 

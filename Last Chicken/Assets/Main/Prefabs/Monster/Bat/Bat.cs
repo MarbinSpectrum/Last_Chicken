@@ -35,6 +35,13 @@ public class Bat : Monster
     }
     #endregion
 
+    #region[OnEnable]
+    public override void OnEnable()
+    {
+        base.OnEnable();
+    }
+    #endregion
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -42,11 +49,16 @@ public class Bat : Monster
     #region[능력치 갱신]
     public override void UpdateStats()
     {
+        if (monsterIndex == -1 || updateFlag || MonsterManager.instance == null)
+            return;
+        if (monsterIndex == -2)
+            monsterIndex = MonsterManager.FindData(transform.name);
+        updateFlag = true;
         monsterType = MonsterType.Fly;
-        maxHp = MonsterManager.instance.monsterData[MonsterManager.FindData(transform.name)].Hp;
-        speed = MonsterManager.instance.monsterData[MonsterManager.FindData(transform.name)].Speed;
-        attackPower = MonsterManager.instance.monsterData[MonsterManager.FindData(transform.name)].AttackPower;
-        jumpPower = MonsterManager.instance.monsterData[MonsterManager.FindData(transform.name)].JumpPower;
+        maxHp = MonsterManager.instance.monsterData[monsterIndex].Hp;
+        speed = MonsterManager.instance.monsterData[monsterIndex].Speed;
+        attackPower = MonsterManager.instance.monsterData[monsterIndex].AttackPower;
+        jumpPower = MonsterManager.instance.monsterData[monsterIndex].JumpPower;
     }
     #endregion
 

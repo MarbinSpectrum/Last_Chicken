@@ -25,13 +25,11 @@ public class StructureObject : CustomCollider
     float cool = 0;
     int moveDicX = 0;
 
-    //const string tagAAA = "";
-
-    bool updateFlag = false;
+    protected bool updateFlag = false;
+    protected int objectIndex = -2;
 
     [HideInInspector] public string inItem = RANDOM;
 
-    int objectIndex = -2;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -75,6 +73,8 @@ public class StructureObject : CustomCollider
         time = 0;
         cool = 1000;
         updateFlag = false;
+        objectIndex = -2;
+
         body.SetActive(true);
         piece.SetActive(false);
     }

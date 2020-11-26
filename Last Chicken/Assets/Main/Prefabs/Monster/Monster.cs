@@ -68,6 +68,9 @@ public abstract class Monster : CustomCollider
 
     World world;
 
+    protected bool updateFlag = false;
+    protected int monsterIndex = -2;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -91,6 +94,10 @@ public abstract class Monster : CustomCollider
         UpdateStats();
         world = World.Instance;
         hp = maxHp;
+
+        updateFlag = false;
+        monsterIndex = -2;
+
         if (world)
             Area = new AStarRoute[world.WorldWidth, world.WorldHeight];
     }
@@ -372,11 +379,16 @@ public abstract class Monster : CustomCollider
     #region[능력치 갱신]
     public virtual void UpdateStats()
     {
+        if (monsterIndex == -1 || updateFlag || MonsterManager.instance == null)
+            return;
+        if (monsterIndex == -2)
+            monsterIndex = MonsterManager.FindData(transform.name);
+        updateFlag = true;
         monsterType = MonsterType.Ground;
-        maxHp = MonsterManager.instance.monsterData[MonsterManager.FindData(transform.name)].Hp;
-        speed = MonsterManager.instance.monsterData[MonsterManager.FindData(transform.name)].Speed;
-        attackPower = MonsterManager.instance.monsterData[MonsterManager.FindData(transform.name)].AttackPower;
-        jumpPower = MonsterManager.instance.monsterData[MonsterManager.FindData(transform.name)].JumpPower;
+        maxHp = MonsterManager.instance.monsterData[monsterIndex].Hp;
+        speed = MonsterManager.instance.monsterData[monsterIndex].Speed;
+        attackPower = MonsterManager.instance.monsterData[monsterIndex].AttackPower;
+        jumpPower = MonsterManager.instance.monsterData[monsterIndex].JumpPower;
     }
     #endregion
 

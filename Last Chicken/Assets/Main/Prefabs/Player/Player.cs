@@ -814,6 +814,40 @@ public class Player : CustomCollider
                 animator.SetInteger("Combo", combo % 3 + 1);
             else
                 animator.SetInteger("Combo", combo % 2 + 1);
+
+            #region[드릴]
+            //드릴공격
+            animator.SetInteger("AttackMode", 1);
+
+            //드릴방향
+            Vector2 drillDic = Vector2.zero;
+            if (KeyManager.nowController == GameController.KeyBoard)
+                drillDic = new Vector2(MouseManager.instance.mousePos.x, MouseManager.instance.mousePos.y) - (Vector2)transform.position;
+            else
+                drillDic = new Vector2(KeyManager.HorizonScale, KeyManager.VerticalScale);
+            drillDic = drillDic.normalized;
+
+            float Angle = GetAngle(Vector2.zero, drillDic);
+
+            if(animator.GetInteger("AttackMode") == 1)
+                animator.SetInteger("DrillDic", 0);
+            //위
+            else if(50 < Angle && Angle < 130)
+                animator.SetInteger("DrillDic", 1);
+            //아래
+            else if (-130 < Angle && Angle < -50)
+                animator.SetInteger("DrillDic", 2);
+            //정면
+            else if ((-30 < Angle && Angle < 30) || (-180 < Angle && Angle < -150) || (150 < Angle && Angle < 180))
+                animator.SetInteger("DrillDic", 3);
+            //위대각선
+            else if ((30 <= Angle && Angle <= 50) || (130 <= Angle && Angle <= 150))
+                animator.SetInteger("DrillDic", 4);
+            //아래대각선
+            else if ((-50 <= Angle && Angle <= -30) || (-150 <= Angle && Angle <= -130))
+                animator.SetInteger("DrillDic", 5);
+            #endregion
+
             //공격속도를 설정
             animator.SetFloat("AttackSpeed", attackSpeed);
 
@@ -830,6 +864,7 @@ public class Player : CustomCollider
             //    flipX = 1;
             //else if (MouseManager.instance.mousePos.x < transform.position.x)
             //    flipX = -1;
+
 
         }
     }
