@@ -9,7 +9,7 @@
 <img src="./README_DATA/IMG/INGAME5.png" width="100%">
 <img src="./README_DATA/IMG/INGAME6.png" width="100%">
 
-<h4> - 당신은 과연 치킨을 지킬 수 있을것인가?</h4>
+<h4> - 당신은 과연 치킨을 지킬 수 있을것인가? 치킨과 함께하는 기묘한 모험!</h4>
 
 <h3>조작</h3>
 <table border="0">
